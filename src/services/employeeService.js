@@ -1,7 +1,7 @@
 
 import axios from 'axios';
 import { SERVER_URL } from '../config';
-import { authHeader } from '../helpers';
+import { authHeader, history } from '../helpers';
 import { handleResponse, handleError } from '../helpers'
 
 let baseRoute = SERVER_URL;
@@ -120,6 +120,13 @@ return axios
     .get(`${baseRoute}/employee/permission`, requestOptions)
     .then(res => {
         console.log("res.user >> "); console.log(res.data.data);
+
+        if((localStorage.getItem('type') == 2) && (localStorage.getItem('applicationStatus') == 1) && (res.data.data.application == 2)){
+            localStorage.clear()
+            console.log('cleareddddddddddddddddddddddddddd')
+            history.push('/')
+        }
+            
 
         localStorage.removeItem('permissions')
         localStorage.removeItem('type')
