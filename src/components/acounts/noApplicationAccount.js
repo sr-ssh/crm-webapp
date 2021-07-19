@@ -93,7 +93,7 @@ export const NoApplicationAccount = ({user}) => {
                     نوع : 
                 </Col>
                 <Col className="pe-0">
-                    <span className="fw-bold">کارفرما</span>
+                    <span className="fw-bold">کارمند</span>
                 </Col>
             </Row>
             
