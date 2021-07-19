@@ -19,12 +19,15 @@ import './assets/styles/financeStyle.css';
 import './assets/styles/determineStyle.css';
 import './assets/styles/employeeStyle.css';
 import './assets/styles/settingStyle.css';
+import { BrowserRouter } from 'react-router-dom';
 
 
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </Provider>,
   document.getElementById('root')
 );
