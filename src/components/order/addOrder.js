@@ -19,6 +19,9 @@ export const AddOrder = () => {
     const [mobileValidated, setMobileValidated] = useState(false);
     const [order, insertOrder] = useState([])
     const [customer, setCustomer] = useState({})
+    const [totalPrice, insertPrice] = useState("0")
+    const [selectedItem, setItem] = useState("")
+
     const dispatch = useDispatch()
     let oldCustomer = useSelector(state => state.getCustomer.customer)
     let addOrderLoading = useSelector(state => state.addOrder.loading)
@@ -59,6 +62,10 @@ export const AddOrder = () => {
         e.preventDefault()
         if(order.length && customer.family && customer.mobile) {
             dispatch(orderActions.addOrder(order, customer))
+            setCustomer({mobile: "", address: "", family: "", reminder: "", duration: ""})
+            insertOrder([])
+            insertPrice("0")
+            setItem("")
         } else {
             console.log('empty order can not be sent')
             setValidated(true);
@@ -74,7 +81,7 @@ export const AddOrder = () => {
     useEffect(() => {
         if(addOrderLoading)
             insertOrder([])
-    }, [addOrderLoading])
+    }, [addOrderLoading,setCustomer])
 
     return (
         <div className="order-page">
@@ -112,7 +119,6 @@ export const AddOrder = () => {
                             </Form.Group>
                         </Col> 
                     </Row>
-
                     <Row className="m-0 p-0 mt-2 order-inputs">
                         <Col className="p-0 col-5 add-order-input">
                             <Form.Group >
@@ -150,7 +156,7 @@ export const AddOrder = () => {
                     
                     <Row className="m-0 mt-4 basketContainer">
                         <Col>
-                            <Basket order={order} insertOrder={insertOrder} />
+                            <Basket order={order} insertOrder={insertOrder} totalPrice={totalPrice} insertPrice={insertPrice} selectedItem={selectedItem} setItem={setItem} />
                         </Col>
                     </Row>
 

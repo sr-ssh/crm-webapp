@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { productActions } from '../../actions';
 import { Card , Dropdown , Button , Table , Row , Col } from 'react-bootstrap';
@@ -10,11 +10,9 @@ import deleteIcon from './../../assets/images/delete.svg'
 import spinnerIcon from './../../assets/images/sppiner.svg'
 import plusIcon from './../../assets/images/plus.svg'
 
-export const Basket = ({order, insertOrder}) => {
+export const Basket = ({order, insertOrder, totalPrice, insertPrice, selectedItem, setItem}) => {
 
     const [dimStatus, setDimStatus] = useState(false)
-    const [totalPrice, insertPrice] = useState("0")
-    const [selectedItem, setItem] = useState("")
     const products = useSelector(state => state.getProducts.product)
     const dispatch = useDispatch()
 

@@ -123,7 +123,6 @@ return axios
 
         if((localStorage.getItem('type') == 2) && (localStorage.getItem('applicationStatus') == 1) && (res.data.data.application == 2)){
             localStorage.clear()
-            console.log('cleareddddddddddddddddddddddddddd')
             history.push('/')
         }
             
