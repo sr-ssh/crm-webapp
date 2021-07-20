@@ -24,6 +24,7 @@ export const Orders = () => {
 
     useEffect(() => {
         !cancelOrderShow && dispatch(orderActions.getOrders())
+        console.log('444444444444444444444444444444444444444444444444444')
     }, [dispatch, cancelOrderShow])
 
 

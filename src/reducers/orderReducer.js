@@ -50,6 +50,28 @@ export function editOrderStatus(state = initialState, action) {
     }
 }
 
+export function editOrderPrice(state = initialState, action) {
+    switch (action.type) {
+        case orderConstants.EDIT_ORDER_PRICE_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+        case orderConstants.EDIT_ORDER_PRICE_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+            }
+        case orderConstants.EDIT_ORDER_PRICE_FAILURE:
+            return {
+                err: action.err,
+                loading: false
+            }
+        default:
+            return state
+    }
+}
+
 export function addOrder(state = initialState, action) {
     switch (action.type) {
         case orderConstants.ADD_ORDER_REQUEST:

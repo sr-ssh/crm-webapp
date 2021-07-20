@@ -7,6 +7,7 @@ export const orderActions = {
     getOrders,
     addOrder,
     editOrderStatus,
+    editOrderPrice,
     getSms,
     editSms,
     sendDeliverySms,
@@ -62,7 +63,7 @@ function editOrderStatus(orderId, status) {
                     }, 1500);
                 },
                 error => {
-                    dispatch(failure(orderConstants.GET_ORDERS_FAILURE, error.toString()));
+                    dispatch(failure(orderConstants.EDIT_ORDER_STATUS_FAILURE, error.toString()));
                     console.log("occure error");
                     console.log(error.toString());
                     dispatch(alertActions.error(error.toString()));
@@ -74,6 +75,38 @@ function editOrderStatus(orderId, status) {
     function request() { console.log("into request"); return { type: orderConstants.EDIT_ORDER_STATUS_REQUEST } }
     function success() { console.log("into success"); return { type: orderConstants.EDIT_ORDER_STATUS_SUCCESS } }
     function failure(error) { return { type: orderConstants.EDIT_ORDER_STATUS_FAILURE, error } }
+}
+
+
+function editOrderPrice(orderId, productId, status) {
+    return dispatch => {
+        dispatch(request(orderConstants.EDIT_ORDER_PRICE_REQUEST))
+        orderService.editOrderPrice(orderId, productId, status)
+            .then(
+                res => {
+                    if(res === undefined) {
+                        dispatch(alertActions.error('ارتباط با سرور برقرار نیست'))
+                        dispatch(failure('ارتباط با سرور برقرار نمیباشد'))
+                    }
+                    else if(res.success) {
+                        console.log("order status changed")
+                        dispatch(success(orderConstants.EDIT_ORDER_PRICE_SUCCESS, res.data))
+                        dispatch(alertActions.success(res.message));
+                    }
+
+                    setTimeout(() => {
+                        dispatch(alertActions.clear());
+                    }, 1500);
+                },
+                error => {
+                    dispatch(failure(orderConstants.EDIT_ORDER_PRICE_FAILURE, error.toString()));
+                    console.log("occure error");
+                    console.log(error.toString());
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+        
+    }
 }
 
 function addOrder(products, customer) {

@@ -21,6 +21,8 @@ export const AddOrder = () => {
     const [customer, setCustomer] = useState({})
     const [totalPrice, insertPrice] = useState("0")
     const [selectedItem, setItem] = useState("")
+    const [quantity, setQuantity] = useState(1)
+
 
     const dispatch = useDispatch()
     let oldCustomer = useSelector(state => state.getCustomer.customer)
@@ -66,6 +68,7 @@ export const AddOrder = () => {
             insertOrder([])
             insertPrice("0")
             setItem("")
+            setQuantity(1)
         } else {
             console.log('empty order can not be sent')
             setValidated(true);
@@ -156,7 +159,7 @@ export const AddOrder = () => {
                     
                     <Row className="m-0 mt-4 basketContainer">
                         <Col>
-                            <Basket order={order} insertOrder={insertOrder} totalPrice={totalPrice} insertPrice={insertPrice} selectedItem={selectedItem} setItem={setItem} />
+                            <Basket order={order} insertOrder={insertOrder} totalPrice={totalPrice} insertPrice={insertPrice} selectedItem={selectedItem} setItem={setItem} quantity={quantity} setQuantity={setQuantity} />
                         </Col>
                     </Row>
 

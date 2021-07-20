@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import moment from 'jalali-moment';
 import { Card , Table , Row , Col, Spinner, Button } from 'react-bootstrap';
 import persianJs from 'persianjs/persian.min';
@@ -7,12 +7,31 @@ import persianJs from 'persianjs/persian.min';
 import deliveryIcon from './../../assets/images/order/delivery.svg'
 import printIcon from './../../assets/images/order/print.svg'
 import cancelIcon from './../../assets/images/order/cancel.svg'
+import editIcon from '../../assets/images/Products/edit.svg'
+
+
+//components
+import { EditField } from './editField'
 
 
 export const Order = ({order, deliveryShow, setDeliveryShow, cancelOrderShow, setCancelOrderShow, setActiveOrder, setOrder}) => {
 
     let [ print, setPrint ] = useState(false)
     
+    const [editModalShow, setEditModalShow] = useState(false)
+    const [input, setInput] = useState('')
+    const [name, setName] = useState('')
+    const [orderId, setOrderId] = useState("")
+    const [productId, setProductId] = useState("")
+
+    const edit = (value, name, orderId, productId) => {
+        setInput(value)
+        setName(name)
+        setProductId(productId)
+        setOrderId(orderId)
+        setEditModalShow(true); 
+    }
+
 
     const getTotalPrice = (order) => {
         let total = 0
@@ -27,6 +46,7 @@ export const Order = ({order, deliveryShow, setDeliveryShow, cancelOrderShow, se
         window.print()
         setPrint(false)
     }
+
 
     return (
         
@@ -119,7 +139,16 @@ export const Order = ({order, deliveryShow, setDeliveryShow, cancelOrderShow, se
                                         return (
                                             <tr key={item.name}>
                                                 <td>{item.name && persianJs(item.name).englishNumber().toString()}</td>
-                                                <td>{(item.quantity * item.sellingPrice) && persianJs(item.quantity * item.sellingPrice).englishNumber().toString()} </td>
+                                                <td>
+                                                    <Row>
+                                                        <Col className="ps-0">
+                                                        {(item.quantity * item.sellingPrice) && persianJs(item.quantity * item.sellingPrice).englishNumber().toString()} 
+                                                        </Col>
+                                                        <Col className="my-0 pe-0" onClick={() => edit(item.sellingPrice, 'price', order.id, item._id)}>
+                                                            <img className="" src={editIcon} height="25px" alt="edit-icon" />
+                                                        </Col>
+                                                    </Row>
+                                                </td>
                                                 <td>{item.quantity && persianJs(item.quantity).englishNumber().toString()}</td>
                                             </tr>
                                         )
@@ -162,7 +191,7 @@ export const Order = ({order, deliveryShow, setDeliveryShow, cancelOrderShow, se
                     }
                 </Row> 
             </Card.Body>
-
+            <EditField show={editModalShow} onHide={() => {setEditModalShow(false); setInput(''); }} input={input} name={name} productId={productId} orderId={orderId} setInput={setInput} />
         </Card> 
     )
 }

@@ -10,12 +10,9 @@ import deleteIcon from './../../assets/images/delete.svg'
 import spinnerIcon from './../../assets/images/sppiner.svg'
 import plusIcon from './../../assets/images/plus.svg'
 
-export const Basket = ({order, insertOrder}) => {
+export const Basket = ({order, insertOrder, totalPrice, insertPrice, selectedItem, setItem, quantity, setQuantity}) => {
 
     const [dimStatus, setDimStatus] = useState(false)
-    const [totalPrice, insertPrice] = useState("0")
-    const [selectedItem, setItem] = useState("")
-    const [quantity, setQuantity] = useState(1)
     const products = useSelector(state => state.getProducts.product)
     const dispatch = useDispatch()
 
