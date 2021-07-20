@@ -106,8 +106,8 @@ export const Basket = ({order, insertOrder}) => {
                             </Dropdown>
                         </Col>
 
-                        <Col className="col-2 px-1 text-center">
-                            <FormControl value={quantity} onChange={(e) => setQuantity(e.target.value)} className="order-input " type="number" min="1" name="duration" style={{'maxHeight': '32px'}} />
+                        <Col className="col-2 px-1">
+                            <FormControl value={quantity} onChange={(e) => setQuantity(e.target.value)} className="order-input text-center" type="number" min="1" name="duration" style={{'maxHeight': '32px'}} />
                         </Col>
                         <Col className="col-2 p-0 text-center products-add-btn">
                             <Button className="products-add border-0 py-1" onClick={(e) => newOrder(e)} type="button">
