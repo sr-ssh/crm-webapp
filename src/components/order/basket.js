@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { productActions } from '../../actions';
-import { Card , Dropdown , Button , Table , Row , Col } from 'react-bootstrap';
+import { Card , Dropdown , Button , Table , Row , Col, FormControl } from 'react-bootstrap';
 import persianJs from 'persianjs/persian.min';
 
 
@@ -10,9 +10,12 @@ import deleteIcon from './../../assets/images/delete.svg'
 import spinnerIcon from './../../assets/images/sppiner.svg'
 import plusIcon from './../../assets/images/plus.svg'
 
-export const Basket = ({order, insertOrder, totalPrice, insertPrice, selectedItem, setItem}) => {
+export const Basket = ({order, insertOrder}) => {
 
     const [dimStatus, setDimStatus] = useState(false)
+    const [totalPrice, insertPrice] = useState("0")
+    const [selectedItem, setItem] = useState("")
+    const [quantity, setQuantity] = useState(1)
     const products = useSelector(state => state.getProducts.product)
     const dispatch = useDispatch()
 
@@ -25,15 +28,15 @@ export const Basket = ({order, insertOrder, totalPrice, insertPrice, selectedIte
         let newOrder = {
           _id: product._id,
           name: product.name,
-          quantity: 1,
-          buyingPrice: product.buyingPrice,
+          quantity: parseInt(quantity),
           sellingPrice: product.sellingPrice,
         };
+        console.log(newOrder.quantity, order)
         const isOrderPresent = order.some((item) => item._id === product._id);
         if (isOrderPresent) {
           const updatedOrder = order.map((item) => {
             if (item._id === product._id) {
-              return {...item, quantity: ++item.quantity};
+              return {...item, quantity: item.quantity + parseInt(quantity)};
             }
             return item;
           });
@@ -75,7 +78,7 @@ export const Basket = ({order, insertOrder, totalPrice, insertPrice, selectedIte
                         <h6 className="order-input fw-bold">سفارشات</h6>
                     </Row>
                     <Row>
-                        <Col className="col-10 pe-2">
+                        <Col className="col-8 pe-2">
                             <Dropdown onToggle={(e) => setDimStatus(!dimStatus)} onClick={(e) => productHandler(e)}>
                                 <Dropdown.Toggle className="d-flex">
                                     {selectedItem.length ? <span>{selectedItem}</span> : <span>محصولات</span>} 
@@ -101,14 +104,17 @@ export const Basket = ({order, insertOrder, totalPrice, insertPrice, selectedIte
                                     }
                                 </Dropdown.Menu>
                             </Dropdown>
-
                         </Col>
 
+                        <Col className="col-2 px-1 text-center">
+                            <FormControl value={quantity} onChange={(e) => setQuantity(e.target.value)} className="order-input " type="number" min="1" name="duration" style={{'maxHeight': '32px'}} />
+                        </Col>
                         <Col className="col-2 p-0 text-center products-add-btn">
                             <Button className="products-add border-0 py-1" onClick={(e) => newOrder(e)} type="button">
                                 <img className="d-flex m-auto " src={plusIcon} alt="add-button" />
                             </Button>
                         </Col>
+
                     </Row>
                 
                     <Row className="pt-2 pe-2">
