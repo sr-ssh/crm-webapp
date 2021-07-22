@@ -150,7 +150,7 @@ function getOrderSms() {
     }
 
     return axios
-        .get(`${baseRoute}/order/sms`, {headers: requestOptions.headers})
+        .get(`${baseRoute}/settings/order/sms`, {headers: requestOptions.headers})
         .then(res => {
             console.log("res.user >> ")
             console.log(res.data)
@@ -173,7 +173,7 @@ function editOrderSms(params) {
     }
 
     return axios
-        .put(`${baseRoute}/order/sms`, requestOptions.body, {headers: requestOptions.headers})
+        .put(`${baseRoute}/settings/order/sms`, requestOptions.body, {headers: requestOptions.headers})
         .then(res => {
             console.log('res >>')
             console.log(res.data)

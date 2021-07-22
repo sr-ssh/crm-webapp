@@ -13,15 +13,16 @@ import plusIcon from './../../assets/images/plus.svg'
 export const Basket = ({order, insertOrder, totalPrice, insertPrice, selectedItem, setItem, quantity, setQuantity}) => {
 
     const [dimStatus, setDimStatus] = useState(false)
+    const [quantityOrder, setQuantityOrder] = useState(false)
     const products = useSelector(state => state.getProducts.product)
     const dispatch = useDispatch()
-
     let newOrder = (e) => {
         e.preventDefault();
         let product = products.find(item => item.name === selectedItem)
-        if(!product)
-            return
-        insertPrice(parseInt(totalPrice) + parseInt(product.sellingPrice))
+        if(!product || quantityOrder)
+            return 
+        
+        insertPrice(parseInt(totalPrice) + (parseInt(quantity) * parseInt(product.sellingPrice)))
         let newOrder = {
           _id: product._id,
           name: product.name,
@@ -44,19 +45,10 @@ export const Basket = ({order, insertOrder, totalPrice, insertPrice, selectedIte
     };
 
     let removeOrder = (e, product) => {
-        e.preventDefault()
-        insertPrice(totalPrice - parseInt(product.sellingPrice))
-        let updatedOrder = order.map((item) => {
-            if (item._id === product._id) {
-                return {...item, quantity: --item.quantity};
-            }
-            return item;
-        });
-        
-        if(product.quantity === 0) {
-            updatedOrder = updatedOrder.filter(item => item._id !== product._id)
-        }
-        
+        e.preventDefault();
+        console.log(product);
+        insertPrice(totalPrice - (parseInt(product.quantity) * parseInt(product.sellingPrice)));
+        let updatedOrder = order.filter(item => item._id !== product._id);
         insertOrder(updatedOrder)
     }
 
@@ -64,7 +56,15 @@ export const Basket = ({order, insertOrder, totalPrice, insertPrice, selectedIte
         e.preventDefault()
         dispatch(productActions.getProducts())
     }
-
+    let quantityOrderHandler = (e) =>{
+        console.log(e.target.value);
+        if(e.target.value == "0" ) { 
+            setQuantityOrder(true) 
+        }else{
+        setQuantityOrder(false);
+        setQuantity(e.target.value || 1);
+        }
+    }
 
     return (
         <>
@@ -104,7 +104,7 @@ export const Basket = ({order, insertOrder, totalPrice, insertPrice, selectedIte
                         </Col>
 
                         <Col className="col-2 px-1">
-                            <FormControl value={quantity} onChange={(e) => setQuantity(e.target.value)} className="order-input text-center" type="number" min="1" name="duration" style={{'maxHeight': '32px'}} />
+                            <FormControl  onChange={(e) =>quantityOrderHandler(e) } className={`order-input text-center ${quantityOrder ? 'border border-danger' : null}`} type="number" min="1" name="duration" style={{'maxHeight': '32px'}} />
                         </Col>
                         <Col className="col-2 p-0 text-center products-add-btn">
                             <Button className="products-add border-0 py-1" onClick={(e) => newOrder(e)} type="button">
