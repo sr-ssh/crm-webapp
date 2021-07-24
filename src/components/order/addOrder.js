@@ -7,6 +7,7 @@ import { Container, Form, Button, Row, Col, Alert, Spinner } from 'react-bootstr
 import DatePicker from "react-multi-date-picker";
 import moment from 'jalali-moment';
 import "react-multi-date-picker/styles/layouts/mobile.css"
+import { alertActions } from '../../actions/alertActions';
 
 import downloadIcon from '../../assets/images/download.svg'
 
@@ -57,13 +58,6 @@ export const AddOrder = () => {
             dispatch(customerActions.getCustomer(customer.mobile))
         else
             setMobileValidated(true)
-        // if (oldCustomer && Object.keys(oldCustomer).length !== 0) {
-        //     setCustomer(oldCustomer)
-        //     setMobileValidated(false);
-        // }
-        // else if (!customer.name && !customer.length) {
-        //     setMobileValidated(true);
-        // }
     }
 
     let handleChange = (e) => {
@@ -89,6 +83,11 @@ export const AddOrder = () => {
             setItem("")
             setQuantity(1)
         } else {
+            if (customer.mobile && customer.family && !order.length)
+                dispatch(alertActions.error('لیست سفارشات خالی است'));
+            setTimeout(() => {
+                dispatch(alertActions.clear());
+            }, 1500);
             console.log('empty order can not be sent')
             setValidated(true);
         }
