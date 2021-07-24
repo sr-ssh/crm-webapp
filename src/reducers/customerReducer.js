@@ -36,7 +36,7 @@ export function getCustomer(state = initialState, action) {
         case customerConstants.GET_CUSTOMER_REQUEST:
             return {
                 loading: true,
-                success: false
+                // success: false
             }
         case customerConstants.GET_CUSTOMER_SUCCESS:
             return {
@@ -44,7 +44,10 @@ export function getCustomer(state = initialState, action) {
                 customer: action.customer,
             }
         case customerConstants.GET_CUSTOMER_FAILURE:
-            break;
+            return {
+                loading: false,
+                customer: action.error,
+            }
         default:
             return state;
     }

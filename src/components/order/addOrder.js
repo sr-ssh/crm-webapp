@@ -23,12 +23,9 @@ export const AddOrder = () => {
     const [totalPrice, insertPrice] = useState("0")
     const [selectedItem, setItem] = useState("")
     const [quantity, setQuantity] = useState(1)
-
-    console.log(customer);
     const dispatch = useDispatch()
     let oldCustomer = useSelector(state => state.getCustomer.customer)
     let { loading } = useSelector(state => state.getCustomer)
-    console.log(loading);
     let addOrderLoading = useSelector(state => state.addOrder.loading)
 
     let mobileHandler = (value) => {
@@ -58,7 +55,8 @@ export const AddOrder = () => {
         e.preventDefault()
         if (customer.mobile)
             dispatch(customerActions.getCustomer(customer.mobile))
-
+        else
+            setMobileValidated(true)
         // if (oldCustomer && Object.keys(oldCustomer).length !== 0) {
         //     setCustomer(oldCustomer)
         //     setMobileValidated(false);
@@ -101,7 +99,10 @@ export const AddOrder = () => {
         birthDate = moment.from(birthDate, 'fa', 'YYYY/MM/DD').locale('en').format('YYYY-MM-DD');
         setCustomer({ ...customer, [name]: birthDate })
     }
-
+    useEffect(() => {
+        if (oldCustomer?.mobile)
+            setCustomer({ ...customer, ...oldCustomer })
+    }, [oldCustomer])
     useEffect(() => {
         if (addOrderLoading)
             insertOrder([])
