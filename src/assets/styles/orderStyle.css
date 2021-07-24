@@ -1,285 +1,298 @@
 /* setting page background color */
 .order-page {
-    height: 100%;
-    min-height: 100vh;
-    background: var(--pages-background);
-    z-index: -1;
+  height: 100%;
+  min-height: 100vh;
+  background: var(--pages-background);
+  z-index: -1;
 }
 
 .add-order-download-btn {
-    background-color: white;
-    border-radius: 11px;
+  background-color: white;
+  border-radius: 11px;
 }
 
 .add-order-download-btn:active {
-    border: 1px solid var(--text-color-two);
+  border: 1px solid var(--text-color-two);
 }
 
 .add-order-download-btn:focus {
-    border: 1px solid var(--text-color-two);
+  border: 1px solid var(--text-color-two);
 }
-
+.add-order-download-btn-loading {
+  width: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 37px;
+  background-color: white;
+  border-radius: 11px;
+}
 .order-flex {
-    top: 47px;
+  top: 47px;
 }
 
 .add-order-input {
-    font-size: 11px;
-    color: var(--text-color-one);
-    font-family: 'IranSans';
-    font-weight: bold;
-    width: 47%;
+  font-size: 11px;
+  color: var(--text-color-one);
+  font-family: "IranSans";
+  font-weight: bold;
+  width: 47%;
 }
 
-.order-inputs{
-    font-size: 11px;
-    color: var(--text-color-one);
-    font-family: 'IranSans';
-    font-weight: bold;
+.order-inputs {
+  font-size: 11px;
+  color: var(--text-color-one);
+  font-family: "IranSans";
+  font-weight: bold;
 }
 
-.order-input{
-    border-radius: 10px;
-    color: var(--text-color-two);
-    font-size: 14px;
-    border: none;
-    max-height: 4vh;
+.order-input {
+  border-radius: 10px;
+  color: var(--text-color-two);
+  font-size: 14px;
+  border: none;
+  max-height: 4vh;
 }
 
 .order-input:focus {
-    outline: var(--button-color-one);
-    border: 1px solid var(--button-color-one);
+  outline: var(--button-color-one);
+  border: 1px solid var(--button-color-one);
 }
-
 
 .order-page .form-control {
-    height: calc(1.5em + 0.75rem + 1px);
+  height: calc(1.5em + 0.75rem + 1px);
 }
 
-.order-submit{
-    background-color: var(--button-background);
-    border: none;
-    border-radius: 11px;
-    font-size: 14px;
-    font-weight: bold;
-    height: 43px;
-    color: var(--button-color-one);
-    font-family: 'IranSans';
-    padding: 11px;
+.order-submit {
+  background-color: var(--button-background);
+  border: none;
+  border-radius: 11px;
+  font-size: 14px;
+  font-weight: bold;
+  height: 43px;
+  color: var(--button-color-one);
+  font-family: "IranSans";
+  padding: 11px;
 }
 
-.order-page .card{
-    background-color: var(--card-background);
+.order-page .card {
+  background-color: var(--card-background);
 }
 
 .basketContainer {
-    border-radius: 11px;
+  border-radius: 11px;
 }
 
 .basket-flex .dropdown-toggle {
-    border: none;
-    background-color: var(--body-bachground);
-    color: var(--text-color-one);
-    font-size: 13px;
-    border-radius: 10px;
-    width: 100%;
-    text-align: right;
+  border: none;
+  background-color: var(--body-bachground);
+  color: var(--text-color-one);
+  font-size: 13px;
+  border-radius: 10px;
+  width: 100%;
+  text-align: right;
 }
 
-.basket-flex .dropdown-toggle::after { 
-    content: "";
-    border: none;
+.basket-flex .dropdown-toggle::after {
+  content: "";
+  border: none;
 }
-
 
 .basket-flex .dropdown-item {
-    font-size: 13px;
+  font-size: 13px;
 }
 
-.basket-flex .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, .show > .btn-primary.dropdown-toggle {
-    color: var(--text-color-one);
-    background-color: var(--body-bachground);
-    border: none;
+.basket-flex .btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle {
+  color: var(--text-color-one);
+  background-color: var(--body-bachground);
+  border: none;
 }
 
-.basket-flex .btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus, .show > .btn-primary.dropdown-toggle:focus {
-    box-shadow: none;
+.basket-flex .btn-primary:not(:disabled):not(.disabled):active:focus,
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.show > .btn-primary.dropdown-toggle:focus {
+  box-shadow: none;
 }
 
-.basket-flex .btn-primary:focus, .btn-primary.focus {
-    box-shadow: none;
+.basket-flex .btn-primary:focus,
+.btn-primary.focus {
+  box-shadow: none;
 }
 
-.basket-flex .products-add:focus + .btn-primary, .products-add:focus {
-    background-color: var(--body-bachground);
+.basket-flex .products-add:focus + .btn-primary,
+.products-add:focus {
+  background-color: var(--body-bachground);
 }
 
 .basket-flex .btn-primary:hover {
-    background-color: var(--body-bachground);
+  background-color: var(--body-bachground);
 }
 
 .basket-flex .dropdown-divider {
-    margin: 0.3rem 0;
-    border-top: 1px solid var(--text-color-one);
+  margin: 0.3rem 0;
+  border-top: 1px solid var(--text-color-one);
 }
 
-.basket-dropdown-border-left{
-    border-left: 1px solid var(--button-background);
+.basket-dropdown-border-left {
+  border-left: 1px solid var(--button-background);
 }
 
-.products-add{
-    background-color: var(--body-bachground);
-    border-radius: 11px;
+.products-add {
+  background-color: var(--body-bachground);
+  border-radius: 11px;
 }
 
-.products-add:active{
-    background-color: var(--body-bachground);
+.products-add:active {
+  background-color: var(--body-bachground);
 }
 
-.basket-flex th{
-    font-size: 11px;
-    color: var(--text-color-one);
-    font-weight: normal;
+.basket-flex th {
+  font-size: 11px;
+  color: var(--text-color-one);
+  font-weight: normal;
 }
 
-.basket-flex td{
-    color: var(--text-color-two);
-    font-size: 13px;
-    font-weight: 600;
+.basket-flex td {
+  color: var(--text-color-two);
+  font-size: 13px;
+  font-weight: 600;
 }
 
-.basket-flex img{
-    width: 1.5rem;
+.basket-flex img {
+  width: 1.5rem;
 }
 
 .dropdownProductMenu {
-    width: 100%;
-    border-radius: 0 0 11px 11px;
-    padding: 5px;
-    max-height: 50vh;
-    overflow: auto;
+  width: 100%;
+  border-radius: 0 0 11px 11px;
+  padding: 5px;
+  max-height: 50vh;
+  overflow: auto;
 }
 
 .dim {
-    box-shadow: 0 0 0 1000px rgba(0, 0, 0, .5);
-    box-shadow: 0 0 0 100vmax rgba(0, 0, 0, .5);
+  box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.5);
 }
 
 .border-top-blue {
-    border-top: 1px solid var(--button-background);
-    margin-right: 0vw;
+  border-top: 1px solid var(--button-background);
+  margin-right: 0vw;
 }
 
-.reminder-span{
-    font-size: 9px;
+.reminder-span {
+  font-size: 9px;
 }
 
-.background-blue{
-    background-color: var(--background-blue);
+.background-blue {
+  background-color: var(--background-blue);
 }
 
-.orders th{
-    font-size: 11px;
-    color: var(--text-color-one);
-    font-weight: normal;
+.orders th {
+  font-size: 11px;
+  color: var(--text-color-one);
+  font-weight: normal;
 }
 
-.orders td{
-    color: var(--text-color-two);
-    font-size: 13px;
-    font-weight: 600;
+.orders td {
+  color: var(--text-color-two);
+  font-size: 13px;
+  font-weight: 600;
 }
 
-.orders span{
-    color: var(--text-color-two);
-    font-size: 13px;
-    font-weight: 600;
+.orders span {
+  color: var(--text-color-two);
+  font-size: 13px;
+  font-weight: 600;
 }
 
-.text-bold{
-    color: var(--text-color-two);
-    font-size: 13px;
-    font-weight: 600;
+.text-bold {
+  color: var(--text-color-two);
+  font-size: 13px;
+  font-weight: 600;
 }
 
-.text-gray{
-    font-size: 13px;
-    color: var(--text-color-one);
+.text-gray {
+  font-size: 13px;
+  color: var(--text-color-one);
 }
 
-.orders .customer-round{
-    border-radius: 10px;
+.orders .customer-round {
+  border-radius: 10px;
 }
 
 /* order filter */
 
 .order-filter-body {
-    background-color: var(--pages-background);
-    border-radius: 20px;
+  background-color: var(--pages-background);
+  border-radius: 20px;
 }
 
 .modal-content {
-    border-radius: 20px;    
+  border-radius: 20px;
 }
 
 .order-filter-button {
-    border-radius: 11px;
-    padding: 10px 0 10px 0;
-    background-color: var(--button-background);
-    color: var(--button-color-one);
-    font-weight: bold;
-    border: none;
+  border-radius: 11px;
+  padding: 10px 0 10px 0;
+  background-color: var(--button-background);
+  color: var(--button-color-one);
+  font-weight: bold;
+  border: none;
 }
 
 .order-filter-input {
-    font-size: 11px;
-    color: var(--text-color-one);
-    font-family: 'IranSans';
-    font-weight: bold;
+  font-size: 11px;
+  color: var(--text-color-one);
+  font-family: "IranSans";
+  font-weight: bold;
 }
 
 .order-filter-close-btn {
-    background-color: red;
-    color: white;
-    width: 50px;
-    height: 50px;
-    margin-right: auto;
+  background-color: red;
+  color: white;
+  width: 50px;
+  height: 50px;
+  margin-right: auto;
 }
 
 .my-custom-scrollbar {
-    position: relative;
-    height: 24vh;
-    overflow: auto;
+  position: relative;
+  height: 24vh;
+  overflow: auto;
 }
 
 .table-wrapper-scroll-y {
-    display: block;
+  display: block;
 }
 
-.customer-modal-close{
-    background-color: var(--dager-color);
-    border-radius: 10px;
-    padding: 3px;
-    position: absolute;
-    left: -2vw;
-    top: -2vh;
+.customer-modal-close {
+  background-color: var(--dager-color);
+  border-radius: 10px;
+  padding: 3px;
+  position: absolute;
+  left: -2vw;
+  top: -2vh;
 }
 
-.customer-modal-close.products-add:focus + .btn-primary, .products-add:focus {
-    background-color: var(--dager-color);
+.customer-modal-close.products-add:focus + .btn-primary,
+.products-add:focus {
+  background-color: var(--dager-color);
 }
 
 .customer-modal-close.btn-primary:hover {
-    background-color: var(--dager-color);
+  background-color: var(--dager-color);
 }
 
-.customer-modal-close-svg{
-    width: 24px;
+.customer-modal-close-svg {
+  width: 24px;
 }
 
-.order-serach-modal{
-    left: auto;
-    width: 91%;
+.order-serach-modal {
+  left: auto;
+  width: 91%;
 }
 
 /* 
@@ -291,12 +304,11 @@
 } */
 /*calendar time button*/
 .eVqaMu {
-    display: none;
+  display: none;
 }
 
-
 @media print {
-    .noPrint{
-      display:none;
-    }
+  .noPrint {
+    display: none;
+  }
 }

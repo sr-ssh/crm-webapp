@@ -6,8 +6,8 @@ const initialState = {
 }
 
 
-export function getCustomers(state = initialState, action){
-    
+export function getCustomers(state = initialState, action) {
+
     switch (action.type) {
         case customerConstants.GET_CUSTOMERS_REQUEST:
             return {
@@ -25,20 +25,22 @@ export function getCustomers(state = initialState, action){
                 loading: false
             }
             break;
-    
+
         default:
             return state;
     }
 }
 
-export function getCustomer(state = initialState, action){
+export function getCustomer(state = initialState, action) {
     switch (action.type) {
         case customerConstants.GET_CUSTOMER_REQUEST:
-            return{
+            return {
+                loading: true,
                 success: false
             }
         case customerConstants.GET_CUSTOMER_SUCCESS:
-            return{
+            return {
+                loading: false,
                 customer: action.customer,
             }
         case customerConstants.GET_CUSTOMER_FAILURE:

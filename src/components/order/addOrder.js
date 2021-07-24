@@ -24,9 +24,11 @@ export const AddOrder = () => {
     const [selectedItem, setItem] = useState("")
     const [quantity, setQuantity] = useState(1)
 
-
+    console.log(customer);
     const dispatch = useDispatch()
     let oldCustomer = useSelector(state => state.getCustomer.customer)
+    let { loading } = useSelector(state => state.getCustomer)
+    console.log(loading);
     let addOrderLoading = useSelector(state => state.addOrder.loading)
 
     let mobileHandler = (value) => {
@@ -34,7 +36,7 @@ export const AddOrder = () => {
         const patt = /^(09)(\d{9})/m;
         let res = patt.test(number) && number.length === 11;
         if (res) {
-            dispatch(customerActions.getCustomer(value))
+
             setMobileValidated(false)
             return value
         }
@@ -54,13 +56,16 @@ export const AddOrder = () => {
     }
     let handleOldCustomer = (e) => {
         e.preventDefault()
-        if (oldCustomer && Object.keys(oldCustomer).length !== 0) {
-            setCustomer(oldCustomer)
-            setMobileValidated(false);
-        }
-        else if (!customer.name && !customer.length) {
-            setMobileValidated(true);
-        }
+        if (customer.mobile)
+            dispatch(customerActions.getCustomer(customer.mobile))
+
+        // if (oldCustomer && Object.keys(oldCustomer).length !== 0) {
+        //     setCustomer(oldCustomer)
+        //     setMobileValidated(false);
+        // }
+        // else if (!customer.name && !customer.length) {
+        //     setMobileValidated(true);
+        // }
     }
 
     let handleChange = (e) => {
@@ -121,7 +126,19 @@ export const AddOrder = () => {
                             </Form.Group>
                         </Col>
                         <Col className="col-4 align-self-end">
-                            <img src={downloadIcon} className="add-order-download-btn p-1" onClick={(e) => handleOldCustomer(e)} height="33vh" width="50vw" alt="down-icon" />
+                            {loading ?
+                                <div className="add-order-download-btn-loading">
+                                    <Spinner
+                                        as="div"
+                                        variant="primary"
+                                        animation="border"
+                                        size="sm"
+                                    />
+                                </div>
+                                : <img src={downloadIcon} className="add-order-download-btn p-1" onClick={(e) => handleOldCustomer(e)} height="33vh" width="50vw" alt="down-icon" />
+                            }
+
+
                         </Col>
                     </Row>
 
@@ -246,6 +263,6 @@ export const AddOrder = () => {
                     }
                 </Form>
             </Container>
-        </div>
+        </div >
     )
 }

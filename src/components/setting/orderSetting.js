@@ -12,7 +12,6 @@ export const OrderSetting = () => {
     let orderSms = useSelector(state => state.getOrderSms.sms)
     let editOrderSms = useSelector(state => state.editOrderSms)
     const dispatch = useDispatch();
-    console.log(orderSms);
     const handleChange = (e) => {
         console.log('_____________________handleChange_____________________')
         if (e.target.type === "checkbox") {

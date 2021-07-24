@@ -8,11 +8,11 @@ let baseRoute = SERVER_URL;
 axios.interceptors.request.use(request => {
     console.log('Starting Request', request)
     return request
-  })
+})
 
 export const orderService = {
     getOrders,
-    addOrder, 
+    addOrder,
     editOrderStatus,
     getOrderSms,
     editOrderSms,
@@ -23,27 +23,27 @@ export const orderService = {
 function getOrders(filter = {}) {
     console.log("into orderService");
 
-    if(filter.customerName === "")
+    if (filter.customerName === "")
         filter.customerName = " "
-    if(filter.customerMobile === "")
-        filter.customerMobile = "0" 
-    if(filter.startDate === "")
+    if (filter.customerMobile === "")
+        filter.customerMobile = "0"
+    if (filter.startDate === "")
         filter.startDate = "1900-01-01T05:42:13.845Z"
-    if(filter.endDate === "")
+    if (filter.endDate === "")
         filter.endDate = "1900-01-01T05:42:13.845Z"
 
-    let { 
-            customerName = ' ', 
-            customerMobile = '0', 
-            startDate = "1900-01-01T05:42:13.845Z", 
-            endDate = "1900-01-01T05:42:13.845Z" 
-        } = filter
-    
+    let {
+        customerName = ' ',
+        customerMobile = '0',
+        startDate = "1900-01-01T05:42:13.845Z",
+        endDate = "1900-01-01T05:42:13.845Z"
+    } = filter
+
     const requestOptions = {
         headers: authHeader()
     };
     return axios
-        .get(`${baseRoute}/order/${encodeURI(customerName)}/${customerMobile}/${startDate}/${endDate}`, requestOptions )
+        .get(`${baseRoute}/order/${encodeURI(customerName)}/${customerMobile}/${startDate}/${endDate}`, requestOptions)
         .then(res => {
             console.log("res.user >> "); console.log(res.data.data);
             return res.data
@@ -61,13 +61,13 @@ function editOrderStatus(orderId, status) {
 
     const requestOptions = {
         headers: authHeader(),
-        body: {orderId, status}
+        body: { orderId, status }
     };
 
     return axios
-        .put(`${baseRoute}/order/status`, requestOptions.body,{headers: requestOptions.headers} )
+        .put(`${baseRoute}/order/status`, requestOptions.body, { headers: requestOptions.headers })
         .then(res => {
-            console.log("res.user >> "); 
+            console.log("res.user >> ");
             console.log(res.data);
             return handleResponse(res)
         })
@@ -86,13 +86,13 @@ function editOrderPrice(orderId, productId, price) {
 
     const requestOptions = {
         headers: authHeader(),
-        body: {orderId, productId, price}
+        body: { orderId, productId, price }
     };
 
     return axios
-        .put(`${baseRoute}/order/price`, requestOptions.body,{headers: requestOptions.headers} )
+        .put(`${baseRoute}/order/price`, requestOptions.body, { headers: requestOptions.headers })
         .then(res => {
-            console.log("res.user >> "); 
+            console.log("res.user >> ");
             console.log(res.data);
             return handleResponse(res)
         })
@@ -108,28 +108,28 @@ function editOrderPrice(orderId, productId, price) {
 function addOrder(products, customer) {
     console.log("into orderService");
 
-    let reminder, address, duration ;
-    if(!customer.birthday)
+    let reminder, address, duration;
+    if (!customer.birthday)
         customer.birthday = "1900-01-01T05:42:13.845Z";
-    if(!customer.address)
+    if (!customer.address)
         address = " ";
     else address = customer.address
-    if(!customer.duration)
+    if (!customer.duration)
         duration = -1;
     else duration = customer.duration
-    if(!customer.reminder)
+    if (!customer.reminder)
         reminder = -1;
     else reminder = customer.reminder
 
     const requestOptions = {
         headers: authHeader(),
-        body: {products, customer, reminder, duration, address}
+        body: { products, customer, reminder, duration, address }
     };
 
     return axios
-        .post(`${baseRoute}/order`,requestOptions.body ,{headers: requestOptions.headers} )
+        .post(`${baseRoute}/order`, requestOptions.body, { headers: requestOptions.headers })
         .then(res => {
-            console.log("res.user >> "); 
+            console.log("res.user >> ");
             console.log(res.data);
             return handleResponse(res)
         })
@@ -150,14 +150,14 @@ function getOrderSms() {
     }
 
     return axios
-        .get(`${baseRoute}/settings/order/sms`, {headers: requestOptions.headers})
+        .get(`${baseRoute}/settings/order/sms`, { headers: requestOptions.headers })
         .then(res => {
             console.log("res.user >> ")
             console.log(res.data)
             return handleResponse(res)
         })
         .catch(function (error) {
-            if(error.response) {
+            if (error.response) {
                 console.log(error.response.data)
                 handleError(error.response.status)
             }
@@ -168,19 +168,19 @@ function editOrderSms(params) {
     console.log('into orderService')
 
     const requestOptions = {
-        headers: authHeader(), 
+        headers: authHeader(),
         body: params
     }
-
+    console.log(params);
     return axios
-        .put(`${baseRoute}/settings/order/sms`, requestOptions.body, {headers: requestOptions.headers})
+        .put(`${baseRoute}/settings/order/sms`, requestOptions.body, { headers: requestOptions.headers })
         .then(res => {
             console.log('res >>')
             console.log(res.data)
             return handleResponse(res)
         })
         .catch(error => {
-            if(error.response) {
+            if (error.response) {
                 console.log(error.response.data)
                 handleError(error.response.status)
             }
@@ -191,19 +191,19 @@ function sendDeliverySms(params) {
     console.log('into orderService')
 
     const requestOptions = {
-        headers: authHeader(), 
+        headers: authHeader(),
         body: params
     }
 
     return axios
-        .post(`${baseRoute}/order/delivery/sms`, requestOptions.body, {headers: requestOptions.headers})
+        .post(`${baseRoute}/order/delivery/sms`, requestOptions.body, { headers: requestOptions.headers })
         .then(res => {
             console.log('res >>')
             console.log(res.data)
             return handleResponse(res)
         })
         .catch(error => {
-            if(error.response) {
+            if (error.response) {
                 console.log(error.response.data)
                 handleError(error.response.status)
             }
