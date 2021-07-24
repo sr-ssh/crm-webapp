@@ -82,6 +82,7 @@ export const AddOrder = () => {
             insertPrice("0")
             setItem("")
             setQuantity(1)
+            oldCustomer = null;
         } else {
             if (customer.mobile && customer.family && !order.length)
                 dispatch(alertActions.error('لیست سفارشات خالی است'));
