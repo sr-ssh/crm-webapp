@@ -20,13 +20,13 @@ function getOrders(filter) {
         orderService.getOrders(filter)
             .then(
                 res => {
-                    if(res === undefined)
+                    if (res === undefined)
                         dispatch(alertActions.error('ارتباط با سرور برقرار نیست'));
-                    else if(res.success){
+                    else if (res.success) {
                         console.log("orders received")
                         dispatch(success(orderConstants.GET_ORDERS_SUCCESS, res.data));
                     }
-                        
+
                     setTimeout(() => {
                         dispatch(alertActions.clear());
                     }, 1500);
@@ -48,11 +48,11 @@ function editOrderStatus(orderId, status) {
         orderService.editOrderStatus(orderId, status)
             .then(
                 res => {
-                    if(res === undefined) {
+                    if (res === undefined) {
                         dispatch(alertActions.error('ارتباط با سرور برقرار نیست'))
                         dispatch(failure('ارتباط با سرور برقرار نمیباشد'))
                     }
-                    else if(res.success) {
+                    else if (res.success) {
                         console.log("order status changed")
                         dispatch(success(orderConstants.EDIT_ORDER_STATUS_SUCCESS))
                         dispatch(alertActions.success(res.message));
@@ -69,7 +69,7 @@ function editOrderStatus(orderId, status) {
                     dispatch(alertActions.error(error.toString()));
                 }
             );
-        
+
     }
 
     function request() { console.log("into request"); return { type: orderConstants.EDIT_ORDER_STATUS_REQUEST } }
@@ -84,11 +84,11 @@ function editOrderPrice(orderId, productId, status) {
         orderService.editOrderPrice(orderId, productId, status)
             .then(
                 res => {
-                    if(res === undefined) {
+                    if (res === undefined) {
                         dispatch(alertActions.error('ارتباط با سرور برقرار نیست'))
                         dispatch(failure('ارتباط با سرور برقرار نمیباشد'))
                     }
-                    else if(res.success) {
+                    else if (res.success) {
                         console.log("order status changed")
                         dispatch(success(orderConstants.EDIT_ORDER_PRICE_SUCCESS, res.data))
                         dispatch(alertActions.success(res.message));
@@ -105,7 +105,7 @@ function editOrderPrice(orderId, productId, status) {
                     dispatch(alertActions.error(error.toString()));
                 }
             );
-        
+
     }
 }
 
@@ -115,13 +115,13 @@ function addOrder(products, customer) {
         orderService.addOrder(products, customer)
             .then(
                 res => {
-                    
+
                     console.log(res)
-                    if(res === undefined) {
+                    if (res === undefined) {
                         dispatch(alertActions.error('ارتباط با سرور برقرار نیست'));
                         dispatch(failure('ارتباط با سرور برقرار نیست'))
                     }
-                    else if(res.success){
+                    else if (res.success) {
                         console.log("order added")
                         dispatch(success(products, customer));
                         dispatch(alertActions.success(res.message));
@@ -129,12 +129,12 @@ function addOrder(products, customer) {
                             dispatch(alertActions.clear());
                             //history.go(0)
                         }, 1500);
-                        
-                    }else if(res.success === false) {
+
+                    } else if (res.success === false) {
                         dispatch(alertActions.error(ResizeObserver.message));
                         dispatch(failure(ResizeObserver.message))
                     }
-                        
+
                     setTimeout(() => {
                         dispatch(alertActions.clear());
                     }, 1500);
@@ -160,23 +160,23 @@ function editSms(params) {
             .then(
                 res => {
                     console.log(res)
-                    if(res === undefined) {
+                    if (res === undefined) {
                         dispatch(alertActions.error('ارتباط با سرور برقرار نیست'));
                         dispatch(failure('ارتباط با سرور برقرار نیست'))
                     }
-                    else if(res.success){
+                    else if (res.success) {
                         console.log("order sms edited")
                         dispatch(success());
                         dispatch(alertActions.success(res.message));
                         setTimeout(() => {
                             dispatch(alertActions.clear());
                         }, 1500);
-                        
-                    }else if(res.success === false) {
+
+                    } else if (res.success === false) {
                         dispatch(alertActions.error(ResizeObserver.message));
                         dispatch(failure(ResizeObserver.message))
                     }
-                        
+
                     setTimeout(() => {
                         dispatch(alertActions.clear());
                     }, 1500);
@@ -189,14 +189,14 @@ function editSms(params) {
                 }
             )
     }
-    function request(params) { console.log('into request'); return { type: orderConstants.EDIT_ORDER_SMS_REQUEST, params } }
-    function success() { console.log("into success"); return { type: orderConstants.EDIT_ORDER_SMS_SUCCESS } }
-    function failure(error) {return { type: orderConstants.EDIT_ORDER_SMS_FAILURE, error }}
+    function request(params) { console.log('into request'); return { type: orderConstants.EDIT_SETTING_SMS_REQUEST, params } }
+    function success() { console.log("into success"); return { type: orderConstants.EDIT_SETTING_SMS_SUCCESS } }
+    function failure(error) { return { type: orderConstants.EDIT_SETTING_SMS_FAILURE, error } }
 }
 
 function editNewSms(sms) {
     return {
-        type: orderConstants.EDIT_ORDER_SMS,
+        type: orderConstants.EDIT_SETTING_SMS,
         sms
     }
 }
@@ -208,19 +208,19 @@ function getSms() {
             .then(
                 res => {
                     console.log(res)
-                    if(res === undefined) {
+                    if (res === undefined) {
                         dispatch(alertActions.error('ارتباط با سرور برقرار نیست'));
                         dispatch(failure('ارتباط با سرور برقرار نیست'))
                     }
-                    else if(res.success){
+                    else if (res.success) {
                         console.log("order added")
                         dispatch(success(res.data.setting.order));
-                        
-                    }else if(res.success === false) {
+
+                    } else if (res.success === false) {
                         dispatch(alertActions.error(ResizeObserver.message));
                         dispatch(failure(ResizeObserver.message))
                     }
-                        
+
                     setTimeout(() => {
                         dispatch(alertActions.clear());
                     }, 1500);
@@ -233,9 +233,9 @@ function getSms() {
                 }
             )
     }
-    function request() { console.log("into request"); return { type: orderConstants.GET_ORDER_SMS_REQUEST } }
-    function success(sms) { console.log("into success"); return { type: orderConstants.GET_ORDER_SMS_SUCCESS, sms } }
-    function failure(error) { return { type: orderConstants.GET_ORDER_SMS_FAILURE, error } }
+    function request() { console.log("into request"); return { type: orderConstants.GET_SETTING_SMS_REQUEST } }
+    function success(sms) { console.log("into success"); return { type: orderConstants.GET_SETTING_SMS_SUCCESS, sms } }
+    function failure(error) { return { type: orderConstants.GET_SETTING_SMS_FAILURE, error } }
 }
 
 function sendDeliverySms(data) {
@@ -244,14 +244,14 @@ function sendDeliverySms(data) {
         orderService.sendDeliverySms(data)
             .then(
                 res => {
-                    if(res === undefined)
+                    if (res === undefined)
                         dispatch(alertActions.error('ارتباط با سرور برقرار نیست'));
-                    else if(res.success){
+                    else if (res.success) {
                         console.log("sms sent")
                         dispatch(success(orderConstants.SEND_ORDER_SMS_SUCCESS, res.data));
                         dispatch(alertActions.success(res.message));
                     }
-                        
+
                     setTimeout(() => {
                         dispatch(alertActions.clear());
                     }, 1500);

@@ -97,12 +97,12 @@ export function addOrder(state = initialState, action) {
 
 export function getOrderSms(state = initialState, action) {
     switch (action.type) {
-        case orderConstants.GET_ORDER_SMS_REQUEST:
+        case orderConstants.GET_SETTING_SMS_REQUEST:
             return {
                 ...state,
                 loading: true
             }
-        case orderConstants.GET_ORDER_SMS_SUCCESS:
+        case orderConstants.GET_SETTING_SMS_SUCCESS:
             const SMSTypes = {
                 preSms: 1,
                 postDeliverySms: 2,
@@ -117,12 +117,12 @@ export function getOrderSms(state = initialState, action) {
                 loading: false,
                 sms: action.sms
             }
-        case orderConstants.GET_ORDER_SMS_FAILURE:
+        case orderConstants.GET_SETTING_SMS_FAILURE:
             return {
                 err: action.err,
                 loading: false
             }
-        case orderConstants.EDIT_ORDER_SMS:
+        case orderConstants.EDIT_SETTING_SMS:
             return {
                 ...state,
                 loading: false,
@@ -135,19 +135,19 @@ export function getOrderSms(state = initialState, action) {
 
 export function editOrderSms(state = initialState, action) {
     switch (action.type) {
-        case orderConstants.EDIT_ORDER_SMS_REQUEST:
+        case orderConstants.EDIT_SETTING_SMS_REQUEST:
             return {
                 ...state,
                 params: action.params,
                 loading: true
             }
-        case orderConstants.EDIT_ORDER_SMS_SUCCESS:
+        case orderConstants.EDIT_SETTING_SMS_SUCCESS:
             return {
                 ...state,
                 loading: false,
                 message: action.message
             }
-        case orderConstants.EDIT_ORDER_SMS_FAILURE:
+        case orderConstants.EDIT_SETTING_SMS_FAILURE:
             return {
                 err: action.err,
                 loading: false
@@ -159,17 +159,17 @@ export function editOrderSms(state = initialState, action) {
 
 export function deliverySms(state = initialState, action) {
     switch (action.type) {
-        case orderConstants.EDIT_ORDER_SMS_REQUEST:
+        case orderConstants.EDIT_SETTING_SMS_REQUEST:
             return {
                 ...state,
                 loading: true
             }
-        case orderConstants.EDIT_ORDER_SMS_SUCCESS:
+        case orderConstants.EDIT_SETTING_SMS_SUCCESS:
             return {
                 ...state,
                 loading: false,
             }
-        case orderConstants.EDIT_ORDER_SMS_FAILURE:
+        case orderConstants.EDIT_SETTING_SMS_FAILURE:
             return {
                 err: action.err,
                 loading: false
