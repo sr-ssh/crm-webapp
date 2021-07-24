@@ -21,7 +21,6 @@ export const AddProduct = (props) => {
         const pName = value;
         const patt = /^[آ-یa-zA-Z0-9 ]+$/;
         let res = patt.test(pName);
-        console.log(res);
         if (res) {
             setProductNameValidated(true)
             return value
@@ -76,9 +75,6 @@ export const AddProduct = (props) => {
     useEffect(() => {
         setProduct()
     }, [])
-
-    console.log("__________________ADD PRODUCT PAGE__________________");
-    console.log(product);
     return (
         <Modal
             {...props}
