@@ -4,7 +4,7 @@ import { alert } from './alertReducer';
 import { getCustomers, getCustomer } from './customerReducer'
 import { getProducts, addProduct, editProduct } from './productReducer'
 import { financeSummary, bill } from './financeReducer'
-import { addOrder, getOrders, setOrdersFilter, editOrderStatus, getOrderSms, deliverySms } from './orderReducer'
+import { addOrder, getOrders, setOrdersFilter, editOrderStatus, getOrderSms, deliverySms, editOrderSms } from './orderReducer'
 import { getReminders } from './reminderReducer'
 import { getDiscounts } from './discountReducer';
 import { addDiscount } from './discountReducer';
@@ -12,7 +12,7 @@ import { getEmployees, editEmployee, addEmployee, deleteEmployee, getApplication
 import { getPermissions } from './employeeReducer';
 import { getUserInfo, editUserInfo } from './userReducer';
 
-export default combineReducers ({
+export default combineReducers({
     authentication,
     register,
     alert,
@@ -34,12 +34,13 @@ export default combineReducers ({
     editEmployee,
     addEmployee,
     deleteEmployee,
-    getPermissions, 
+    getPermissions,
     verificationCode,
     getUserInfo,
     getOrderSms,
     getApplications,
     addApplication,
     editUserInfo,
-    deliverySms
+    deliverySms,
+    editOrderSms
 })

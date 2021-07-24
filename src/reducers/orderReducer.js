@@ -103,6 +103,15 @@ export function getOrderSms(state = initialState, action) {
                 loading: true
             }
         case orderConstants.GET_ORDER_SMS_SUCCESS:
+            const SMSTypes = {
+                preSms: 1,
+                postDeliverySms: 2,
+                postCustomerSms: 3
+            }
+            Object.keys(action.sms).map((keyitem) => {
+                action.sms.[keyitem].type = SMSTypes.[keyitem]
+            })
+
             return {
                 ...state,
                 loading: false,
@@ -170,11 +179,11 @@ export function deliverySms(state = initialState, action) {
     }
 }
 
-export function setOrdersFilter(state = {}, action){
-    
+export function setOrdersFilter(state = {}, action) {
+
     switch (action.type) {
         case orderConstants.ADD_ORDER_FILTER:
-            return{
+            return {
                 filter: action.filter
             }
         default:
