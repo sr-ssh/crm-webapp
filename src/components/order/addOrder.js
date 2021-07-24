@@ -17,6 +17,7 @@ export const AddOrder = () => {
 
     const [validated, setValidated] = useState(false);
     const [mobileValidated, setMobileValidated] = useState(false);
+    const [nameValidated, setNameValidated] = useState(false);
     const [order, insertOrder] = useState([])
     const [customer, setCustomer] = useState({})
     const [totalPrice, insertPrice] = useState("0")
@@ -40,7 +41,17 @@ export const AddOrder = () => {
         else
             return undefined
     }
-
+    let nameHandler = (value) => {
+        const name = value;
+        const patt = /^[آ-یa-zA-Z ]+$/;
+        let res = patt.test(name);
+        if (res) {
+            setNameValidated(false)
+            return value
+        }
+        else
+            return undefined
+    }
     let handleOldCustomer = (e) => {
         e.preventDefault()
         if (oldCustomer && Object.keys(oldCustomer).length !== 0) {
@@ -56,12 +67,11 @@ export const AddOrder = () => {
         e.preventDefault()
         let value = e.target.value
         let name = e.target.name
-        console.log(name);
         if (name === "mobile") {
             value = mobileHandler(value)
         }
         if (name === "family") {
-            value = mobileHandler(value)
+            value = nameHandler(value)
         }
         setCustomer({ ...customer, [name]: value })
     }
@@ -134,8 +144,8 @@ export const AddOrder = () => {
                                 <Form.Label className="pe-2">نام</Form.Label>
                                 <Form.Control className="order-input" type="text" name="family"
                                     onChange={handleChange}
-                                    isInvalid={!customer.family && validated && true}
-                                    isValid={customer.family && validated && true}
+                                    isInvalid={((!customer.family && validated) || (nameValidated) && true)}
+                                    isValid={((customer.family && validated) || (nameValidated && customer.family) && true)}
                                     value={customer.family}
                                     required
                                 />
