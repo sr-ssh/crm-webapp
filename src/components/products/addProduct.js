@@ -20,7 +20,7 @@ export const AddProduct = (props) => {
     let productnameHandler = (value) => {
         const pName = value;
         const patt = /^[آ-یa-zA-Z0-9 ]+$/;
-        let res = patt.test(pName);
+        let res = patt.test(pName.trim());
         if (res) {
             setProductNameValidated(true)
             return value
