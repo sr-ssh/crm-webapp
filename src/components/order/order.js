@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import moment from 'jalali-moment';
-import { Card , Table , Row , Col, Spinner, Button } from 'react-bootstrap';
+import { Card, Table, Row, Col, Spinner, Button } from 'react-bootstrap';
 import persianJs from 'persianjs/persian.min';
 
 //icons
@@ -8,16 +8,16 @@ import deliveryIcon from './../../assets/images/order/delivery.svg'
 import printIcon from './../../assets/images/order/print.svg'
 import cancelIcon from './../../assets/images/order/cancel.svg'
 import editIcon from '../../assets/images/Products/edit.svg'
+import deleteIcon from '../../assets/images/delete.svg'
 
 
 //components
 import { EditField } from './editField'
 
 
-export const Order = ({order, deliveryShow, setDeliveryShow, cancelOrderShow, setCancelOrderShow, setActiveOrder, setOrder}) => {
+export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, setCancelOrderShow, setActiveOrder, setOrder }) => {
 
-    let [ print, setPrint ] = useState(false)
-    
+    let [print, setPrint] = useState(false)
     const [editModalShow, setEditModalShow] = useState(false)
     const [input, setInput] = useState('')
     const [name, setName] = useState('')
@@ -29,7 +29,7 @@ export const Order = ({order, deliveryShow, setDeliveryShow, cancelOrderShow, se
         setName(name)
         setProductId(productId)
         setOrderId(orderId)
-        setEditModalShow(true); 
+        setEditModalShow(true);
     }
 
 
@@ -49,7 +49,7 @@ export const Order = ({order, deliveryShow, setDeliveryShow, cancelOrderShow, se
 
 
     return (
-        
+
         <Card className={`m-auto mt-3 bg-light productCard border-0 lh-lg ${!print ? 'noPrint' : ''}`} >
             <Card.Body className="pb-0 ps-1 rounded-3 text-gray">
                 <Row className="p-0 ps-2 m-0 ">
@@ -58,12 +58,12 @@ export const Order = ({order, deliveryShow, setDeliveryShow, cancelOrderShow, se
                             <Row>
                                 <Col>
                                     <Card.Text>
-                                    تاریخ : <span>{order.createdAt && persianJs(moment.from(order.createdAt, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD')).englishNumber().toString()}</span>
+                                        تاریخ : <span>{order.createdAt && persianJs(moment.from(order.createdAt, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD')).englishNumber().toString()}</span>
                                     </Card.Text>
                                 </Col>
                                 <Col className="col-5">
                                     <Card.Text className="text-center">
-                                    ساعت : <span>{order.createdAt && persianJs(moment.from(order.createdAt, 'HH:mm').locale('fa').format('HH:mm')).englishNumber().toString()}</span>
+                                        ساعت : <span>{order.createdAt && persianJs(moment.from(order.createdAt, 'HH:mm').locale('fa').format('HH:mm')).englishNumber().toString()}</span>
                                     </Card.Text>
                                 </Col>
                             </Row>
@@ -76,17 +76,17 @@ export const Order = ({order, deliveryShow, setDeliveryShow, cancelOrderShow, se
                                 <Col className="col-5">
                                     <Card.Text className="text-center">
                                         وضعیت: {(() => {
-                                                switch (order.status) {
-                                                    case 0:
-                                                        return <span>فعال</span>;
-                                                    case 1:
-                                                        return <span>پایان یافته</span>;;
-                                                    case 2:
-                                                        return <span>لغو شده</span>;;
-                                                    default:
-                                                        return;
-                                                }
-                                                })()}
+                                            switch (order.status) {
+                                                case 0:
+                                                    return <span>فعال</span>;
+                                                case 1:
+                                                    return <span>پایان یافته</span>;;
+                                                case 2:
+                                                    return <span>لغو شده</span>;;
+                                                default:
+                                                    return;
+                                            }
+                                        })()}
                                     </Card.Text>
                                 </Col>
                             </Row>
@@ -122,7 +122,7 @@ export const Order = ({order, deliveryShow, setDeliveryShow, cancelOrderShow, se
                     </Card>
                 </Row>
                 <Row className="m-0 p-0 ps-2">
-                    
+
                     <Table borderless size="sm">
                         <thead>
                             <tr>
@@ -133,65 +133,97 @@ export const Order = ({order, deliveryShow, setDeliveryShow, cancelOrderShow, se
                             </tr>
                         </thead>
                         <tbody>
-                        {
-                            order.products.length 
-                            ? order.products.map(item => {
+                            {
+
+                                order.products.length
+                                    ? order.products.map(item => {
                                         return (
+
                                             <tr key={item.name}>
                                                 <td>{item.name && persianJs(item.name).englishNumber().toString()}</td>
                                                 <td>
                                                     <Row>
                                                         <Col className="ps-0">
-                                                        {(item.quantity * item.sellingPrice) && persianJs(item.quantity * item.sellingPrice).englishNumber().toString()} 
+                                                            {(item.quantity * item.sellingPrice) && persianJs(item.quantity * item.sellingPrice).englishNumber().toString()}
                                                         </Col>
-                                                        <Col className="my-0 pe-0" onClick={() => edit(item.sellingPrice, 'price', order.id, item._id)}>
-                                                            <img className="" src={editIcon} height="25px" alt="edit-icon" />
-                                                        </Col>
+                                                        {
+                                                            order.status !== 2 ?
+                                                                <Col className="my-0 pe-0" onClick={() => edit(item.sellingPrice, 'price', order.id, item._id)}>
+                                                                    <img className="" src={editIcon} height="25px" alt="edit-icon" />
+                                                                </Col>
+                                                                : null
+                                                        }
                                                     </Row>
                                                 </td>
-                                                <td>{item.quantity && persianJs(item.quantity).englishNumber().toString()}</td>
+                                                <td>
+                                                    <Row>
+                                                        <Col className="ps-0">
+                                                            {item.quantity && persianJs(item.quantity).englishNumber().toString()}
+                                                        </Col>
+                                                        {
+                                                            order.status !== 2 ?
+                                                                <Col className="my-0 pe-0" onClick={() => edit(item.sellingPrice, 'price', order.id, item._id)}>
+                                                                    <img className="" src={editIcon} height="25px" alt="edit-icon" />
+                                                                </Col>
+                                                                : null
+                                                        }
+                                                    </Row>
+                                                </td>
+                                                <td className="d-flex justify-content-center align-content-center">
+                                                    <Row>
+                                                        {
+                                                            order.status !== 2 ?
+                                                                <Col className="my-0 pe-0" onClick={() => edit(item.sellingPrice, 'price', order.id, item._id)}>
+                                                                    <img className="" src={deleteIcon} height="25px" alt="edit-icon" />
+                                                                </Col>
+                                                                : null
+                                                        }
+                                                    </Row>
+                                                </td>
                                             </tr>
+
                                         )
-                                    })
-                                
-                            : null
-                        }
-                        <tr className="border-top-blue">
-                            <td>جمع کل:</td>
-                            <td className="fs-6">{getTotalPrice(order.products) && persianJs(getTotalPrice(order.products)).englishNumber().toString()} </td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                            
+                                    }
+                                    )
+
+                                    : null
+                            }
+                            <tr className="border-top-blue">
+                                <td>جمع کل:</td>
+                                <td className="fs-6">{getTotalPrice(order.products) && persianJs(getTotalPrice(order.products)).englishNumber().toString()} </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+
                         </tbody>
                     </Table>
                 </Row>
                 <Row className=" pb-3 text-start ms-3 justify-content-end">
-                   
+
                     <Col xs={2} className="text-start">
-                        <Button className="btn-success reminder-sms-button p-1 border-0 noPrint" type="button"  onClick={() => printWindow()}>
-                            <img src={printIcon} height="40px" alt="reminder-icon"  />
+                        <Button className="btn-success reminder-sms-button p-1 border-0 noPrint" type="button" onClick={() => printWindow()}>
+                            <img src={printIcon} height="40px" alt="reminder-icon" />
                         </Button>
                     </Col>
-                        {
-                            order.status !== 2 &&
-                            <>
+                    {
+                        order.status !== 2 &&
+                        <>
                             <Col xs={2} className="text-start">
-                                <Button className="btn-primary delivery-sms-button p-1 border-0 noPrint" type="button"  onClick={() => {setDeliveryShow(true); setOrder(order.id);}}>
-                                    <img src={deliveryIcon} height="40px" alt="delivery-icon"  />
+                                <Button className="btn-primary delivery-sms-button p-1 border-0 noPrint" type="button" onClick={() => { setDeliveryShow(true); setOrder(order.id); }}>
+                                    <img src={deliveryIcon} height="40px" alt="delivery-icon" />
                                 </Button>
                             </Col>
                             <Col xs={2} className="text-start">
-                            
-                                <Button className="btn-danger cancel-order-btn p-1 border-0 noPrint" type="button"  onClick={() => { setCancelOrderShow(true); setActiveOrder(order)}}>
-                                    <img src={cancelIcon} height="40px" alt="cancel-icon"  />
+
+                                <Button className="btn-danger cancel-order-btn p-1 border-0 noPrint" type="button" onClick={() => { setCancelOrderShow(true); setActiveOrder(order) }}>
+                                    <img src={cancelIcon} height="40px" alt="cancel-icon" />
                                 </Button>
                             </Col>
-                            </>
+                        </>
                     }
-                </Row> 
+                </Row>
             </Card.Body>
-            <EditField show={editModalShow} onHide={() => {setEditModalShow(false); setInput(''); }} input={input} name={name} productId={productId} orderId={orderId} setInput={setInput} />
-        </Card> 
+            <EditField show={editModalShow} onHide={() => { setEditModalShow(false); setInput(''); }} input={input} name={name} productId={productId} orderId={orderId} setInput={setInput} />
+        </Card >
     )
 }
