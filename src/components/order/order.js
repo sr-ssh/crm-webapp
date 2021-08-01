@@ -162,7 +162,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                                                         </Col>
                                                         {
                                                             order.status !== 2 ?
-                                                                <Col className="my-0 pe-0" onClick={() => edit(item.sellingPrice, 'price', order.id, item._id)}>
+                                                                <Col className="my-0 pe-0" onClick={() => edit(item.quantity, 'quantity', order.id, item._id)}>
                                                                     <img className="" src={editIcon} height="25px" alt="edit-icon" />
                                                                 </Col>
                                                                 : null

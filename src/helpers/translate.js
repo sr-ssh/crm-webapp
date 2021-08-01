@@ -1,26 +1,28 @@
 export function translate(key) {
-    if(key === "addOrder")
+    if (key === "addOrder")
         return "ثبت سفارش"
-    else if(key === "getOrders")
+    else if (key === "getOrders")
         return "سفارش ها"
-    else if(key === "reminder")
+    else if (key === "reminder")
         return "یادآوری"
-    else if(key === "getProducts")
+    else if (key === "getProducts")
         return "محصولات"
-    else if(key === "finance")
+    else if (key === "finance")
         return "مالی"
-    else if(key === "getCustomers")
+    else if (key === "getCustomers")
         return "مشتریان"
-    else if(key === "getEmployees")
+    else if (key === "getEmployees")
         return "کارمندان"
-    else if(key === "getDiscounts")
+    else if (key === "getDiscounts")
         return "تخفیف ها"
-    else if(key === "family")
+    else if (key === "family")
         return "نام"
-    else if(key === "company")
+    else if (key === "company")
         return "نام شرکت"
-    else if(key === "address")
+    else if (key === "address")
         return "آدرس"
-    else if(key === "price")
+    else if (key === "price")
         return "قیمت"
+    else if (key === "quantity")
+        return "تعداد"
 }

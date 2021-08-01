@@ -8,6 +8,7 @@ export const orderActions = {
     addOrder,
     editOrderStatus,
     editOrderPrice,
+    editOrderQuantity,
     getSms,
     editSms,
     sendDeliverySms,
@@ -100,6 +101,37 @@ function editOrderPrice(orderId, productId, status) {
                 },
                 error => {
                     dispatch(failure(orderConstants.EDIT_ORDER_PRICE_FAILURE, error.toString()));
+                    console.log("occure error");
+                    console.log(error.toString());
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+
+    }
+}
+function editOrderQuantity(orderId, productId, status) {
+    console.log(100)
+    return dispatch => {
+        dispatch(request(orderConstants.EDIT_ORDER_QUANTITY_REQUEST))
+        orderService.editOrderQuantity(orderId, productId, status)
+            .then(
+                res => {
+                    if (res === undefined) {
+                        dispatch(alertActions.error('ارتباط با سرور برقرار نیست'))
+                        dispatch(failure('ارتباط با سرور برقرار نمیباشد'))
+                    }
+                    else if (res.success) {
+                        console.log("order status changed")
+                        dispatch(success(orderConstants.EDIT_ORDER_QUANTITY_SUCCESS, res.data))
+                        dispatch(alertActions.success(res.message));
+                    }
+
+                    setTimeout(() => {
+                        dispatch(alertActions.clear());
+                    }, 1500);
+                },
+                error => {
+                    dispatch(failure(orderConstants.EDIT_ORDER_QUANTITY_FAILURE, error.toString()));
                     console.log("occure error");
                     console.log(error.toString());
                     dispatch(alertActions.error(error.toString()));

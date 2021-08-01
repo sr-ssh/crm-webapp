@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Modal, Row, Col, Form, Button, Spinner, Alert } from 'react-bootstrap'
 import { history, translate } from '../../helpers'
@@ -16,6 +16,8 @@ export const EditField = (props) => {
     const [name, setName] = useState(props.name)
 
 
+    console.log(typeof input);
+
     let addEmployeeLoading = useSelector(state => state.addEmployee.loading)
     let alert = useSelector(state => state.alert)
     const dispatch = useDispatch()
@@ -26,12 +28,19 @@ export const EditField = (props) => {
 
     const formHandler = (e) => {
         e.preventDefault()
+        debugger;
         let form = e.currentTarget
         if (form.checkValidity() === false) {
             e.stopPropagation()
         } else {
-            dispatch(orderActions.editOrderPrice(props.orderId, props.productId, input))
+            if (name == "price")
+                dispatch(orderActions.editOrderPrice(props.orderId, props.productId, input))
+            else if (name == "quantity")
+                dispatch(orderActions.editOrderQuantity(props.orderId, props.productId, input))
+
+
             history.go(0)
+
         }
         setValidated(true)
     }
@@ -50,9 +59,9 @@ export const EditField = (props) => {
             aria-labelledby="contained-modal-title-vcenter"
             centered
             className="mx-3 order-serach-modal"
-            >
+        >
             <Modal.Body className="add-product px-4">
-                <Button className="border-0 customer-modal-close" type="button"  onClick={e => props.onHide(false)}>
+                <Button className="border-0 customer-modal-close" type="button" onClick={e => props.onHide(false)}>
                     <img className="d-flex m-auto customer-modal-close-svg" src={closeIcon} alt="close-btn" />
                 </Button>
                 {/* {
@@ -80,27 +89,27 @@ export const EditField = (props) => {
 
                         {
                             addEmployeeLoading ? (
-                                <Button className="fw-bold order-submit border-0 w-100 mt-4" size="lg" type="submit"  disabled>
+                                <Button className="fw-bold order-submit border-0 w-100 mt-4" size="lg" type="submit" disabled>
                                     <Spinner
-                                    as="span"
-                                    animation="grow"
-                                    size="sm"
-                                    role="status"
-                                    aria-hidden="true"
+                                        as="span"
+                                        animation="grow"
+                                        size="sm"
+                                        role="status"
+                                        aria-hidden="true"
                                     />
                                     در حال انجام عملیات...
                                 </Button>
                             ) : (
                                 <Button className="fw-bold order-submit border-0 w-100 mt-4" size="lg" type="submit" block>
-                                ثبت
+                                    ثبت
                                 </Button>
                             )
                         }
                     </Form>
                 }
-                
+
             </Modal.Body>
-            
+
         </Modal>
     )
 }

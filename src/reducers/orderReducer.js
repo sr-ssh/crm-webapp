@@ -72,6 +72,30 @@ export function editOrderPrice(state = initialState, action) {
     }
 }
 
+
+export function editOrderQuantity(state = initialState, action) {
+    switch (action.type) {
+        case orderConstants.EDIT_ORDER_QUANTITY_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+        case orderConstants.EDIT_ORDER_QUANTITY_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+            }
+        case orderConstants.EDIT_ORDER_QUANTITY_FAILURE:
+            return {
+                err: action.err,
+                loading: false
+            }
+        default:
+            return state
+    }
+}
+
+
 export function addOrder(state = initialState, action) {
     switch (action.type) {
         case orderConstants.ADD_ORDER_REQUEST:
