@@ -294,6 +294,10 @@
   left: auto;
   width: 91%;
 }
+.alert-cancel-product-order {
+  position: relative !important;
+  bottom: 0;
+}
 
 /* 
 .form-control.is-valid:focus, .was-validated :valid.form-control {

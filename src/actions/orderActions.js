@@ -12,7 +12,8 @@ export const orderActions = {
     getSms,
     editSms,
     sendDeliverySms,
-    editNewSms
+    editNewSms,
+    cancelProductOrder
 }
 
 function getOrders(filter) {
@@ -110,7 +111,6 @@ function editOrderPrice(orderId, productId, status) {
     }
 }
 function editOrderQuantity(orderId, productId, status) {
-    console.log(100)
     return dispatch => {
         dispatch(request(orderConstants.EDIT_ORDER_QUANTITY_REQUEST))
         orderService.editOrderQuantity(orderId, productId, status)
@@ -141,6 +141,39 @@ function editOrderQuantity(orderId, productId, status) {
     }
 }
 
+function cancelProductOrder(orderId, productId) {
+    console.log("actions");
+    return dispatch => {
+        dispatch(request(orderConstants.CANCEL_PRODUCT_ORDER_REQUEST))
+        orderService.cancelProductOrder(orderId, productId)
+            .then(
+                res => {
+                    if (res === undefined) {
+                        dispatch(alertActions.error('ارتباط با سرور برقرار نیست'))
+                        dispatch(failure('ارتباط با سرور برقرار نمیباشد'))
+                    }
+                    else if (res.success) {
+                        console.log("product order changed")
+                        dispatch(success(orderConstants.CANCEL_PRODUCT_ORDER_SUCCESS, res.data))
+                        dispatch(alertActions.success(res.message));
+                    } else if (res.success === false) {
+                        console.log("product order changed")
+                        dispatch(failure(orderConstants.CANCEL_PRODUCT_ORDER_FAILURE, res.message));
+                        dispatch(alertActions.error(res.message));
+                    }
+
+
+                },
+                error => {
+                    dispatch(failure(orderConstants.CANCEL_PRODUCT_ORDER_FAILURE, error.toString()));
+                    console.log("occure error");
+                    console.log(error.toString());
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+
+    }
+}
 function addOrder(products, customer) {
     return dispatch => {
         dispatch(request())
@@ -163,8 +196,8 @@ function addOrder(products, customer) {
                         }, 1500);
 
                     } else if (res.success === false) {
-                        dispatch(alertActions.error(ResizeObserver.message));
-                        dispatch(failure(ResizeObserver.message))
+                        dispatch(alertActions.error(res.message));
+                        dispatch(failure(res.message))
                     }
 
                     setTimeout(() => {
@@ -198,15 +231,14 @@ function editSms(params) {
                             dispatch(failure('ارتباط با سرور برقرار نیست'))
                         }
                         else if (res.success) {
-
                             console.log("order sms edited")
                             dispatch(success());
                             dispatch(alertActions.success(res.message));
 
                         } else if (res.success === false) {
 
-                            dispatch(alertActions.error(ResizeObserver.message));
-                            dispatch(failure(ResizeObserver.message))
+                            dispatch(alertActions.error(res.message));
+                            dispatch(failure(res.message))
 
                         }
 
@@ -251,8 +283,8 @@ function getSms() {
                         dispatch(success(res.data.setting.order));
 
                     } else if (res.success === false) {
-                        dispatch(alertActions.error(ResizeObserver.message));
-                        dispatch(failure(ResizeObserver.message))
+                        dispatch(alertActions.error(res.message));
+                        dispatch(failure(res.message))
                     }
 
                     setTimeout(() => {

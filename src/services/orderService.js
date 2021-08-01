@@ -18,7 +18,8 @@ export const orderService = {
     editOrderSms,
     sendDeliverySms,
     editOrderPrice,
-    editOrderQuantity
+    editOrderQuantity,
+    cancelProductOrder
 };
 
 function getOrders(filter = {}) {
@@ -106,7 +107,6 @@ function editOrderPrice(orderId, productId, price) {
 
 }
 
-
 function editOrderQuantity(orderId, productId, quantity) {
     console.log("into orderService")
 
@@ -117,6 +117,27 @@ function editOrderQuantity(orderId, productId, quantity) {
 
     return axios
         .put(`${baseRoute}/order/quantity`, requestOptions.body, { headers: requestOptions.headers })
+        .then(res => {
+            console.log("res.user >> ");
+            console.log(res.data);
+            return handleResponse(res)
+        })
+        .catch(function (error) {
+            if (error.response) {
+                console.log(error.response.data);
+                handleError(error.response.status)
+            }
+        });
+
+}
+function cancelProductOrder(orderId, productId) {
+    console.log("into orderService")
+
+    const requestOptions = {
+        headers: authHeader()
+    };
+    return axios
+        .delete(`${baseRoute}/order/product`, { data: { orderId, productId }, headers: requestOptions.headers })
         .then(res => {
             console.log("res.user >> ");
             console.log(res.data);

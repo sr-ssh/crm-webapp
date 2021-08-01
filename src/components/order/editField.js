@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Modal, Row, Col, Form, Button, Spinner, Alert } from 'react-bootstrap'
 import { history, translate } from '../../helpers'
 
-
+//Assets
 import closeIcon from '../../assets/images/close.svg'
 
 //actions
@@ -15,20 +15,20 @@ export const EditField = (props) => {
     const [input, setInput] = useState(props.input)
     const [name, setName] = useState(props.name)
 
-
-    console.log(typeof input);
-
     let addEmployeeLoading = useSelector(state => state.addEmployee.loading)
     let alert = useSelector(state => state.alert)
     const dispatch = useDispatch()
     const handleChange = (e) => {
         e.preventDefault()
+        // console.log(e.target.value, e.target.name);
+        // // const number = value;
+        // // const patt = /^(09)(\d{9})/m;
+        // // let res = patt.test(number) && number.length === 11;
         setInput(e.target.value)
     }
 
     const formHandler = (e) => {
         e.preventDefault()
-        debugger;
         let form = e.currentTarget
         if (form.checkValidity() === false) {
             e.stopPropagation()
@@ -37,10 +37,9 @@ export const EditField = (props) => {
                 dispatch(orderActions.editOrderPrice(props.orderId, props.productId, input))
             else if (name == "quantity")
                 dispatch(orderActions.editOrderQuantity(props.orderId, props.productId, input))
-
-
-            history.go(0)
-
+            setValidated(false)
+            props.onHide(false)
+            dispatch(orderActions.getOrders())
         }
         setValidated(true)
     }
