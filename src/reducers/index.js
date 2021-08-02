@@ -4,7 +4,10 @@ import { alert } from './alertReducer';
 import { getCustomers, getCustomer } from './customerReducer'
 import { getProducts, addProduct, editProduct } from './productReducer'
 import { financeSummary, bill } from './financeReducer'
-import { addOrder, getOrders, setOrdersFilter, editOrderStatus, getOrderSms, deliverySms, editOrderSms, cancelProductOrder } from './orderReducer'
+import {
+    addOrder, getOrders, setOrdersFilter, editOrderStatus, getOrderSms, deliverySms, editOrderSms, cancelProductOrder, editOrderQuantity,
+    editOrderPrice
+} from './orderReducer'
 import { getReminders } from './reminderReducer'
 import { getDiscounts } from './discountReducer';
 import { addDiscount } from './discountReducer';
@@ -43,5 +46,7 @@ export default combineReducers({
     editUserInfo,
     deliverySms,
     editOrderSms,
-    cancelProductOrder
+    cancelProductOrder,
+    editOrderQuantity,
+    editOrderPrice
 })

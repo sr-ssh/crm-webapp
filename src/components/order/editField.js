@@ -14,42 +14,49 @@ export const EditField = (props) => {
     const [validated, setValidated] = useState(false)
     const [input, setInput] = useState(props.input)
     const [name, setName] = useState(props.name)
-
-    let addEmployeeLoading = useSelector(state => state.addEmployee.loading)
+    let loaderEditOrderQuantity = useSelector(state => state.editOrderQuantity.loading)
+    let loaderEditOrderPrice = useSelector(state => state.editOrderPrice.loading)
+    let loader = name == "price" ? loaderEditOrderPrice : loaderEditOrderQuantity;
     let alert = useSelector(state => state.alert)
     const dispatch = useDispatch()
     const handleChange = (e) => {
-        e.preventDefault()
-        // console.log(e.target.value, e.target.name);
-        // // const number = value;
-        // // const patt = /^(09)(\d{9})/m;
-        // // let res = patt.test(number) && number.length === 11;
-        setInput(e.target.value)
+
+        const value = e.target.value;
+        const patt = /^[0-9]+$/m;
+        let res = patt.test(value);
+        if (res) {
+            setInput(e.target.value)
+            setValidated(true)
+        } else {
+            setInput(false)
+            setValidated(false)
+        }
     }
 
     const formHandler = (e) => {
         e.preventDefault()
-        let form = e.currentTarget
-        if (form.checkValidity() === false) {
-            e.stopPropagation()
-        } else {
+        console.log(input);
+        if (input) {
             if (name == "price")
                 dispatch(orderActions.editOrderPrice(props.orderId, props.productId, input))
             else if (name == "quantity")
                 dispatch(orderActions.editOrderQuantity(props.orderId, props.productId, input))
             setValidated(false)
             props.onHide(false)
-            dispatch(orderActions.getOrders())
+
+            setTimeout(() => {
+                dispatch(orderActions.getOrders())
+            }, 1000);
+
+        } else {
+            setValidated(false)
         }
-        setValidated(true)
     }
 
     useEffect(() => {
         setInput(props.input)
         setName(props.name)
     }, [props.input, props.name])
-
-
 
     return (
         <Modal
@@ -81,13 +88,19 @@ export const EditField = (props) => {
                             <Col className="order-filter-input">
                                 <Form.Group controlId="name">
                                     <Form.Label className="pe-3">{translate(name)}</Form.Label>
-                                    <Form.Control className="order-input" type="text" name={name} defaultValue={input} onChange={handleChange} required />
+                                    <Form.Control className="order-input" type="text"
+                                        name={name}
+                                        defaultValue={input}
+                                        onChange={handleChange}
+                                        isInvalid={!input}
+                                        isValid={(validated)}
+                                    />
                                 </Form.Group>
                             </Col>
                         </Row>
 
                         {
-                            addEmployeeLoading ? (
+                            loader ? (
                                 <Button className="fw-bold order-submit border-0 w-100 mt-4" size="lg" type="submit" disabled>
                                     <Spinner
                                         as="span"
