@@ -310,7 +310,17 @@
 .eVqaMu {
   display: none;
 }
-
+.edit-order-btn {
+  background-color: var(--button-color-one);
+  border-radius: 11px;
+  font-size: 1.1rem;
+}
+.edit-order-btn:focus,
+.edit-order-btn:active,
+.edit-order-btn:active:focus,
+.edit-order-btn:focus:active {
+  background-color: var(--button-color-one) !important;
+}
 @media print {
   .noPrint {
     display: none;

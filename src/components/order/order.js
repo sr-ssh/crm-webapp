@@ -9,6 +9,8 @@ import printIcon from './../../assets/images/order/print.svg'
 import cancelIcon from './../../assets/images/order/cancel.svg'
 import editIcon from '../../assets/images/Products/edit.svg'
 import deleteIcon from '../../assets/images/delete.svg'
+import editeOrderIcon from '../../assets/images/order/edit-order-list.svg'
+
 
 
 //components
@@ -205,8 +207,18 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                     </Table>
                 </Row>
                 <Row className=" pb-3 text-start ms-3 justify-content-end">
-
-                    <Col xs={2} className="text-start">
+                    {
+                        order.status !== 2 &&
+                        <>
+                            {/* onClick={() => { setCancelOrderShow(true); setActiveOrder(order) }} */}
+                            <Col xs={3} className="text-start">
+                                <Button className="btn-outline-dark edit-order-btn p-1 border-0  noPrint" type="button" >
+                                    <img src={editeOrderIcon} height="40px" alt="edit-order-icon" />
+                                </Button>
+                            </Col>
+                        </>
+                    }
+                    <Col xs={3} className="text-start">
                         <Button className="btn-success reminder-sms-button p-1 border-0 noPrint" type="button" onClick={() => printWindow()}>
                             <img src={printIcon} height="40px" alt="reminder-icon" />
                         </Button>
@@ -214,16 +226,17 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                     {
                         order.status !== 2 &&
                         <>
-                            <Col xs={2} className="text-start">
+                            <Col xs={3} className="text-start">
                                 <Button className="btn-primary delivery-sms-button p-1 border-0 noPrint" type="button" onClick={() => { setDeliveryShow(true); setOrder(order.id); }}>
                                     <img src={deliveryIcon} height="40px" alt="delivery-icon" />
                                 </Button>
                             </Col>
-                            <Col xs={2} className="text-start">
+                            <Col xs={3} className="text-start">
                                 <Button className="btn-danger cancel-order-btn p-1 border-0 noPrint" type="button" onClick={() => { setCancelOrderShow(true); setActiveOrder(order) }}>
                                     <img src={cancelIcon} height="40px" alt="cancel-icon" />
                                 </Button>
                             </Col>
+
                         </>
                     }
                 </Row>
