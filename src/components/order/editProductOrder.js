@@ -18,6 +18,7 @@ export const EditeProductOrder = (props) => {
     const [totalPrice, insertPrice] = useState("0")
     const [quantityOrder, setQuantityOrder] = useState(1)
     const [order, insertOrder] = useState([])
+    const [oldProduct, setOldProduct] = useState([])
     const dispatch = useDispatch()
 
     const products = useSelector(state => state.getProducts.product)
@@ -27,12 +28,14 @@ export const EditeProductOrder = (props) => {
         dispatch(productActions.getProducts())
     }
     let newOrder = (e) => {
+
         e.preventDefault();
         let product = products.find(item => item.name === selectedItem)
+        let oldProduct = order.find(item => item.name === selectedItem);
+
         if (!product)
             return
 
-        insertPrice(parseInt(totalPrice) + (parseInt(quantityOrder) * parseInt(product.sellingPrice)))
         let newOrder = {
             _id: product._id,
             name: product.name,
@@ -44,13 +47,15 @@ export const EditeProductOrder = (props) => {
         if (isOrderPresent) {
             const updatedOrder = order.map((item) => {
                 if (item._id === product._id) {
-                    return { ...item, quantity: item.quantity + parseInt(quantityOrder) };
+                    return { ...item, quantity: parseInt(item.quantity) + parseInt(quantityOrder) };
                 }
                 return item;
             });
+            insertPrice(parseInt(totalPrice) + (parseInt(quantityOrder) * parseInt(oldProduct.sellingPrice)))
             insertOrder(updatedOrder);
         } else {
             insertOrder((prevOrderState) => [...prevOrderState, newOrder]);
+            insertPrice(parseInt(totalPrice) + (parseInt(quantityOrder) * parseInt(product.sellingPrice)))
         }
     };
     let removeOrder = (e, product) => {
@@ -60,6 +65,24 @@ export const EditeProductOrder = (props) => {
         insertOrder(updatedOrder)
     }
 
+    useEffect(async () => {
+        await insertOrder(props.order.products)
+        await setOldProduct(props.order.products)
+        let total = 0
+        props.order.products?.map(item => {
+            total += item.sellingPrice * item.quantity;
+            return total
+        })
+        insertPrice(parseInt(total))
+    }, [props.show])
+
+    let closeHandler = e => {
+        props.onHide(false);
+        insertOrder([])
+        insertPrice("0")
+        setItem("")
+    }
+    console.log(products);
     console.log(order);
 
     return (
@@ -72,7 +95,7 @@ export const EditeProductOrder = (props) => {
             className="w-100 m-0 p-0"
         >
             <Modal.Body className="add-product px-3">
-                <Button className="border-0 customer-modal-close" type="button" onClick={e => props.onHide(false)}>
+                <Button className="border-0 customer-modal-close" type="button" onClick={closeHandler}>
                     <img className="d-flex m-auto customer-modal-close-svg" src={closeIcon} alt="close-btn" />
                 </Button>
                 {/* {
@@ -122,8 +145,8 @@ export const EditeProductOrder = (props) => {
                                                                             {index ? <Dropdown.Divider /> : null}
                                                                             <Dropdown.Item onClick={() => setItem(item.name)}>
                                                                                 <Row>
-                                                                                    <Col className="text-end basket-dropdown-border-left pe-1">{item.name}</Col>
-                                                                                    <Col>{item.sellingPrice && persianJs(item.sellingPrice).englishNumber().toString()} </Col>
+                                                                                    <Col className="text-end  pe-1">{item.name}</Col>
+
                                                                                 </Row>
                                                                             </Dropdown.Item>
                                                                         </Col>
@@ -148,19 +171,18 @@ export const EditeProductOrder = (props) => {
                                                     <thead>
                                                         <tr>
                                                             <th className="fw-bold">سفارش</th>
-                                                            <th className="fw-bold">قیمت (تومان)</th>
                                                             <th className="fw-bold">تعداد</th>
                                                             <th></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         {
-                                                            order.length
+                                                            order?.length
                                                                 ? order.map(item => {
+
                                                                     return (
                                                                         <tr key={item.name}>
                                                                             <td>{item.name && persianJs(item.name).englishNumber().toString()}</td>
-                                                                            <td className="text-center">{(item.quantity * item.sellingPrice) && persianJs(item.quantity * item.sellingPrice).englishNumber().toString()} </td>
                                                                             <td className="pe-3">{item.quantity && persianJs(item.quantity).englishNumber().toString()}</td>
                                                                             <td onClick={(e) => removeOrder(e, item)}><img src={deleteIcon} className="d-block me-auto" alt="delete-icon" /></td>
                                                                         </tr>
