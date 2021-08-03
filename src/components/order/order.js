@@ -16,16 +16,20 @@ import editeOrderIcon from '../../assets/images/order/edit-order-list.svg'
 //components
 import { EditField } from './editField'
 import { CancelProductOrder } from './cancelProductOrder'
+import { EditeProductOrder } from './editProductOrder'
 
 export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, setCancelOrderShow, setActiveOrder, setOrder }) => {
 
     let [print, setPrint] = useState(false)
     const [editModalShow, setEditModalShow] = useState(false)
-    const [cancelModalShow, setCancelModalShow] = useState(false)
+    const [cancelModalShow, setCancelModalShow] = useState(false);
+    const [editOrder, setEditOrder] = useState(false)
+
     const [input, setInput] = useState('')
     const [name, setName] = useState('')
     const [orderId, setOrderId] = useState("")
     const [productId, setProductId] = useState("")
+    const [editProductOrder, setEditProductOrder] = useState("");
 
     const edit = (value, name, orderId, productId) => {
         setInput(value)
@@ -54,7 +58,6 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
         window.print()
         setPrint(false)
     }
-
 
     return (
 
@@ -210,9 +213,9 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                     {
                         order.status !== 2 &&
                         <>
-                            {/* onClick={() => { setCancelOrderShow(true); setActiveOrder(order) }} */}
+
                             <Col xs={3} className="text-start">
-                                <Button className="btn-outline-dark edit-order-btn p-1 border-0  noPrint" type="button" >
+                                <Button className="btn-outline-dark edit-order-btn p-1 border-0  noPrint" type="button" onClick={() => { setEditOrder(true); setEditProductOrder(order) }} >
                                     <img src={editeOrderIcon} height="40px" alt="edit-order-icon" />
                                 </Button>
                             </Col>
@@ -243,6 +246,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
             </Card.Body>
             <EditField show={editModalShow} onHide={() => { setEditModalShow(false); setInput(''); }} input={input} name={name} productId={productId} orderId={orderId} setInput={setInput} />
             <CancelProductOrder show={cancelModalShow} onHide={() => { setCancelModalShow(false) }} productId={productId} orderId={orderId} />
+            <EditeProductOrder show={editOrder} onHide={() => { setEditOrder(false) }} order={editProductOrder} />
         </Card >
     )
 }

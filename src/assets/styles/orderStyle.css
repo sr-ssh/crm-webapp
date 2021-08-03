@@ -181,7 +181,11 @@
   border-top: 1px solid var(--button-background);
   margin-right: 0vw;
 }
-
+.border-top-blue .col-5 {
+  color: var(--text-color-two);
+  font-size: 13px;
+  font-weight: 600;
+}
 .reminder-span {
   font-size: 9px;
 }
@@ -321,6 +325,19 @@
 .edit-order-btn:focus:active {
   background-color: var(--button-color-one) !important;
 }
+.card--title--address {
+  font-size: 11px;
+  color: var(--text-grey);
+  font-family: "IranSans";
+}
+.basket--Product--Container {
+  border-radius: 11px;
+  background-color: var(--card-background);
+}
+.address-input {
+  max-height: 10vh;
+}
+
 @media print {
   .noPrint {
     display: none;
