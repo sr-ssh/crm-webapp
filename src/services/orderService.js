@@ -92,7 +92,7 @@ function editOrderPrice(orderId, productId, price) {
     };
 
     return axios
-        .put(`${baseRoute}/order/price`, requestOptions.body, { headers: requestOptions.headers })
+        .put(`${baseRoute}/order/product/price`, requestOptions.body, { headers: requestOptions.headers })
         .then(res => {
             console.log("res.user >> ");
             console.log(res.data);
@@ -116,7 +116,7 @@ function editOrderQuantity(orderId, productId, quantity) {
     };
 
     return axios
-        .put(`${baseRoute}/order/quantity`, requestOptions.body, { headers: requestOptions.headers })
+        .put(`${baseRoute}/order/product/quantity`, requestOptions.body, { headers: requestOptions.headers })
         .then(res => {
             console.log("res.user >> ");
             console.log(res.data);
