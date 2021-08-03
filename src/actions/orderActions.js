@@ -13,7 +13,8 @@ export const orderActions = {
     editSms,
     sendDeliverySms,
     editNewSms,
-    cancelProductOrder
+    cancelProductOrder,
+    editProductOrder
 }
 
 function getOrders(filter) {
@@ -140,6 +141,38 @@ function editOrderQuantity(orderId, productId, status) {
 
     }
 }
+
+function editProductOrder({ orderId, products, address }) {
+    return dispatch => {
+        dispatch(request(orderConstants.EDIT_PRODUCT_ORDER_REQUEST))
+        orderService.editProductOrder(orderId, products, address)
+            .then(
+                res => {
+                    if (res === undefined) {
+                        dispatch(alertActions.error('ارتباط با سرور برقرار نیست'))
+                        dispatch(failure('ارتباط با سرور برقرار نمیباشد'))
+                    }
+                    else if (res.success) {
+                        console.log("order status changed")
+                        dispatch(success(orderConstants.EDIT_PRODUCT_ORDER_SUCCESS, res.data))
+                        dispatch(alertActions.success(res.message));
+                    }
+
+                    setTimeout(() => {
+                        dispatch(alertActions.clear());
+                    }, 1500);
+                },
+                error => {
+                    dispatch(failure(orderConstants.EDIT_PRODUCT_ORDER_FAILURE, error.toString()));
+                    console.log("occure error");
+                    console.log(error.toString());
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+
+    }
+}
+
 
 function cancelProductOrder(orderId, productId) {
     console.log("actions");

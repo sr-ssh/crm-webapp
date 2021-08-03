@@ -19,9 +19,12 @@ export const EditeProductOrder = (props) => {
     const [quantityOrder, setQuantityOrder] = useState(1)
     const [order, insertOrder] = useState([])
     const [oldProduct, setOldProduct] = useState([])
+    const [validated, setValidated] = useState(false)
+    const [addressUser, setAddressUser] = useState('')
     const dispatch = useDispatch()
 
     const products = useSelector(state => state.getProducts.product)
+    const loader = useSelector(state => state.editProducOrder.loading)
 
     let productHandler = (e) => {
         e.preventDefault()
@@ -40,7 +43,7 @@ export const EditeProductOrder = (props) => {
             _id: product._id,
             name: product.name,
             quantity: parseInt(quantityOrder),
-            sellingPrice: product.sellingPrice,
+            sellingPrice: product.sellingPrice
         };
         console.log(newOrder.quantity, order)
         const isOrderPresent = order.some((item) => item._id === product._id);
@@ -51,6 +54,7 @@ export const EditeProductOrder = (props) => {
                 }
                 return item;
             });
+            console.log(order);
             insertPrice(parseInt(totalPrice) + (parseInt(quantityOrder) * parseInt(oldProduct.sellingPrice)))
             insertOrder(updatedOrder);
         } else {
@@ -68,6 +72,7 @@ export const EditeProductOrder = (props) => {
     useEffect(async () => {
         await insertOrder(props.order.products)
         await setOldProduct(props.order.products)
+        await setAddressUser(props.order.address)
         let total = 0
         props.order.products?.map(item => {
             total += item.sellingPrice * item.quantity;
@@ -82,8 +87,34 @@ export const EditeProductOrder = (props) => {
         insertPrice("0")
         setItem("")
     }
-    console.log(products);
-    console.log(order);
+    let addressInputHandler = e => {
+        setAddressUser(e.target.value)
+    }
+    const formHandler = (e) => {
+        e.preventDefault()
+
+        if (order) {
+            let orders = order.map(item => { return { _id: item._id, quantity: item.quantity, sellingPrice: item.sellingPrice } })
+            let params = {
+                orderId: props.order.id,
+                products: orders,
+                address: addressUser || ""
+            };
+
+            dispatch(orderActions.editProductOrder(params))
+            setValidated(true)
+
+            setTimeout(() => {
+                dispatch(orderActions.getOrders())
+                props.onHide(false)
+            }, 1000);
+        } else {
+            setValidated(false)
+        }
+    }
+
+
+    console.log(loader);
 
     return (
         <Modal
@@ -98,26 +129,19 @@ export const EditeProductOrder = (props) => {
                 <Button className="border-0 customer-modal-close" type="button" onClick={closeHandler}>
                     <img className="d-flex m-auto customer-modal-close-svg" src={closeIcon} alt="close-btn" />
                 </Button>
-                {/* {
-                alert.message && 
-                <>
-                <div className="modal-backdrop show"></div>
-                    <Row className="justify-content-center text-center ">
-                        <Alert variant={alert.type}>
-                            {alert.message}
-                        </Alert> 
-                    </Row>
-                </>
-                } */}
+
                 {
                     props.show &&
-                    <Form>
+                    <Form onSubmit={formHandler}>
                         <Container className="m-0 p-0 mx-auto d-flex flex-column justify-content-between">
                             <Row className="m-0 p-0 mt-2" >
                                 <Col className="p-0 ">
                                     <Card className="border-0 bg-transparent text-light">
                                         <Form.Label className="pe-3">آدرس</Form.Label>
-                                        <Form.Control className="order-input address-input" type="text" defaultValue={props.order.address} />
+                                        <Form.Control className="order-input address-input" type="text"
+                                            defaultValue={props.order.address}
+                                            onChange={addressInputHandler}
+                                        />
                                     </Card>
                                 </Col>
                             </Row>
@@ -129,7 +153,6 @@ export const EditeProductOrder = (props) => {
                                         </Row>
                                         <Row className="d-flex align-content-center">
                                             <Col className="col-10 pe-2">
-                                                {/* */}
                                                 <Dropdown onToggle={(e) => setDimStatus(!dimStatus)} onClick={(e) => productHandler(e)}>
                                                     <Dropdown.Toggle className="d-flex align-items-center justify-content-between px-1 py-3 ">
 
@@ -206,24 +229,24 @@ export const EditeProductOrder = (props) => {
                                     </Card.Body>
                                 </Card>
                             </Row>
-                            {/* {
-                    //         loader ? (
-                    //             <Button className="fw-bold order-submit border-0 w-100 mt-4" size="lg" type="submit" disabled>
-                    //                 <Spinner
-                    //                     as="span"
-                    //                     animation="grow"
-                    //                     size="sm"
-                    //                     role="status"
-                    //                     aria-hidden="true"
-                    //                 />
-                    //                 در حال انجام عملیات...
-                    //             </Button>
-                    //         ) : ( */}
-                            <Button className="fw-bold order-submit border-0 w-100 mt-4" size="lg" type="submit" block>
-                                ثبت
-                            </Button>
-                            {/* )
-                    //     } */}
+                            {
+                                loader ? (
+                                    <Button className="fw-bold order-submit border-0 w-100 mt-4" size="lg" type="submit" disabled>
+                                        <Spinner
+                                            as="span"
+                                            animation="grow"
+                                            size="sm"
+                                            role="status"
+                                            aria-hidden="true"
+                                        />
+                                        در حال انجام عملیات...
+                                    </Button>
+                                ) : (
+                                    <Button className="fw-bold order-submit border-0 w-100 mt-4" size="lg" type="submit" block>
+                                        ثبت
+                                    </Button>
+                                )
+                            }
                         </Container>
                     </Form>
                 }

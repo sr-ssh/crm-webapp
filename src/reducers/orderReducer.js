@@ -96,6 +96,30 @@ export function editOrderQuantity(state = initialState, action) {
 }
 
 
+export function editProducOrder(state = initialState, action) {
+    switch (action.type) {
+        case orderConstants.EDIT_PRODUCT_ORDER_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+        case orderConstants.EDIT_PRODUCT_ORDER_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+            }
+        case orderConstants.EDIT_PRODUCT_ORDER_FAILURE:
+            return {
+                err: action.err,
+                loading: false
+            }
+        default:
+            return state
+    }
+}
+
+
+
 export function cancelProductOrder(state = initialState, action) {
     switch (action.type) {
         case orderConstants.CANCEL_PRODUCT_ORDER_REQUEST:

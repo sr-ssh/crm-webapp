@@ -157,13 +157,6 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                                                         <Col className="ps-0">
                                                             {(item.quantity * item.sellingPrice) && persianJs(item.quantity * item.sellingPrice).englishNumber().toString()}
                                                         </Col>
-                                                        {
-                                                            order.status !== 2 ?
-                                                                <Col className="my-0 pe-0" onClick={() => edit(item.sellingPrice, 'price', order.id, item._id)}>
-                                                                    <img className="" src={editIcon} height="25px" alt="edit-icon" />
-                                                                </Col>
-                                                                : null
-                                                        }
                                                     </Row>
                                                 </td>
                                                 <td>
@@ -171,24 +164,10 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                                                         <Col className="ps-0">
                                                             {item.quantity && persianJs(item.quantity).englishNumber().toString()}
                                                         </Col>
-                                                        {
-                                                            order.status !== 2 ?
-                                                                <Col className="my-0 pe-0" onClick={() => edit(item.quantity, 'quantity', order.id, item._id)}>
-                                                                    <img className="" src={editIcon} height="25px" alt="edit-icon" />
-                                                                </Col>
-                                                                : null
-                                                        }
                                                     </Row>
                                                 </td>
                                                 <td className="d-flex justify-content-center align-content-center">
                                                     <Row>
-                                                        {
-                                                            order.status !== 2 ?
-                                                                <Col className="my-0 pe-0" onClick={() => cancel(order.id, item._id)}>
-                                                                    <img className="" src={deleteIcon} height="25px" alt="edit-icon" />
-                                                                </Col>
-                                                                : null
-                                                        }
                                                     </Row>
                                                 </td>
                                             </tr>
