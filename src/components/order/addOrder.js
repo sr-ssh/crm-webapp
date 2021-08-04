@@ -242,7 +242,7 @@ export const AddOrder = () => {
                     </Row>
 
                     <Row className="m-0 mt-4 justify-content-center w-100">
-                        <Col className="col-12">
+                        <Col className="col-7 m-0 p-0 ps-1">
                             {
                                 addOrderLoading ? (
                                     <Button className="fw-bold order-submit border-0 w-100" size="lg" type="submit" disabled>
@@ -256,11 +256,16 @@ export const AddOrder = () => {
                                         در حال ثبت سفارش...
                                     </Button>
                                 ) : (
-                                    <Button className="fw-bold order-submit border-0 w-100" size="lg" type="submit" block>
+                                    <Button className="fw-bold order--btn order-submit border-0 w-100" size="lg" type="submit" block>
                                         ثبت
                                     </Button>
                                 )
                             }
+                        </Col>
+                        <Col className="col-5 m-0 p-0 pe-1">
+                            <Button className=" order--btn order--sale--opportunity border-0 w-100" size="lg" type="submit" block>
+                                فرصت فروش
+                            </Button>
                         </Col>
                     </Row>
                     {

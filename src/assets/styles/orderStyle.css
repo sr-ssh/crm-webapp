@@ -61,17 +61,22 @@
 .order-page .form-control {
   height: calc(1.5em + 0.75rem + 1px);
 }
-
-.order-submit {
-  background-color: var(--button-background);
+.order--btn {
   border: none;
   border-radius: 11px;
   font-size: 14px;
   font-weight: bold;
   height: 43px;
-  color: var(--button-color-one);
   font-family: "IranSans";
   padding: 11px;
+}
+.order-submit {
+  background-color: var(--button-background);
+  color: var(--button-color-one);
+}
+.order--sale--opportunity {
+  color: #fff;
+  background-color: var(--button-color-one);
 }
 
 .order-page .card {
