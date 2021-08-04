@@ -21,7 +21,7 @@ export const AddOrder = () => {
     const [mobileValidated, setMobileValidated] = useState(false);
     const [nameValidated, setNameValidated] = useState(false);
     const [order, insertOrder] = useState([])
-    const [customer, setCustomer] = useState({})
+    const [customer, setCustomer] = useState({ birthday: "" })
     const [totalPrice, insertPrice] = useState("0")
     const [selectedItem, setItem] = useState("")
     const [quantity, setQuantity] = useState(1)
@@ -77,8 +77,9 @@ export const AddOrder = () => {
     let formHandler = (e) => {
         e.preventDefault()
         if (order.length && customer.family && customer.mobile) {
+            console.log(customer)
             dispatch(orderActions.addOrder(order, customer))
-            setCustomer({ mobile: "", address: "", family: "", reminder: "", duration: "" })
+            setCustomer({ mobile: "", address: "", family: "", reminder: "", duration: "", companyName: "" })
             insertOrder([])
             insertPrice("0")
             setItem("")
@@ -94,7 +95,6 @@ export const AddOrder = () => {
             setValidated(true);
         }
     }
-    console.log(customer);
 
     // const submitCalendar = (value, name) => {
     //     let birthDate = `${value.year}/${value.month.number}/${value.day}`
@@ -191,10 +191,7 @@ export const AddOrder = () => {
                                 /> */}
                                 <Form.Control className="order-input" type="text" name="companyName"
                                     onChange={handleChange}
-                                    // isInvalid={((!customer.family && validated) || (nameValidated) && true)}
-                                    // isValid={((customer.family && validated) || (nameValidated && customer.family) && true)}
-                                    // value={customer.}
-                                    required
+                                // value={customer.}
                                 />
                             </Form.Group>
                         </Col>
