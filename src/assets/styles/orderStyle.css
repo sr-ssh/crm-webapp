@@ -51,9 +51,8 @@
   color: var(--text-color-two);
   font-size: 14px;
   border: none;
-  max-height: 4vh;
+  max-height: 6vh;
 }
-
 .order-input:focus {
   outline: var(--button-color-one);
   border: 1px solid var(--button-color-one);
@@ -337,7 +336,15 @@
 .address-input {
   max-height: 10vh;
 }
-
+.btn--add--note {
+  font-size: 14px;
+  padding: 0.5rem 0;
+  border: none;
+  color: var(--button-color-one);
+  background-color: var(--background-blue);
+  margin-bottom: 0.7rem;
+  border-radius: 8px;
+}
 @media print {
   .noPrint {
     display: none;

@@ -10,6 +10,7 @@ import "react-multi-date-picker/styles/layouts/mobile.css"
 import { alertActions } from '../../actions/alertActions';
 
 import downloadIcon from '../../assets/images/download.svg'
+import addIcon from '../../assets/images/order/add.svg'
 
 export const AddOrder = () => {
 
@@ -93,12 +94,13 @@ export const AddOrder = () => {
             setValidated(true);
         }
     }
+    console.log(customer);
 
-    const submitCalendar = (value, name) => {
-        let birthDate = `${value.year}/${value.month.number}/${value.day}`
-        birthDate = moment.from(birthDate, 'fa', 'YYYY/MM/DD').locale('en').format('YYYY-MM-DD');
-        setCustomer({ ...customer, [name]: birthDate })
-    }
+    // const submitCalendar = (value, name) => {
+    //     let birthDate = `${value.year}/${value.month.number}/${value.day}`
+    //     birthDate = moment.from(birthDate, 'fa', 'YYYY/MM/DD').locale('en').format('YYYY-MM-DD');
+    //     setCustomer({ ...customer, [name]: birthDate })
+    // }
     useEffect(() => {
         if (oldCustomer?.mobile)
             setCustomer({ ...customer, ...oldCustomer })
@@ -171,8 +173,8 @@ export const AddOrder = () => {
                         </Col>
                         <Col className="p-0 col-5 me-auto add-order-input">
                             <Form.Group controlId="birthday">
-                                <Form.Label className="pe-2">تاریخ تولد</Form.Label>
-                                <DatePicker
+                                <Form.Label className="pe-2">نام شرکت</Form.Label>
+                                {/* <DatePicker
                                     style={{
                                         width: "100%"
                                     }}
@@ -186,6 +188,13 @@ export const AddOrder = () => {
                                     animation
                                     maxDate={new Date()}
                                     onChange={value => submitCalendar(value, 'birthday')}
+                                /> */}
+                                <Form.Control className="order-input" type="text" name="companyName"
+                                    onChange={handleChange}
+                                    // isInvalid={((!customer.family && validated) || (nameValidated) && true)}
+                                    // isValid={((customer.family && validated) || (nameValidated && customer.family) && true)}
+                                    // value={customer.}
+                                    required
                                 />
                             </Form.Group>
                         </Col>
@@ -196,7 +205,13 @@ export const AddOrder = () => {
                             <Basket order={order} insertOrder={insertOrder} totalPrice={totalPrice} insertPrice={insertPrice} selectedItem={selectedItem} setItem={setItem} quantity={quantity} setQuantity={setQuantity} />
                         </Col>
                     </Row>
-
+                    <Row >
+                        <Col className="mt-3 ">
+                            <Button className="ms-auto d-flex flex-row justify-content-center align-items-center btn--add--note ">
+                                <img className="me-3" src={addIcon} height="25px" alt="edit-icon" /><span className="me-1 fw-bold ms-3">اضافه یادداشت</span>
+                            </Button>
+                        </Col>
+                    </Row>
                     <Row className="m-0 align-self-start flex-row">
                         <Col className=" mt-3 order-inputs">
                             <Form.Group controlId="duration">
