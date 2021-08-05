@@ -19,6 +19,9 @@ import './assets/styles/financeStyle.css';
 import './assets/styles/determineStyle.css';
 import './assets/styles/employeeStyle.css';
 import './assets/styles/settingStyle.css';
+import './assets/styles/saleOpprotunityStyle.css';
+
+
 import { BrowserRouter } from 'react-router-dom';
 
 

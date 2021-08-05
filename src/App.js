@@ -23,29 +23,32 @@ import { Setting } from './components/setting/setting';
 import Bills from './components/finance/bills';
 import { Applications } from './components/employee/applications';
 import { Account } from './components/acounts/account';
+import { SaleOpprotunity } from './components/order/saleOpprotunity';
+
 
 function App() {
-  return (    
-        <Router history={history}>
-            <Switch>
-            <Route exact path="/" component={Login} />
-            <Route path="/register" component={Determine} />
-            <PrivateRoute path="/products" component={Products} ></PrivateRoute>
-            <PrivateRoute path="/orders" component={Orders} ></PrivateRoute>
-            <PrivateRoute path="/customers" component={Customers} ></PrivateRoute>
-            <PrivateRoute path="/reminders" component={Reminders} ></PrivateRoute>
-            <PrivateRoute path="/discounts" component={Discounts} ></PrivateRoute>
-            <PrivateRoute path="/finance" component={Finance}></PrivateRoute>
-            <PrivateRoute path="/bills" component={Bills}></PrivateRoute>
-            <PrivateRoute path="/dashboard" component={Dashboard} ></PrivateRoute>
-            <PrivateRoute path="/order/add" component={AddOrder} ></PrivateRoute>
-            <PrivateRoute path="/employees" component={Employees} ></PrivateRoute>
-            <PrivateRoute path="/setting" component={Setting}></PrivateRoute>
-            <PrivateRoute path="/employee/add" component={Applications} ></PrivateRoute>
-            <PrivateRoute path="/account" component={Account} ></PrivateRoute>
-            <Redirect from="*" to="/" />
-            </Switch>
-        </Router>
+  return (
+    <Router history={history}>
+      <Switch>
+        <Route exact path="/" component={Login} />
+        <Route path="/register" component={Determine} />
+        <PrivateRoute path="/products" component={Products} ></PrivateRoute>
+        <PrivateRoute path="/orders" component={Orders} ></PrivateRoute>
+        <PrivateRoute path="/customers" component={Customers} ></PrivateRoute>
+        <PrivateRoute path="/reminders" component={Reminders} ></PrivateRoute>
+        <PrivateRoute path="/discounts" component={Discounts} ></PrivateRoute>
+        <PrivateRoute path="/finance" component={Finance}></PrivateRoute>
+        <PrivateRoute path="/bills" component={Bills}></PrivateRoute>
+        <PrivateRoute path="/dashboard" component={Dashboard} ></PrivateRoute>
+        <PrivateRoute path="/order/add" component={AddOrder} ></PrivateRoute>
+        <PrivateRoute path="/employees" component={Employees} ></PrivateRoute>
+        <PrivateRoute path="/setting" component={Setting}></PrivateRoute>
+        <PrivateRoute path="/employee/add" component={Applications} ></PrivateRoute>
+        <PrivateRoute path="/account" component={Account} ></PrivateRoute>
+        <PrivateRoute path="/saleopprotunity" component={SaleOpprotunity} ></PrivateRoute>
+        <Redirect from="*" to="/" />
+      </Switch>
+    </Router>
   );
 }
 

@@ -1,0 +1,17 @@
+.btn--sale--opprotunity {
+  display: flex;
+  align-items: center;
+  background-color: var(--button-color-one);
+  border-radius: 11px;
+}
+.btn--sale--opprotunity span {
+  color: #fff;
+  font-size: 12px;
+}
+
+.btn--sale--opprotunity:focus,
+.btn--sale--opprotunity:active,
+.btn--sale--opprotunity:active:focus,
+.btn--sale--opprotunity:focus:active {
+  background-color: var(--button-color-one) !important;
+}
