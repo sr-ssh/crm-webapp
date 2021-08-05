@@ -7,7 +7,7 @@ import persianJs from 'persianjs/persian.min';
 //icons
 import deliveryIcon from './../../assets/images/order/delivery.svg'
 import printIcon from './../../assets/images/order/print.svg'
-import registerIcon from './../../assets/images/order/register.svg'
+import submitIcon from './../../assets/images/order/submit.svg'
 import editIcon from '../../assets/images/Products/edit.svg'
 import deleteIcon from '../../assets/images/delete.svg'
 import editeOrderIcon from '../../assets/images/order/edit-order-list.svg'
@@ -215,7 +215,7 @@ export const SaleOpprotunity = ({ order, deliveryShow, setDeliveryShow, cancelOr
                             </Col>
                             <Col xs={6} className="p-0 px-1 ">
                                 <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button">
-                                    <img src={noteListIcon} height="25px" alt="edit-order-icon" className="col-3" />
+                                    <img src={noteListIcon} height="25px" alt="note-list-icon" className="col-3" />
                                     <span>یادداشت ها</span>
                                 </Button>
                             </Col>
@@ -229,7 +229,7 @@ export const SaleOpprotunity = ({ order, deliveryShow, setDeliveryShow, cancelOr
                             </Col>
                             <Col xs={6} className="p-0 px-1">
                                 <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button">
-                                    <img src={deliveryIcon} height="25px" alt="edit-order-icon" className="col-3" />
+                                    <img src={deliveryIcon} height="25px" alt="delivery-icon" className="col-3" />
                                     <span>پیک</span>
                                 </Button>
                             </Col>
@@ -237,13 +237,13 @@ export const SaleOpprotunity = ({ order, deliveryShow, setDeliveryShow, cancelOr
                         <Row className="p-0 m-0 pb-3 w-100">
                             <Col xs={6} className="p-0 px-1">
                                 <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button">
-                                    <img src={registerIcon} height="25px" alt="edit-order-icon" className="col-3" />
+                                    <img src={submitIcon} height="25px" alt="submit-icon" className="col-3" />
                                     <span>ثبت</span>
                                 </Button>
                             </Col>
                             <Col xs={6} className="p-0 px-1">
                                 <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button">
-                                    <img src={printIcon} height="25px" alt="edit-order-icon" className="col-3 py-1" />
+                                    <img src={printIcon} height="25px" alt="print-icon" className="col-3 py-1" />
                                     <span>چاپ</span>
                                 </Button>
                             </Col>
