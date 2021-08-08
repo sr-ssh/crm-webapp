@@ -207,13 +207,12 @@ function cancelProductOrder(orderId, productId) {
 
     }
 }
-function addOrder(products, customer) {
+function addOrder(products, customer, notes, status = '') {
     return dispatch => {
         dispatch(request())
-        orderService.addOrder(products, customer)
+        orderService.addOrder(products, customer, notes, status)
             .then(
                 res => {
-
                     console.log(res)
                     if (res === undefined) {
                         dispatch(alertActions.error('ارتباط با سرور برقرار نیست'));

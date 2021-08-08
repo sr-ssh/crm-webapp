@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { orderActions, customerActions } from '../../actions';
-import { Header } from '../base/header2';
-import { Basket } from './basket';
 import { Container, Form, Button, Row, Col, Alert, Spinner } from 'react-bootstrap';
 import DatePicker from "react-multi-date-picker";
 import moment from 'jalali-moment';
-import "react-multi-date-picker/styles/layouts/mobile.css"
-import { alertActions } from '../../actions/alertActions';
+import "react-multi-date-picker/styles/layouts/mobile.css";
 
+// Actions
+import { alertActions } from '../../actions/alertActions';
+import { orderActions, customerActions } from '../../actions';
+
+// Components
+import { Header } from '../base/header2';
+import { Basket } from './basket';
+import { AddNotesModal } from './addNotesModal'
+// Assets
 import downloadIcon from '../../assets/images/download.svg'
 import addIcon from '../../assets/images/order/add.svg'
 
@@ -26,6 +31,7 @@ export const AddOrder = () => {
     const [selectedItem, setItem] = useState("")
     const [quantity, setQuantity] = useState(1)
     const [notes, setNotes] = useState([])
+    const [showNotesModal, setShowNotesModal] = useState(false)
     const dispatch = useDispatch()
     let oldCustomer = useSelector(state => state.getCustomer.customer)
     let { loading } = useSelector(state => state.getCustomer)
@@ -77,11 +83,16 @@ export const AddOrder = () => {
 
     let formHandler = (e) => {
         e.preventDefault()
+
+
         if (order.length && customer.family && customer.mobile) {
-            console.log(customer)
-            dispatch(orderActions.addOrder(order, customer))
+            if (e.nativeEvent.submitter.id === 'saleOpprotunity')
+                dispatch(orderActions.addOrder(order, customer, notes, 3))
+            else
+                dispatch(orderActions.addOrder(order, customer, notes))
             setCustomer({ mobile: "", address: "", family: "", reminder: "", duration: "", company: "" })
             insertOrder([])
+            setNotes([])
             insertPrice("0")
             setItem("")
             setQuantity(1)
@@ -96,20 +107,14 @@ export const AddOrder = () => {
             setValidated(true);
         }
     }
-
-    // const now = 1439007929000;
-    // const option = {
-    //     day: "numeric",
-    //     month: "long",
-    //     year: "numeric"
-    // }
-
-    // console.log(new Intl.DateTimeFormat("fa-IR", option).format(now));
-
     let noteHandler = (e) => {
-        let value = e.target.value
-        console.log(value);
-
+        if (notes.length > 0) {
+            dispatch(alertActions.error('بیشتر از یک یادداشت مجاز نیست'));
+            setTimeout(() => {
+                dispatch(alertActions.clear());
+            }, 1100);
+        } else
+            setShowNotesModal(true)
     }
 
     // const submitCalendar = (value, name) => {
@@ -207,7 +212,7 @@ export const AddOrder = () => {
                                 /> */}
                                 <Form.Control className="order-input" type="text" name="company"
                                     onChange={handleChange}
-                                // value={customer.}
+                                    value={customer.company}
                                 />
                             </Form.Group>
                         </Col>
@@ -219,9 +224,18 @@ export const AddOrder = () => {
                         </Col>
                     </Row>
                     <Row >
-                        <Col className="mt-3">
-                            <Button className={`d-flex flex-row ${notes.length > 0 ? 'w-100' : 'w-auto'} w-100 align-items-center btn--add--note `} onClick={noteHandler}>
-                                <img className="me-3" src={addIcon} height="25px" alt="edit-icon" /><span className="me-1 fw-bold ms-3">اضافه یادداشت</span>
+                        <Col className="mt-3 w-100">
+                            <Button className={`d-flex flex-row ${notes.length > 0 ? 'w-100' : 'w-auto'}  align-items-center btn--add--note `} onClick={noteHandler}>
+                                <img className="me-3" src={addIcon} height="25px" alt="edit-icon" /><span className="me-1 fw-bold ms-3">
+                                    {
+                                        notes.length > 0 ?
+                                            notes[0].text
+                                            :
+                                            <>
+                                                اضافه یادداشت
+                                            </>
+                                    }
+                                </span>
                             </Button>
                         </Col>
                     </Row>
@@ -279,7 +293,7 @@ export const AddOrder = () => {
                             }
                         </Col>
                         <Col className="col-5 m-0 p-0 pe-1">
-                            <Button className=" order--btn order--sale--opportunity border-0 w-100" size="lg" type="submit" block>
+                            <Button className="order--btn border-0 w-100 btn-secondary order--sale--opportunity" id="saleOpprotunity" size="lg" type="submit" block>
                                 فرصت فروش
                             </Button>
                         </Col>
@@ -297,6 +311,7 @@ export const AddOrder = () => {
                     }
                 </Form>
             </Container>
+            <AddNotesModal show={showNotesModal} onHide={() => { setShowNotesModal(false) }} setNotes={setNotes} />
         </div >
     )
 }
