@@ -201,7 +201,7 @@ function addOrder(products, customer) {
     };
 
     return axios
-        .post(`${baseRoute}/order`, requestOptions.body, { headers: requestOptions.headers })
+        .post(`${baseRoute}/order/v1`, requestOptions.body, { headers: requestOptions.headers })
         .then(res => {
             console.log("res.user >> ");
             console.log(res.data);

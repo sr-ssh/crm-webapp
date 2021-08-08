@@ -33,7 +33,7 @@ function App() {
         <Route exact path="/" component={Login} />
         <Route path="/register" component={Determine} />
         <PrivateRoute path="/products" component={Products} ></PrivateRoute>
-        <PrivateRoute path="/orders" component={SaleOpprotunity} ></PrivateRoute>
+        <PrivateRoute path="/orders" component={Orders} ></PrivateRoute>
         <PrivateRoute path="/customers" component={Customers} ></PrivateRoute>
         <PrivateRoute path="/reminders" component={Reminders} ></PrivateRoute>
         <PrivateRoute path="/discounts" component={Discounts} ></PrivateRoute>

@@ -350,6 +350,14 @@
   margin-bottom: 0.7rem;
   border-radius: 8px;
 }
+.btn--add--note:hover,
+.btn--add--note:active,
+.btn--add--note:focus,
+.btn--add--note:focus:active,
+.btn--add--note:active:focus {
+  color: var(--button-color-one);
+  background-color: var(--background-blue) !important;
+}
 @media print {
   .noPrint {
     display: none;

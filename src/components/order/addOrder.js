@@ -25,6 +25,7 @@ export const AddOrder = () => {
     const [totalPrice, insertPrice] = useState("0")
     const [selectedItem, setItem] = useState("")
     const [quantity, setQuantity] = useState(1)
+    const [notes, setNotes] = useState([])
     const dispatch = useDispatch()
     let oldCustomer = useSelector(state => state.getCustomer.customer)
     let { loading } = useSelector(state => state.getCustomer)
@@ -79,7 +80,7 @@ export const AddOrder = () => {
         if (order.length && customer.family && customer.mobile) {
             console.log(customer)
             dispatch(orderActions.addOrder(order, customer))
-            setCustomer({ mobile: "", address: "", family: "", reminder: "", duration: "", companyName: "" })
+            setCustomer({ mobile: "", address: "", family: "", reminder: "", duration: "", company: "" })
             insertOrder([])
             insertPrice("0")
             setItem("")
@@ -94,6 +95,21 @@ export const AddOrder = () => {
             console.log('empty order can not be sent')
             setValidated(true);
         }
+    }
+
+    // const now = 1439007929000;
+    // const option = {
+    //     day: "numeric",
+    //     month: "long",
+    //     year: "numeric"
+    // }
+
+    // console.log(new Intl.DateTimeFormat("fa-IR", option).format(now));
+
+    let noteHandler = (e) => {
+        let value = e.target.value
+        console.log(value);
+
     }
 
     // const submitCalendar = (value, name) => {
@@ -189,7 +205,7 @@ export const AddOrder = () => {
                                     maxDate={new Date()}
                                     onChange={value => submitCalendar(value, 'birthday')}
                                 /> */}
-                                <Form.Control className="order-input" type="text" name="companyName"
+                                <Form.Control className="order-input" type="text" name="company"
                                     onChange={handleChange}
                                 // value={customer.}
                                 />
@@ -203,8 +219,8 @@ export const AddOrder = () => {
                         </Col>
                     </Row>
                     <Row >
-                        <Col className="mt-3 ">
-                            <Button className="ms-auto d-flex flex-row justify-content-center align-items-center btn--add--note ">
+                        <Col className="mt-3">
+                            <Button className={`d-flex flex-row ${notes.length > 0 ? 'w-100' : 'w-auto'} w-100 align-items-center btn--add--note `} onClick={noteHandler}>
                                 <img className="me-3" src={addIcon} height="25px" alt="edit-icon" /><span className="me-1 fw-bold ms-3">اضافه یادداشت</span>
                             </Button>
                         </Col>
