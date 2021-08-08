@@ -40,7 +40,7 @@ export const SidebarItems = () => {
                     </Col>
                 }
                 {
-                    permissions && permissions.saleopprotunity &&
+                    permissions && permissions.saleOpprotunity &&
                     <Col xs={10} sm={10} md={10} lg={10} className="py-3 mx-3 fw-bold sidebarItem">
                         <Link to="/saleopprotunity">فرصت سفارشات</Link>
                     </Col>

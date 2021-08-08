@@ -1,33 +1,36 @@
 export function isPermitted(route) {
     let permissions = JSON.parse(localStorage.getItem('permissions'));
-    if(route === "/products"){
-        if(permissions.getProducts)
+    if (route === "/products") {
+        if (permissions.getProducts)
             return true;
-    }else if(route === "/orders"){
-        if(permissions.getOrders)
+    } else if (route === "/saleopprotunity") {
+        if (permissions.saleOpprotunity)
             return true;
-    }else if(route === "/customers"){
-        if(permissions.getCustomers)
+    } else if (route === "/orders") {
+        if (permissions.getOrders)
             return true;
-    }else if(route === "/reminders"){
-        if(permissions.reminder)
+    } else if (route === "/customers") {
+        if (permissions.getCustomers)
             return true;
-    }else if(route === "/discounts"){
-        if(permissions.getDiscounts)
+    } else if (route === "/reminders") {
+        if (permissions.reminder)
             return true;
-    }else if(route === "/order/add"){
-        if(permissions.addOrder)
+    } else if (route === "/discounts") {
+        if (permissions.getDiscounts)
             return true;
-    }else if(route === "/employees" || route === "/employee/add"){
-        if(permissions.getEmployees)
+    } else if (route === "/order/add") {
+        if (permissions.addOrder)
             return true;
-    }else if(route === "/finance" || route === "/bills"){
-        if(permissions.finance)
+    } else if (route === "/employees" || route === "/employee/add") {
+        if (permissions.getEmployees)
             return true;
-    }else if(route === "/setting") {
+    } else if (route === "/finance" || route === "/bills") {
+        if (permissions.finance)
+            return true;
+    } else if (route === "/setting") {
         return true
     }
-    else if(route === "/" || route === "/register" || route === "/dashboard" || route === "/account")
+    else if (route === "/" || route === "/register" || route === "/dashboard" || route === "/account")
         return true;
-    return false;   
+    return false;
 }
