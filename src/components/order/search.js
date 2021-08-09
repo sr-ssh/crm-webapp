@@ -10,13 +10,13 @@ import closeIcon from '../../assets/images/close.svg'
 
 export const OrderSearch = (props) => {
 
-    const [filters, setFilters] = useState({})
+    const [filters, setFilters] = useState({ status: '' })
     const dispatch = useDispatch()
 
     const handleChange = (e) => {
         e.preventDefault()
 
-        setFilters({...filters, [e.target.name]: e.target.value})
+        setFilters({ ...filters, [e.target.name]: e.target.value })
     }
 
     const formHandler = (e) => {
@@ -27,10 +27,10 @@ export const OrderSearch = (props) => {
 
     const submitCalendar = (value, name) => {
         let date = `${value.year}/${value.month.number}/${value.day}`
-        date =  moment.from(date, 'fa', 'YYYY/MM/DD').locale('en').format('YYYY-MM-DD');
-        setFilters({...filters, [name]: date})
+        date = moment.from(date, 'fa', 'YYYY/MM/DD').locale('en').format('YYYY-MM-DD');
+        setFilters({ ...filters, [name]: date })
     }
-    return(
+    return (
         <Modal
             {...props}
             size="lg"
@@ -38,7 +38,7 @@ export const OrderSearch = (props) => {
             centered className="mx-3 order-serach-modal"
         >
             <Modal.Body className="order-filter-body">
-                <Button className="border-0 customer-modal-close" type="button"  onClick={e => props.onHide(false)}>
+                <Button className="border-0 customer-modal-close" type="button" onClick={e => props.onHide(false)}>
                     <img className="d-flex m-auto customer-modal-close-svg" src={closeIcon} alt="close-btn" />
                 </Button>
                 <Form onSubmit={formHandler} >
@@ -46,7 +46,7 @@ export const OrderSearch = (props) => {
                         <Col className="col-6 order-filter-input">
                             <Form.Group>
                                 <Form.Label className="pe-2">نام مشتری</Form.Label>
-                                <Form.Control style={{"width":"94%"}}  className="order-input" type="text" name="customerName" value={filters.customerName} onChange={handleChange} />
+                                <Form.Control style={{ "width": "94%" }} className="order-input" type="text" name="customerName" value={filters.customerName} onChange={handleChange} />
                             </Form.Group>
                         </Col>
                     </Row>
@@ -54,7 +54,7 @@ export const OrderSearch = (props) => {
                         <Col className="col-6  order-filter-input">
                             <Form.Group>
                                 <Form.Label className="pe-2">موبایل</Form.Label>
-                                <Form.Control style={{"width":"94%"}}  className="order-input" type="number" name="customerMobile" value={filters.customerMobile} onChange={handleChange} />
+                                <Form.Control style={{ "width": "94%" }} className="order-input" type="number" name="customerMobile" value={filters.customerMobile} onChange={handleChange} />
                             </Form.Group>
                         </Col>
                     </Row>
@@ -62,14 +62,14 @@ export const OrderSearch = (props) => {
                         <Col className="col-6 order-filter-input">
                             <Form.Group className="ms-2">
                                 <Form.Label className="pe-2">تاریخ سفارش از</Form.Label>
-                                <DatePicker 
+                                <DatePicker
                                     inputClass="search-input"
-                                    className="rmdp-mobile" 
-                                    calendar="persian" 
-                                    locale="fa" 
+                                    className="rmdp-mobile"
+                                    calendar="persian"
+                                    locale="fa"
                                     value={filters.startDate && filters.startDate !== "1900-01-01T05:42:13.845Z" && moment(filters.startDate, 'YYYY-MM-DD').locale('fa').format('YYYY/MM/DD')}
-                                    calendarPosition="auto-right" 
-                                    editable={false} 
+                                    calendarPosition="auto-right"
+                                    editable={false}
                                     animation
                                     onChange={value => submitCalendar(value, 'startDate')}
                                 />
@@ -78,14 +78,14 @@ export const OrderSearch = (props) => {
                         <Col className="col-6 order-filter-input">
                             <Form.Group className="me-2">
                                 <Form.Label className="pe-2">تا</Form.Label>
-                                <DatePicker 
+                                <DatePicker
                                     inputClass="search-input"
-                                    className="rmdp-mobile" 
-                                    calendar="persian" 
-                                    locale="fa" 
+                                    className="rmdp-mobile"
+                                    calendar="persian"
+                                    locale="fa"
                                     value={filters.endDate && filters.endDate !== "1900-01-01T05:42:13.845Z" && moment(filters.endDate, 'YYYY-MM-DD').locale('fa').format('YYYY/MM/DD')}
-                                    calendarPosition="auto-right" 
-                                    editable={false} 
+                                    calendarPosition="auto-right"
+                                    editable={false}
                                     animation
                                     onChange={value => submitCalendar(value, 'endDate')}
                                 />
@@ -95,7 +95,7 @@ export const OrderSearch = (props) => {
                     <Row className="px-2 mt-4">
                         <Button className="order-filter-button" type="submit">جست و جو</Button>
                     </Row>
-                </Form> 
+                </Form>
             </Modal.Body>
         </Modal>
     );

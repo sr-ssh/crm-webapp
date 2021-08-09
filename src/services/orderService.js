@@ -25,7 +25,6 @@ export const orderService = {
 
 function getOrders(filter = {}) {
     console.log("into orderService");
-
     if (filter.customerName === "")
         filter.customerName = " "
     if (filter.customerMobile === "")
@@ -34,8 +33,11 @@ function getOrders(filter = {}) {
         filter.startDate = "1900-01-01T05:42:13.845Z"
     if (filter.endDate === "")
         filter.endDate = "1900-01-01T05:42:13.845Z"
+    if (filter.status === "")
+        filter.status = " "
 
     let {
+        status = ' ',
         customerName = ' ',
         customerMobile = '0',
         startDate = "1900-01-01T05:42:13.845Z",
@@ -46,7 +48,7 @@ function getOrders(filter = {}) {
         headers: authHeader()
     };
     return axios
-        .get(`${baseRoute}/order/${encodeURI(customerName)}/${customerMobile}/${startDate}/${endDate}`, requestOptions)
+        .get(`${baseRoute}/order/v1/${encodeURI(status)}/${encodeURI(customerName)}/${customerMobile}/${startDate}/${endDate}`, requestOptions)
         .then(res => {
             console.log("res.user >> "); console.log(res.data.data);
             return res.data

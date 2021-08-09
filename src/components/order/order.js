@@ -6,10 +6,13 @@ import persianJs from 'persianjs/persian.min';
 //icons
 import deliveryIcon from './../../assets/images/order/delivery.svg'
 import printIcon from './../../assets/images/order/print.svg'
-import cancelIcon from './../../assets/images/order/cancel.svg'
+import submitIcon from './../../assets/images/order/submit.svg'
 import editIcon from '../../assets/images/Products/edit.svg'
 import deleteIcon from '../../assets/images/delete.svg'
 import editeOrderIcon from '../../assets/images/order/edit-order-list.svg'
+import addNoteIcon from '../../assets/images/order/add-note-white.svg'
+import noteListIcon from '../../assets/images/order/note-list-white.svg'
+import cancelIcon from '../../assets/images/order/cancel.svg'
 
 
 
@@ -18,7 +21,7 @@ import { EditField } from './editField'
 import { CancelProductOrder } from './cancelProductOrder'
 import { EditeProductOrder } from './editProductOrder'
 
-export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, setCancelOrderShow, setActiveOrder, setOrder }) => {
+export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, setCancelOrderShow, recordOrderShow = '', setRecordOrderShow = {}, setActiveOrder, setOrder }) => {
 
     let [print, setPrint] = useState(false)
     const [editModalShow, setEditModalShow] = useState(false)
@@ -84,7 +87,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                                         نام مشتری: <span>{order.customer.family}</span>
                                     </Card.Text>
                                 </Col>
-                                <Col className="col-5">
+                                {/* <Col className="col-5">
                                     <Card.Text className="text-center">
                                         وضعیت: {(() => {
                                             switch (order.status) {
@@ -99,7 +102,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                                             }
                                         })()}
                                     </Card.Text>
-                                </Col>
+                                </Col> */}
                             </Row>
                             <Row className="flex-nowrap mt-2">
                                 <Col>
@@ -188,39 +191,56 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                         </tbody>
                     </Table>
                 </Row>
-                <Row className=" pb-3 text-start ms-3 justify-content-end">
-                    {
-                        order.status !== 2 &&
-                        <>
-
-                            <Col xs={3} className="text-start">
-                                <Button className="btn-outline-dark edit-order-btn p-1 border-0  noPrint" type="button" onClick={() => { setEditOrder(true); setEditProductOrder(order) }} >
-                                    <img src={editeOrderIcon} height="40px" alt="edit-order-icon" />
-                                </Button>
-                            </Col>
-                        </>
-                    }
-                    <Col xs={3} className="text-start">
-                        <Button className="btn-success reminder-sms-button p-1 border-0 noPrint" type="button" onClick={() => printWindow()}>
-                            <img src={printIcon} height="40px" alt="reminder-icon" />
+                <Row className="p-0 m-0 pb-3 w-100">
+                    <Col xs={6} className="p-0 px-1 pb-3">
+                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button">
+                            <img src={addNoteIcon} height="25px" alt="add-note-icon" className="col-3" />
+                            <span>اضافه یادداشت</span>
+                        </Button>
+                    </Col>
+                    <Col xs={6} className="p-0 px-1 pb-3">
+                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button">
+                            <img src={noteListIcon} height="25px" alt="note-list-icon" className="col-3" />
+                            <span>یادداشت ها</span>
                         </Button>
                     </Col>
                     {
                         order.status !== 2 &&
-                        <>
-                            <Col xs={3} className="text-start">
-                                <Button className="btn-primary delivery-sms-button p-1 border-0 noPrint" type="button" onClick={() => { setDeliveryShow(true); setOrder(order.id); }}>
-                                    <img src={deliveryIcon} height="40px" alt="delivery-icon" />
-                                </Button>
-                            </Col>
-                            <Col xs={3} className="text-start">
-                                <Button className="btn-danger cancel-order-btn p-1 border-0 noPrint" type="button" onClick={() => { setCancelOrderShow(true); setActiveOrder(order) }}>
-                                    <img src={cancelIcon} height="40px" alt="cancel-icon" />
-                                </Button>
-                            </Col>
-
-                        </>
+                        <Col xs={6} className="p-0 px-1 pb-3">
+                            <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setEditOrder(true); setEditProductOrder(order) }}>
+                                <img src={editeOrderIcon} height="25px" alt="edit-order-icon" className="col-3 py-1" />
+                                <span>تغییر</span>
+                            </Button>
+                        </Col>
                     }
+                    <Col xs={6} className="p-0 px-1 pb-3">
+                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setDeliveryShow(true); setOrder(order.id); }}>
+                            <img src={deliveryIcon} height="25px" alt="delivery-icon" className="col-3" />
+                            <span>پیک</span>
+                        </Button>
+                    </Col>
+                    {order.status === 3 &&
+                        <Col xs={6} className="p-0 px-1 pb-3">
+                            <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setRecordOrderShow(true); setActiveOrder(order) }}>
+                                <img src={submitIcon} height="25px" alt="print-icon" className="col-3" />
+                                <span>ثبت</span>
+                            </Button>
+                        </Col>}
+                    {order.status !== 3 && order.status !== 2 &&
+                        <Col xs={6} className="p-0 px-1 pb-3">
+                            <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setCancelOrderShow(true); setActiveOrder(order) }}>
+                                <img src={cancelIcon} height="25px" alt="print-icon" className="col-3" />
+                                <span>لغو سفارش</span>
+                            </Button>
+                        </Col>
+                    }
+                    <Col xs={6} className="p-0 px-1 pb-3">
+                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => printWindow()}>
+                            <img src={printIcon} height="25px" alt="submit-icon" className="col-3 py-1" />
+                            <span>چاپ</span>
+                        </Button>
+                    </Col>
+
                 </Row>
             </Card.Body>
             <EditField show={editModalShow} onHide={() => { setEditModalShow(false); setInput(''); }} input={input} name={name} productId={productId} orderId={orderId} setInput={setInput} />
