@@ -4,7 +4,8 @@ import { alertActions } from './alertActions';
 
 
 export const notesActions = {
-    getNotes
+    getNotes,
+    addNotes
 };
 
 function getNotes(orderId) {
@@ -39,28 +40,37 @@ function getNotes(orderId) {
     };
 }
 
-// function addNotes() {
-//     return dispatch => {
-//         dispatch(request(financeConstants.GET_BILLS_REQUEST));
+function addNotes(orderId, notes) {
+    return dispatch => {
+        dispatch(request(notesConstants.ADD_NOTES_REQUEST));
 
-//         financeService.getBills()
-//             .then(
-//                 bills => {
-//                     console.log(bills)
-//                     console.log("user into financeAction");
-//                     dispatch(success(financeConstants.GET_BILLS_SUCCESS, bills));
-//                     console.log("got the bills")
-//                     dispatch(alertActions.success('هزینه های جاری با موفقیت ارسال شدند'));
-//                 },
-//                 error => {
-//                     dispatch(failure(financeConstants.GET_BILLS_FAILURE, error.toString()));
-//                     console.log("occure error");
-//                     console.log(error.toString());
-//                     dispatch(alertActions.error(error.toString()));
-//                 }
-//             );
-//     };
-// }
+        notesService.addNotes(orderId, notes)
+            .then(
+                res => {
+                    if (res === undefined) {
+                        dispatch(alertActions.error('ارتباط با سرور برقرار نیست'));
+                        dispatch(failure(notesConstants.ADD_NOTES_FAILURE, 'ارتباط با سرور برقرار نیست'));
+                    } else if (res.success) {
+                        console.log("user into notesActions");
+                        dispatch(success(notesConstants.ADD_NOTES_SUCCESS, res.data));
+                    } else if (res.success === false) {
+                        console.log("user into notesActions");
+                        dispatch(failure(notesConstants.ADD_NOTES_FAILURE, res.data));
+                    }
+
+                    setTimeout(() => {
+                        dispatch(alertActions.clear());
+                    }, 1500);
+                },
+                error => {
+                    dispatch(failure(notesConstants.ADD_NOTES_FAILURE, error.toString()));
+                    console.log("occure error");
+                    console.log(error.toString());
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+    };
+}
 
 // function editStatusNotes(bill) {
 //     return dispatch => {

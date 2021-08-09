@@ -14,7 +14,7 @@ import { addDiscount } from './discountReducer';
 import { getEmployees, editEmployee, addEmployee, deleteEmployee, getApplications, addApplication } from './employeeReducer';
 import { getPermissions } from './employeeReducer';
 import { getUserInfo, editUserInfo } from './userReducer';
-import { getNotes } from './notesReducer'
+import { getNotes, addNotes } from './notesReducer'
 
 export default combineReducers({
     authentication,
@@ -51,5 +51,6 @@ export default combineReducers({
     editOrderQuantity,
     editOrderPrice,
     editProducOrder,
-    getNotes
+    getNotes,
+    addNotes
 })

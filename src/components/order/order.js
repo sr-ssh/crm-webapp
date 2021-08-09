@@ -17,6 +17,7 @@ import cancelIcon from '../../assets/images/order/cancel.svg'
 
 
 //components
+import { AddNotesModal } from './addNotesModal'
 import { EditField } from './editField'
 import { history } from '../../helpers/history'
 import { CancelProductOrder } from './cancelProductOrder'
@@ -28,6 +29,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
     const [editModalShow, setEditModalShow] = useState(false)
     const [cancelModalShow, setCancelModalShow] = useState(false);
     const [editOrder, setEditOrder] = useState(false)
+    const [showNotesModal, setShowNotesModal] = useState(false)
 
     const [input, setInput] = useState('')
     const [name, setName] = useState('')
@@ -199,7 +201,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                 </Row>
                 <Row className="p-0 m-0 pb-3 w-100">
                     <Col xs={6} className="p-0 px-1 pb-3">
-                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button">
+                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setShowNotesModal(true); setActiveOrder(order) }}>
                             <img src={addNoteIcon} height="25px" alt="add-note-icon" className="col-3" />
                             <span>اضافه یادداشت</span>
                         </Button>
@@ -252,6 +254,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
             <EditField show={editModalShow} onHide={() => { setEditModalShow(false); setInput(''); }} input={input} name={name} productId={productId} orderId={orderId} setInput={setInput} />
             <CancelProductOrder show={cancelModalShow} onHide={() => { setCancelModalShow(false) }} productId={productId} orderId={orderId} />
             <EditeProductOrder show={editOrder} onHide={() => { setEditOrder(false) }} order={editProductOrder} />
+            <AddNotesModal show={showNotesModal} onHide={() => { setShowNotesModal(false) }} permission={true} orderId={order.id} />
         </Card >
     )
 }

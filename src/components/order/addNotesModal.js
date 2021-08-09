@@ -1,17 +1,22 @@
 import React, { useState } from 'react'
-import { Modal, Row, Col, Form, Button } from 'react-bootstrap'
-
+import { Modal, Row, Col, Form, Button, Spinner } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
 //Assets
 import closeIcon from '../../assets/images/close.svg'
+
+// Actions
+import { notesActions } from '../../actions';
 
 
 export const AddNotesModal = (props) => {
 
     const [notesText, setNotesText] = useState('')
+    const loading = useSelector(state => state.addNotes.loading) || false
     const handleChange = (e) => {
         const value = e.target.value;
         setNotesText(value)
     }
+    const dispatch = useDispatch()
     const formHandler = (e) => {
         e.preventDefault();
         const now = new Date();
@@ -21,8 +26,12 @@ export const AddNotesModal = (props) => {
                 text: notesText,
                 createdAt: createdAt
             }
-            props.setNotes((prevNotesState) => [...prevNotesState, notes])
+            if (props.permission === true)
+                dispatch(notesActions.addNotes(props?.orderId, [notes]))
+            else
+                props.setNotes((prevNotesState) => [...prevNotesState, notes])
             props.onHide(false)
+
         }
         else
             props.onHide(false)
@@ -56,9 +65,21 @@ export const AddNotesModal = (props) => {
                                 </Form.Group>
                             </Col>
                         </Row>
-                        <Button className="fw-bold btn--notes--submit border-0 w-100 mt-4" size="lg" type="submit" block>
-                            ثبت
-                        </Button>
+                        {loading ?
+                            <Button className="fw-bold btn--notes--submit border-0 w-100 mt-4" size="lg" type="submit" disabled>
+                                <Spinner
+                                    as="span"
+                                    animation="grow"
+                                    size="sm"
+                                    role="status"
+                                    aria-hidden="true"
+                                />
+                                در حال ثبت ...
+                            </Button> :
+                            <Button className="fw-bold btn--notes--submit border-0 w-100 mt-4" size="lg" type="submit" block>
+                                ثبت
+                            </Button>
+                        }
                     </Form>
                 }
             </Modal.Body>

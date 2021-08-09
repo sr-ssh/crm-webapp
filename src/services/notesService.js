@@ -12,7 +12,8 @@ axios.interceptors.request.use(request => {
 })
 
 export const notesService = {
-    getNotes
+    getNotes,
+    addNotes
 };
 
 function getNotes(orderId) {
@@ -21,6 +22,27 @@ function getNotes(orderId) {
 
     return axios
         .get(`${baseRoute}/order/notes/${orderId}`)
+        .then(res => {
+            console.log("res.user >> "); console.log(res.data.data);
+            return res.data
+        })
+        .catch(function (error) {
+            if (error.response) {
+                console.log(error.response.data);
+                handleError(error.response.status)
+            }
+        });
+}
+
+
+function addNotes(orderId, notes) {
+    console.log("into notesService");
+
+    const requestOptions = {
+        body: { orderId, notes }
+    };
+    return axios
+        .put(`${baseRoute}/order/notes`, requestOptions.body)
         .then(res => {
             console.log("res.user >> "); console.log(res.data.data);
             return res.data
