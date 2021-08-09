@@ -13,7 +13,8 @@ axios.interceptors.request.use(request => {
 
 export const notesService = {
     getNotes,
-    addNotes
+    addNotes,
+    editStatusNotes
 };
 
 function getNotes(orderId) {
@@ -43,6 +44,26 @@ function addNotes(orderId, notes) {
     };
     return axios
         .put(`${baseRoute}/order/notes`, requestOptions.body)
+        .then(res => {
+            console.log("res.user >> "); console.log(res.data.data);
+            return res.data
+        })
+        .catch(function (error) {
+            if (error.response) {
+                console.log(error.response.data);
+                handleError(error.response.status)
+            }
+        });
+}
+
+function editStatusNotes(orderId, status) {
+    console.log("into notesService");
+
+    const requestOptions = {
+        body: { orderId, status }
+    };
+    return axios
+        .put(`${baseRoute}/order/notes/status`, requestOptions.body)
         .then(res => {
             console.log("res.user >> "); console.log(res.data.data);
             return res.data

@@ -55,3 +55,29 @@ export function addNotes(state = initialState, action) {
             return state;
     }
 }
+
+
+export function editStatusNotes(state = initialState, action) {
+    switch (action.type) {
+        case notesConstants.EDIT_NOTES_STATUS_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+        case notesConstants.EDIT_NOTES_STATUS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                notes: action.data
+            }
+        case notesConstants.EDIT_NOTES_STATUS_FAILURE:
+            return {
+                ...state,
+                err: action.error,
+                loading: false
+            }
+
+        default:
+            return state;
+    }
+}

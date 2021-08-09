@@ -18,13 +18,20 @@ export const Notes = (props) => {
     const dispatch = useDispatch()
     let { notes, loading } = useSelector(state => state.getNotes)
 
-    console.log(notes);
+
+    let toggleHanler = (e) => {
+        if (e.target.checked === true)
+            dispatch(notesActions.editStatusNotes(props.location.state.id, "1"))
+        else if (e.target.checked === false)
+            dispatch(notesActions.editStatusNotes(props.location.state.id, "0"))
+    }
+
     useEffect(() => {
         if (props.location.state === undefined)
             return history.goBack()
 
         dispatch(notesActions.getNotes(props.location.state.id))
-    }, [props.location.state])
+    }, [props.location.state, isPrivate])
 
     return (
         <>
@@ -37,7 +44,7 @@ export const Notes = (props) => {
                         <Row className="header--notes">
                             <Form.Group className="fw-bold mx-4" onChange={() => setIsPrivate(!isPrivate)} >
                                 <label for="r1">
-                                    <input type="checkbox" id="r1" name="r-group" className="btn-toggle-status-notes" />
+                                    <input type="checkbox" id="r1" name="r-group" className="btn-toggle-status-notes" onClick={toggleHanler} />
                                     خصوصی
                                 </label>
                             </Form.Group>
@@ -53,10 +60,6 @@ export const Notes = (props) => {
                             (notes.length > 0) ?
                                 (notes.map((note) => <Note note={note} />))
                                 : <span> هنوز یادداشتی برای این سفارش ثبت نشده است</span>
-
-
-
-
                     }
 
                 </div>
