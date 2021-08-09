@@ -272,31 +272,35 @@ export const AddOrder = () => {
                     </Row>
 
                     <Row className="m-0 mt-4 justify-content-center w-100">
-                        <Col className="col-7 m-0 p-0 ps-1">
-                            {
-                                addOrderLoading ? (
-                                    <Button className="fw-bold order-submit border-0 w-100" size="lg" type="submit" disabled>
-                                        <Spinner
-                                            as="span"
-                                            animation="grow"
-                                            size="sm"
-                                            role="status"
-                                            aria-hidden="true"
-                                        />
-                                        در حال ثبت سفارش...
-                                    </Button>
-                                ) : (
+
+
+                        {addOrderLoading ?
+                            <Button className="fw-bold order--btn order-submit border-0 w-100" size="lg" type="submit" disabled>
+                                <Spinner
+                                    as="span"
+                                    animation="grow"
+                                    size="sm"
+                                    role="status"
+                                    aria-hidden="true"
+                                />
+                                در حال ثبت ...
+                            </Button>
+                            :
+                            <>
+                                <Col className="col-7 m-0 p-0 ps-1">
                                     <Button className="fw-bold order--btn order-submit border-0 w-100" size="lg" type="submit" block>
                                         ثبت
                                     </Button>
-                                )
-                            }
-                        </Col>
-                        <Col className="col-5 m-0 p-0 pe-1">
-                            <Button className="order--btn border-0 w-100 btn-secondary order--sale--opportunity" id="saleOpprotunity" size="lg" type="submit" block>
-                                فرصت فروش
-                            </Button>
-                        </Col>
+
+
+                                </Col>
+                                <Col className="col-5 m-0 p-0 pe-1">
+                                    <Button className="order--btn border-0 w-100 btn-secondary order--sale--opportunity" id="saleOpprotunity" size="lg" type="submit" block>
+                                        فرصت فروش
+                                    </Button>
+                                </Col>
+                            </>
+                        }
                     </Row>
                     {
                         alertMessage &&

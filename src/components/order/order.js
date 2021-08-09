@@ -18,6 +18,7 @@ import cancelIcon from '../../assets/images/order/cancel.svg'
 
 //components
 import { EditField } from './editField'
+import { history } from '../../helpers/history'
 import { CancelProductOrder } from './cancelProductOrder'
 import { EditeProductOrder } from './editProductOrder'
 
@@ -54,6 +55,12 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
             total += item.sellingPrice * item.quantity
         })
         return total
+    }
+    let notesHandler = () => {
+        history.push({
+            pathname: '/order/notes',
+            state: { id: order.id }
+        })
     }
 
     const printWindow = async () => {
@@ -136,7 +143,6 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                     </Card>
                 </Row>
                 <Row className="m-0 p-0 ps-2">
-
                     <Table borderless size="sm">
                         <thead>
                             <tr>
@@ -199,7 +205,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                         </Button>
                     </Col>
                     <Col xs={6} className="p-0 px-1 pb-3">
-                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button">
+                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={notesHandler} >
                             <img src={noteListIcon} height="25px" alt="note-list-icon" className="col-3" />
                             <span>یادداشت ها</span>
                         </Button>

@@ -7,3 +7,4 @@ export * from './orderConstants';
 export * from './reminderConstants';
 export * from './discountConstants';
 export * from './employeeConstants';
+export * from './notesConstants'

@@ -24,7 +24,7 @@ import Bills from './components/finance/bills';
 import { Applications } from './components/employee/applications';
 import { Account } from './components/acounts/account';
 import { SaleOpprotunity } from './components/order/saleOpprotunity';
-
+import { Notes } from './components/order/notes'
 
 function App() {
   return (
@@ -45,7 +45,8 @@ function App() {
         <PrivateRoute path="/setting" component={Setting}></PrivateRoute>
         <PrivateRoute path="/employee/add" component={Applications} ></PrivateRoute>
         <PrivateRoute path="/account" component={Account} ></PrivateRoute>
-        <PrivateRoute path="/saleopprotunity" component={SaleOpprotunity} ></PrivateRoute>
+        <PrivateRoute path="/saleopprotunity" component={SaleOpprotunity}></PrivateRoute>
+        <Route exact path="/order/notes" component={Notes}></Route>
         <Redirect from="*" to="/" />
       </Switch>
     </Router>
