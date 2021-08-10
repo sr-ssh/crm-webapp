@@ -22,10 +22,10 @@ function getNotes(orderId) {
                         dispatch(failure(notesConstants.GET_NOTES_FAILURE, 'ارتباط با سرور برقرار نیست'));
                     } else if (res.success) {
                         console.log("user into notesActions");
-                        dispatch(success(notesConstants.GET_NOTES_SUCCESS, res.data));
+                        dispatch(success(notesConstants.GET_NOTES_SUCCESS, [res.data]));
                     } else if (res.success === false) {
                         console.log("user into notesActions");
-                        dispatch(failure(notesConstants.GET_NOTES_FAILURE, res.data));
+                        dispatch(failure(notesConstants.GET_NOTES_FAILURE, [res.data]));
                     }
 
                     setTimeout(() => {

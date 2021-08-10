@@ -14,10 +14,17 @@ import { Note } from './note'
 
 export const Notes = (props) => {
 
-    const [isPrivate, setIsPrivate] = useState(false)
+    const [isPrivate, setIsPrivate] = useState(false);
+    const [note, setNote] = useState([])
     const dispatch = useDispatch()
     let { notes, loading } = useSelector(state => state.getNotes)
 
+    useEffect(() => {
+        notes.reduce((result, item) => {
+            setIsPrivate(item.isPrivate)
+            setNote(result = item.data);
+        }, {});
+    }, [notes])
 
     let toggleHanler = (e) => {
         if (e.target.checked === true)
@@ -31,7 +38,7 @@ export const Notes = (props) => {
             return history.goBack()
 
         dispatch(notesActions.getNotes(props.location.state.id))
-    }, [props.location.state, isPrivate])
+    }, [props.location.state])
 
     return (
         <>
@@ -44,7 +51,11 @@ export const Notes = (props) => {
                         <Row className="header--notes">
                             <Form.Group className="fw-bold mx-4" onChange={() => setIsPrivate(!isPrivate)} >
                                 <label for="r1">
-                                    <input type="checkbox" id="r1" name="r-group" className="btn-toggle-status-notes" onClick={toggleHanler} />
+                                    {isPrivate ?
+                                        <input type="checkbox" id="r1" name="r-group" className="btn-toggle-status-notes" checked onClick={toggleHanler} />
+                                        :
+                                        <input type="checkbox" id="r1" name="r-group" className="btn-toggle-status-notes" onClick={toggleHanler} />
+                                    }
                                     خصوصی
                                 </label>
                             </Form.Group>
@@ -57,8 +68,8 @@ export const Notes = (props) => {
                                     <Spinner className="m-auto d-block" animation="border" />
                                 </Col>
                             </Row> :
-                            (notes.length > 0) ?
-                                (notes.map((note) => <Note note={note} />))
+                            (note?.length > 0) ?
+                                (note?.map((note) => <Note note={note} />))
                                 : <span> هنوز یادداشتی برای این سفارش ثبت نشده است</span>
                     }
 
