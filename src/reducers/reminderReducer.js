@@ -19,7 +19,8 @@ export function getReminders(state = initialState, action) {
             }
         case reminderConstants.GET_REMINDERS_FAILURE:
             return {
-                err: action.error
+                err: action.error,
+                loading: false,
             }
         default:
             return state

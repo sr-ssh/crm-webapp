@@ -18,18 +18,19 @@ export const employeeActions = {
 };
 
 function getEmployees() {
+
     return dispatch => {
         dispatch(request(employeeConstants.GET_EMPLOYEES_REQUEST))
         employeeService.getEmployees()
             .then(
                 res => {
-                    if(res === undefined)
+                    if (res === undefined)
                         dispatch(alertActions.error('ارتباط با سرور برقرار نیست'));
-                    else if(res.success){
+                    else if (res.success) {
                         console.log("employees received")
                         dispatch(success(employeeConstants.GET_EMPLOYEES_SUCCESS, res.data));
                     }
-                        
+
                     setTimeout(() => {
                         dispatch(alertActions.clear());
                     }, 1500);
@@ -52,10 +53,10 @@ function addEmployee(employee) {
             .then(
                 res => {
                     console.log(res)
-                    
-                    if(res === undefined)
+
+                    if (res === undefined)
                         dispatch(alertActions.error('ارتباط با سرور برقرار نیست.عملیات ناموفق'));
-                    else if(res.success){
+                    else if (res.success) {
                         console.log("employee added")
                         dispatch(success(employeeConstants.ADD_EMPLOYEE_SUCCESS, employee));
                         dispatch(alertActions.success(res.message));
@@ -86,16 +87,16 @@ function editEmployee(employee) {
             .then(
                 res => {
                     console.log(res)
-                    
-                    if(res === undefined) {
+
+                    if (res === undefined) {
                         dispatch(alertActions.error('ارتباط با سرور برقرار نیست.عملیات ناموفق'));
                         dispatch(failure(employeeConstants.EDIT_EMPLOYEE_FAILURE, "bad loading"))
                     }
-                    else if(res.success){
+                    else if (res.success) {
                         console.log("employee edited")
                         dispatch(success(employeeConstants.EDIT_EMPLOYEE_SUCCESS, employee));
                         dispatch(alertActions.success(res.message));
-                       //history.go(0)
+                        //history.go(0)
                     } else if (res.success === false)
                         dispatch(alertActions.error(res.message));
 
@@ -121,14 +122,14 @@ function deleteEmployee(employee) {
             .then(
                 res => {
                     console.log(res)
-                    
-                    if(res === undefined)
+
+                    if (res === undefined)
                         dispatch(alertActions.error('ارتباط با سرور برقرار نیست.عملیات انجام نشد'));
-                    else if(res.success){
+                    else if (res.success) {
                         console.log("employee deleted")
                         dispatch(success(employeeConstants.DELETE_EMPLOYEE_SUCCESS, employee));
                         dispatch(alertActions.success(res.message));
-                       //history.go(0)
+                        //history.go(0)
                     } else if (res.success === false)
                         dispatch(alertActions.error(res.message));
 
@@ -152,13 +153,13 @@ function getPermissions() {
         employeeService.getPermissions()
             .then(
                 res => {
-                    if(res === undefined)
+                    if (res === undefined)
                         dispatch(alertActions.error('ارتباط با سرور برقرار نیست'));
-                    else if(res.success){
+                    else if (res.success) {
                         console.log("permissions received")
                         dispatch(success(employeeConstants.GET_PERMISSIONS_SUCCESS, res.data.permission));
                     }
-                        
+
                     setTimeout(() => {
                         dispatch(alertActions.clear());
                     }, 1500);
@@ -180,14 +181,14 @@ function getPermissionsAndReload() {
         employeeService.getPermissions()
             .then(
                 res => {
-                    if(res === undefined)
+                    if (res === undefined)
                         dispatch(alertActions.error('ارتباط با سرور برقرار نیست'));
-                    else if(res.success){
+                    else if (res.success) {
                         console.log("permissions received")
                         dispatch(success(employeeConstants.GET_PERMISSIONS_SUCCESS, res.data.permission));
                         history.go(0)
                     }
-                        
+
                     setTimeout(() => {
                         dispatch(alertActions.clear());
                     }, 1500);
@@ -209,13 +210,13 @@ function getApplications() {
         employeeService.getApplications()
             .then(
                 res => {
-                    if(res === undefined)
+                    if (res === undefined)
                         dispatch(alertActions.error('ارتباط با سرور برقرار نیست'));
-                    else if(res.success){
+                    else if (res.success) {
                         console.log("applications received")
                         dispatch(success(employeeConstants.GET_APPLICATIONS_SUCCESS, res.data));
                     }
-                        
+
                     setTimeout(() => {
                         dispatch(alertActions.clear());
                     }, 1500);
@@ -238,14 +239,14 @@ function addApplicationAndReload(application) {
             .then(
                 res => {
                     console.log("employee actions")
-                    if(res === undefined)
+                    if (res === undefined)
                         dispatch(alertActions.error('ارتباط با سرور برقرار نیست'));
-                    else if(res.success){
+                    else if (res.success) {
                         console.log("application added")
                         dispatch(success(employeeConstants.ADD_APPLICATION_SUCCESS, res.data));
                         dispatch(getPermissionsAndReload())
                     }
-                        
+
                     setTimeout(() => {
                         dispatch(alertActions.clear());
                     }, 1500);
@@ -269,14 +270,14 @@ function editApplication(application) {
             .then(
                 res => {
                     console.log("employee actions")
-                    if(res === undefined)
+                    if (res === undefined)
                         dispatch(alertActions.error('ارتباط با سرور برقرار نیست'));
-                    else if(res.success){
+                    else if (res.success) {
                         console.log("applications received")
                         dispatch(success(employeeConstants.EDIT_APPLICATIONS_SUCCESS, res.data));
                         history.go(0)
                     }
-                        
+
                     setTimeout(() => {
                         dispatch(alertActions.clear());
                     }, 1500);
@@ -299,14 +300,14 @@ function editApplicationAndReload(application) {
             .then(
                 res => {
                     console.log("employee actions")
-                    if(res === undefined)
+                    if (res === undefined)
                         dispatch(alertActions.error('ارتباط با سرور برقرار نیست'));
-                    else if(res.success){
+                    else if (res.success) {
                         console.log("applications received")
                         dispatch(success(employeeConstants.EDIT_APPLICATIONS_SUCCESS, res.data));
                         dispatch(getPermissionsAndReload())
                     }
-                        
+
                     setTimeout(() => {
                         dispatch(alertActions.clear());
                     }, 1500);

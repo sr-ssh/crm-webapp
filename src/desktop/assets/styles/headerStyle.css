@@ -1,0 +1,73 @@
+.header--desktop {
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  background-image: none;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  position: fixed;
+  z-index: 1100;
+  top: 0px;
+  right: auto;
+  left: 0px;
+  color: rgb(255, 255, 255);
+  box-shadow: none;
+  width: calc(100% - 280px);
+  backdrop-filter: blur(6px);
+  background-color: var(--pages-background);
+}
+.nav--header--desktop {
+  min-height: 92px;
+  padding: 0px 40px;
+}
+.search--icon--navbar {
+  border-radius: 50%;
+}
+.search--icon--navbar:hover {
+  background-color: rgba(100, 181, 246, 0.2);
+}
+.user--icon--navbar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  background-color: transparent;
+  outline: 0px;
+  border: 0px;
+  margin: 0px;
+  cursor: pointer;
+  user-select: none;
+  vertical-align: middle;
+  appearance: none;
+  text-decoration: none;
+  text-align: center;
+  flex: 0 0 auto;
+  font-size: 1.5rem;
+  border-radius: 50%;
+  overflow: visible;
+  color: rgb(145, 158, 171);
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  padding: 0px;
+  width: 44px;
+  height: 44px;
+}
+.user--icon--navbar img {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  font-family: "Public Sans", sans-serif;
+  font-size: 1.25rem;
+  line-height: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  user-select: none;
+  color: rgb(145, 158, 171);
+  background-color: rgb(196, 205, 213);
+}

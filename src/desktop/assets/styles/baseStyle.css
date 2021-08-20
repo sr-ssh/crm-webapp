@@ -1,0 +1,33 @@
+:root {
+  --body-bachground: #ffffff;
+  --button-background: #64b5f6;
+  --button-color-one: #373737;
+  --pages-background: #ebebeb;
+  --text-color-one: #646464;
+  --text-color-two: #383738;
+  --button-color-two: #4caf50;
+  --card-background: #cdcdcd;
+  --dager-color: #e53935;
+  --background-blue: #c3e2fc;
+}
+
+@font-face {
+  font-family: "IranSans";
+  src: url("../fonts/ir_sans.ttf");
+}
+
+body {
+  font-family: "IranSans";
+  background-color: var(--pages-background);
+  margin: 0;
+  padding: 0;
+}
+.w-40 {
+  width: 40% !important;
+}
+.fs-7 {
+  font-size: 0.75rem;
+}
+.ff-iranSans {
+  font-family: "IranSans" !important;
+}

@@ -19,7 +19,7 @@ function getReminders() {
         .get(`${baseRoute}/reminder`, requestOptions)
         .then(res => {
             console.log("res.customers >> "); console.log(res.data.data);
-            return res.data.data
+            return res.data
         })
         .catch(function (error) {
             if (error.response) {

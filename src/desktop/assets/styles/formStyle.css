@@ -1,0 +1,69 @@
+.form {
+  margin-right: 10%;
+  margin-top: 50vh;
+}
+
+.form-page--desktop {
+  background: var(--pages-background);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: -1;
+}
+.login--page {
+  background-color: var(--pages-background);
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.headerLogin {
+  color: #fff;
+  top: 0px;
+  z-index: 9;
+  line-height: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 24px;
+  justify-content: space-between;
+}
+.login--form {
+  color: var(--text-color-two);
+}
+.login-input {
+  max-height: 85px;
+}
+.register-link a {
+  margin-right: 0;
+  font-size: 12px;
+}
+.login--btn--desktop {
+  background-color: var(--button-background);
+  border: none;
+  border-radius: 11px;
+  font-size: 14px;
+  font-weight: bold;
+  position: relative;
+  top: 13vh;
+  height: 6vh;
+  color: var(--button-color-one);
+  font-family: "IranSans";
+  box-shadow: rgb(28 202 255 / 24%) 0px 8px 16px 0px;
+}
+.was-validated .form-control:invalid:focus,
+.form-control.is-invalid:focus {
+  border-color: #dc3545 !important;
+  box-shadow: 0 0 0 0.25rem rgb(220 53 69 / 25%) !important;
+}
+.spinner-border {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+@media (min-width: 960px) {
+  .headerLogin {
+    align-items: flex-start;
+    padding: 56px 56px 0px 40px;
+  }
+}

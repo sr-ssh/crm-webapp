@@ -1,0 +1,173 @@
+.form {
+  margin-right: 10%;
+  margin-top: 50vh;
+}
+
+.form-page {
+  height: 100%;
+  min-height: 95vh;
+  background: var(--pages-background);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: -1;
+}
+
+.form-input {
+  border-radius: 10px;
+  color: var(--text-color-two);
+  font-size: 14px;
+  border: none;
+  max-height: 5vh;
+}
+
+.form-label {
+  font-size: 0.75rem;
+  color: var(--text-color-one);
+  font-family: "IranSans";
+  font-weight: bold;
+}
+
+.form-input:focus {
+  outline: 0;
+  box-shadow: 0;
+  border: 0;
+  border-bottom: 1px solid var(--button-color-one);
+}
+
+.form-submit {
+  background-color: var(--button-background);
+  border: none;
+  border-radius: 11px;
+  font-size: 14px;
+  font-weight: bold;
+  height: 6vh;
+  color: var(--button-color-one);
+  font-family: "IranSans";
+}
+
+.login-btn {
+  background-color: var(--button-background);
+  border: none;
+  border-radius: 11px;
+  font-size: 14px;
+  font-weight: bold;
+  position: relative;
+  top: 13vh;
+  height: 6vh;
+  color: var(--button-color-one);
+  font-family: "IranSans";
+}
+
+.register-submit-btn {
+  color: var(--button-color-one);
+  background-color: var(--button-background);
+  border: none;
+  border-radius: 11px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  min-height: 6vh;
+  width: 50vw;
+  font-family: "IranSans";
+  position: relative;
+  top: 11vh;
+}
+
+.employee-register-submit-btn {
+  color: var(--button-color-one);
+  background-color: var(--button-background);
+  border: none;
+  border-radius: 11px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  min-height: 6vh;
+  width: 50vw;
+  font-family: "IranSans";
+  position: relative;
+  top: 9vh;
+}
+
+.submitContainer {
+  margin-top: 130px;
+}
+
+.logo {
+  position: absolute;
+  top: 48px;
+  left: 5px;
+}
+
+.inputWithButton {
+  position: relative;
+}
+
+.eye-input {
+  width: 100%;
+  padding-left: 35px;
+}
+
+.eye-button {
+  position: absolute;
+  left: 7px;
+  bottom: 5px;
+}
+
+.form-icon {
+  position: relative;
+  top: 13px;
+  right: 50px;
+  color: var(--button-background);
+}
+
+/* .register-link {
+    margin-right: 16px;
+    margin-top: 60px;
+} */
+
+.register-link a {
+  color: var(--button-background);
+  margin-right: 40px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.95rem;
+}
+
+.employee-register-link a {
+  color: var(--button-background);
+  margin-right: 40px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.95rem;
+  position: relative;
+  top: 2vh;
+}
+
+.mzLogo {
+  max-height: 20vh;
+}
+
+.loginForm {
+  margin-top: 90px;
+  height: 40vh;
+  z-index: 2;
+}
+
+.registerForm {
+  margin-top: 30px;
+  z-index: 2;
+}
+
+.login-input {
+  width: 65%;
+}
+
+.verification-btn {
+  max-height: 5vh;
+  font-size: 1rem;
+  width: 25vw;
+  border-radius: 11px;
+  border: none;
+  font-weight: bold;
+  color: var(--button-color-one);
+  background-color: var(--button-background);
+}

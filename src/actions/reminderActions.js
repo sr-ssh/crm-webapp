@@ -12,10 +12,23 @@ function getReminders() {
         reminderService.getReminders()
             .then(
                 res => {
-                    dispatch(success(reminderConstants.GET_REMINDERS_SUCCESS, res));
-                    console.log("*********reminders received**********")
-                    console.log(res)
-                    dispatch(alertActions.success(res));
+                    console.log("user into reminderActions");
+                    if (res === undefined) {
+                        dispatch(alertActions.error('ارتباط با سرور برقرار نیست'));
+                        dispatch(failure(reminderConstants.GET_REMINDERS_FAILURE, "ارتباط با سرور برقرار نیست"))
+                    } else if (res.success) {
+                        console.log("*********reminders received**********")
+                        console.log(res)
+                        dispatch(success(reminderConstants.GET_REMINDERS_SUCCESS, res.data));
+                    } else if (res.success === false) {
+                        dispatch(alertActions.error(res.message));
+                        dispatch(failure(reminderConstants.GET_REMINDERS_FAILURE, res.message.toString()));
+                    }
+
+                    setTimeout(() => {
+                        dispatch(alertActions.clear());
+                    }, 1500);
+
                 },
                 error => {
                     dispatch(failure(reminderConstants.GET_REMINDERS_FAILURE, error.toString()));

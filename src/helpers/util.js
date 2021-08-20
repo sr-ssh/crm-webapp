@@ -10,13 +10,13 @@ export function handleError(code) {
 }
 
 export function handleResponse(response) {
-    console.log("((((((((((((((((((((( handleResponse )))))))))))))))))))"); 
+    console.log("((((((((((((((((((((( handleResponse )))))))))))))))))))");
     if (response.status === 200) {
         if (response.data.success) {
             return response.data;
         }
-            console.log("success: false", response);
-            return response.data
+        console.log("success: false", response);
+        return response.data
     }
     console.log("errrrroooooorrrrr");
     return { error: "true" }
@@ -24,3 +24,9 @@ export function handleResponse(response) {
     // return Promise.reject(error);
     // return response;
 }
+
+
+export function camelCase(str) {
+    return str.substring(0, 1).toUpperCase() + str.substring(1);
+};
+
