@@ -55,11 +55,11 @@ const dashboardRoutes = [
         name: "درخواست ها",
         layout: "/",
     },
-    {
-        path: "/discounts",
-        name: "تخفیف ها",
-        layout: "/",
-    },
+    // {
+    //     path: "/discounts",
+    //     name: "تخفیف ها",
+    //     layout: "/",
+    // },
     {
         path: "/account",
         name: "حساب کاربری",
