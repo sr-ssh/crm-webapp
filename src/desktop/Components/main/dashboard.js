@@ -69,7 +69,8 @@ export const Dashboard = (props) => {
             notificationAlertRef.current.notificationAlert(options);
     }, [alert]);
 
-    let breadcrumbs = routes.filter(item => item.path === props.location.pathname)
+    let breadcrumbs = routes.filter(item => props.location.pathname.includes(item.path))
+
     return (
         <>
             <div className="wrapper">
@@ -94,6 +95,14 @@ export const Dashboard = (props) => {
                                                 داشبورد
                                             </Link>
                                             <Typography color="textPrimary" className="ff-iranSans">{breadcrumbs[0]?.name}</Typography>
+                                            {
+                                                breadcrumbs[0]?.children?.length > 0 ?
+                                                    breadcrumbs[0]?.children.map(item => {
+                                                        if (item.path === props.location.pathname)
+                                                            return <Typography color="textPrimary" className="ff-iranSans">{item.name}</Typography>
+                                                    })
+                                                    : null
+                                            }
                                         </Breadcrumbs>
                                     </Col>
                                 </Row>
@@ -108,8 +117,8 @@ export const Dashboard = (props) => {
                         <PrivateRoute path="/orders" component={Orders}></PrivateRoute>
                         <PrivateRoute path="/reminders" component={Reminders} ></PrivateRoute>
                         <PrivateRoute path="/products" component={Products}></PrivateRoute>
-                        <PrivateRoute path="/finance" component={Finance}></PrivateRoute>
-                        <PrivateRoute path="/bills" component={Bills} ></PrivateRoute>
+                        <PrivateRoute exact path="/finance" component={Finance}></PrivateRoute>
+                        <PrivateRoute path="/finance/bills" component={Bills} ></PrivateRoute>
                         <PrivateRoute path="/customers" component={Customers} ></PrivateRoute>
                         <PrivateRoute path="/employees" component={Employees} ></PrivateRoute>
                         {/* <PrivateRoute path="/employee/add" component={Applications} ></PrivateRoute> */}

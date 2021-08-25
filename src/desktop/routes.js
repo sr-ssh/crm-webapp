@@ -29,16 +29,20 @@ const dashboardRoutes = [
         path: "/products",
         name: "محصولات",
         layout: "/",
-    },
-    {
+    }, {
+        layout: "/finance",
         path: "/finance",
         name: "مالی",
-        layout: "/finance",
-    },
-    {
-        path: "/bills",
-        name: "هزینه های جاری",
-        layout: "/finance",
+        children: [{
+            path: "/finance",
+            name: "مالی",
+            layout: "/finance",
+        },
+        {
+            path: "/finance/bills",
+            name: "هزینه های جاری",
+            layout: "/finance",
+        }]
     },
     {
         path: "/customers",

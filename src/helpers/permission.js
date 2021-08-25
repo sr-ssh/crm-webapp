@@ -24,7 +24,7 @@ export function isPermitted(route) {
     } else if (route === "/employees" || route === "/employee/add") {
         if (permissions?.getEmployees)
             return true;
-    } else if (route === "/finance" || route === "/bills") {
+    } else if (route === "/finance" || route === "/bills" || route === "/finance/bills") {
         if (permissions?.finance)
             return true;
     } else if (route === "/setting") {
