@@ -1,41 +1,42 @@
-.product-page{
-    height: auto;
-    min-height: 100vh;
-    background: var(--pages-background);
+.product-page {
+  height: auto;
+  min-height: 100vh;
+  background: var(--pages-background);
 }
 
 .editLogo {
-    width: 40px;
+  width: 40px;
 }
 
 .productCard {
-    border-radius: 10px;
+  border-radius: 10px;
+  width: 32.333333%;
 }
 
 .activeStatus {
-   color: var(--button-color-two);
-   font-weight: bold;
+  color: var(--button-color-two);
+  font-weight: bold;
 }
 
 .activeStatus span {
-    height: 15px;
-    width: 15px;
-    margin-left: 10px;
-    background-color: var(--button-color-two);
-    border-radius: 50%;
-    display: inline-block;
+  height: 15px;
+  width: 15px;
+  margin-left: 10px;
+  background-color: var(--button-color-two);
+  border-radius: 50%;
+  display: inline-block;
 }
 
 .deActiveStatus {
-    color: var(--dager-color);
-    font-weight: bold;
+  color: var(--dager-color);
+  font-weight: bold;
 }
 
 .deActiveStatus span {
-    height: 15px;
-    width: 15px;
-    margin-left: 10px;
-    background-color: var(--dager-color);
-    border-radius: 50%;
-    display: inline-block;
+  height: 15px;
+  width: 15px;
+  margin-left: 10px;
+  background-color: var(--dager-color);
+  border-radius: 50%;
+  display: inline-block;
 }

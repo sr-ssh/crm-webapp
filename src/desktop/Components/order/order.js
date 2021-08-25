@@ -105,7 +105,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
 
     return (
 
-        <Card className={`m-auto mt-3 bg-light productCard border-0 lh-lg ${!print ? 'noPrint' : ''} col-3 mx-1`} >
+        <Card className={`m-auto mt-3 bg-light productCard border-0 lh-lg ${!print ? 'noPrint' : ''} mx-1`} >
             <Card.Body className="pb-0 ps-1 rounded-3 text-gray">
                 <Row className="p-0 ps-2 m-0 ">
                     <Card className="background-blue border-0 customer-round">
