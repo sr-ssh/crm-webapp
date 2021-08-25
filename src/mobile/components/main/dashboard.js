@@ -22,6 +22,7 @@ import { productActions } from '../../../actions/productActions'
 
 
 export const Dashboard = () => {
+
     const [isOpen, setIsOpen] = useState(false)
 
     let user_type = JSON.parse(localStorage.getItem('type'));

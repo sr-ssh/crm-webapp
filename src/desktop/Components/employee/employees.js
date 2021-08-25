@@ -14,6 +14,7 @@ import { translate } from '../../../helpers';
 import { AddEmployee } from './addEmployee'
 import { EditEmployee } from './editEmployee'
 import { RemoveEmployee } from './removeEmployee'
+import { Applications } from './applications'
 // Icons
 import editIcon from '../../assets/images/Products/edit.svg'
 import deleteIcon from '../../assets/images/discounts/deletee.svg'
@@ -23,6 +24,7 @@ export const Employees = () => {
     const [addModalShow, setAddModalShow] = useState(false)
     const [editModalShow, setEditModalShow] = useState(false)
     const [removeModalShow, setRemoveModalShow] = useState(false)
+    const [emploeeRequest, setEmploeeRequest] = useState(false)
     const [employee, setEmployee] = useState({})
 
     let employees = useSelector(state => state.getEmployees.employees)
@@ -35,6 +37,15 @@ export const Employees = () => {
 
     return (
         <div className="product-page">
+            <Container fluid className="m-0 w-100 d-flex justify-content-center flex-wrap ">
+                <Row>
+                    <Col>
+                        <Button variant="contained" size="large" color="primary" className="ff-iranSans " onClick={() => setEmploeeRequest(true)} >
+                            <span className="text-light">در خواست ها</span>
+                        </Button>
+                    </Col>
+                </Row>
+            </Container>
             <Container fluid className="m-0 w-100 d-flex justify-content-center flex-wrap ">
 
                 {
@@ -90,6 +101,7 @@ export const Employees = () => {
             <AddEmployee show={addModalShow} onHide={() => setAddModalShow(false)} />
             <EditEmployee show={editModalShow} onHide={() => setEditModalShow(false)} employee={employee} />
             <RemoveEmployee show={removeModalShow} onHide={() => setRemoveModalShow(false)} employee={employee} />
+            <Applications emploeeRequest={emploeeRequest} setEmploeeRequest={setEmploeeRequest} />
         </div>
     )
 }

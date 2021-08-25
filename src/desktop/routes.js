@@ -50,11 +50,11 @@ const dashboardRoutes = [
         name: "کارمندان",
         layout: "/",
     },
-    {
-        path: "/employee/add",
-        name: "درخواست ها",
-        layout: "/",
-    },
+    // {
+    //     path: "/employee/add",
+    //     name: "درخواست ها",
+    //     layout: "/",
+    // },
     // {
     //     path: "/discounts",
     //     name: "تخفیف ها",

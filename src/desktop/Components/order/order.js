@@ -34,6 +34,9 @@ const useStyles = makeStyles((theme) => ({
         color: '#fff !important',
         backgroundColor: 'rgba(0, 0, 0, 0.5)'
     },
+    productCard: {
+        width: '32.333333%'
+    }
 }));
 
 
@@ -105,7 +108,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
 
     return (
 
-        <Card className={`m-auto mt-3 bg-light productCard border-0 lh-lg ${!print ? 'noPrint' : ''} mx-1`} >
+        <Card className={`m-auto mt-3 bg-light productCard border-0 lh-lg ${!print ? 'noPrint' : ''} mx-1 ${classes.productCard}`} >
             <Card.Body className="pb-0 ps-1 rounded-3 text-gray">
                 <Row className="p-0 ps-2 m-0 ">
                     <Card className="background-blue border-0 customer-round">
