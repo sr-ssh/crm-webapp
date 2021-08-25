@@ -73,7 +73,7 @@ export const Dashboard = (props) => {
     return (
         <>
             <div className="wrapper">
-                <Header />
+                <Header history={props} />
                 <div className="sidebar--desktop">
                     <SideBar routes={routes} />
                 </div>

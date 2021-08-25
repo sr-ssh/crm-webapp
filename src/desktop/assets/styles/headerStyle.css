@@ -13,7 +13,7 @@
   left: 0px;
   color: rgb(255, 255, 255);
   box-shadow: none;
-  width: calc(100% - 280px);
+  width: 100%;
   backdrop-filter: blur(6px);
   background-color: var(--pages-background);
 }
@@ -70,4 +70,9 @@
   user-select: none;
   color: rgb(145, 158, 171);
   background-color: rgb(196, 205, 213);
+}
+@media (min-width: 1200px) {
+  .header--desktop {
+    width: calc(100% - 280px);
+  }
 }
