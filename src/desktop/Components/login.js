@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Button, Row, Col, Spinner } from 'react-bootstrap';
 import persianJs from 'persianjs/persian.min';
+import NotificationAlert from "react-notification-alert";
 
 // Actions
 import { userActions } from '../../actions/userActions';
@@ -16,6 +17,8 @@ export const Login = () => {
     let alertMessage = useSelector(state => state.alert.message)
     let alerType = useSelector(state => state.alert.type)
     let loggingInLoading = useSelector(state => state.authentication.loading)
+    let alert = useSelector(state => state.alert);
+    const notificationAlertRef = useRef(null);
 
     const [showPassword, setShowPassword] = useState(false)
     const [validated, setValidated] = useState(false);
@@ -55,10 +58,33 @@ export const Login = () => {
         dispatch(userActions.appInfo())
     }, [dispatch])
 
+
+    useEffect(() => {
+        let options = {};
+        options = {
+            place: "tl",
+            message: (
+                <div>
+                    <div>
+                        {alert.message}
+                    </div>
+                </div>
+            ),
+            zIndex: 9999,
+            type: alert.type,
+            closeButton: false,
+            autoDismiss: 5
+        };
+        if (alert.message?.length > 0 && alert.message && alert.type)
+            notificationAlertRef.current.notificationAlert(options);
+    }, [alert]);
+
     return (
 
         <div className="login--page">
-
+            <div className="alert--container">
+                <NotificationAlert ref={notificationAlertRef} />
+            </div>
             <Row className="headerLogin">
                 <Col>
                     <img className="" height="60px" src={logo} alt="" />

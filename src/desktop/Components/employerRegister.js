@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { userActions } from '../../actions/userActions';
 import { Container, Button, Form, Row, Col, Image, Alert, Spinner } from 'react-bootstrap';
+import NotificationAlert from "react-notification-alert";
 
 // Assets
 import logo from './../assets/images/crm.svg'
@@ -21,6 +22,8 @@ export const EmployerRegister = () => {
     let alerType = useSelector(state => state.alert.type)
     let registerLoading = useSelector(state => state.register.loading)
     let verificationCode = useSelector(state => state.verificationCode)
+    let alert = useSelector(state => state.alert);
+    const notificationAlertRef = useRef(null);
 
     const [showPassword, setShowPassword] = useState(false)
     const [validated, setValidated] = useState(false);
@@ -83,8 +86,31 @@ export const EmployerRegister = () => {
             setValidated(true);
     }
 
+    useEffect(() => {
+        let options = {};
+        options = {
+            place: "tl",
+            message: (
+                <div>
+                    <div>
+                        {alert.message}
+                    </div>
+                </div>
+            ),
+            zIndex: 9999,
+            type: alert.type,
+            closeButton: false,
+            autoDismiss: 5
+        };
+        if (alert.message?.length > 0 && alert.message && alert.type)
+            notificationAlertRef.current.notificationAlert(options);
+    }, [alert]);
+
     return (
         <>
+            <div className="alert--container">
+                <NotificationAlert ref={notificationAlertRef} />
+            </div>
             <Row className="headerLogin">
                 <Col>
                     <img className="" height="60px" src={logo} alt="" />
