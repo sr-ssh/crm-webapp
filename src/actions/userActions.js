@@ -91,6 +91,7 @@ function register(user) {
                     }
                     else if (user.success) {
                         console.log("user registered")
+                        localStorage.setItem('user', JSON.stringify(user.data));
                         dispatch(success(user));
                         dispatch(alertActions.success(user.message));
                         setTimeout(() => {

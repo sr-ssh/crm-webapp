@@ -19,13 +19,13 @@ export const userService = {
 function login(mobileOrEmail, password) {
     console.log("into userService");
     return axios
-        .post(`${baseRoute}/login`, {mobileOrEmail, password})
+        .post(`${baseRoute}/login`, { mobileOrEmail, password })
         .then(res => {
-            console.log("res.user >> "); 
+            console.log("res.user >> ");
             console.log(res.data.data);
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('user', JSON.stringify(res.data.data));
-            
+
             return res.data
         })
         .catch(function (error) {
@@ -40,16 +40,15 @@ function register(user) {
     console.log("into userService");
 
     //completing info
-    if(!user.company)
+    if (!user.company)
         user.company = " ";
-    if(!user.email)
+    if (!user.email)
         user.email = "a@a.com";
 
     return axios
         .post(`${baseRoute}/`, user)
         .then(res => {
             console.log("res.user >> "); console.log(res.data.data);
-            localStorage.setItem('user', JSON.stringify(res.data.data));
             return res.data
         })
         .catch(function (error) {
@@ -67,13 +66,13 @@ function verificationCode(mobile) {
 
     const requestOptions = {
         headers: authHeader(),
-        body: {mobile}
+        body: { mobile }
     };
 
     return axios
         .post(`${baseRoute}/verificationcode`, requestOptions.body)
         .then(res => {
-            console.log("res.data >> "); 
+            console.log("res.data >> ");
             console.log(res.data);
             return res.data
         })
@@ -94,9 +93,9 @@ function userInfo() {
     };
     console.log(requestOptions)
     return axios
-        .get(`${baseRoute}/account`, {headers: requestOptions.headers})
+        .get(`${baseRoute}/account`, { headers: requestOptions.headers })
         .then(res => {
-            console.log("res.user >> "); 
+            console.log("res.user >> ");
             console.log(res.data);
             return res.data
         })
@@ -118,9 +117,9 @@ function editUserInfo(user) {
 
     console.log(requestOptions)
     return axios
-        .put(`${baseRoute}/account`, requestOptions.body, {headers: requestOptions.headers})
+        .put(`${baseRoute}/account`, requestOptions.body, { headers: requestOptions.headers })
         .then(res => {
-            console.log("res.user >> "); 
+            console.log("res.user >> ");
             console.log(res.data);
             return res.data
         })
@@ -134,7 +133,7 @@ function editUserInfo(user) {
 
 function appInfo() {
     console.log("into userService");
-    
+
     let app = {
         "versionCode": 1,
         "os": "android"
@@ -146,11 +145,11 @@ function appInfo() {
     };
 
     return axios
-        .post(`${baseRoute}/app/info`, requestOptions.body, {headers: requestOptions.headers})
+        .post(`${baseRoute}/app/info`, requestOptions.body, { headers: requestOptions.headers })
         .then(res => {
-            console.log("res.user >> "); 
+            console.log("res.user >> ");
             console.log(res.data.data);
-            if(res.data.success)
+            if (res.data.success)
                 history.push('/dashboard');
             return res.data.data
         })
