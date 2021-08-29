@@ -15,10 +15,10 @@ function getProducts() {
         productService.getProducts()
             .then(
                 res => {
-                    
-                    if(res === undefined)
+
+                    if (res === undefined)
                         dispatch(alertActions.error('ارتباط با سرور برقرار نیست'));
-                    else if(res.success){
+                    else if (res.success) {
                         console.log("products received")
                         dispatch(success(res.data));
                     }
@@ -48,17 +48,19 @@ function addProduct(product) {
             .then(
                 res => {
                     console.log(res)
-                    
-                    if(res === undefined)
-                        dispatch(alertActions.error('ارتباط با سرور برقرار نیست.مجصول شما ثبت نشد'));
-                    else if(res.success){
+
+                    if (res === undefined) {
+                        dispatch(alertActions.error('ارتباط با سرور برقرار نیست.محصول شما ثبت نشد'));
+                        dispatch(failure(productConstants.ADD_PRODUCT_FAILURE, 'ارتباط با سرور برقرار نیست.محصول شما ثبت نشد'));
+                    }
+                    else if (res.success) {
                         console.log("product added")
                         dispatch(success(productConstants.ADD_PRODUCT_SUCCESS, product));
                         dispatch(alertActions.success(res.message));
                         //history.go(0)
-                        
-                    } else if (res.success === false){
-                        dispatch(success(productConstants.ADD_PRODUCT_SUCCESS, product));
+
+                    } else if (res.success === false) {
+                        dispatch(failure(productConstants.ADD_PRODUCT_FAILURE, product));
                         dispatch(alertActions.error(res.message));
                     }
 
@@ -84,12 +86,12 @@ function editProduct(product) {
         productService.editProduct(product)
             .then(
                 res => {
-                    
+
                     console.log(res)
 
-                    if(res === undefined)
+                    if (res === undefined)
                         dispatch(alertActions.error('ارتباط با سرور برقرار نیست.مجصول شما ویرایش نشد'));
-                    else if(res.success){
+                    else if (res.success) {
                         console.log("product edited")
                         dispatch(success(productConstants.EDIT_PRODUCT_SUCCESS, product));
                         dispatch(alertActions.success(res.message));

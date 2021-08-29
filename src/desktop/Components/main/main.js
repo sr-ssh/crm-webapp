@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { Container, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { userActions } from '../../../actions/userActions'
 import { productActions } from '../../../actions/productActions'
 
 
@@ -15,13 +14,11 @@ export const Main = () => {
     let user_type = JSON.parse(localStorage.getItem('type'));
     let application_status = JSON.parse(localStorage.getItem('applicationStatus'));
     const permissions = useSelector(state => state.getPermissions.permissions);
-    const userInfo = useSelector(state => state.getUserInfo.user)
     const products = useSelector(state => state.getProducts.product)
     const dispatch = useDispatch()
 
 
     useEffect(() => {
-        dispatch(userActions.getUserInfo())
         dispatch(productActions.getProducts())
     }, [dispatch, permissions])
 

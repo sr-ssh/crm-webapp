@@ -11,6 +11,8 @@ import { Typography, Breadcrumbs, Link, Button, Backdrop } from '@material-ui/co
 
 // Actions
 import { employeeActions } from '../../../actions/employeeActions';
+import { userActions } from '../../../actions/userActions'
+
 
 // Routes
 import { Main } from './main'
@@ -47,6 +49,7 @@ export const Dashboard = (props) => {
 
     useEffect(() => {
         dispatch(employeeActions.getPermissions())
+        dispatch(userActions.getUserInfo())
     }, [dispatch])
 
     useEffect(() => {
