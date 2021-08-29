@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Form, Button, Row, Col, Spinner } from 'react-bootstrap';
+import { Form, Button, Row, Col, Spinner, Image } from 'react-bootstrap';
 import persianJs from 'persianjs/persian.min';
 import NotificationAlert from "react-notification-alert";
 
@@ -8,6 +8,8 @@ import NotificationAlert from "react-notification-alert";
 import { userActions } from '../../actions/userActions';
 // Icons
 import logo from './../assets/images/crm.svg'
+import userLogo from './../assets/images/user.svg'
+import passwordLogo from './../assets/images/password.svg'
 import notSeenIcon from '../assets/images/Not-seen.svg'
 import beSeenIcon from '../assets/images/be-seen.svg'
 
@@ -98,8 +100,11 @@ export const Login = () => {
                         <Row className="w-100 d-flex flex-column justify-content-center align-items-center">
                             <Col className="w-75 ">
                                 <Form.Group controlId="mobileOrEmail" >
-                                    <Form.Label>ایمیل / موبایل</Form.Label>
-                                    <Form.Control className="order-input login-input w-100 border border-secondary" type="text"
+                                    <Col className="mb-2">
+                                        <Image src={userLogo} width="20px" className="mx-2" />
+                                        <Form.Label className="d-inline">ایمیل / موبایل</Form.Label>
+                                    </Col>
+                                    <Form.Control className="order-input login-input w-100 input--login--desktop" type="text"
                                         onChange={handleChange}
                                         isValid={inputs.mobileOrEmail != false && validated && true}
                                         isInvalid={!inputs.mobileOrEmail && validated && true}
@@ -108,12 +113,15 @@ export const Login = () => {
                                 </Form.Group>
                             </Col>
                         </Row>
-                        <Row className="w-100 d-flex flex-column justify-content-center mt-4 align-items-center">
+                        <Row className="w-100 d-flex flex-column justify-content-center mt-5 align-items-center">
                             <Col className="w-75 ">
                                 <Form.Group className="inputWithButton " controlId="password">
-                                    <Form.Label className="">رمز عبور</Form.Label>
+                                    <Col className="mb-2">
+                                        <Image src={passwordLogo} width="20px" className="mx-2" />
+                                        <Form.Label className="d-inline">رمز عبور</Form.Label>
+                                    </Col>
                                     <img src={showPassword ? beSeenIcon : notSeenIcon} onClick={(e) => setShowPassword(!showPassword)} height="25px" className="eye-button" />
-                                    <Form.Control className="order-input eye-input w-100 border border-secondary" type={`${showPassword ? "text" : "password"}`}
+                                    <Form.Control className="order-input eye-input w-100 input--login--desktop" type={`${showPassword ? "text" : "password"}`}
                                         onChange={handleChange}
                                         required
                                         isValid={inputs.password.length > 3 && validated && true}

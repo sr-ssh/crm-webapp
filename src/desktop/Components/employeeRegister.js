@@ -126,7 +126,7 @@ export const EmployeeRegister = () => {
                                     <Col>
                                         <Form.Group controlId="family" >
                                             <Image src={userLogo} width="17px" className="mx-2" />
-                                            <Form.Label>نام و نام خانوادگی</Form.Label>
+                                            <Form.Label >نام و نام خانوادگی</Form.Label>
                                             <Form.Control className="form-input w-100 login-input" type="text"
                                                 onChange={handleChange}
                                                 isValid={inputs.family && validated && true}

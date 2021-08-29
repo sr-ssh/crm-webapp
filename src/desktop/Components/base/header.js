@@ -17,6 +17,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import PersonIcon from '@material-ui/icons/Person';
 import searchIcon from '../../assets/images/order/search.svg'
 import userAvatar from '../../assets/images/user-avatar.jpg'
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
     PopoverAccount: {
@@ -46,6 +47,8 @@ export const Header = ({ history }) => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false)
     const classes = useStyles();
     let user_type = JSON.parse(localStorage.getItem('type'));
+    const userInfo = useSelector(state => state.getUserInfo.user)
+
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -89,8 +92,13 @@ export const Header = ({ history }) => {
                     </Nav>
                     <Nav className="mr-auto">
                         <Nav.Item>
-                            <Nav.Link className="user--icon--navbar">
-                                <img src={userAvatar} alt="user-icon" height="30" onClick={handleClick} />
+                            <Nav.Link className={`user--icon--navbar`} >
+                                {
+                                    userInfo?.img ?
+                                        <img src={userAvatar} alt="user-icon" height="30" onClick={handleClick} />
+                                        :
+                                        <div className="is--user--avatart" onClick={handleClick}></div>
+                                }
 
                                 <Popover
                                     id={id}
