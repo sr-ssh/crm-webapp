@@ -19,6 +19,8 @@ import './desktop/assets/styles/formStyle.css';
 import './desktop/assets/styles/dashboardStyle.css'
 import './desktop/assets/styles/determineStyle.css'
 import './desktop/assets/styles/headerStyle.css'
+import './desktop/assets/styles/orderStyle.css'
+
 
 
 

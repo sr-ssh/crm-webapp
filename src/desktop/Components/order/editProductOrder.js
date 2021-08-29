@@ -126,8 +126,8 @@ export const EditeProductOrder = (props) => {
             className="w-100 m-0 p-0"
         >
             <Modal.Body className="add-product px-3">
-                <Button className="border-0 customer-modal-close" type="button" onClick={closeHandler}>
-                    <img className="d-flex m-auto customer-modal-close-svg" src={closeIcon} alt="close-btn" />
+                <Button className="border-0 customer-modal-close--desktop" type="button" onClick={closeHandler}>
+                    <img className="d-flex m-auto customer-modal-close-svg--desktop" src={closeIcon} alt="close-btn" />
                 </Button>
 
                 {

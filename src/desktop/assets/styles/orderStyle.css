@@ -1,0 +1,21 @@
+.customer-modal-close--desktop {
+  background-color: var(--dager-color);
+  border-radius: 10px;
+  padding: 3px;
+  position: absolute;
+  left: -15px;
+  top: -2vh;
+}
+
+.customer-modal-close--desktop .products-add:focus + .btn-primary,
+.products-add:focus {
+  background-color: var(--dager-color);
+}
+
+.customer-modal-close--desktop .btn-primary:hover {
+  background-color: var(--dager-color);
+}
+
+.customer-modal-close-svg--desktop {
+  width: 24px;
+}

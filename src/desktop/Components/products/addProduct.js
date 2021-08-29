@@ -87,8 +87,8 @@ export const AddProduct = (props) => {
             className="mx-3 order-serach-modal"
         >
             <Modal.Body className="add-product px-4">
-                <Button className="border-0 customer-modal-close" type="button" onClick={e => { props.onHide(false); setProductNameValidated(false); setProductPriceValidated(false) }}>
-                    <img className="d-flex m-auto customer-modal-close-svg" src={closeIcon} alt="close-btn" />
+                <Button className="border-0 customer-modal-close--desktop" type="button" onClick={e => { props.onHide(false); setProductNameValidated(false); setProductPriceValidated(false) }}>
+                    <img className="d-flex m-auto customer-modal-close-svg--desktop" src={closeIcon} alt="close-btn" />
                 </Button>
                 {/* {
                     alert.message &&

@@ -95,8 +95,8 @@ export const AddBill = (props) => {
             className="mx-3 order-serach-modal"
         >
             <Modal.Body className="add-product px-3">
-                <Button className="border-0 customer-modal-close" type="button" onClick={closewindowHandle}>
-                    <img className="d-flex m-auto customer-modal-close-svg" src={closeIcon} alt="close-btn" />
+                <Button className="border-0 customer-modal-close--desktop" type="button" onClick={closewindowHandle}>
+                    <img className="d-flex m-auto customer-modal-close-svg--desktop" src={closeIcon} alt="close-btn" />
                 </Button>
                 <Form onSubmit={formHandler} >
                     <Row className="">

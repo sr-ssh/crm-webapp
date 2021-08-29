@@ -2,7 +2,7 @@
 const dashboardRoutes = [
     {
         path: "/dashboard",
-        name: "داشبورد",
+        name: "خانه",
         layout: "/",
     },
     {

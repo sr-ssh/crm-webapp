@@ -92,7 +92,7 @@ export const Dashboard = (props) => {
                                     <Col>
                                         <Breadcrumbs aria-label="breadcrumb" >
                                             <Link color="inherit" href="/" className="ff-iranSans" underline="none" >
-                                                داشبورد
+                                                خانه
                                             </Link>
                                             <Typography color="textPrimary" className="ff-iranSans">{breadcrumbs[0]?.name}</Typography>
                                             {

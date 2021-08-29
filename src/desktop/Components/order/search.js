@@ -39,8 +39,8 @@ export const OrderSearch = (props) => {
             centered className="mx-3 order-serach-modal"
         >
             <Modal.Body className="order-filter-body">
-                <Button className="border-0 customer-modal-close" type="button" onClick={e => props.onHide(false)}>
-                    <img className="d-flex m-auto customer-modal-close-svg" src={closeIcon} alt="close-btn" />
+                <Button className="border-0 customer-modal-close--desktop" type="button" onClick={e => props.onHide(false)}>
+                    <img className="d-flex m-auto customer-modal-close-svg--desktop" src={closeIcon} alt="close-btn" />
                 </Button>
                 <Form onSubmit={formHandler} >
                     <Row>
