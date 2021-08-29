@@ -33,9 +33,9 @@ export const Products = () => {
     return (
         <div className="product-page d-flex flex-column align-items-center ">
             <Container fluid className="m-0 w-100 d-flex justify-content-center flex-wrap ">
-                <Row>
-                    <Col>
-                        <Button variant="contained" size="large" color="primary" className="ff-iranSans " onClick={() => setAddModalShow(true)}>
+                <Row className="w-75">
+                    <Col className="w-100 d-flex justify-content-center">
+                        <Button variant="contained" size="large" color="primary" className="ff-iranSans w-25 " onClick={() => setAddModalShow(true)}>
                             <span className="text-light">اضافه محصول</span>
                         </Button>
                     </Col>
