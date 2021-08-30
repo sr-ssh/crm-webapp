@@ -16,12 +16,14 @@ export const EditEmployee = (props) => {
     let [newPermission, setNewPermission] = useState(props.employee.permission)
     let editEmployeeLoading = useSelector(state => state.editEmployee.loading)
     let alert = useSelector(state => state.alert)
+    console.log(newPermission);
 
     const handleChange = (e) => {
-        if (e.target.type != "checkbox") {
+        let { name, type, checked } = e.target
+        if (type != "checkbox") {
             e.preventDefault()
         }
-        setNewPermission({ ...newPermission, [e.target.name]: e.target.checked })
+        setNewPermission({ ...newPermission, [name]: checked })
     }
 
 
@@ -86,18 +88,16 @@ export const EditEmployee = (props) => {
                                     </Card.Text>
                                 </Col>
                                 <Col className="pe-0">
+
                                     {
                                         props.show && newPermission && Object.keys(newPermission).map((key, index) => {
+                                            if (key === "preSms") return
                                             return (
-                                                <Form.Group key={index} className="fw-bold" onChange={handleChange}>
+                                                <Form.Group key={index} className="fw-bold" >
                                                     <Row className="my-1">
                                                         <Col xs={3}>
-                                                            <img
-                                                                htmlFor={`${index}`}
-                                                                className={`${newPermission[key] ? "edit-permission-tick-show" : "d-none"}`} src={tickIcon}
-                                                                alt="close-btn"
-                                                                height="30px" />
-                                                            <Form.Check.Input name={key} id={`${index}`} defaultChecked={newPermission[key]} type="checkbox" className="mx-2 mt-2" />
+                                                            <Form.Check.Input name={key} id={`${index}`} defaultChecked={newPermission[key]} onChange={handleChange} className="test" type="checkbox" />
+                                                            <span className="check"></span>
                                                         </Col>
                                                         <Col>
                                                             <Form.Check.Label className="ms-2" htmlFor={`${index}`}>
@@ -110,6 +110,7 @@ export const EditEmployee = (props) => {
                                         })
                                     }
                                 </Col>
+
                             </Row>
                         </Card.Body>
                     </Card>

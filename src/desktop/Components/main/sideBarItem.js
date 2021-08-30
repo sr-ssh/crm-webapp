@@ -41,7 +41,7 @@ export const SideBarItem = ({ route }) => {
 
     const classes = useStyles()
     const location = useLocation();
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = React.useState(false);
 
     const handleClick = () => {
         setOpen(!open);

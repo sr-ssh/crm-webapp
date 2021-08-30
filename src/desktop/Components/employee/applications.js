@@ -45,6 +45,8 @@ export const Applications = ({ emploeeRequest, setEmploeeRequest }) => {
             dispatch(employeeActions.getApplications())
     }, [dispatch, emploeeRequest])
 
+    console.log(applications);
+
     return (
         <>
             <Dialog fullScreen open={emploeeRequest}>
@@ -88,7 +90,7 @@ export const Applications = ({ emploeeRequest, setEmploeeRequest }) => {
                                                     </Col>
                                                     <Col className="pe-0">
                                                         <Card.Text>
-                                                            <span>{item.employee.family}</span>
+                                                            <span>{item.employee?.family}</span>
                                                         </Card.Text>
                                                     </Col>
                                                 </Row>
