@@ -51,7 +51,7 @@ export const SideBarItem = ({ route }) => {
         <>
             {
                 (route.path === "/setting" && user_type !== 1) ? null :
-                    route?.children?.length > 0 ?
+                    (route?.children?.length > 0 && isPermitted(route.layout)) ?
                         <>
                             <ListItem ListItem button className={`px-2 py-2 item--sidebar ${location.pathname.includes(route.layout) ? 'active--item--sidebar' : null}`} onClick={handleClick} >
                                 <Typography color="textPrimary" className="w-100 d-flex flex-row align-items-center text-end text-dark fw-bold pe-4 py-2  ff-iranSans">
