@@ -34,7 +34,6 @@ import { Setting } from '../setting/setting'
 // Components
 import { SideBar } from './sideBar'
 import routes from "../../routes";
-import { Header } from '../base/header'
 // Icons 
 
 
@@ -72,47 +71,15 @@ export const Dashboard = (props) => {
             notificationAlertRef.current.notificationAlert(options);
     }, [alert]);
 
-    let breadcrumbs = routes.filter(item => props.location.pathname.includes(item.path))
 
     return (
         <>
             <div className="wrapper">
-                <Header history={props} />
                 <div className="sidebar--desktop">
                     <SideBar routes={routes} />
                 </div>
                 <div className="content">
                     <NotificationAlert ref={notificationAlertRef} />
-                    {breadcrumbs[0]?.path !== "/dashboard" ?
-                        <Container className="mt-3 mx-4 px-4 mb-4 d-flex flex-row justify-content-between align-content-between">
-                            <Row>
-                                <Row>
-                                    <Col>
-                                        <Typography variant="h5" color="textPrimary" className="fw-bold ff-iranSans" paragraph>{breadcrumbs[0]?.name}</Typography>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col>
-                                        <Breadcrumbs aria-label="breadcrumb" >
-                                            <Link color="inherit" href="/" className="ff-iranSans" underline="none" >
-                                                خانه
-                                            </Link>
-                                            <Typography color="textPrimary" className="ff-iranSans">{breadcrumbs[0]?.name}</Typography>
-                                            {
-                                                breadcrumbs[0]?.children?.length > 0 ?
-                                                    breadcrumbs[0]?.children.map(item => {
-                                                        if (item.path === props.location.pathname)
-                                                            return <Typography color="textPrimary" className="ff-iranSans">{item.name}</Typography>
-                                                    })
-                                                    : null
-                                            }
-                                        </Breadcrumbs>
-                                    </Col>
-                                </Row>
-                            </Row>
-                        </Container>
-                        : null
-                    }
                     <Switch>
                         <PrivateRoute path="/dashboard" component={Main} ></PrivateRoute>
                         <PrivateRoute path="/order/add" component={AddOrder} ></PrivateRoute>

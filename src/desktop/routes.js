@@ -64,15 +64,15 @@ const dashboardRoutes = [
     //     name: "تخفیف ها",
     //     layout: "/",
     // },
-    {
-        path: "/account",
-        name: "حساب کاربری",
-        layout: "/",
-    }, {
-        path: "/setting",
-        name: "تنظیمات",
-        layout: "/",
-    }
+    // {
+    //     path: "/account",
+    //     name: "حساب کاربری",
+    //     layout: "/",
+    // }, {
+    //     path: "/setting",
+    //     name: "تنظیمات",
+    //     layout: "/",
+    // }
 ];
 
 export default dashboardRoutes;

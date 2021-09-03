@@ -6,9 +6,16 @@ import { List, Typography, Link } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 
 
+
+// Actions
+import { userActions } from '../../../actions'
+
+
 // Icons
 import logo from '../../assets/images/crm.svg'
-import userAvatar from '../../assets/images/user-avatar.jpg'
+import exitIcon from '../../assets/images/drawer/exit.svg'
+import accountIcon from '../../assets/images/drawer/account.svg'
+import settingIcon from '../../assets/images/drawer/setting.svg'
 
 
 
@@ -16,7 +23,7 @@ import userAvatar from '../../assets/images/user-avatar.jpg'
 export const SideBar = ({ routes }) => {
 
     const location = useLocation();
-    let userInfo = useSelector(state => state.getUserInfo.user)
+    let user_type = JSON.parse(localStorage.getItem('type'));
 
 
     return (
@@ -24,34 +31,14 @@ export const SideBar = ({ routes }) => {
             <div className="sidebar">
 
                 <Row className="m-0 p-0 mt-3 mb-3 d-flex flex-column">
-                    <Col className="">
+                    <Col className="d-flex justify-content-center">
                         <img className="" height="50px" src={logo} alt="" />
-                    </Col>
-                    <Col className="mt-4 pt-1">
-                        <NavLink to="/account" className="nav-link fw-bold text-light">
-                            <Card className="card--rounded">
-                                <Card.Body className="card--account-info--sidebar px-3 py-3">
-                                    <Col className={`col-2 img--card--account--info`}>
-                                        {
-                                            userInfo?.img ?
-                                                <img className="" height="50px" src={userInfo?.img} alt="" />
-                                                :
-                                                <div className="is--user--avatart"></div>
-                                        }
-                                    </Col>
-                                    <Col className="d-flex flex-column me-2 fs-7 ">
-                                        <span className="text-decoration-none">{userInfo?.family}</span>
-                                        <span className="text-decoration-none">{userInfo?.type === 1 ? <>کارفرما</> : <>کارمند</>}</span>
-                                    </Col>
-                                </Card.Body>
-                            </Card>
-                        </NavLink>
                     </Col>
                 </Row>
                 <List
                     component="nav"
                     aria-labelledby="nested-list-subheader"
-                    className="flex-column mt-4"
+                    className="flex-column mt-3"
                 >
                     {routes.map((prop, key) => {
                         return (
@@ -60,7 +47,22 @@ export const SideBar = ({ routes }) => {
                     })}
 
                 </List>
-
+                <Row className="m-0 p-0 d-flex justify-content-center align-items-center mt-4 dashboardIcons--desktop">
+                    <Col className="my-3 col-4">
+                        <Col onClick={e => userActions.logout()}>
+                            <img className="m-auto d-block exit--icon--desktop" src={exitIcon} height="40px" alt="exit-icon" />
+                        </Col>
+                    </Col>
+                    {
+                        user_type === 1 &&
+                        <Col className="my-3 col-4">
+                            <NavLink to="/setting"><img className="m-auto d-block" src={settingIcon} height="40px" alt="setting-icon" /></NavLink>
+                        </Col>
+                    }
+                    <Col xs={4} sm={4} md={4} lg={4} className="my-3 col-4">
+                        <NavLink to="/account"><img className="m-auto d-block" src={accountIcon} height="40px" alt="acount-icon" /></NavLink>
+                    </Col>
+                </Row>
 
 
             </div>
