@@ -175,8 +175,11 @@
 }
 
 .dashboardIcons--desktop {
+  position: fixed;
+  bottom: 0;
+  width: inherit;
   background-color: rgb(10, 88, 202);
-  height: 10vh;
+  height: 9vh;
 }
 .exit--icon--desktop {
   cursor: pointer;

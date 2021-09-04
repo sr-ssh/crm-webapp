@@ -1,0 +1,6 @@
+.logo--sidebar--desktop {
+  position: fixed;
+  width: inherit;
+  background-color: var(--pages-background);
+  z-index: 1000;
+}
