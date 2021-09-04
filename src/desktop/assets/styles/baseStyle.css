@@ -18,7 +18,7 @@
 
 body {
   font-family: "IranSans";
-  background-color: rgb(67, 62, 62);
+  background-color: var(--pages-background);
   margin: 0;
   padding: 0;
 }

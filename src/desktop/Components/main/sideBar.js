@@ -47,7 +47,7 @@ export const SideBar = ({ routes }) => {
                     })}
 
                 </List>
-                <Row className="m-0 p-0 d-flex justify-content-center align-items-center mt-4 dashboardIcons--desktop">
+                <Row className="m-0 p-0 d-flex justify-content-center align-items-center mt-auto dashboardIcons--desktop">
                     <Col className="my-3 col-4">
                         <Col onClick={e => userActions.logout()}>
                             <img className="m-auto d-block exit--icon--desktop" src={exitIcon} height="40px" alt="exit-icon" />

@@ -9,6 +9,9 @@ import { productActions } from '../../../actions/productActions'
 import { EmployeeApp } from './employeeApp'
 import { EmployeeNoApp } from './employeeNoApp'
 import { EmployerNoProduct } from './employerNoProduct'
+import { MainMenuOptions } from './mainMenuOptions'
+
+
 export const Main = () => {
 
     let user_type = JSON.parse(localStorage.getItem('type'));
@@ -25,8 +28,10 @@ export const Main = () => {
     return (
 
         <div>
-            <Container fluid className="m-0 w-100 d-flex justify-content-center align-items-center flex-column ">
-
+            <Container fluid className="m-0 w-100 d-flex justify-content-center align-items-center flex-column " style={{ height: "100vh" }}>
+                {((user_type === 1 && products.length > 0) || (user_type === 2 && application_status === 2)) &&
+                    <MainMenuOptions />
+                }
                 {user_type === 2 && application_status === 1 &&
                     <EmployeeApp />
                 }
