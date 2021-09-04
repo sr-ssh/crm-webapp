@@ -1,3 +1,24 @@
+.order-page--desktop {
+  height: 100vh;
+  min-height: 100vh;
+  background: var(--pages-background);
+  z-index: -1;
+}
+
+.order-page--desktop .form-control {
+  height: 40px;
+}
+.order-page--desktop .card {
+  background-color: var(--card-background);
+}
+
+.add-order-input--desktop {
+  font-size: 11px;
+  height: 40px;
+  color: var(--text-color-one);
+  font-family: "IranSans";
+  font-weight: bold;
+}
 .customer-modal-close--desktop {
   background-color: var(--dager-color);
   border-radius: 10px;
@@ -6,7 +27,116 @@
   left: -15px;
   top: -2vh;
 }
+.spinner--download--btn--desktop {
+  position: absolute;
+  left: 8px;
+  top: 32px;
+  background-color: white;
+}
 
+.basket-flex--desktop .dropdown-toggle {
+  border: none;
+  height: 40px;
+  background-color: var(--body-bachground);
+  color: var(--text-color-one);
+  font-size: 13px;
+  border-radius: 15px;
+  width: 100%;
+  text-align: right;
+}
+
+.basket-flex--desktop .dropdown-toggle::after {
+  content: "";
+  border: none;
+}
+
+.basket-flex--desktop .dropdown-item {
+  font-size: 13px;
+}
+
+.basket-flex--desktop .btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle {
+  color: var(--text-color-one);
+  background-color: var(--body-bachground);
+  border: none;
+}
+
+.basket-flex--desktop .btn-primary:not(:disabled):not(.disabled):active:focus,
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.show > .btn-primary.dropdown-toggle:focus {
+  box-shadow: none;
+}
+
+.basket-flex--desktop .btn-primary:focus,
+.btn-primary.focus {
+  box-shadow: none;
+}
+
+.basket-flex--desktop .products-add:focus + .btn-primary,
+.products-add:focus {
+  background-color: var(--body-bachground);
+}
+
+.basket-flex--desktop .btn-primary:hover {
+  background-color: var(--body-bachground);
+}
+
+.basket-flex--desktop .dropdown-divider {
+  margin: 0.3rem 0;
+  border-top: 1px solid var(--text-color-one);
+}
+
+.basket-flex--desktop th {
+  font-size: 11px;
+  color: var(--text-color-one);
+  font-weight: normal;
+}
+
+.basket-flex--desktop td {
+  color: var(--text-color-two);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.basket-flex--desktop img {
+  width: 1.5rem;
+}
+
+.order-input--desktop {
+  border-radius: 15px;
+  color: var(--text-color-two);
+  font-size: 14px;
+  border: none;
+  height: 40px;
+}
+.order-input--desktop::placeholder,
+::-webkit-input-placeholder {
+  position: relative;
+  font-size: 13px;
+  color: var(--text-color-one) !important;
+  font-weight: 600;
+  font-family: "IranSans" !important;
+  left: 0;
+  text-align: right !important;
+}
+.order-input--desktop:focus {
+  outline: var(--button-color-one);
+  border: 1px solid var(--button-color-one);
+}
+.products-add--desktop {
+  background-color: rgb(10, 88, 202);
+  border-radius: 13px;
+  padding: 150px 0px;
+  height: 40px;
+}
+.products-add--desktop:focus,
+.products-add--desktop:active,
+.products-add--desktop:hover,
+.products-add--desktop:active:focus {
+  background-color: rgb(10, 88, 202) !important;
+  border-radius: 13px;
+}
 .customer-modal-close--desktop .products-add:focus + .btn-primary,
 .products-add:focus {
   background-color: var(--dager-color);
@@ -18,4 +148,25 @@
 
 .customer-modal-close-svg--desktop {
   width: 24px;
+}
+
+.btn--add--note--desktop {
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  padding: 0.5rem 0;
+  border: none;
+  color: var(--button-color-one);
+  background-color: var(--button-background-two);
+  border: 1px solid #c2ccd7;
+  margin-bottom: 0.7rem;
+  border-radius: 8px;
+}
+.btn--add--note--desktop:hover,
+.btn--add--note--desktop:active,
+.btn--add--note--desktop:focus,
+.btn--add--note--desktop:focus:active,
+.btn--add--note--desktop:active:focus {
+  color: var(--button-color-one);
+  background-color: var(--button-background-two) !important;
 }

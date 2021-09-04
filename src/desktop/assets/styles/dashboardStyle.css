@@ -156,8 +156,11 @@
 }
 .my-custom-scrollbar--desktop {
   position: relative;
-  height: 30vh;
+  height: 14vh;
   overflow: auto;
+}
+.my-custom-scrollbar--desktop::-webkit-scrollbar {
+  width: 0;
 }
 .wrapper .alert {
   bottom: auto;

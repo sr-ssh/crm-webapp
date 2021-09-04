@@ -132,15 +132,14 @@ export const AddOrder = () => {
 
     return (
         <>
-
-            <div className="order-page">
+            <div className="order-page--desktop">
                 <Container fluid className="pt-3 px-3 m-0">
-                    <Form onSubmit={formHandler} noValidate className="d-flex flex-row justify-content-around" >
-                        <Row className="w-50">
-                            <Row className="m-0 p-0 order-inputs">
-                                <Col className="col-5 add-order-input">
-                                    <Form.Group>
-                                        <Form.Label className="pe-2">موبایل</Form.Label>
+                    <Form onSubmit={formHandler} noValidate className="d-flex flex-column align-items-center" >
+                        <Row className="d-flex flex-column" style={{ width: "65%", height: "100vh" }}>
+                            <Row className="col-12 m-0 p-0 mt-2 order-inputs d-flex flex-row justify-content-between align-items-center">
+                                <Col className="col-4 add-order-input--desktop">
+                                    <Form.Group className="p--relative">
+                                        <Form.Label className="me-3">موبایل</Form.Label>
                                         <Form.Control className="order-input" type="number" name="mobile"
                                             isInvalid={((!customer.mobile && validated) || (mobileValidated) && true)}
                                             isValid={((customer.mobile && validated) || (mobileValidated && customer.mobile) && true)}
@@ -148,42 +147,21 @@ export const AddOrder = () => {
                                             value={customer.mobile}
                                             required
                                         />
-                                    </Form.Group>
-                                </Col>
-                                <Col className="col-4 align-self-end mb-2">
-                                    {loading ?
-                                        <div className="add-order-download-btn-loading">
+                                        {loading ?
                                             <Spinner
+                                                className="spinner--download--btn--desktop "
                                                 as="div"
                                                 variant="primary"
                                                 animation="border"
                                                 size="sm"
                                             />
-                                        </div>
-                                        : <img src={downloadIcon} className="add-order-download-btn p-1" onClick={(e) => handleOldCustomer(e)} height="33vh" width="50vw" alt="down-icon" />
-                                    }
-
-
-                                </Col>
-                            </Row>
-
-                            <Row className="m-0 p-0 mt-2 order-inputs">
-                                <Col className="p-0 add-order-input">
-                                    <Form.Group controlId="address">
-                                        <Form.Label className="pe-2">آدرس</Form.Label>
-                                        <Form.Control className="order-input" type="text" name="address"
-                                            onChange={handleChange}
-                                            isInvalid={false}
-                                            isValid={false}
-                                            value={customer.address}
-                                        />
+                                            : <img src={downloadIcon} className="m-0 p-0  spinner--download--btn--desktop" onClick={(e) => handleOldCustomer(e)} height="25px" alt="down-icon" />
+                                        }
                                     </Form.Group>
                                 </Col>
-                            </Row>
-                            <Row className="m-0 p-0 mt-2 order-inputs">
-                                <Col className="p-0 col-5 add-order-input">
+                                <Col className=" col-4 add-order-input--desktop">
                                     <Form.Group >
-                                        <Form.Label className="pe-2">نام</Form.Label>
+                                        <Form.Label className="me-3">نام</Form.Label>
                                         <Form.Control className="order-input" type="text" name="family"
                                             onChange={handleChange}
                                             isInvalid={((!customer.family && validated) || (nameValidated) && true)}
@@ -193,9 +171,9 @@ export const AddOrder = () => {
                                         />
                                     </Form.Group>
                                 </Col>
-                                <Col className="p-0 col-5 me-auto add-order-input">
+                                <Col className=" col-4  add-order-input--desktop">
                                     <Form.Group controlId="birthday">
-                                        <Form.Label className="pe-2">نام شرکت</Form.Label>
+                                        <Form.Label className="me-3">نام شرکت</Form.Label>
                                         {/* <DatePicker
                                     style={{
                                         width: "100%"
@@ -218,58 +196,87 @@ export const AddOrder = () => {
                                     </Form.Group>
                                 </Col>
                             </Row>
-                            <Row >
+                            <Row className="col-12 m-0 pt-2 mt-4 order-inputs">
+                                <Col className="p-0 add-order-input">
+                                    <Form.Group controlId="address">
+                                        <Form.Label className="me-3">آدرس</Form.Label>
+                                        <Form.Control className="order-input" type="text" name="address"
+                                            onChange={handleChange}
+                                            isInvalid={false}
+                                            isValid={false}
+                                            value={customer.address}
+                                        />
+                                    </Form.Group>
+                                </Col>
+                            </Row>
+                            <Row className="col-12 m-0 mt-4 basketContainer">
+                                <Form.Label className="me-2">سبد خرید</Form.Label>
+                                <Col>
+                                    <Basket order={order} insertOrder={insertOrder} totalPrice={totalPrice} insertPrice={insertPrice} selectedItem={selectedItem} setItem={setItem} quantity={quantity} setQuantity={setQuantity} />
+                                </Col>
+                            </Row>
+                            <Row className="m-0 p-0 " >
                                 <Col className="mt-3 w-100">
-                                    <Button className={`d-flex flex-row ${notes.length > 0 ? 'w-100' : 'w-auto'}  align-items-center btn--add--note `} onClick={noteHandler}>
-                                        <img className="me-3" src={addIcon} height="25px" alt="edit-icon" /><span className="me-1 fw-bold ms-3">
-                                            {
-                                                notes.length > 0 ?
-                                                    notes[0].text
-                                                    :
-                                                    <>
+                                    <Button className={`d-flex flex-row w-100 align-items-center justify-content-center btn--add--note--desktop  `} onClick={noteHandler}>
+                                        {
+                                            notes.length > 0 ?
+                                                <>
+                                                    <span className="me-1 fw-bold ms-3">
+                                                        {notes[0].text}
+                                                    </span>
+                                                </>
+                                                :
+                                                <>
+                                                    <img className="me-3" src={addIcon} height="25px" alt="edit-icon" />
+                                                    <span className="me-1 fw-bold ms-3">
                                                         اضافه یادداشت
-                                                    </>
-                                            }
-                                        </span>
+                                                    </span>
+
+                                                </>
+                                        }
                                     </Button>
                                 </Col>
                             </Row>
-                            <Row className="m-0 align-self-start flex-row">
-                                <Col className=" mt-3 order-inputs">
-                                    <Form.Group controlId="duration">
-                                        <Form.Label className="pe-1"> آماده سازی</Form.Label>
-                                        <Form.Control className="order-input me-2" type="number" min="0" name="duration"
-                                            onChange={handleChange}
-                                            isInvalid={false}
-                                            isValid={false}
-                                            value={customer.duration}
-                                            required
-                                        />
-                                    </Form.Group>
+                            <Row className="m-0 p-0 align-self-start flex-row" >
+                                <Col className="d-flex flex-row align-items-center" style={{ height: "fit-content" }}>
+                                    <Col className="m-0 col-6 order-inputs">
+                                        <Form.Group controlId="duration">
+                                            <Form.Label className="pe-1"> آماده سازی</Form.Label>
+                                            <Form.Control className="order-input me-2" type="number" min="0" name="duration"
+                                                onChange={handleChange}
+                                                isInvalid={false}
+                                                isValid={false}
+                                                value={customer.duration}
+                                                required
+                                            />
+                                        </Form.Group>
+                                    </Col>
+                                    <Col className="align-self-center m-0  mt-3 me-2 col-2 text-center  order-input">
+                                        <span className="reminder-span fs-7 fw-bold">دقیقه</span>
+                                    </Col>
                                 </Col>
-                                <Col xs={2} className="align-self-end mt-3 order-input">
-                                    <span className="reminder-span">دقیقه</span>
-                                </Col>
-                                <Col className=" mt-3 order-inputs">
-                                    <Form.Group controlId="reminder">
-                                        <Form.Label className="pe-1">تاریخ یادآوری</Form.Label>
-                                        <Form.Control className="text-center order-input" type="number" name="reminder" min="0"
-                                            onChange={handleChange}
-                                            isInvalid={false}
-                                            isValid={false}
-                                            value={customer.reminder}
-                                        />
-                                    </Form.Group>
-                                </Col>
-                                <Col xs={2} className="align-self-end mt-3 order-input">
-                                    <span className="reminder-span" >روز دیگر</span>
+                                <Col className="d-flex flex-row align-items-center justify-content-end" style={{ height: "fit-content" }}>
+                                    <Col className="m-0 col-6 order-inputs">
+                                        <Form.Group controlId="reminder">
+                                            <Form.Label className="pe-1">تاریخ یادآوری</Form.Label>
+                                            <Form.Control className="text-center order-input" type="number" name="reminder" min="0"
+                                                onChange={handleChange}
+                                                isInvalid={false}
+                                                isValid={false}
+                                                value={customer.reminder}
+                                            />
+                                        </Form.Group>
+                                    </Col>
+                                    <Col xs={2} className="align-self-center m-0  mt-3 me-2  col-2 text-center  order-input">
+                                        <span className="reminder-span fs-7 fw-bold" >روز دیگر</span>
+                                    </Col>
                                 </Col>
                             </Row>
                             <Row className="m-0 mt-4 justify-content-center w-100">
 
 
                                 {addOrderLoading ?
-                                    <Button className="fw-bold order--btn order-submit border-0 w-100" size="lg" type="submit" disabled>
+                                    <Button className="fw-bold order--btn order-submit--desktop border-0 w-100" size="lg" type="submit" disabled>
                                         <Spinner
                                             as="span"
                                             animation="grow"
@@ -282,7 +289,7 @@ export const AddOrder = () => {
                                     :
                                     <>
                                         <Col className="col-7 m-0 p-0 ps-1">
-                                            <Button className="fw-bold order--btn order-submit border-0 w-100" size="lg" type="submit" block>
+                                            <Button className="fw-bold order--btn order-submit--desktop border-0 w-100" size="lg" type="submit" block>
                                                 ثبت
                                             </Button>
 
@@ -297,11 +304,7 @@ export const AddOrder = () => {
                                 }
                             </Row>
                         </Row>
-                        <Row className="m-0 mt-4 basketContainer w-40">
-                            <Col>
-                                <Basket order={order} insertOrder={insertOrder} totalPrice={totalPrice} insertPrice={insertPrice} selectedItem={selectedItem} setItem={setItem} quantity={quantity} setQuantity={setQuantity} />
-                            </Col>
-                        </Row>
+
 
                     </Form>
                 </Container>

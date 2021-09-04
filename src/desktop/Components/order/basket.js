@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Card, Dropdown, Button, Table, Row, Col, FormControl } from 'react-bootstrap';
+import { Card, Dropdown, Button, Table, Row, Col, Form } from 'react-bootstrap';
 import persianJs from 'persianjs/persian.min';
 
 // Actions
@@ -69,15 +69,12 @@ export const Basket = ({ order, insertOrder, totalPrice, insertPrice, selectedIt
         <>
             <Row>
                 <Card className="border-0 p-3 pt-2  basketContainer">
-                    <Card.Body className="p-0 basket-flex">
-                        <Row>
-                            <h6 className="order-input fw-bold">سفارشات</h6>
-                        </Row>
-                        <Row>
-                            <Col className="col-8 pe-2">
+                    <Card.Body className="mt-2 mx-3 p-0 basket-flex--desktop">
+                        <Row className="ms-3 justify-content-evenly">
+                            <Col className="col-7 p-0 m-0">
                                 <Dropdown onToggle={(e) => setDimStatus(!dimStatus)} onClick={(e) => productHandler(e)}>
-                                    <Dropdown.Toggle className="d-flex">
-                                        {selectedItem.length ? <span>{selectedItem}</span> : <span>محصولات</span>}
+                                    <Dropdown.Toggle className=" px-1 d-flex align-items-center">
+                                        {selectedItem.length ? <span className="me-2">{selectedItem}</span > : <span className="me-2 fw-bold">محصولات</span>}
                                         <img className="me-auto" src={spinnerIcon} height="20px" alt="spinner-icon" />
                                     </Dropdown.Toggle>
                                     <Dropdown.Menu className={`${dimStatus ? "dim" : ""} dropdownProductMenu`}>
@@ -102,26 +99,36 @@ export const Basket = ({ order, insertOrder, totalPrice, insertPrice, selectedIt
                                 </Dropdown>
                             </Col>
 
-                            <Col className="col-2 px-1">
-                                <FormControl value={Number.isInteger(quantity) ? "" : quantity} onChange={(e) => quantityOrderHandler(e)} className={`order-input text-center ${quantityOrder ? 'border border-danger' : null}`} type="number" min="1" name="duration" style={{ 'maxHeight': '32px' }} />
+                            <Col className="col-3 p-0 m-0 px-3 d-flex justify-content-center">
+
+                                <Form.Control
+                                    placeholder="تعداد"
+                                    value={Number.isInteger(quantity) ? "" : quantity}
+                                    onChange={(e) => quantityOrderHandler(e)}
+                                    className={` order-input--desktop text-center ${quantityOrder ? 'border border-danger' : null}`}
+                                    type="number"
+                                    min="1"
+                                    name="duration"
+                                    style={{ 'maxHeight': '40px' }} >
+                                </Form.Control>
                             </Col>
-                            <Col className="col-2 p-0 text-center products-add-btn">
-                                <Button className="products-add border-0 py-1" onClick={(e) => newOrder(e)} type="button">
+                            <Col className="m-0 p-0 text-center products-add-btn ">
+                                <Button className="products-add--desktop border-0 py-1 w-75  " onClick={(e) => newOrder(e)} type="button">
                                     <img className="d-flex m-auto " src={plusIcon} alt="add-button" />
                                 </Button>
                             </Col>
 
                         </Row>
 
-                        <Row className="pt-2 pe-2">
+                        <Row className="pt-2">
                             <div className="table-wrapper-scroll-y my-custom-scrollbar--desktop px-1">
                                 <Table className="lh-lg" borderless size="sm">
                                     <thead>
                                         <tr>
-                                            <th className="fw-bold">سفارش</th>
+                                            <th className="fw-bold col-6">سفارش</th>
                                             <th className="fw-bold">قیمت (تومان)</th>
                                             <th className="fw-bold">تعداد</th>
-                                            <th></th>
+                                            <th className="col-1"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -131,7 +138,7 @@ export const Basket = ({ order, insertOrder, totalPrice, insertPrice, selectedIt
                                                     return (
                                                         <tr key={item.name}>
                                                             <td>{item.name && persianJs(item.name).englishNumber().toString()}</td>
-                                                            <td className="text-center">{(item.quantity * item.sellingPrice) && persianJs(item.quantity * item.sellingPrice).englishNumber().toString()} </td>
+                                                            <td className="">{(item.quantity * item.sellingPrice) && persianJs(item.quantity * item.sellingPrice).englishNumber().toString()} </td>
                                                             <td className="pe-3">{item.quantity && persianJs(item.quantity).englishNumber().toString()}</td>
                                                             <td onClick={(e) => removeOrder(e, item)}><img src={deleteIcon} className="d-block me-auto" alt="delete-icon" /></td>
                                                         </tr>

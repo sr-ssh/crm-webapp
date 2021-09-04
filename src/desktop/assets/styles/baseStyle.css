@@ -1,6 +1,7 @@
 :root {
   --body-bachground: #ffffff;
   --button-background: #64b5f6;
+  --button-background-two: #e2e7ed;
   --button-color-one: #373737;
   --pages-background: #ebebeb;
   --text-color-one: #646464;
@@ -10,6 +11,7 @@
   --dager-color: #e53935;
   --background-blue: #c3e2fc;
 }
+/*  */
 
 @font-face {
   font-family: "IranSans";
@@ -35,4 +37,7 @@ body {
   bottom: auto;
   top: 0;
   left: 0px;
+}
+.p--relative {
+  position: relative !important;
 }
