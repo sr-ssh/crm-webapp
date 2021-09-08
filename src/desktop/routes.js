@@ -50,9 +50,20 @@ const dashboardRoutes = [
         layout: "/",
     },
     {
+        layout: "/employees",
         path: "/employees",
         name: "کارمندان",
-        layout: "/",
+        children: [
+            {
+                path: "/employees",
+                name: "کارمندان",
+                layout: "/",
+            },
+            {
+                path: "/employee/add",
+                name: "درخواست ها",
+                layout: "/employees",
+            }]
     },
     // {
     //     path: "/employee/add",
