@@ -110,7 +110,6 @@ function getExcelCustomers(filter = {}) {
         responseType: `blob` // important
 
     }).then(res => {
-        debugger;
         console.log("res.customers >> "); console.log(res);
         const url = window.URL.createObjectURL(new Blob([res.data]));
         const link = document.createElement('a');

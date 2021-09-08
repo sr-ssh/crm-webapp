@@ -6,7 +6,8 @@ import { alertActions } from './alertActions';
 export const productActions = {
     getProducts,
     addProduct,
-    editProduct
+    editProduct,
+    getExcelProducts
 };
 
 function getProducts() {
@@ -112,6 +113,31 @@ function editProduct(product) {
             );
     }
 
+}
+
+
+
+function getExcelProducts() {
+    return dispatch => {
+        dispatch(request());
+        productService.getExcelProducts()
+            .then(
+                res => {
+                    console.log("Excel Products received")
+                    dispatch(success(res));
+                },
+                error => {
+                    dispatch(failure(error.toString()));
+                    console.log("occure error");
+                    console.log(error.toString());
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+    };
+
+    function request() { console.log("into request"); return { type: productConstants.GET_EXCEL_PRODUCTS_REQUEST } }
+    function success(product) { console.log("into success"); return { type: productConstants.GET_EXCEL_PRODUCTS_SUCCESS, product } }
+    function failure(error) { return { type: productConstants.GET_EXCEL_PRODUCTS_FAILURE, error } }
 }
 
 function request(type) {

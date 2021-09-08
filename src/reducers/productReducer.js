@@ -73,3 +73,29 @@ export function editProduct(state = {}, action) {
             return state;
     }
 }
+
+
+export function getExcelProducts(state = initialState, action) {
+    switch (action.type) {
+        case productConstants.GET_EXCEL_PRODUCTS_REQUEST:
+            return {
+                ...state,
+                loading: true,
+            }
+        case productConstants.GET_EXCEL_PRODUCTS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                product: action.product
+            }
+        case productConstants.GET_EXCEL_PRODUCTS_FAILURE:
+            return {
+                ...state,
+                err: action.err,
+                loading: false,
+            }
+        default:
+            return state;
+    }
+
+}
