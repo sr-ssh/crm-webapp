@@ -20,7 +20,8 @@ export const orderService = {
     editOrderPrice,
     editOrderQuantity,
     cancelProductOrder,
-    editProductOrder
+    editProductOrder,
+    orderDetails
 };
 
 function getOrders(filter = {}) {
@@ -273,6 +274,30 @@ function sendDeliverySms(params) {
 
     return axios
         .post(`${baseRoute}/order/delivery/sms`, requestOptions.body, { headers: requestOptions.headers })
+        .then(res => {
+            console.log('res >>')
+            console.log(res.data)
+            return handleResponse(res)
+        })
+        .catch(error => {
+            if (error.response) {
+                console.log(error.response.data)
+                handleError(error.response.status)
+            }
+        })
+}
+
+
+
+function orderDetails(orderId) {
+    console.log('into orderService (orderDetails)')
+
+    const requestOptions = {
+        headers: authHeader()
+    }
+
+    return axios
+        .get(`${baseRoute}/order/details/${orderId}`, { headers: requestOptions.headers })
         .then(res => {
             console.log('res >>')
             console.log(res.data)

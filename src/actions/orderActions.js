@@ -14,7 +14,8 @@ export const orderActions = {
     sendDeliverySms,
     editNewSms,
     cancelProductOrder,
-    editProductOrder
+    editProductOrder,
+    orderDetails
 }
 
 function getOrders(filter) {
@@ -356,6 +357,38 @@ function sendDeliverySms(data) {
                 },
                 error => {
                     dispatch(failure(orderConstants.SEND_ORDER_SMS_FAILURE, error.toString()));
+                    console.log("occure error");
+                    console.log(error.toString());
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+    };
+
+}
+
+
+
+function orderDetails(orderId) {
+    return dispatch => {
+        dispatch(request(orderConstants.GET_ORDER_DETAILS_REQUEST))
+        orderService.orderDetails(orderId)
+            .then(
+                res => {
+                    if (res === undefined) {
+                        dispatch(alertActions.error('ارتباط با سرور برقرار نیست'));
+                        dispatch(failure(orderConstants.GET_ORDER_DETAILS_FAILURE))
+                    }
+                    else if (res.success) {
+                        console.log("order Details receive")
+                        dispatch(success(orderConstants.GET_ORDER_DETAILS_SUCCESS, res.data));
+                        // dispatch(alertActions.success(res.message));
+                    }
+                    // setTimeout(() => {
+                    //     dispatch(alertActions.clear());
+                    // }, 1500);
+                },
+                error => {
+                    dispatch(failure(orderConstants.GET_ORDER_DETAILS_FAILURE, error.toString()));
                     console.log("occure error");
                     console.log(error.toString());
                     dispatch(alertActions.error(error.toString()));

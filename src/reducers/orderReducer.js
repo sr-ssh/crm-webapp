@@ -261,3 +261,27 @@ export function setOrdersFilter(state = {}, action) {
             return state;
     }
 }
+
+
+export function orderDetails(state = {}, action) {
+    switch (action.type) {
+        case orderConstants.GET_ORDER_DETAILS_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+        case orderConstants.GET_ORDER_DETAILS_SUCCESS:
+            return {
+                ...state,
+                data: action.data,
+                loading: false,
+            }
+        case orderConstants.GET_ORDER_DETAILS_FAILURE:
+            return {
+                error: action.error,
+                loading: false
+            }
+        default:
+            return state
+    }
+}
