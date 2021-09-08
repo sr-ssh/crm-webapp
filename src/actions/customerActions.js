@@ -4,7 +4,8 @@ import { alertActions } from './alertActions';
 
 export const customerActions = {
     getCustomers,
-    getCustomer
+    getCustomer,
+    getExcelCustomers
 };
 
 function getCustomers(filter) {
@@ -76,4 +77,30 @@ function getCustomer(mobile) {
     function request() { console.log("into request"); return { type: customerConstants.GET_CUSTOMER_REQUEST } }
     function success(customer) { console.log("into success"); return { type: customerConstants.GET_CUSTOMER_SUCCESS, customer } }
     function failure(error) { return { type: customerConstants.GET_CUSTOMER_FAILURE, error } }
+}
+
+
+
+function getExcelCustomers(filter) {
+    return dispatch => {
+        dispatch(request());
+
+        customerService.getExcelCustomers(filter)
+            .then(
+                res => {
+                    console.log("got the excel customers")
+                    dispatch(success(res));
+                },
+                error => {
+                    dispatch(failure(error.toString()));
+                    console.log("occure error");
+                    console.log(error.toString());
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+    };
+
+    function request() { console.log("into request"); return { type: customerConstants.GET_EXCEL_CUSTOMERS_REQUEST } }
+    function success(data) { console.log("into success"); return { type: customerConstants.GET_EXCEL_CUSTOMERS_SUCCESS, data } }
+    function failure(error) { return { type: customerConstants.GET_EXCEL_CUSTOMERS_FAILURE, error } }
 }

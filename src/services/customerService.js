@@ -7,32 +7,33 @@ let baseRoute = SERVER_URL;
 
 export const customerService = {
     getCustomers,
-    getCustomer
+    getCustomer,
+    getExcelCustomers
 };
 
 
 function getCustomers(filter = {}) {
     console.log("into customerService");
 
-    if(!filter.family)
+    if (!filter.family)
         filter.family = " "
-    if(!filter.mobile)
+    if (!filter.mobile)
         filter.mobile = "0"
-    if(!filter.createdAtFrom)
+    if (!filter.createdAtFrom)
         filter.createdAtFrom = "1900-01-01T05:42:13.845Z"
-    if(!filter.createdAtTo)
+    if (!filter.createdAtTo)
         filter.createdAtTo = "1900-01-01T05:42:13.845Z"
-    if(!filter.lastBuyFrom)
+    if (!filter.lastBuyFrom)
         filter.lastBuyFrom = "1900-01-01T05:42:13.845Z"
-    if(!filter.lastBuyTo)
+    if (!filter.lastBuyTo)
         filter.lastBuyTo = "1900-01-01T05:42:13.845Z"
-    if(!filter.orderFrom)
+    if (!filter.orderFrom)
         filter.orderFrom = "0"
-    if(!filter.orderTo)
+    if (!filter.orderTo)
         filter.orderTo = "0"
-    if(!filter.totalFrom)
+    if (!filter.totalFrom)
         filter.totalFrom = "0"
-    if(!filter.totalTo)
+    if (!filter.totalTo)
         filter.totalTo = "0"
 
     const requestOptions = {
@@ -70,5 +71,59 @@ function getCustomer(mobile) {
                 console.log(error.response.status);
             }
         });
-        
+
+}
+
+
+function getExcelCustomers(filter = {}) {
+    console.log("into customerService (getExcelCustomers)");
+
+    if (!filter.family)
+        filter.family = " "
+    if (!filter.mobile)
+        filter.mobile = "0"
+    if (!filter.createdAtFrom)
+        filter.createdAtFrom = "1900-01-01T05:42:13.845Z"
+    if (!filter.createdAtTo)
+        filter.createdAtTo = "1900-01-01T05:42:13.845Z"
+    if (!filter.lastBuyFrom)
+        filter.lastBuyFrom = "1900-01-01T05:42:13.845Z"
+    if (!filter.lastBuyTo)
+        filter.lastBuyTo = "1900-01-01T05:42:13.845Z"
+    if (!filter.orderFrom)
+        filter.orderFrom = "0"
+    if (!filter.orderTo)
+        filter.orderTo = "0"
+    if (!filter.totalFrom)
+        filter.totalFrom = "0"
+    if (!filter.totalTo)
+        filter.totalTo = "0"
+
+
+    let headers = authHeader()
+    let filename = "ExcelCustomers.xlsx";
+
+
+    return axios({
+        url: `${baseRoute}/customer/excel/${encodeURI(filter.family)}/${encodeURI(filter.mobile)}/${encodeURI(filter.createdAtFrom)}/${encodeURI(filter.createdAtTo)}/${encodeURI(filter.lastBuyFrom)}/${encodeURI(filter.lastBuyTo)}/${encodeURI(filter.orderFrom)}/${encodeURI(filter.orderTo)}/${encodeURI(filter.totalFrom)}/${encodeURI(filter.totalTo)}`, headers,
+        method: `GET`,
+        responseType: `blob` // important
+
+    }).then(res => {
+        debugger;
+        console.log("res.customers >> "); console.log(res);
+        const url = window.URL.createObjectURL(new Blob([res.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', filename);
+        document.body.appendChild(link);
+        link.click();
+
+    }).catch(function (error) {
+
+        if (error.response) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+        }
+    });
 }

@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { authentication, register, verificationCode } from './authenticationReducer';
 import { alert } from './alertReducer';
-import { getCustomers, getCustomer } from './customerReducer'
+import { getCustomers, getCustomer, getExcelCustomers } from './customerReducer'
 import { getProducts, addProduct, editProduct } from './productReducer'
 import { financeSummary, bill } from './financeReducer'
 import {
@@ -53,5 +53,6 @@ export default combineReducers({
     editProducOrder,
     getNotes,
     addNotes,
-    orderDetails
+    orderDetails,
+    getExcelCustomers
 })

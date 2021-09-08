@@ -24,8 +24,6 @@ export function getCustomers(state = initialState, action) {
             return {
                 loading: false
             }
-            break;
-
         default:
             return state;
     }
@@ -47,6 +45,32 @@ export function getCustomer(state = initialState, action) {
             return {
                 loading: false,
                 customer: action.error,
+            }
+        default:
+            return state;
+    }
+}
+
+
+export function getExcelCustomers(state = initialState, action) {
+
+    switch (action.type) {
+        case customerConstants.GET_EXCEL_CUSTOMERS_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+        case customerConstants.GET_EXCEL_CUSTOMERS_SUCCESS:
+            return {
+                ...state,
+                data: action.data,
+                loading: false
+            }
+        case customerConstants.GET_EXCEL_CUSTOMERS_FAILURE:
+            return {
+                ...state,
+                error: action.error,
+                loading: false
             }
         default:
             return state;
