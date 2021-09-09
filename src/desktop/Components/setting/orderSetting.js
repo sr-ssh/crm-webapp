@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Container, Card, Form, Col, Row, Button, Dropdown, Spinner } from 'react-bootstrap'
 
 // Actions
-import { orderActions } from '../../../actions'
+import { orderActions, settingActions } from '../../../actions'
 // Icons
 import editIcon from '../../assets/images/Products/edit.svg'
 import tickIcon from '../../assets/images/tick.svg'
@@ -11,7 +11,9 @@ import tickIcon from '../../assets/images/tick.svg'
 export const OrderSetting = () => {
     let orderSms = useSelector(state => state.getOrderSms.sms)
     let editOrderSms = useSelector(state => state.editOrderSms)
-    const [shareLink, setShareLink] = useState({ duration: "", unitTime: "M" })
+    let shareLinkConfig = useSelector(state => state.getShareLinkConfig)
+
+    const [shareLink, setShareLink] = useState({ duration: "", unitTime: shareLinkConfig.data?.order?.share?.unitTime })
     const dispatch = useDispatch();
     const handleChange = (e) => {
         console.log('_____________________handleChange_____________________')
@@ -19,8 +21,8 @@ export const OrderSetting = () => {
             dispatch(orderActions.editNewSms(
                 {
                     ...orderSms, [e.target.id]: {
-                        ...orderSms.[e.target.id],
-                        text: orderSms.[e.target.id].text,
+                        ...orderSms[e.target.id],
+                        text: orderSms[e.target.id].text,
                         status: e.target.checked
                     }
                 }
@@ -31,23 +33,22 @@ export const OrderSetting = () => {
             dispatch(orderActions.editNewSms(
                 {
                     ...orderSms, [e.target.id]: {
-                        ...orderSms.[e.target.id],
+                        ...orderSms[e.target.id],
                         text: e.target.value,
-                        status: orderSms.[e.target.id].status
+                        status: orderSms[e.target.id].status
                     }
                 }
             ))
             return
-
         }
 
         e.preventDefault()
 
         dispatch(orderActions.editNewSms({
             ...orderSms, [e.target.id]: {
-                ...orderSms.[e.target.id],
+                ...orderSms[e.target.id],
                 text: e.target.value,
-                status: orderSms.[e.target.id].status
+                status: orderSms[e.target.id].status
             }
         }))
     }
@@ -58,8 +59,8 @@ export const OrderSetting = () => {
     }
     const HandleSubmitFormShareLink = (e) => {
         e.preventDefault();
-        console.log(e);
     }
+
     const HandleChangeFormShareLink = (e) => {
         e.preventDefault();
         if (e.target.id == "unitTime") {
@@ -72,13 +73,12 @@ export const OrderSetting = () => {
         } else {
             setShareLink({ ...shareLink, duration: e.target.value })
         }
-        console.log(e.target.value);
 
     }
-    console.log(shareLink);
 
     useEffect(() => {
         dispatch(orderActions.getSms())
+        dispatch(settingActions.getShareLinkConfig())
     }, [dispatch])
 
 
@@ -94,13 +94,13 @@ export const OrderSetting = () => {
                             منقضی شدن لینک اشتراک گذاری بعد از
                         </span>
                         <Col className="mx-3 col-2">
-                            <Form.Control type="number" onChange={HandleChangeFormShareLink} />
+                            <Form.Control type="number" onChange={HandleChangeFormShareLink} defaultValue={shareLinkConfig.data?.order.share.time} />
                         </Col>
                         <Col className="mx-3 col-1">
                             <Form.Control as="select" id="unitTime" onChange={HandleChangeFormShareLink}>
-                                <option id="M">دقیقه</option>
-                                <option id="H">ساعت</option>
-                                <option id="D">روز</option>
+                                <option selected={shareLinkConfig.data?.order.share.unitTime == "M" ? 'selected' : null} id="M">دقیقه</option>
+                                <option selected={shareLinkConfig.data?.order.share.unitTime == "H" ? 'selected' : null} id="H">ساعت</option>
+                                <option selected={shareLinkConfig.data?.order.share.unitTime == "D" ? 'selected' : null} id="D">روز</option>
                             </Form.Control>
                         </Col>
                         <Col className="me-auto ms-5 d-flex justify-content-end">
@@ -117,7 +117,7 @@ export const OrderSetting = () => {
                                         />
                                         : */}
                                 <> ثبت </>
-                                {/* } */}
+                                {/* }  */}
 
                             </Button>
                         </Col>
@@ -129,7 +129,7 @@ export const OrderSetting = () => {
             <Row className="m-0 p-0">
                 <Col className="m-0 p-0">
                     <Col className="my-3 me-4">
-                        <h5 >پیامک</h5>
+                        <h5>پیامک</h5>
                     </Col>
                     {orderSms ?
                         <Form onSubmit={HandleSubmit} className="order-setting--desktop">

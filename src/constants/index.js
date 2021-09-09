@@ -8,3 +8,4 @@ export * from './reminderConstants';
 export * from './discountConstants';
 export * from './employeeConstants';
 export * from './notesConstants'
+export * from './settingConstants'

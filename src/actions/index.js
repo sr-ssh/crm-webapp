@@ -6,3 +6,4 @@ export * from './financeActions';
 export * from './orderActions';
 export * from './reminderActions'
 export * from './notesActions'
+export * from './settingActions'
