@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react'
 import moment from 'jalali-moment';
 import { Card, Table, Row, Col, Spinner, Button } from 'react-bootstrap';
 import persianJs from 'persianjs/persian.min';
+import { Dialog } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles';
 
 //icons
+import ShareIcon from '@material-ui/icons/Share';
 import deliveryIcon from './../../assets/images/order/delivery.svg'
 import printIcon from './../../assets/images/order/print.svg'
 import submitIcon from './../../assets/images/order/submit.svg'
@@ -20,14 +23,31 @@ import { EditField } from './editField'
 import { history } from '../../../helpers/history'
 import { CancelProductOrder } from './cancelProductOrder'
 import { EditeProductOrder } from './editProductOrder'
+import { ShareLinkOrder } from "./shareLinkOrder"
+
+
+
+
+const useStyles = makeStyles((theme) => ({
+    backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
+        color: '#fff !important',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)'
+    }
+}));
+
+
 
 export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, setCancelOrderShow, recordOrderShow = '', setRecordOrderShow = {}, setActiveOrder, setOrder }) => {
 
+    const classes = useStyles();
     let [print, setPrint] = useState(false)
     const [editModalShow, setEditModalShow] = useState(false)
     const [cancelModalShow, setCancelModalShow] = useState(false);
     const [editOrder, setEditOrder] = useState(false)
     const [showNotesModal, setShowNotesModal] = useState(false)
+    const [isShareLinkOrder, setIsShareLinkOrder] = useState(false)
+
 
     const [input, setInput] = useState('')
     const [name, setName] = useState('')
@@ -246,6 +266,12 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                             <span>چاپ</span>
                         </Button>
                     </Col>
+                    <Col xs={12} className="p-0 px-1 pb-3">
+                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => setIsShareLinkOrder(true)}>
+                            <ShareIcon color="info" className="text-light" />
+                            <span className="me-2">اشتراک گذاری سفارش</span>
+                        </Button>
+                    </Col>
 
                 </Row>
             </Card.Body>
@@ -253,6 +279,9 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
             <CancelProductOrder show={cancelModalShow} onHide={() => { setCancelModalShow(false) }} productId={productId} orderId={orderId} />
             <EditeProductOrder show={editOrder} onHide={() => { setEditOrder(false) }} order={editProductOrder} />
             <AddNotesModal show={showNotesModal} onHide={() => { setShowNotesModal(false) }} permission={true} orderId={order.id} />
+            <Dialog onClose={() => setIsShareLinkOrder(false)} className={classes.backdrop} aria-labelledby="shareLink-dialog" open={isShareLinkOrder}>
+                <ShareLinkOrder orderId={isShareLinkOrder ? order.id : null} isShareLinkOrder={isShareLinkOrder} setIsShareLinkOrder={setIsShareLinkOrder} />
+            </Dialog>
         </Card >
     )
 }

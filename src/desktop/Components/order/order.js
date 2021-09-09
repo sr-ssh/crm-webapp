@@ -3,6 +3,7 @@ import moment from 'jalali-moment';
 import { Card, Table, Row, Col, Spinner, Button } from 'react-bootstrap';
 import persianJs from 'persianjs/persian.min';
 import { Dialog } from '@material-ui/core'
+import ShareIcon from '@material-ui/icons/Share';
 import { makeStyles } from '@material-ui/core/styles';
 //icons
 import deliveryIcon from './../../assets/images/order/delivery.svg'
@@ -22,6 +23,7 @@ import { history } from '../../../helpers/history'
 import { CancelProductOrder } from './cancelProductOrder'
 import { EditeProductOrder } from './editProductOrder'
 import { Notes } from './notes'
+import { ShareLinkOrder } from "./shareLinkOrder"
 
 
 
@@ -42,11 +44,6 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-
-
-
-
-
 export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, setCancelOrderShow, recordOrderShow = '', setRecordOrderShow = {}, setActiveOrder, setOrder }) => {
 
 
@@ -57,6 +54,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
     const [editOrder, setEditOrder] = useState(false)
     const [showNotesModal, setShowNotesModal] = useState(false)
     const [open, setOpen] = useState(false);
+    const [isShareLinkOrder, setIsShareLinkOrder] = useState(false)
 
     const [input, setInput] = useState('')
     const [name, setName] = useState('')
@@ -284,6 +282,12 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                             <span>چاپ</span>
                         </Button>
                     </Col>
+                    <Col xs={12} className="p-0 px-1 pb-3">
+                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => setIsShareLinkOrder(true)}>
+                            <ShareIcon color="info" className="text-light" />
+                            <span className="me-2">اشتراک گذاری سفارش</span>
+                        </Button>
+                    </Col>
 
                 </Row>
             </Card.Body>
@@ -293,6 +297,9 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
             <AddNotesModal show={showNotesModal} onHide={() => { setShowNotesModal(false) }} permission={true} orderId={order.id} />
             <Dialog onClose={handleClose} className={classes.backdrop} aria-labelledby="notes-dialog" open={open}>
                 <Notes orderId={open ? order.id : null} open={open} setOpen={setOpen} />
+            </Dialog>
+            <Dialog onClose={() => setIsShareLinkOrder(false)} className={classes.backdrop} aria-labelledby="shareLink-dialog" open={isShareLinkOrder}>
+                <ShareLinkOrder orderId={isShareLinkOrder ? order.id : null} isShareLinkOrder={isShareLinkOrder} setIsShareLinkOrder={setIsShareLinkOrder} />
             </Dialog>
 
         </Card >

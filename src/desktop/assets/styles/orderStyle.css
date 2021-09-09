@@ -170,3 +170,21 @@
   color: var(--button-color-one);
   background-color: var(--button-background-two) !important;
 }
+.share--link--order--desktop {
+  background-color: var(--pages-background) !important;
+  height: 200px;
+  /* width: 350px; */
+  overflow-x: auto;
+  z-index: 9999;
+}
+.col--share--link--desktop {
+  overflow: auto;
+}
+.btn--copy--link {
+  cursor: pointer;
+}
+
+.col--share--link--desktop::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
