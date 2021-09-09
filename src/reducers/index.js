@@ -15,7 +15,7 @@ import { getEmployees, editEmployee, addEmployee, deleteEmployee, getApplication
 import { getPermissions } from './employeeReducer';
 import { getUserInfo, editUserInfo } from './userReducer';
 import { getNotes, addNotes } from './notesReducer'
-import { getShareLinkConfig } from './settingReducer'
+import { getShareLinkConfig, editShareLinkConfig } from './settingReducer'
 
 export default combineReducers({
     authentication,
@@ -56,5 +56,6 @@ export default combineReducers({
     addNotes,
     orderDetails,
     getExcelCustomers,
-    getShareLinkConfig
+    getShareLinkConfig,
+    editShareLinkConfig
 })

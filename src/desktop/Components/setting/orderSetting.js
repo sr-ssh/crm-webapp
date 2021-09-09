@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Container, Card, Form, Col, Row, Button, Dropdown, Spinner } from 'react-bootstrap'
 
@@ -13,7 +13,7 @@ export const OrderSetting = () => {
     let editOrderSms = useSelector(state => state.editOrderSms)
     let shareLinkConfig = useSelector(state => state.getShareLinkConfig)
 
-    const [shareLink, setShareLink] = useState({ duration: "", unitTime: shareLinkConfig.data?.order?.share?.unitTime })
+    const [shareLink, setShareLink] = useState({ duration: "", unitTime: "" })
     const dispatch = useDispatch();
     const handleChange = (e) => {
         console.log('_____________________handleChange_____________________')
@@ -59,6 +59,8 @@ export const OrderSetting = () => {
     }
     const HandleSubmitFormShareLink = (e) => {
         e.preventDefault();
+        if (shareLink.duration != "" || shareLink.unitTime != "")
+            dispatch(settingActions.editShareLinkConfig(shareLink))
     }
 
     const HandleChangeFormShareLink = (e) => {
@@ -75,6 +77,10 @@ export const OrderSetting = () => {
         }
 
     }
+    useEffect(() => {
+        if (shareLinkConfig.loading == false && shareLinkConfig.data != undefined)
+            setShareLink({ duration: shareLinkConfig.data?.time, unitTime: shareLinkConfig.data?.unitTime })
+    }, [shareLinkConfig.loading])
 
     useEffect(() => {
         dispatch(orderActions.getSms())
@@ -94,13 +100,13 @@ export const OrderSetting = () => {
                             منقضی شدن لینک اشتراک گذاری بعد از
                         </span>
                         <Col className="mx-3 col-2">
-                            <Form.Control type="number" onChange={HandleChangeFormShareLink} defaultValue={shareLinkConfig.data?.order.share.time} />
+                            <Form.Control type="number" onChange={HandleChangeFormShareLink} defaultValue={shareLinkConfig.data?.time} />
                         </Col>
                         <Col className="mx-3 col-1">
                             <Form.Control as="select" id="unitTime" onChange={HandleChangeFormShareLink}>
-                                <option selected={shareLinkConfig.data?.order.share.unitTime == "M" ? 'selected' : null} id="M">دقیقه</option>
-                                <option selected={shareLinkConfig.data?.order.share.unitTime == "H" ? 'selected' : null} id="H">ساعت</option>
-                                <option selected={shareLinkConfig.data?.order.share.unitTime == "D" ? 'selected' : null} id="D">روز</option>
+                                <option selected={shareLinkConfig.data?.unitTime == "M" ? 'selected' : null} id="M">دقیقه</option>
+                                <option selected={shareLinkConfig.data?.unitTime == "H" ? 'selected' : null} id="H">ساعت</option>
+                                <option selected={shareLinkConfig.data?.unitTime == "D" ? 'selected' : null} id="D">روز</option>
                             </Form.Control>
                         </Col>
                         <Col className="me-auto ms-5 d-flex justify-content-end">
