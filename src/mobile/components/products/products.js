@@ -6,7 +6,7 @@ import persianJs from 'persianjs/persian.min';
 // Actions
 import { productActions } from '../../../actions'
 // Components
-import { Header } from '../base/productHeader';
+import { Header } from '../base/productsExcelHeader';
 import { AddProduct } from './addProduct'
 import { EditProduct } from './editProduct'
 
@@ -24,6 +24,10 @@ export const Products = () => {
     const productLoading = useSelector(state => state.getProducts.loading)
     const addProductLoading = useSelector(state => state.addProduct.loading)
 
+    const getExcel = () => {
+        dispatch(productActions.getExcelProducts())
+    }
+
     useEffect(() => {
         if (!editModalShow && !addModalShow)
             dispatch(productActions.getProducts())
@@ -31,7 +35,7 @@ export const Products = () => {
 
     return (
         <div className="product-page">
-            <Header title="محصولات" modalShow={addModalShow} setModalShow={setAddModalShow} />
+            <Header title="محصولات" getExcel={getExcel} setModalShow={setAddModalShow} />
             <Container className="m-auto">
                 {
                     (productLoading) &&
