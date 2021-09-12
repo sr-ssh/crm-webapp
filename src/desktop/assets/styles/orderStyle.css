@@ -188,3 +188,27 @@
   width: 0px;
   height: 0px;
 }
+
+.container--search--desktop {
+  position: fixed;
+  top: 0;
+  height: 65px;
+  z-index: 1000;
+  background-color: var(--pages-background);
+}
+.btn--search--desktop {
+  color: #fff;
+  background-color: rgb(10, 88, 202);
+  width: 150px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  border-radius: 15px;
+}
+.btn--search--desktop:active,
+.btn--search--desktop:active:focus,
+.btn--search--desktop:focus {
+  color: #fff;
+  background-color: rgb(10, 88, 202);
+  border-color: #0a58ca;
+}

@@ -11,6 +11,7 @@ import deleteIcon from '../../assets/images/delete.svg'
 import editeOrderIcon from '../../assets/images/order/edit-order-list.svg'
 import addNoteIcon from '../../assets/images/order/add-note-white.svg'
 import noteListIcon from '../../assets/images/order/note-list-white.svg'
+import SearchIcon from '@material-ui/icons/Search';
 
 // Actions
 
@@ -21,6 +22,7 @@ import { orderActions } from '../../../actions';
 import { Order } from './order';
 import { Delivery } from './delivery'
 import { RecordOrder } from './recordOrder'
+import { OrderSearch } from './search'
 
 export const SaleOpprotunity = () => {
 
@@ -47,11 +49,21 @@ export const SaleOpprotunity = () => {
 
 
     return (
-        <div className="product-page orders ">
-            <Container fluid className="m-0 w-100 d-flex justify-content-center flex-wrap ">
+        <div className="product-page orders w-100">
+            <Container fluid className="m-0 p-0 w-100 d-flex justify-content-start container--search--desktop">
+                <Row className="m-0 mx-2 p-0 w-100">
+                    <Col className="my-2">
+                        <Button className="btn--search--desktop" onClick={() => setModalShow(true)}>
+                            <SearchIcon className=" col-3" />
+                            <span className="col-9 text-light">جستجو</span>
+                        </Button>
+                    </Col>
+                </Row>
+            </Container>
+            <Container fluid className="m-0 mt-5 w-100 d-flex justify-content-center flex-wrap " >
                 {
                     orderLoading &&
-                    <Col className="col-3 mt-2 m-auto d-block align-self-center w-100 mb-4 ">
+                    <Col className="col-3 mt-5 m-auto d-block align-self-center w-100 mb-4 ">
                         <Spinner className="m-auto d-block" animation="border" />
                     </Col>
                 }
@@ -72,11 +84,11 @@ export const SaleOpprotunity = () => {
 
                     : null}
 
-                {/* <OrderSearch show={modalShow} onHide={() => setModalShow(false)} /> */}
+                <OrderSearch show={modalShow} onHide={() => setModalShow(false)} />
                 <Delivery show={deliveryShow} onHide={() => setDeliveryShow(false)} order={order} />
                 <RecordOrder show={recordOrderShow} onHide={() => setRecordOrderShow(false)} order={activeOrder} />
 
             </Container>
-        </div>
+        </div >
     )
 }
