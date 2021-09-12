@@ -7,7 +7,7 @@ import { customerActions } from '../../../actions/customerActions';
 
 
 // components
-import { Header } from '../base/serachHeader';
+import { Header } from '../base/searchExcelHeader';
 import { Customer } from './customer'
 import { CustomerSearch } from './search';
 
@@ -15,21 +15,26 @@ export const Customers = () => {
 
     let alertMessage = useSelector(state => state.alert.message)
     let alerType = useSelector(state => state.alert.type)
+    const [filters, setFilters] = useState({})
 
     const [modalShow, setModalShow] = useState(false)
     let customers = useSelector(state => state.getCustomers.customers)
     let customerLoading = useSelector(state => state.getCustomers.loading)
     const dispatch = useDispatch()
 
+    const getExcel = () => {
+        
+        dispatch(customerActions.getExcelCustomers(filters))
+    }
+
     useEffect(() => {
         dispatch(customerActions.getCustomers());
     }, [dispatch])
 
-
     return (
         <>
             <div className="product-page orders">
-                <Header title="مشتریان" modalShow={modalShow} setModalShow={setModalShow} />
+                <Header title="مشتریان" setModalShow={setModalShow} getExcel={getExcel}/>
                 <Container fluid className="m-auto">
                     {
                         customerLoading &&
@@ -64,7 +69,7 @@ export const Customers = () => {
                             ? (customers.map((customer, index) => <Customer key={index} customer={customer} />))
                             : null
                     }
-                    <CustomerSearch show={modalShow} onHide={() => setModalShow(false)} />
+                    <CustomerSearch show={modalShow} onHide={() => setModalShow(false)} filters={filters} setFilters={setFilters}/>
                 </Container>
             </div>
         </>

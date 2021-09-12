@@ -11,7 +11,7 @@ import closeIcon from '../../assets/images/close.svg'
 
 export const CustomerSearch = (props) => {
 
-    const [filters, setFilters] = useState({})
+    const {filters, setFilters} = props
     const dispatch = useDispatch()
 
     const handleChange = (e) => {
