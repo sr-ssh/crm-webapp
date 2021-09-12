@@ -43,6 +43,8 @@ import './mobile/assets/styles/employeeStyle.css';
 import './mobile/assets/styles/settingStyle.css';
 import './mobile/assets/styles/saleOpprotunityStyle.css';
 import './mobile/assets/styles/notesStyle.css';
+import './mobile/assets/styles/orderDetails.css';
+import { OrderDetails } from './mobile/components/order/orderDetails';
 
 
 function AppMobile() {
@@ -60,6 +62,7 @@ function AppMobile() {
         <PrivateRoute path="/bills" component={Bills}></PrivateRoute>
         <PrivateRoute path="/dashboard" component={Dashboard} ></PrivateRoute>
         <PrivateRoute path="/order/add" component={AddOrder} ></PrivateRoute>
+        <Route path="/order/factor" component={OrderDetails} />
         <PrivateRoute path="/employees" component={Employees} ></PrivateRoute>
         <PrivateRoute path="/setting" component={Setting}></PrivateRoute>
         <PrivateRoute path="/employee/add" component={Applications} ></PrivateRoute>

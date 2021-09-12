@@ -300,12 +300,12 @@ function orderDetails(orderId) {
         .get(`${baseRoute}/order/details/${orderId}`, { headers: requestOptions.headers })
         .then(res => {
             console.log('res >>')
-            console.log(res.data)
+            console.log(res)
             return handleResponse(res)
         })
         .catch(error => {
             if (error.response) {
-                console.log(error.response.data)
+                console.log("error.response.data")
                 handleError(error.response.status)
             }
         })
