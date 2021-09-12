@@ -39,7 +39,7 @@ export const Customer = ({ customer }) => {
                             </Card.Text>
                         </Col>
                     </Row>
-                    <Row className="mt-2">
+                    {/* <Row className="mt-2">
                         <Col>
                             <Card.Text>
                                 تاریخ تولد:
@@ -50,7 +50,7 @@ export const Customer = ({ customer }) => {
                                 <span dir="rtl">{customer.birthday && persianJs(moment.from(customer.birthday, 'YYYY/MM/DD').locale('fa').format('DD MMMM YYYY')).englishNumber().toString()}</span>
                             </Card.Text>
                         </Col>
-                    </Row>
+                    </Row> */}
                     <Row className="mt-2">
                         <Col>
                             <Card.Text>

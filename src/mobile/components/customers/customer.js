@@ -1,11 +1,11 @@
 import React from 'react';
 import moment from 'jalali-moment';
-import { Card , Row , Col } from 'react-bootstrap';
+import { Card, Row, Col } from 'react-bootstrap';
 import persianJs from 'persianjs/persian.min';
 
 
-export const Customer = ({customer}) => {
-    return(
+export const Customer = ({ customer }) => {
+    return (
         <Card className="m-auto mt-3 bg-light productCard border-0 lh-lg pb-2" >
             <Card.Body className="pb-0 ps-0 text-gray">
                 <Row className="p-0 ps-3 m-0">
@@ -14,7 +14,7 @@ export const Customer = ({customer}) => {
                             <Row>
                                 <Col className="col-3 ps-0 ms-0">
                                     <Card.Text>
-                                    <span>{customer.family}</span>
+                                        <span>{customer.family}</span>
                                     </Card.Text>
                                 </Col>
                                 <Col dir="ltr" className="col-9">
@@ -39,7 +39,7 @@ export const Customer = ({customer}) => {
                             </Card.Text>
                         </Col>
                     </Row>
-                    <Row className="mt-2">
+                    {/* <Row className="mt-2">
                         <Col>
                             <Card.Text>
                                 تاریخ تولد:
@@ -50,7 +50,7 @@ export const Customer = ({customer}) => {
                                 <span dir="rtl">{customer.birthday && persianJs(moment.from(customer.birthday, 'YYYY/MM/DD').locale('fa').format('DD MMMM YYYY')).englishNumber().toString()}</span>
                             </Card.Text>
                         </Col>
-                    </Row>
+                    </Row> */}
                     <Row className="mt-2">
                         <Col>
                             <Card.Text>
