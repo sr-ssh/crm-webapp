@@ -84,7 +84,7 @@ export const Basket = ({ order, insertOrder, totalPrice, insertPrice, selectedIt
                                                     item.active && (
                                                         <Col key={index}>
                                                             {index ? <Dropdown.Divider /> : null}
-                                                            <Dropdown.Item onClick={() => setItem(item.name)}>
+                                                            <Dropdown.Item onClick={() => { setItem(item.name); setQuantity(1) }}>
                                                                 <Row>
                                                                     <Col className="text-end basket-dropdown-border-left pe-1">{item.name}</Col>
                                                                     <Col>{item.sellingPrice && persianJs(item.sellingPrice).englishNumber().toString()} </Col>
