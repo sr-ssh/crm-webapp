@@ -15,7 +15,8 @@ export const orderActions = {
     editNewSms,
     cancelProductOrder,
     editProductOrder,
-    orderDetails
+    orderDetails,
+    getShareLinkOrder
 }
 
 function getOrders(filter) {
@@ -389,6 +390,36 @@ function orderDetails(orderId) {
                 },
                 error => {
                     dispatch(failure(orderConstants.GET_ORDER_DETAILS_FAILURE, error.toString()));
+                    console.log("occure error");
+                    console.log(error.toString());
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+    };
+
+}
+
+
+function getShareLinkOrder(orderId) {
+    return dispatch => {
+        dispatch(request(orderConstants.GET_ORDER_SHARE_LINK_REQUEST))
+        orderService.getShareLinkOrder(orderId)
+            .then(
+                res => {
+                    if (res === undefined) {
+                        dispatch(alertActions.error('ارتباط با سرور برقرار نیست'));
+                        dispatch(failure(orderConstants.GET_ORDER_SHARE_LINK_FAILURE, 'ارتباط با سرور برقرار نیست'))
+                    }
+                    else if (res.success) {
+                        console.log("order share link receive")
+                        dispatch(success(orderConstants.GET_ORDER_SHARE_LINK_SUCCESS, res.data));
+                    } else if (res.success == false) {
+                        dispatch(failure(orderConstants.GET_ORDER_SHARE_LINK_FAILURE, res.message))
+                        dispatch(alertActions.error(res.message));
+                    }
+                },
+                error => {
+                    dispatch(failure(orderConstants.GET_ORDER_SHARE_LINK_FAILURE, error.toString()));
                     console.log("occure error");
                     console.log(error.toString());
                     dispatch(alertActions.error(error.toString()));

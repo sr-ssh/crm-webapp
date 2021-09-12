@@ -21,7 +21,8 @@ export const orderService = {
     editOrderQuantity,
     cancelProductOrder,
     editProductOrder,
-    orderDetails
+    orderDetails,
+    getShareLinkOrder
 };
 
 function getOrders(filter = {}) {
@@ -298,6 +299,30 @@ function orderDetails(orderId) {
 
     return axios
         .get(`${baseRoute}/order/details/${orderId}`, { headers: requestOptions.headers })
+        .then(res => {
+            console.log('res >>')
+            console.log(res)
+            return handleResponse(res)
+        })
+        .catch(error => {
+            if (error.response) {
+                console.log("error.response.data")
+                handleError(error.response.status)
+            }
+        })
+}
+
+
+function getShareLinkOrder(orderId) {
+    console.log('into orderService (getShareLinkOrder)')
+
+    const requestOptions = {
+        headers: authHeader(),
+        body: orderId
+    }
+
+    return axios
+        .post(`${baseRoute}/order/details/sharelink`, requestOptions.body, requestOptions.headers)
         .then(res => {
             console.log('res >>')
             console.log(res)

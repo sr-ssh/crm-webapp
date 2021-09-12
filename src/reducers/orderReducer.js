@@ -285,3 +285,27 @@ export function orderDetails(state = {}, action) {
             return state
     }
 }
+
+
+export function getShareLinkOrder(state = {}, action) {
+    switch (action.type) {
+        case orderConstants.GET_ORDER_SHARE_LINK_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+        case orderConstants.GET_ORDER_SHARE_LINK_SUCCESS:
+            return {
+                ...state,
+                data: action.data,
+                loading: false,
+            }
+        case orderConstants.GET_ORDER_SHARE_LINK_FAILURE:
+            return {
+                error: action.error,
+                loading: false
+            }
+        default:
+            return state
+    }
+}
