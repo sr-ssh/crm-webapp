@@ -17,7 +17,7 @@ export const OrderDetails = (props) => {
 
     order && console.log(order)
     useEffect(() => {
-        dispatch(orderActions.orderDetails("613d9292a708909be9146b26"))
+        dispatch(orderActions.orderDetails("612c763b37888f4af878185d/612c763b37888f4af878185d"))
     }, [dispatch])
 
 
