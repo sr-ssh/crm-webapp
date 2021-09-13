@@ -30,6 +30,9 @@ body {
 .fs-7 {
   font-size: 0.75rem;
 }
+.fs-13-px {
+  font-size: 13px !important;
+}
 .ff-iranSans {
   font-family: "IranSans" !important;
 }

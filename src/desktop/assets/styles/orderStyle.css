@@ -26,6 +26,14 @@
   position: absolute;
   left: -15px;
   top: -2vh;
+  z-index: 9999;
+}
+.customer-modal-close--desktop:hover,
+.customer-modal-close--desktop:active,
+.customer-modal-close--desktop:focus,
+.customer-modal-close--desktop:active:focus {
+  background-color: var(--dager-color);
+  box-shadow: none;
 }
 .spinner--download--btn--desktop {
   position: absolute;
@@ -193,7 +201,7 @@
   position: fixed;
   top: 0;
   height: 65px;
-  z-index: 1000;
+  z-index: 1500;
   background-color: var(--pages-background);
 }
 .btn--search--desktop {

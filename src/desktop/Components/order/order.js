@@ -23,6 +23,7 @@ import pishFactorIcon from '../../assets/images/order/pish-factor.svg'
 // Actions
 import { notesActions } from '../../../actions';
 
+
 //components
 import { AddNotesModal } from './addNotesModal'
 import { EditField } from './editField'
@@ -31,7 +32,7 @@ import { CancelProductOrder } from './cancelProductOrder'
 import { EditeProductOrder } from './editProductOrder'
 import { Notes } from './notes'
 import { ShareLinkOrder } from "./shareLinkOrder"
-// import { Note } from './note'
+import { Note } from './note'
 
 
 
@@ -46,6 +47,14 @@ const useStyles = makeStyles((theme) => ({
     },
     productCard: {
         width: '100%'
+    },
+    rounded: {
+        borderRadius: "15px"
+    },
+    paper: {
+        maxWidth: "700px",
+        borderRadius: "15px",
+        overflowY: "visible"
     }
 }));
 
@@ -56,6 +65,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
 
 
     const classes = useStyles();
+    const dispatch = useDispatch()
     let [print, setPrint] = useState(false)
     const [editModalShow, setEditModalShow] = useState(false)
     const [cancelModalShow, setCancelModalShow] = useState(false);
@@ -105,6 +115,15 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
         setOpen(!open);
     };
 
+    let toggleHanler = (e) => {
+        console.log(e.target.checked);
+        // if (e.target.checked === true) {
+        //     dispatch(notesActions.editStatusNotes(orderId, '1'))
+        // }
+        // else if (e.target.checked === false) {
+        //     dispatch(notesActions.editStatusNotes(orderId, '0'))
+        // }
+    }
 
     const printWindow = async () => {
         await setPrint(true)
@@ -278,7 +297,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                     </Col>
                     <Col className="mb-3">
                         <div className="notes--page--dektop">
-                            <Container className="m-0 p-0" style={{ position: "sticky", top: "0" }} >
+                            <Container className="m-0 p-0" style={{ position: "sticky", top: "0", zIndex: "2" }} >
                                 <Row className="m-0 p-0 header--notes--desktop d-flex flex-row justify-content-between ">
                                     {/* onChange={() => setIsPrivate(!isPrivate)} */}
                                     <Col className="m-0 p-0">
@@ -287,7 +306,8 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                                                 <input type="checkbox"
                                                     id="r1" name="r-group"
                                                     className="btn-toggle-status-notes--desktop"
-                                                // checked={isPrivate} onChange={toggleHanler}
+                                                    defaultChecked={order?.notes?.isPrivate}
+                                                    onChange={toggleHanler}
                                                 />
                                                 <span className="text-light me-3">خصوصی</span>
                                             </label>
@@ -302,63 +322,36 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
 
                                 </Row>
                             </Container>
-                            <Container style={{ height: "210px" }}>
+                            <Container style={{ height: "195px", overflow: "hidden" }}>
+
                                 <Row>
                                     <Col className="m-0 p-0" >
-                                        {/* {
-                                            loading ?
-                                                <Row>
-                                                    <Col className="col-3 mt-4 m-auto ">
-                                                        <Spinner className="m-auto d-block" animation="border" />
-                                                    </Col>
-                                                </Row> : */}
-                                        {/* (note?.length > 0) ?
-                                                    (note?.map((note) => <Note note={note} />))
-                                                    : */}
-                                        <span> هنوز یادداشتی برای این سفارش ثبت نشده است</span>
-                                        {/* } */}
+                                        {(order.notes.Notes != undefined) ?
+                                            (order.notes.Notes?.map((note) => <Note note={note} />))
+                                            :
+                                            <span> هنوز یادداشتی برای این سفارش ثبت نشده است</span>
+                                        }
                                     </Col>
                                 </Row>
+
                             </Container>
-                            <Container style={{ position: "sticky", bottom: "0" }} >
-                                <Row>
-                                    <Col className="py-1 d-flex justify-content-end">
-                                        <span className="text-primary">بیشتر ...</span>
+                            <Container className="m-0 p-0 w-100 mt-1" >
+                                <Row className="m-0 p-0 ">
+                                    <Col className="m-0 p-0 d-flex justify-content-end ms-4 text--more--note--desktop" >
+                                        <span onClick={() => setOpen(true)}>بیشتر ...</span>
                                     </Col>
                                 </Row>
                             </Container>
                         </div >
                     </Col>
                 </Row>
-                {/* <Row className="p-0 m-0 pb-3 w-100">
-                    <Col xs={6} className="p-0 px-1 pb-3">
-                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setShowNotesModal(true); setActiveOrder(order) }}>
-                            <img src={addNoteIcon} height="25px" alt="add-note-icon" className="col-3" />
-                            <span>اضافه یادداشت</span>
-                        </Button>
-                    </Col>
-                    <Col xs={6} className="p-0 px-1 pb-3">
-                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={handleToggle} >
-
-                            <img src={noteListIcon} height="25px" alt="note-list-icon" className="col-3" />
-                            <span>یادداشت ها</span>
-                        </Button>
-                    </Col>
-                    <Col xs={12} className="p-0 px-1 pb-3">
-                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => setIsShareLinkOrder(true)}>
-                            <ShareIcon color="info" className="text-light" />
-                            <span className="me-2">اشتراک گذاری سفارش</span>
-                        </Button>
-                    </Col>
-
-                </Row> */}
             </Card.Body>
             <EditField show={editModalShow} onHide={() => { setEditModalShow(false); setInput(''); }} input={input} name={name} productId={productId} orderId={orderId} setInput={setInput} />
             <CancelProductOrder show={cancelModalShow} onHide={() => { setCancelModalShow(false) }} productId={productId} orderId={orderId} />
             <EditeProductOrder show={editOrder} onHide={() => { setEditOrder(false) }} order={editProductOrder} />
             <AddNotesModal show={showNotesModal} onHide={() => { setShowNotesModal(false) }} permission={true} orderId={order.id} />
-            <Dialog onClose={handleClose} className={classes.backdrop} aria-labelledby="notes-dialog" open={open}>
-                <Notes orderId={open ? order.id : null} open={open} setOpen={setOpen} />
+            <Dialog onClose={handleClose} className="notes-round" aria-labelledby="notes-dialog" open={open} classes={{ paper: classes.paper }} >
+                <Notes order={order} open={open} setOpen={setOpen} setShowNotesModal={setShowNotesModal} setActiveOrder={() => setActiveOrder(order)} />
             </Dialog>
             <Dialog onClose={() => setIsShareLinkOrder(false)} className={classes.backdrop} aria-labelledby="shareLink-dialog" open={isShareLinkOrder}>
                 <ShareLinkOrder orderId={isShareLinkOrder ? order.id : null} isShareLinkOrder={isShareLinkOrder} setIsShareLinkOrder={setIsShareLinkOrder} />
