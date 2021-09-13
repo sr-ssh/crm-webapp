@@ -41,3 +41,6 @@ body {
 .p--relative {
   position: relative !important;
 }
+.flex-grow-1-5 {
+  flex-grow: 1.5 !important;
+}

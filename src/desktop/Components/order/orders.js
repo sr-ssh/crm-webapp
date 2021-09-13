@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col, Container, Alert, Spinner } from 'react-bootstrap';
-import { Button, Backdrop } from '@material-ui/core'
+import { Row, Col, Container, Alert, Spinner, Button } from 'react-bootstrap';
+import { Backdrop } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 
+// Icons
+import SearchIcon from '@material-ui/icons/Search';
 
 // Actions
 import { orderActions } from '../../../actions';
@@ -45,21 +47,21 @@ export const Orders = () => {
 
 
     return (
-        <div className="product-page orders ">
-            <Container fluid className="m-0 w-100 d-flex justify-content-center flex-wrap ">
-                <Row>
-                    <Col>
-                        <Button variant="contained" size="large" color="primary" className="ff-iranSans " onClick={() => setModalShow(true)}>
-                            <span className="text-light">جستجو</span>
+        <div className="product-page orders w-100">
+            <Container fluid className="m-0 p-0 w-100 d-flex justify-content-start container--search--desktop">
+                <Row className="m-0 mx-2 p-0 w-100">
+                    <Col className="my-2">
+                        <Button className="btn--search--desktop" onClick={() => setModalShow(true)}>
+                            <SearchIcon className=" col-3" />
+                            <span className="col-9 text-light">جستجو</span>
                         </Button>
                     </Col>
                 </Row>
             </Container>
-
-            <Container fluid className="m-0 w-100 d-flex justify-content-center flex-wrap ">
+            <Container fluid className="m-0  mt-5 w-100 d-flex justify-content-center flex-wrap ">
                 {
                     orderLoading ?
-                        <Col className="col-3 mt-2 m-auto d-block align-self-center w-100 mb-4 ">
+                        <Col className="col-3 mt-5 m-auto d-block align-self-center w-100 mb-4 ">
                             <Spinner className="m-auto d-block" animation="border" />
                         </Col>
                         : null

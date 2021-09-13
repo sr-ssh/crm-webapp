@@ -9,7 +9,7 @@ import submitIcon from './../../assets/images/order/submit.svg'
 import editIcon from '../../assets/images/Products/edit.svg'
 import deleteIcon from '../../assets/images/delete.svg'
 import editeOrderIcon from '../../assets/images/order/edit-order-list.svg'
-import addNoteIcon from '../../assets/images/order/add-note-white.svg'
+// import addNoteIcon from '../../assets/images/order/add-note-white.svg'
 import noteListIcon from '../../assets/images/order/note-list-white.svg'
 import SearchIcon from '@material-ui/icons/Search';
 

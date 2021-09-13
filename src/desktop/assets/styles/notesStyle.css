@@ -1,13 +1,26 @@
+.notes--page--dektop {
+  background-color: var(--pages-background) !important;
+  border-radius: 15px;
+  height: 280px;
+  width: 500px;
+  overflow-x: auto;
+  z-index: 9999;
+  box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2),
+    0px 5px 8px 0px rgba(0, 0, 0, 0.14), 0px 1px 14px 0px rgba(0, 0, 0, 0.12);
+}
+.notes--page--dektop::-webkit-scrollbar {
+  width: 0;
+}
 .notes-round {
   border-radius: 15px !important;
 }
-.header--notes {
+.header--notes--desktop {
   height: 45px !important;
   position: sticky;
   top: 0;
   display: flex;
   align-items: center;
-  background-color: var(--pages-background);
+  background-color: var(--button-color-one);
 }
 .input-group-text {
   display: flex;
@@ -31,8 +44,11 @@ label {
   flex-direction: row;
   align-items: center;
 }
+.btn--add-note--desktop {
+  position: relative !important;
+}
 
-.btn-toggle-status-notes {
+.btn-toggle-status-notes--desktop {
   position: relative !important;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -41,20 +57,20 @@ label {
   box-sizing: content-box;
   overflow: hidden;
 }
-.btn-toggle-status-notes:before {
+.btn-toggle-status-notes--desktop:before {
   content: "";
   display: block;
   box-sizing: content-box;
-  width: 18px;
-  height: 18px;
+  width: 14px;
+  height: 14px;
   border: 2px solid #ccc;
   transition: 0.2s border-color ease;
 }
-.btn-toggle-status-notes:checked:before {
+.btn-toggle-status-notes--desktop:checked:before {
   border-color: var(--button-color-two);
   transition: 0.5s border-color ease;
 }
-.btn-toggle-status-notes:after {
+.btn-toggle-status-notes--desktop:after {
   content: "";
   display: block;
   position: absolute;
@@ -63,21 +79,21 @@ label {
   left: 50%;
   transform-origin: 50% 50%;
   background-color: var(--button-color-two);
-  width: 16px;
-  height: 16px;
+  width: 12px;
+  height: 12px;
   border-radius: 100vh;
   transform: translate(-50%, -50%) scale(0);
 }
-.btn-toggle-status-notes[type="checkbox"]:before {
+.btn-toggle-status-notes--desktop[type="checkbox"]:before {
   border-radius: 100vh;
 }
-.btn-toggle-status-notes[type="checkbox"]:after {
-  width: 16px;
-  height: 16px;
+.btn-toggle-status-notes--desktop[type="checkbox"]:after {
+  width: 12px;
+  height: 12px;
   border-radius: 100vh;
   transform: translate(-50%, -50%) scale(0);
 }
-.btn-toggle-status-notes[type="checkbox"]:checked:after {
+.btn-toggle-status-notes--desktop[type="checkbox"]:checked:after {
   -webkit-animation: toggleOnRadio 0.2s ease forwards;
   animation: toggleOnRadio 0.2s ease forwards;
 }
