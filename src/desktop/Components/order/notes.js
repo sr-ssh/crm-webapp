@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { Container, Form, Row, Card, Spinner, Col, Button } from 'react-bootstrap'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useState } from 'react'
+import { Container, Form, Row, Col, Button } from 'react-bootstrap'
+import { useDispatch } from 'react-redux'
 
 // Icons
 import addNoteIcon from '../../assets/images/order/add-note-black.svg'
@@ -9,8 +9,6 @@ import closeIcon from '../../assets/images/close.svg'
 // Actions
 import { notesActions } from '../../../actions';
 
-// Helpers
-import { history } from '../../../helpers'
 
 // Components
 import { Note } from './note'
@@ -18,19 +16,10 @@ import { Note } from './note'
 export const Notes = (props) => {
     let { order, open, setOpen, setShowNotesModal, setActiveOrder } = props;
     const [isPrivate, setIsPrivate] = useState(false);
-    const [note, setNote] = useState([])
     const dispatch = useDispatch()
-    // let { notes, loading } = useSelector(state => state.getNotes)
 
-    // useEffect(() => {
-    //     notes.reduce((result, item) => {
-    //         setIsPrivate(item.isPrivate)
-    //         setNote(result = item.data);
-    //     }, {});
-    // }, [notes])
 
     let toggleHanler = (e) => {
-        console.log(e.target.checked);
         if (e.target.checked === true) {
             dispatch(notesActions.editStatusNotes(order.id, '1'))
         }
@@ -38,8 +27,6 @@ export const Notes = (props) => {
             dispatch(notesActions.editStatusNotes(order.id, '0'))
         }
     }
-
-    console.log(order);
 
     return (
         <>

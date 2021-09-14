@@ -201,7 +201,7 @@
   position: fixed;
   top: 0;
   height: 65px;
-  z-index: 1500;
+  z-index: 1000;
   background-color: var(--pages-background);
 }
 .btn--search--desktop {
