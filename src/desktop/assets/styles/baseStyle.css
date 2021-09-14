@@ -6,6 +6,7 @@
   --pages-background: #ebebeb;
   --text-color-one: #646464;
   --text-color-two: #383738;
+  --text-color-three: #6d6b6d;
   --button-color-two: #4caf50;
   --card-background: #cdcdcd;
   --dager-color: #e53935;
@@ -30,6 +31,12 @@ body {
 .fs-7 {
   font-size: 0.75rem;
 }
+.fs-8 {
+  font-size: 0.55rem;
+}
+.fs-9 {
+  font-size: 0.4rem;
+}
 .fs-13-px {
   font-size: 13px !important;
 }
@@ -46,4 +53,7 @@ body {
 }
 .flex-grow-1-5 {
   flex-grow: 1.5 !important;
+}
+.text-grey{
+  color: var(--text-color-three);
 }
