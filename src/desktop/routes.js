@@ -12,7 +12,7 @@ const dashboardRoutes = [
     },
     {
         path: "/saleopprotunity",
-        name: "فرصت سفارشات",
+        name: "فرصت فروش",
         layout: "/",
     },
     {
@@ -27,7 +27,7 @@ const dashboardRoutes = [
     },
     {
         path: "/products",
-        name: "محصولات",
+        name: "محصول ها",
         layout: "/",
     }, {
         layout: "/finance",
