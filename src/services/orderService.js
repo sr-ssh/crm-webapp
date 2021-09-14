@@ -318,7 +318,7 @@ function getShareLinkOrder(orderId) {
 
     const requestOptions = {
         headers: authHeader(),
-        body: orderId
+        body: { orderId: orderId }
     }
 
     return axios
@@ -326,7 +326,7 @@ function getShareLinkOrder(orderId) {
         .then(res => {
             console.log('res >>')
             console.log(res)
-            return handleResponse(res)
+            return res.data
         })
         .catch(error => {
             if (error.response) {

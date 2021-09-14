@@ -21,8 +21,7 @@ import pishFactorIcon from '../../assets/images/order/pish-factor.svg'
 
 
 // Actions
-import { notesActions } from '../../../actions';
-
+import { notesActions, orderActions } from '../../../actions';
 
 //components
 import { AddNotesModal } from './addNotesModal'
@@ -128,13 +127,13 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
         setPrint(false)
     }
 
-
+    // 
     return (
 
         <Card className={`m-auto mt-3 bg-light productCard border-0 lh-lg ${!print ? 'noPrint' : ''} mx-1 ${classes.productCard}`} >
-            <Row className="mt-3">
-                <Col className="d-flex justify-content-center">
-                    <Button className="w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setEditOrder(true); setEditProductOrder(order) }}>
+            <Row className="mt-3 noPrint">
+                <Col className="d-flex justify-content-center ">
+                    <Button className="w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { dispatch(orderActions.getShareLinkOrder(order.id)); setIsShareLinkOrder(true) }}>
                         <img src={pishFactorIcon} height="25px" alt="edit-order-icon" className="col-3 py-1" />
                         <span>پیش فاکتور</span>
                     </Button>
@@ -293,7 +292,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                             </tbody>
                         </Table>
                     </Col>
-                    <Col className="mb-3">
+                    <Col className="mb-3 noPrint">
                         <div className="notes--page--dektop">
                             <Container fluid className="m-0 p-0" style={{ position: "sticky", top: "0", zIndex: "2" }} >
                                 <Row className="m-0 p-0 header--notes--desktop d-flex flex-row justify-content-between ">
@@ -355,8 +354,8 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
             <Dialog onClose={handleClose} className="notes-round" aria-labelledby="notes-dialog" open={open} classes={{ paper: classes.paper }} >
                 <Notes order={order} open={open} setOpen={setOpen} setShowNotesModal={setShowNotesModal} setActiveOrder={() => setActiveOrder(order)} />
             </Dialog>
-            <Dialog onClose={() => setIsShareLinkOrder(false)} className={classes.backdrop} aria-labelledby="shareLink-dialog" open={isShareLinkOrder}>
-                <ShareLinkOrder orderId={isShareLinkOrder ? order.id : null} isShareLinkOrder={isShareLinkOrder} setIsShareLinkOrder={setIsShareLinkOrder} />
+            <Dialog classes={{ paper: classes.paper }} onClose={() => setIsShareLinkOrder(false)} aria-labelledby="shareLink-dialog" open={isShareLinkOrder}>
+                <ShareLinkOrder isShareLinkOrder={isShareLinkOrder} setIsShareLinkOrder={setIsShareLinkOrder} customerMobile={order.customer.mobile} />
             </Dialog>
 
         </Card >

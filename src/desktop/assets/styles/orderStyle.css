@@ -26,7 +26,7 @@
   position: absolute;
   left: -15px;
   top: -2vh;
-  z-index: 9999;
+  z-index: 10000;
 }
 .customer-modal-close--desktop:hover,
 .customer-modal-close--desktop:active,
@@ -180,7 +180,8 @@
 }
 .share--link--order--desktop {
   background-color: var(--pages-background) !important;
-  height: 200px;
+  height: 180px;
+  border-radius: 15px;
   /* width: 350px; */
   overflow-x: auto;
   z-index: 9999;
