@@ -1,3 +1,8 @@
 .rounded-card{
-    border-radius: 10px;
+    border-radius: 7px;
+}
+.dark-blue-border{
+    color: var(--dark-blue);
+    height: 1.5px !important;
+    opacity: 1;
 }
