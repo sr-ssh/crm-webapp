@@ -18,7 +18,7 @@ export const ShareLinkOrder = ({ isShareLinkOrder, setIsShareLinkOrder, customer
     const [copied, setCopied] = useState(false)
     let shareLinkOrder = useSelector(state => state.getShareLinkOrder)
 
-    let textLink = `پیش فاکتور شما ایجاد گردید. لینک پیش فاکتور http://crm-x.ir/orderdetails/${shareLinkOrder?.data?.orderId}/${shareLinkOrder?.data?.keyLink}`;
+    let textLink = `پیش فاکتور شما ایجاد گردید. لینک پیش فاکتور http://crm-x.ir/order/factor/${shareLinkOrder?.data?.orderId}/${shareLinkOrder?.data?.keyLink}`;
 
     return (
         <>
