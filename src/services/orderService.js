@@ -290,7 +290,7 @@ function sendDeliverySms(params) {
 
 
 
-function orderDetails(orderId) {
+function orderDetails(params) {
     console.log('into orderService (orderDetails)')
 
     const requestOptions = {
@@ -298,15 +298,15 @@ function orderDetails(orderId) {
     }
 
     return axios
-        .get(`${baseRoute}/order/details/${orderId}`, { headers: requestOptions.headers })
+        .get(`${baseRoute}/order/details/${params.orderId}/${params.keyLink}`, { headers: requestOptions.headers })
         .then(res => {
             console.log('res >>')
             console.log(res)
-            return handleResponse(res)
+            return res.data
         })
         .catch(error => {
             if (error.response) {
-                console.log("error.response.data")
+                console.log(error.response.data)
                 handleError(error.response.status)
             }
         })
@@ -330,7 +330,7 @@ function getShareLinkOrder(orderId) {
         })
         .catch(error => {
             if (error.response) {
-                console.log("error.response.data")
+                console.log(error.response.data)
                 handleError(error.response.status)
             }
         })

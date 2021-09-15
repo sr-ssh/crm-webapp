@@ -263,7 +263,7 @@ export function setOrdersFilter(state = {}, action) {
 }
 
 
-export function orderDetails(state = {}, action) {
+export function orderDetails(state = { loading: true }, action) {
     switch (action.type) {
         case orderConstants.GET_ORDER_DETAILS_REQUEST:
             return {
