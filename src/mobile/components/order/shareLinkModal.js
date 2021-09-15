@@ -16,12 +16,13 @@ export const ShareLinkModal = (props) => {
     const [copied, setCopied] = useState(false)
     const textLink = `پیش فاکتور شما ایجاد گردید. لینک پیش فاکتور ${"http://localhost:3001/orders/612c763b37888f4af878185d/612c763b37888f4af878185d"}`
     let link = useSelector(state => state.getShareLinkOrder.data)
+    let shareLink = `http://localhost:3001/order/factor/${link?.orderId}/${link?.keyLink}`
     const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(orderActions.getShareLinkOrder({orderId: props.orderId}))
     }, [dispatch, props.orderId])
-
+    console.log(props)
 
     return (
         <Modal
@@ -44,7 +45,7 @@ export const ShareLinkModal = (props) => {
                     <Row>
                         <Row className="p-0 m-0 my-1">
                             <Col className="col-6 ">
-                                <CopyToClipboard text={link} onCopy={() => setCopied(true)}>
+                                <CopyToClipboard text={shareLink} onCopy={() => setCopied(true)}>
                                     <Tooltip open={copied} title={`${copied ? "کپی شد!" : "کپی در کلیپبورد"}`} placement="bottom" className="btn--copy--link" onClose={() => { setTimeout(() => { setCopied(false) }, 500) }} >
                                         <Button className="w-100 h-100 btn--sale--opprotunity border-0">
                                             <FileCopyIcon />

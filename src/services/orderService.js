@@ -330,7 +330,7 @@ function getShareLinkOrder(orderId) {
         })
         .catch(error => {
             if (error.response) {
-                console.log("error.response.data")
+                console.log(error.response.data)
                 handleError(error.response.status)
             }
         })
