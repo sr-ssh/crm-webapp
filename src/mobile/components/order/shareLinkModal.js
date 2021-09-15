@@ -9,18 +9,18 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import closeIcon from '../../assets/images/close.svg'
 import { useDispatch, useSelector } from "react-redux";
 import { orderActions } from "../../../actions";
-
+import { SERVER_URL } from "../../../config";
 
 export const ShareLinkModal = (props) => {
 
     const [copied, setCopied] = useState(false)
     const textLink = `پیش فاکتور شما ایجاد گردید. لینک پیش فاکتور ${"http://localhost:3001/orders/612c763b37888f4af878185d/612c763b37888f4af878185d"}`
     let link = useSelector(state => state.getShareLinkOrder.data)
-    let shareLink = `http://localhost:3001/order/factor/${link?.orderId}/${link?.keyLink}`
+    let shareLink = `${SERVER_URL.substr(0, SERVER_URL.length - 16)}3001/order/factor${link?.orderId}/${link?.keyLink}`
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(orderActions.getShareLinkOrder({orderId: props.orderId}))
+        dispatch(orderActions.getShareLinkOrder(props.orderId))
     }, [dispatch, props.orderId])
     console.log(props)
 
