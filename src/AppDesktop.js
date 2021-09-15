@@ -8,6 +8,7 @@ import PrivateRoute from './desktop/Components/PrivateRoute';
 import { Login } from './desktop/Components/login'
 import { Determine } from './desktop/Components/determine'
 import { Dashboard } from './desktop/Components/main/dashboard'
+import { Factor } from './desktop/Components/order/factor/factor'
 
 
 
@@ -23,6 +24,7 @@ import './desktop/assets/styles/orderStyle.css'
 import './desktop/assets/styles/sideBar.css'
 import './desktop/assets/styles/settingStyle.css'
 import './desktop/assets/styles/notesStyle.css'
+import './desktop/assets/styles/factorStyle.css'
 
 
 
@@ -41,6 +43,7 @@ function AppDesktop() {
                 <Switch>
                     <Route exact path="/" component={Login} />
                     <Route path="/register" component={Determine} />
+                    <Route path="/order/factor/:orderId/:keyLink" component={Factor} />
                     <Route path="/" render={(props) => <Dashboard {...props} />} />
                     <Redirect from="*" to="/" />
                 </Switch>
