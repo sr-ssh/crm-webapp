@@ -24,7 +24,6 @@ import { EditField } from './editField'
 import { history } from '../../../helpers/history'
 import { CancelProductOrder } from './cancelProductOrder'
 import { EditeProductOrder } from './editProductOrder'
-import { ShareLinkOrder } from "./shareLinkOrder"
 import { ShareLinkModal } from './shareLinkModal';
 
 
@@ -56,6 +55,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
     const [orderId, setOrderId] = useState("")
     const [productId, setProductId] = useState("")
     const [editProductOrder, setEditProductOrder] = useState("");
+    const [shareLinkOrder, setShareLinkOrder] = useState("")
 
     const edit = (value, name, orderId, productId) => {
         setInput(value)
@@ -90,7 +90,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
         window.print()
         setPrint(false)
     }
-
+    console.log("order", order.id)
     return (
 
         <Card className={`m-auto mt-3 bg-light productCard border-0 lh-lg ${!print ? 'noPrint' : ''}`} >
@@ -221,7 +221,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                 </Row>
                 <Row className="p-0 m-0 pb-3 w-100">
                     <Col xs={12} className="p-0 px-1 pb-3">
-                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2" type="button" onClick={() => {setIsShareLinkOrder(true); setOrder(order.id);}}>
+                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2" type="button" onClick={() => {setIsShareLinkOrder(true);setShareLinkOrder(order.id)}}>
                             <Col xs={4} className="text-start align-items-center">
                                 <img  src={prevFactorIcon} height="20px" alt="prev-factor-icon" className="" />
                             </Col>
@@ -265,14 +265,14 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                             </Button>
                         </Col>}
                     {order.status !== 3 && order.status !== 2 &&
-                        <Col xs={6} className="p-0 px-1 pb-3 pe-2">
+                        <Col xs={6} className="p-0 px-1 pb-3 ps-2">
                             <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setCancelOrderShow(true); setActiveOrder(order) }}>
                                 <img src={cancelIcon} height="25px" alt="print-icon" className="col-3" />
                                 <span className="pe-1">لغو سفارش</span>
                             </Button>
                         </Col>
                     }
-                    <Col xs={6} className="p-0 px-1 pb-3">
+                    <Col xs={6} className="p-0 px-1 pb-3 pe-2">
                         <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => printWindow()}>
                             <img src={printIcon} height="25px" alt="submit-icon" className="col-3 py-1" />
                             <span className="pe-1">پرینت</span>
@@ -284,11 +284,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
             <CancelProductOrder show={cancelModalShow} onHide={() => { setCancelModalShow(false) }} productId={productId} orderId={orderId} />
             <EditeProductOrder show={editOrder} onHide={() => { setEditOrder(false) }} order={editProductOrder} />
             <AddNotesModal show={showNotesModal} onHide={() => { setShowNotesModal(false) }} permission={true} orderId={order.id} />
-            {/* <Dialog onClose={() => setIsShareLinkOrder(false)} className={classes.backdrop} aria-labelledby="shareLink-dialog" open={isShareLinkOrder}>
-                <ShareLinkOrder orderId={isShareLinkOrder ? order.id : null} isShareLinkOrder={isShareLinkOrder} setIsShareLinkOrder={setIsShareLinkOrder} />
-            </Dialog> */}
-            {console.log(order)}
-            <ShareLinkModal show={isShareLinkOrder} onHide={() => setIsShareLinkOrder(false)} orderId={order.id}/>
+            <ShareLinkModal show={isShareLinkOrder} onHide={() => setIsShareLinkOrder(false)} orderId={shareLinkOrder}/>
         </Card >
     )
 }
