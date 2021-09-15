@@ -369,10 +369,10 @@ function sendDeliverySms(data) {
 
 
 
-function orderDetails(orderId) {
+function orderDetails(params) {
     return dispatch => {
         dispatch(request(orderConstants.GET_ORDER_DETAILS_REQUEST))
-        orderService.orderDetails(orderId)
+        orderService.orderDetails(params)
             .then(
                 res => {
                     if (res === undefined) {
@@ -384,9 +384,11 @@ function orderDetails(orderId) {
                         dispatch(success(orderConstants.GET_ORDER_DETAILS_SUCCESS, res.data));
                         // dispatch(alertActions.success(res.message));
                     }
-                    // setTimeout(() => {
-                    //     dispatch(alertActions.clear());
-                    // }, 1500);
+                    else if (res.success == false) {
+                        console.log("order Details receive")
+                        dispatch(alertActions.error(res.message));
+                        dispatch(failure(orderConstants.GET_ORDER_DETAILS_FAILURE, res.message))
+                    }
                 },
                 error => {
                     dispatch(failure(orderConstants.GET_ORDER_DETAILS_FAILURE, error.toString()));
