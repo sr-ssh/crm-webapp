@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import moment from 'jalali-moment';
 import { Container, Form, Card, Table, Row, Col, Spinner, Button } from 'react-bootstrap';
 import persianJs from 'persianjs/persian.min';
-import { Dialog } from '@material-ui/core'
+import { Dialog, CircularProgress } from '@material-ui/core'
 import ShareIcon from '@material-ui/icons/Share';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux'
@@ -21,8 +21,7 @@ import pishFactorIcon from '../../assets/images/order/pish-factor.svg'
 
 
 // Actions
-import { notesActions } from '../../../actions';
-
+import { notesActions, orderActions } from '../../../actions';
 
 //components
 import { AddNotesModal } from './addNotesModal'
@@ -73,6 +72,9 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
     const [showNotesModal, setShowNotesModal] = useState(false)
     const [open, setOpen] = useState(false);
     const [isShareLinkOrder, setIsShareLinkOrder] = useState(false)
+    const [isPrivate, setIsPrivate] = useState(order.notes.isPrivate);
+
+    let editStatusNotesLoading = useSelector(state => state.editStatusNotes)
 
     const [input, setInput] = useState('')
     const [name, setName] = useState('')
@@ -101,12 +103,6 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
         })
         return total
     }
-    let notesHandler = () => {
-        history.push({
-            pathname: '/order/notes',
-            state: { id: order.id }
-        })
-    }
 
     const handleClose = () => {
         setOpen(false);
@@ -116,13 +112,13 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
     };
 
     let toggleHanler = (e) => {
-        console.log(e.target.checked);
-        // if (e.target.checked === true) {
-        //     dispatch(notesActions.editStatusNotes(orderId, '1'))
-        // }
-        // else if (e.target.checked === false) {
-        //     dispatch(notesActions.editStatusNotes(orderId, '0'))
-        // }
+        if (e.target.checked === true) {
+            dispatch(notesActions.editStatusNotes(order.id, '1'))
+        }
+        else if (e.target.checked === false) {
+            dispatch(notesActions.editStatusNotes(order.id, '0'))
+        }
+        setTimeout(() => { setOrderId("") }, 1000)
     }
 
     const printWindow = async () => {
@@ -131,12 +127,13 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
         setPrint(false)
     }
 
+    // 
     return (
 
         <Card className={`m-auto mt-3 bg-light productCard border-0 lh-lg ${!print ? 'noPrint' : ''} mx-1 ${classes.productCard}`} >
-            <Row className="mt-3">
-                <Col className="d-flex justify-content-center">
-                    <Button className="w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setEditOrder(true); setEditProductOrder(order) }}>
+            <Row className="mt-3 noPrint">
+                <Col className="d-flex justify-content-center ">
+                    <Button className="w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { dispatch(orderActions.getShareLinkOrder(order.id)); setIsShareLinkOrder(true) }}>
                         <img src={pishFactorIcon} height="25px" alt="edit-order-icon" className="col-3 py-1" />
                         <span>پیش فاکتور</span>
                     </Button>
@@ -240,7 +237,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                 </Row>
 
                 <Row className="m-0 mt-3 p-0 ps-2">
-                    <Col className="ms-5">
+                    <Col className="ms-xl-5 col-12 col-md-6">
                         <Table borderless size="sm">
                             <thead>
                                 <tr>
@@ -295,20 +292,24 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                             </tbody>
                         </Table>
                     </Col>
-                    <Col className="mb-3">
+                    <Col className="mb-3 noPrint">
                         <div className="notes--page--dektop">
-                            <Container className="m-0 p-0" style={{ position: "sticky", top: "0", zIndex: "2" }} >
+                            <Container fluid className="m-0 p-0" style={{ position: "sticky", top: "0", zIndex: "2" }} >
                                 <Row className="m-0 p-0 header--notes--desktop d-flex flex-row justify-content-between ">
-                                    {/* onChange={() => setIsPrivate(!isPrivate)} */}
                                     <Col className="m-0 p-0">
-                                        <Form.Group className="fw-bold mx-4"  >
+                                        <Form.Group className="fw-bold mx-4" onChange={() => setIsPrivate(!isPrivate)} >
                                             <label for="r1">
-                                                <input type="checkbox"
-                                                    id="r1" name="r-group"
-                                                    className="btn-toggle-status-notes--desktop"
-                                                    defaultChecked={order?.notes?.isPrivate}
-                                                    onChange={toggleHanler}
-                                                />
+                                                {(editStatusNotesLoading.loading && orderId == order.id) ?
+                                                    <CircularProgress color="secondary" size={24} />
+                                                    :
+                                                    <>
+                                                        <input type="checkbox"
+                                                            id="r1" name="r-group"
+                                                            className="btn-toggle-status-notes--desktop"
+                                                            checked={isPrivate}
+                                                            onChange={(e) => { toggleHanler(e); setOrderId(order.id) }} />
+                                                    </>
+                                                }
                                                 <span className="text-light me-3">خصوصی</span>
                                             </label>
                                         </Form.Group>
@@ -335,7 +336,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                                 </Row>
 
                             </Container>
-                            <Container className="m-0 p-0 w-100 mt-1" >
+                            <Container fluid className="m-0 p-0 w-100 mt-1" >
                                 <Row className="m-0 p-0 ">
                                     <Col className="m-0 p-0 d-flex justify-content-end ms-4 text--more--note--desktop" >
                                         <span onClick={() => setOpen(true)}>بیشتر ...</span>
@@ -353,8 +354,8 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
             <Dialog onClose={handleClose} className="notes-round" aria-labelledby="notes-dialog" open={open} classes={{ paper: classes.paper }} >
                 <Notes order={order} open={open} setOpen={setOpen} setShowNotesModal={setShowNotesModal} setActiveOrder={() => setActiveOrder(order)} />
             </Dialog>
-            <Dialog onClose={() => setIsShareLinkOrder(false)} className={classes.backdrop} aria-labelledby="shareLink-dialog" open={isShareLinkOrder}>
-                <ShareLinkOrder orderId={isShareLinkOrder ? order.id : null} isShareLinkOrder={isShareLinkOrder} setIsShareLinkOrder={setIsShareLinkOrder} />
+            <Dialog classes={{ paper: classes.paper }} onClose={() => setIsShareLinkOrder(false)} aria-labelledby="shareLink-dialog" open={isShareLinkOrder}>
+                <ShareLinkOrder isShareLinkOrder={isShareLinkOrder} setIsShareLinkOrder={setIsShareLinkOrder} customerMobile={order.customer.mobile} />
             </Dialog>
 
         </Card >

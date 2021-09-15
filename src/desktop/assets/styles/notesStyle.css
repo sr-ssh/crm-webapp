@@ -2,7 +2,7 @@
   background-color: var(--pages-background) !important;
   border-radius: 15px;
   height: 280px;
-  width: 500px;
+  /* width: 500px; */
   overflow-x: auto;
   z-index: 1000;
   box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2),
@@ -159,4 +159,10 @@ label {
 .text--more--note--desktop span {
   cursor: pointer !important;
   color: #0d6efd !important;
+}
+
+@media (max-width: 770px) {
+  .dialog--notes--page--dektop {
+    width: 540px;
+  }
 }

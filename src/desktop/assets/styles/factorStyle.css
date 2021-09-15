@@ -1,0 +1,45 @@
+.factor--page--desktop {
+  min-height: 100vh;
+}
+.card--factor--desktop {
+  border-radius: 9px;
+  border: none;
+  box-shadow: 0px 0px 20px 1px rgba(0, 0, 0, 0.2);
+}
+.card--header--factor--desktop {
+  background-color: #fff;
+  border-bottom: 2px solid rgb(10, 88, 202);
+}
+.text--gray--factor--desktop {
+  color: var(--text-color-one) !important;
+  font-size: 14px;
+}
+.table--factor--desktop {
+  background-color: #fff;
+  border-radius: 9px;
+  box-shadow: 0px 0px 20px 1px rgba(0, 0, 0, 0.2);
+  /* border-color: rgb(10, 88, 202); */
+}
+
+.table--factor--desktop thead,
+.table--factor--desktop tbody,
+.table--factor--desktop tfoot,
+.table--factor--desktop tr,
+.table--factor--desktop td,
+.table--factor--desktop th {
+  border: none;
+}
+.table--factor--desktop tr th:not(:last-child),
+.table--factor--desktop tr td:not(:last-child) {
+  border-left: 1px solid rgb(10, 88, 202);
+}
+.table--factor--desktop thead {
+  border-bottom: 1px solid rgb(10, 88, 202);
+}
+.divider--table--factor--desktop {
+  border: 1px solid var(--text-color-three) !important;
+}
+.footer--table--factor--desktop td {
+  border-top: 1px solid rgb(10, 88, 202) !important;
+  border-left: 0px !important;
+}

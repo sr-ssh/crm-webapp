@@ -113,9 +113,6 @@ export const EditeProductOrder = (props) => {
         }
     }
 
-
-    console.log(loader);
-
     return (
         <Modal
             {...props}
