@@ -26,8 +26,9 @@ export const OrderDetails = (props) => {
     }
 
     useEffect(() => {
-        dispatch(orderActions.orderDetails(props.location.pathname?.substr(14)))
-    }, [dispatch, props.location.pathname])
+        if (props.match.params.orderId && props.match.params.keyLink)
+            dispatch(orderActions.orderDetails(props.match.params))
+    }, [dispatch, props.match.params])
 
 
     return (

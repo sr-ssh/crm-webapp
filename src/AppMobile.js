@@ -61,8 +61,8 @@ function AppMobile() {
         <PrivateRoute path="/finance" component={Finance}></PrivateRoute>
         <PrivateRoute path="/bills" component={Bills}></PrivateRoute>
         <PrivateRoute path="/dashboard" component={Dashboard} ></PrivateRoute>
+        <Route path="/order/factor/:orderId/:keyLink" component={OrderDetails} />
         <PrivateRoute path="/order/add" component={AddOrder} ></PrivateRoute>
-        <Route path="/order/factor" component={OrderDetails} />
         <PrivateRoute path="/employees" component={Employees} ></PrivateRoute>
         <PrivateRoute path="/setting" component={Setting}></PrivateRoute>
         <PrivateRoute path="/employee/add" component={Applications} ></PrivateRoute>
