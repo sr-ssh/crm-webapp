@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 //icons
 import ShareIcon from '@material-ui/icons/Share';
-import deliveryIcon from './../../assets/images/order/delivery.svg'
+import deliveryIcon from './../../assets/images/order/delivery1.svg'
 import printIcon from './../../assets/images/order/print.svg'
 import submitIcon from './../../assets/images/order/submit.svg'
 import editIcon from '../../assets/images/Products/edit.svg'

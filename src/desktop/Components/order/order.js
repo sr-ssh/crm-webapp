@@ -8,7 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux'
 
 //icons
-import deliveryIcon from './../../assets/images/order/delivery.svg'
+import deliveryIcon from './../../assets/images/order/delivery1.svg'
 import printIcon from './../../assets/images/order/print.svg'
 import submitIcon from './../../assets/images/order/submit.svg'
 import editIcon from '../../assets/images/Products/edit.svg'

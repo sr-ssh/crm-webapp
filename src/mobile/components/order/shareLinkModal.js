@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Button, Modal } from "react-bootstrap";
-import WhatsAppIcon from '@material-ui/icons/WhatsApp';
-import SmsIcon from '@material-ui/icons/Sms';
-import EmailIcon from '@material-ui/icons/Email';
-import FileCopyIcon from '@material-ui/icons/FileCopy';
 import { Tooltip } from '@material-ui/core';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import closeIcon from '../../assets/images/close.svg'
@@ -11,12 +7,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { orderActions } from "../../../actions";
 import { SERVER_URL } from "../../../config";
 
+//icons
+import copyIcon from './../../assets/images/order/copy.svg'
+import smsIcon from './../../assets/images/order/sms.svg'
+import whatsAppIcon from './../../assets/images/order/whatsapp.svg'
+import emailIcon from './../../assets/images/order/email.svg'
+
 export const ShareLinkModal = (props) => {
 
     const [copied, setCopied] = useState(false)
-    const textLink = `پیش فاکتور شما ایجاد گردید. لینک پیش فاکتور ${"http://localhost:3001/orders/612c763b37888f4af878185d/612c763b37888f4af878185d"}`
     let link = useSelector(state => state.getShareLinkOrder.data)
     let shareLink = `${SERVER_URL.substr(0, SERVER_URL.length - 16)}3001/order/factor/${link?.orderId}/${link?.keyLink}`
+    const textLink = `پیش فاکتور شما ایجاد گردید. لینک پیش فاکتور
+     \n ${shareLink}`
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -44,39 +47,40 @@ export const ShareLinkModal = (props) => {
                     </Row>
                     <Row>
                         <Row className="p-0 m-0 my-1">
-                            <Col className="col-6 ">
+                            <Col className="col-6 ps-2">
                                 <CopyToClipboard text={shareLink} onCopy={() => setCopied(true)}>
                                     <Tooltip open={copied} title={`${copied ? "کپی شد!" : "کپی در کلیپبورد"}`} placement="bottom" className="btn--copy--link" onClose={() => { setTimeout(() => { setCopied(false) }, 500) }} >
                                         <Button className="w-100 h-100 btn--sale--opprotunity border-0">
-                                            <FileCopyIcon />
-                                            <span className="pe-2">copy کردن</span>
+                                            <img src={copyIcon} alt="copy-icon" height="25px" className="pe-1" />
+                                            <span className="pe-2">
+                                                <span className="fs-6">copy</span> کردن
+                                            </span>
                                         </Button>
                                     </Tooltip>
                                 </CopyToClipboard>
                             </Col>
-                            <Col className="col-6">
+                            <Col className="col-6 pe-2">
                                 <Button className="w-100 btn--sale--opprotunity border-0">
-                                    <a className="text-light text-decoration-none" href="sms:09105044033;?&body=Hello">
-                                        <SmsIcon />
+                                    <a className="text-light text-decoration-none" href="sms:09307580142;?&body=Hello">
+                                        <img src={smsIcon} alt="copy-icon" height="25px" className="pe-1" />
                                         <span className="pe-2 fs-6">sms</span>
                                     </a>
-
                                 </Button>
                             </Col>
                         </Row>
                         <Row className="p-0 m-0 my-1">
-                        <Col className="col-6">
+                        <Col className="col-6 ps-2">
                                 <Button className="w-100 btn--sale--opprotunity border-0">
                                     <a className="text-light text-decoration-none" href={`whatsapp://send?text=${textLink}`}>
-                                        <WhatsAppIcon />
+                                        <img src={whatsAppIcon} alt="copy-icon" height="25px" className="pe-1" />
                                         <span className="pe-2">واتساپ</span>
                                     </a>
                                 </Button>
                             </Col>
-                            <Col>
+                            <Col className="pe-2">
                                 <Button className="w-100 btn--sale--opprotunity border-0">
                                     <a className="text-light text-decoration-none" href={`mailto:?body=${textLink}`}>
-                                        <EmailIcon />
+                                        <img src={emailIcon} alt="copy-icon" height="25px" className="pe-1" />
                                         <span className="pe-2">ایمیل</span>
                                     </a>
                                 </Button>

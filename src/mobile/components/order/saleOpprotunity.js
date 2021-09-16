@@ -1,17 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Container, Card, Table, Row, Col, Spinner, Button } from 'react-bootstrap';
+import { Container, Row, Col, Spinner } from 'react-bootstrap';
 import { Header } from '../base/header2';
-
-//icons
-import deliveryIcon from './../../assets/images/order/delivery.svg'
-import printIcon from './../../assets/images/order/print.svg'
-import submitIcon from './../../assets/images/order/submit.svg'
-import editIcon from '../../assets/images/Products/edit.svg'
-import deleteIcon from '../../assets/images/delete.svg'
-import editeOrderIcon from '../../assets/images/order/edit-order-list.svg'
-import addNoteIcon from '../../assets/images/order/add-note-white.svg'
-import noteListIcon from '../../assets/images/order/note-list-white.svg'
 
 // Actions
 
