@@ -28,7 +28,11 @@ export const EditeProductOrder = (props) => {
     const [inputProductValidation, setInputProductValidation] = useState(false)
     const [addressUser, setAddressUser] = useState('')
     const [activeProduct, setActiveProduct] = useState("")
+    const [editPriceCurrentProduct, setEditPriceCurrentProduct] = useState(false)
     const [deleteCurrentProduct, setDeleteCurrentProduct] = useState(false)
+    const [inputCurrentPriceProduct, setInputCurrentPriceProduct] = useState(false)
+    const [inputCurrentPriceProductValidation, setInputCurrentPriceProductValidation] = useState(false)
+
 
     const dispatch = useDispatch()
 
@@ -68,7 +72,23 @@ export const EditeProductOrder = (props) => {
             insertOrder(updatedOrder);
         }
     };
-    let removeOrder = async (e, product) => {
+    let editPriceProduct = (e, product) => {
+        e.preventDefault();
+        if (inputCurrentPriceProduct == "" || inputCurrentPriceProduct == "0")
+            return setInputCurrentPriceProductValidation(true)
+        else
+            setInputCurrentPriceProductValidation(false)
+
+        let updatedOrder = order.map((item) => {
+            if (item._id === product._id) {
+                return { ...item, sellingPrice: inputCurrentPriceProduct };
+            }
+            return item;
+        });
+        insertOrder(updatedOrder);
+        setEditPriceCurrentProduct(false)
+    }
+    let removeOrder = (e, product) => {
 
         e.preventDefault();
         if (order.length == 1)
@@ -227,7 +247,7 @@ export const EditeProductOrder = (props) => {
                                                 <thead>
                                                     <tr className="mb-5 pb-5">
                                                         <th className="fw-bold col-6 mb-3">سفارش</th>
-                                                        <th className="fw-bold mb-3">قیمت (تومان)</th>
+                                                        <th className="fw-bold mb-3 pe-3">قیمت (تومان)</th>
                                                         <th className="fw-bold mb-3">تعداد</th>
                                                         <th className="mb-3"></th>
                                                     </tr>
@@ -239,18 +259,30 @@ export const EditeProductOrder = (props) => {
 
                                                                 return (
                                                                     <tr key={item.name}>
-                                                                        <td >{item.name && persianJs(item.name).englishNumber().toString()}</td>
-                                                                        <td className="px-0">
-                                                                            <img src={editIcon} className="ms-3 " alt="edit-icon" style={{ width: "33px" }} />
-                                                                            {(item.quantity * item.sellingPrice) && persianJs(item.quantity * item.sellingPrice).englishNumber().toString()}
-                                                                        </td>
+                                                                        <td  >{item.name && persianJs(item.name).englishNumber().toString()}</td>
+                                                                        {(editPriceCurrentProduct && activeProduct._id == item._id) ?
+                                                                            <>
+                                                                                <td className={`m-0 px-0 ${editPriceCurrentProduct ? "d-flex" : null} `} style={{ width: "155px" }}>
+                                                                                    <img src={tickIcon} onClick={(e) => editPriceProduct(e, item)} className="ms-2" alt="tick-icon" style={{ width: "20px" }} />
+                                                                                    <img src={deleteeIcon} onClick={(e) => { setEditPriceCurrentProduct(false); }} className="ms-2" alt="delete-icon" style={{ width: "20px" }} />
+                                                                                    <Form.Control className={`notes-round ${inputCurrentPriceProductValidation ? 'border border-danger' : null}`} min="1" type="number" defaultValue={activeProduct.sellingPrice} onChange={e => setInputCurrentPriceProduct(e.target.value)} />
+                                                                                </td>
+                                                                            </>
+                                                                            :
+                                                                            <>
+                                                                                <td className="px-0">
+                                                                                    <img src={editIcon} onClick={(e) => { setEditPriceCurrentProduct(true); setActiveProduct(item) }} className="ms-3 " alt="edit-icon" style={{ width: "33px" }} />
+                                                                                    {(item.quantity * item.sellingPrice) && persianJs(item.quantity * item.sellingPrice).englishNumber().toString()}
+                                                                                </td>
+                                                                            </>
+                                                                        }
                                                                         <td className="pe-2">{item.quantity && persianJs(item.quantity).englishNumber().toString()}</td>
                                                                         {
 
                                                                             (deleteCurrentProduct && activeProduct._id == item._id) ?
                                                                                 <td className="text-start " style={{ width: "155px" }}>
                                                                                     <img src={tickIcon} onClick={(e) => removeOrder(e, item)} className="ms-2" alt="tick-icon" style={{ width: "20px" }} />
-                                                                                    <img src={deleteeIcon} onClick={(e) => { setDeleteCurrentProduct(false); setActiveProduct("") }} className="ms-2" alt="delete-icon" style={{ width: "20px" }} />
+                                                                                    <img src={deleteeIcon} onClick={(e) => { setDeleteCurrentProduct(false) }} className="ms-2" alt="delete-icon" style={{ width: "20px" }} />
                                                                                     <span>آیا حذف شود؟</span>
                                                                                 </td>
                                                                                 :
