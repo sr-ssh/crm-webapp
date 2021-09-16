@@ -10,6 +10,7 @@ import { EmployeeApp } from './employeeApp'
 import { EmployeeNoApp } from './employeeNoApp'
 import { EmployerNoProduct } from './employerNoProduct'
 import { MainMenuOptions } from './mainMenuOptions'
+import { Header } from '../base/header'
 
 
 export const Main = () => {
@@ -28,6 +29,7 @@ export const Main = () => {
     return (
 
         <div>
+            <Header />
             <Container fluid className="m-0 w-100 d-flex justify-content-center align-items-center flex-column " style={{ height: "100vh" }}>
                 {((user_type === 1 && products.length > 0) || (user_type === 2 && application_status === 2)) &&
                     <MainMenuOptions />

@@ -31,10 +31,6 @@ import { Account } from '../acounts/account';
 import { Setting } from '../setting/setting'
 
 
-// Components
-import { SideBar } from './sideBar'
-import routes from "../../routes";
-// Icons 
 
 
 export const Dashboard = (props) => {
@@ -75,9 +71,6 @@ export const Dashboard = (props) => {
     return (
         <>
             <div className="wrapper">
-                <div className="sidebar--desktop">
-                    <SideBar routes={routes} />
-                </div>
                 <div className="content">
                     <NotificationAlert ref={notificationAlertRef} />
                     <Switch>

@@ -12,6 +12,7 @@
   --dager-color: #e53935;
   --background-blue: #c3e2fc;
   --dark--blue: #0a58ca;
+  --btn-bg-excel: #287a49;
 }
 /*  */
 
@@ -69,4 +70,41 @@ body {
 .btn-dark-blue:focus:active {
   background-color: var(--dark--blue);
   color: #fff;
+}
+.btn--excel--desktop {
+  color: #fff;
+  height: 43px;
+  background-color: var(--btn-bg-excel);
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  border-radius: 15px;
+}
+.btn--excel--desktop:hover,
+.btn--excel--desktop:active,
+.btn--excel--desktop:active:focus,
+.btn--excel--desktop:focus {
+  color: #fff;
+  background-color: var(--btn-bg-excel);
+  box-shadow: none;
+}
+
+.btn--add--desktop {
+  color: #fff;
+  height: 43px;
+  font-size: 13px;
+  width: 160px;
+  background-color: rgb(10, 88, 202);
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  border-radius: 15px;
+}
+.btn--add--desktop:hover,
+.btn--add--desktop:active,
+.btn--add--desktop:active:focus,
+.btn--add--desktop:focus {
+  color: #fff;
+  background-color: rgb(10, 88, 202);
+  box-shadow: none;
 }
