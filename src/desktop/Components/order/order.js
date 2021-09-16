@@ -133,48 +133,53 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
         <Card className={`m-auto mt-3 bg-light productCard border-0 lh-lg ${!print ? 'noPrint' : ''} mx-1 ${classes.productCard}`} >
             <Row className="mt-3 noPrint">
                 <Col className="d-flex justify-content-center ">
-                    <Button className="w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { dispatch(orderActions.getShareLinkOrder(order.id)); setIsShareLinkOrder(true) }}>
+                    <Button className={`${order.status == 2 ? "w-50" : "w-75"} btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2`} type="button" onClick={() => { dispatch(orderActions.getShareLinkOrder(order.id)); setIsShareLinkOrder(true) }}>
                         <img src={pishFactorIcon} height="25px" alt="edit-order-icon" className="col-3 py-1" />
                         <span>پیش فاکتور</span>
                     </Button>
                 </Col>
-                <Col className="d-flex justify-content-center">
-                    {
-                        order.status !== 2 &&
+                {
+                    order.status !== 2 &&
+                    <Col className="d-flex justify-content-center">
+
                         <Button className="w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setEditOrder(true); setEditProductOrder(order) }}>
                             <img src={editeOrderIcon} height="25px" alt="edit-order-icon" className="col-3 py-1" />
                             <span>ویرایش</span>
                         </Button>
-                    }
-                </Col>
+                    </Col>
+                }
+
                 <Col className="d-flex justify-content-center">
-                    <Button className="w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => printWindow()}>
+                    <Button className={`${order.status == 2 ? "w-50" : "w-75"} btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2`} type="button" onClick={() => printWindow()}>
                         <img src={printIcon} height="25px" alt="submit-icon" className="col-3 py-1" />
                         <span>چاپ</span>
                     </Button>
                 </Col>
                 <Col className="d-flex justify-content-center">
-                    <Button className="w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setDeliveryShow(true); setOrder(order.id); }}>
+                    <Button className={`${order.status == 2 ? "w-50" : "w-75"} btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2`} type="button" onClick={() => { setDeliveryShow(true); setOrder(order.id); }}>
                         <img src={deliveryIcon} height="25px" alt="delivery-icon" className="col-3" />
                         <span>پیک</span>
                     </Button>
                 </Col>
-                <Col className="d-flex justify-content-center">
-                    <>
-                        {order.status === 3 &&
-                            <Button className="w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setRecordOrderShow(true); setActiveOrder(order) }}>
-                                <img src={submitIcon} height="25px" alt="print-icon" className="col-3" />
-                                <span>ثبت</span>
-                            </Button>
-                        }
-                        {order.status !== 3 && order.status !== 2 &&
-                            <Button className="w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setCancelOrderShow(true); setActiveOrder(order) }}>
-                                <img src={cancelIcon} height="25px" alt="print-icon" className="col-3" />
-                                <span>لغو سفارش</span>
-                            </Button>
-                        }
-                    </>
-                </Col>
+                {order.status === 3 &&
+
+                    <Col className="d-flex justify-content-center">
+                        <Button className="w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setRecordOrderShow(true); setActiveOrder(order) }}>
+                            <img src={submitIcon} height="25px" alt="print-icon" className="col-3" />
+                            <span>ثبت</span>
+                        </Button>
+                    </Col>
+
+                }
+                {order.status !== 3 && order.status !== 2 &&
+                    <Col className="d-flex justify-content-center">
+                        <Button className="w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setCancelOrderShow(true); setActiveOrder(order) }}>
+                            <img src={cancelIcon} height="25px" alt="print-icon" className="col-3" />
+                            <span>لغو سفارش</span>
+                        </Button>
+                    </Col>
+
+                }
             </Row>
             <Card.Body className="pb-0 ps-1 rounded-3 text-gray">
                 <Row className="p-0 ps-2 m-0 ">
