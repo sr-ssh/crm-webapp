@@ -4,7 +4,8 @@ import { Container, Dropdown, Modal, Row, Col, Form, Button, Table, Spinner, Ale
 import persianJs from 'persianjs/persian.min';
 //Assets
 import closeIcon from '../../assets/images/close.svg'
-// import deleteIcon from './../../assets/images/delete.svg'
+import deleteeIcon from './../../assets/images/order/close.svg'
+import tickIcon from './../../assets/images/order/ok.svg'
 import spinnerIcon from './../../assets/images/sppiner.svg'
 import plusIcon from './../../assets/images/plus.svg'
 import editIcon from './../../assets/images/order/edit.svg'
@@ -26,6 +27,9 @@ export const EditeProductOrder = (props) => {
     const [validated, setValidated] = useState(false)
     const [inputProductValidation, setInputProductValidation] = useState(false)
     const [addressUser, setAddressUser] = useState('')
+    const [activeProduct, setActiveProduct] = useState("")
+    const [deleteCurrentProduct, setDeleteCurrentProduct] = useState(false)
+
     const dispatch = useDispatch()
 
     const products = useSelector(state => state.getProducts.product)
@@ -64,7 +68,8 @@ export const EditeProductOrder = (props) => {
             insertOrder(updatedOrder);
         }
     };
-    let removeOrder = (e, product) => {
+    let removeOrder = async (e, product) => {
+
         e.preventDefault();
         if (order.length == 1)
             return dispatch(alertActions.error("کمتر از یک کالا در سبد خرید مجاز نیست"))
@@ -235,12 +240,22 @@ export const EditeProductOrder = (props) => {
                                                                 return (
                                                                     <tr key={item.name}>
                                                                         <td >{item.name && persianJs(item.name).englishNumber().toString()}</td>
-                                                                        <td className="">
+                                                                        <td className="px-0">
                                                                             <img src={editIcon} className="ms-3 " alt="edit-icon" style={{ width: "33px" }} />
                                                                             {(item.quantity * item.sellingPrice) && persianJs(item.quantity * item.sellingPrice).englishNumber().toString()}
                                                                         </td>
-                                                                        <td className="pe-3">{item.quantity && persianJs(item.quantity).englishNumber().toString()}</td>
-                                                                        <td onClick={(e) => removeOrder(e, item)}><img src={deleteIcon} className="d-block me-auto" alt="delete-icon" /></td>
+                                                                        <td className="pe-2">{item.quantity && persianJs(item.quantity).englishNumber().toString()}</td>
+                                                                        {
+
+                                                                            (deleteCurrentProduct && activeProduct._id == item._id) ?
+                                                                                <td className="text-start " style={{ width: "155px" }}>
+                                                                                    <img src={tickIcon} onClick={(e) => removeOrder(e, item)} className="ms-2" alt="tick-icon" style={{ width: "20px" }} />
+                                                                                    <img src={deleteeIcon} onClick={(e) => { setDeleteCurrentProduct(false); setActiveProduct("") }} className="ms-2" alt="delete-icon" style={{ width: "20px" }} />
+                                                                                    <span>آیا حذف شود؟</span>
+                                                                                </td>
+                                                                                :
+                                                                                <td onClick={(e) => { setDeleteCurrentProduct(true); setActiveProduct(item) }}><img src={deleteIcon} className="d-block me-auto" alt="delete-icon" /></td>
+                                                                        }
                                                                     </tr>
                                                                 )
                                                             })
