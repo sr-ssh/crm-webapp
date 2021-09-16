@@ -11,6 +11,7 @@
   --card-background: #cdcdcd;
   --dager-color: #e53935;
   --background-blue: #c3e2fc;
+  --dark--blue: #0a58ca;
 }
 /*  */
 
@@ -54,6 +55,18 @@ body {
 .flex-grow-1-5 {
   flex-grow: 1.5 !important;
 }
-.text-grey{
+.text-grey {
   color: var(--text-color-three);
+}
+.btn-dark-blue {
+  background-color: var(--dark--blue);
+  color: #fff;
+}
+.btn-dark-blue:active,
+.btn-dark-blue:hover,
+.btn-dark-blue:focus,
+.btn-dark-blue:active:focus,
+.btn-dark-blue:focus:active {
+  background-color: var(--dark--blue);
+  color: #fff;
 }

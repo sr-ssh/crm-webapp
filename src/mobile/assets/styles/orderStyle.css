@@ -95,8 +95,12 @@
   border-radius: 10px;
   width: 100%;
   text-align: right;
+  height: 35px;
 }
-
+.basket-flex .dropdown-toggle:focus {
+  background-color: var(--body-bachground);
+  color: var(--text-color-one);
+}
 .basket-flex .dropdown-toggle::after {
   content: "";
   border: none;
