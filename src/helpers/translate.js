@@ -6,7 +6,7 @@ export function translate(key) {
     else if (key === "reminder")
         return "یادآوری"
     else if (key === "getProducts")
-        return "محصولات"
+        return "محصول ها"
     else if (key === "finance")
         return "مالی"
     else if (key === "getCustomers")
@@ -16,7 +16,7 @@ export function translate(key) {
     else if (key === "getDiscounts")
         return "تخفیف ها"
     else if (key === "saleOpprotunity")
-        return "فرصت سفارشات"
+        return "فرصت فروش"
     else if (key === "family")
         return "نام"
     else if (key === "company")
@@ -27,4 +27,8 @@ export function translate(key) {
         return "قیمت"
     else if (key === "quantity")
         return "تعداد"
+    else if (key === "excelProduct")
+        return "اکسل محصول ها"
+    else if (key === "excelCustomer")
+        return "اکسل مشتریان"
 }

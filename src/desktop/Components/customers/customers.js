@@ -4,7 +4,7 @@ import { Container, Spinner, Col, Row, Alert } from 'react-bootstrap';
 import { Button } from '@material-ui/core'
 
 // Actions
-import { customerActions } from '../../../actions/customerActions';
+import { customerActions, employeeActions } from '../../../actions';
 
 
 // components
@@ -21,6 +21,8 @@ export const Customers = () => {
     const [modalShow, setModalShow] = useState(false)
     let customers = useSelector(state => state.getCustomers.customers)
     let customerLoading = useSelector(state => state.getCustomers.loading)
+    const userPermissions = useSelector(state => state.getPermissions.permissions)
+
     const dispatch = useDispatch()
 
 
@@ -31,12 +33,14 @@ export const Customers = () => {
 
     useEffect(() => {
         dispatch(customerActions.getCustomers());
+        dispatch(employeeActions.getPermissions())
+
     }, [dispatch])
 
 
     return (
         <>
-            <Header isBTNSearch={true} searchModalShow={() => setModalShow(true)} isGetExcel={true} getExcel={getExcel} isBtnAdd={" "} />
+            <Header isBTNSearch={true} searchModalShow={() => setModalShow(true)} userPermission={userPermissions.excelCustomer} isGetExcel={true} getExcel={getExcel} isBtnAdd={" "} />
 
 
             <div className="product-page orders margin--top--header">

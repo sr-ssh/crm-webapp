@@ -70,9 +70,10 @@ export const Employees = () => {
                                             <Card.Text className="pt-1">
                                                 {
                                                     Object.keys(item.permission).map(per =>
-                                                        item.permission[per]
-                                                            ? <Col><img src={checkIcon} height="27px" alt="tick-icon" className="application-check-icon" /> <span>{translate(per)}</span></Col>
-                                                            : null
+                                                        per === "getDiscounts" ? null :
+                                                            item.permission[per]
+                                                                ? <Col><img src={checkIcon} height="27px" alt="tick-icon" className="application-check-icon" /> <span>{translate(per)}</span></Col>
+                                                                : null
                                                     )
                                                 }
                                             </Card.Text>

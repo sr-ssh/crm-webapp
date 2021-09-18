@@ -6,7 +6,7 @@ import persianJs from 'persianjs/persian.min';
 import { Button } from '@material-ui/core'
 
 // Actions
-import { productActions } from '../../../actions'
+import { productActions, employeeActions } from '../../../actions'
 // Components
 import { AddProduct } from './addProduct'
 import { EditProduct } from './editProduct'
@@ -25,6 +25,7 @@ export const Products = () => {
     const products = useSelector(state => state.getProducts.product)
     const productLoading = useSelector(state => state.getProducts.loading)
     const addProductLoading = useSelector(state => state.addProduct.loading)
+    const userPermissions = useSelector(state => state.getPermissions.permissions)
 
     const getExcel = () => {
         dispatch(productActions.getExcelProducts())
@@ -34,11 +35,12 @@ export const Products = () => {
     useEffect(() => {
         if (!editModalShow && !addModalShow)
             dispatch(productActions.getProducts())
+        dispatch(employeeActions.getPermissions())
     }, [dispatch, editModalShow, addModalShow])
 
     return (
         <>
-            <Header isBTNSearch={true} isGetExcel={true} getExcel={getExcel} isBtnAdd={"اضافه محصول"} btnAdd={() => setAddModalShow(true)} />
+            <Header isBTNSearch={true} userPermission={userPermissions.excelProduct} isGetExcel={true} getExcel={getExcel} isBtnAdd={"اضافه محصول"} btnAdd={() => setAddModalShow(true)} />
             <div className="product-page d-flex flex-column align-items-center margin--top--header ">
                 <Container className="m-0 w-100 d-flex justify-content-center flex-wrap ">
                     {
