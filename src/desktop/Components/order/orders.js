@@ -51,7 +51,7 @@ export const Orders = () => {
         <>
             <Header isBTNSearch={true} searchModalShow={() => setModalShow(true)} isBTNRequest={false} />
             <div className="product-page orders w-100 margin--top--header">
-                <Container fluid className="m-0  mt-5 w-100 d-flex justify-content-center flex-wrap ">
+                <Container fluid className="m-0  mt-5 w-100 d-flex justify-content-center flex-wrap mb-5 ">
                     {
                         orderLoading ?
                             <Col className="col-3 mt-5 m-auto d-block align-self-center w-100 mb-4 ">

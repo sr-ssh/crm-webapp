@@ -11,7 +11,7 @@ import closeIcon from '../../assets/images/close.svg'
 
 export const OrderSearch = (props) => {
 
-    const [filters, setFilters] = useState({ status: '' })
+    const [filters, setFilters] = useState({ status: props.status || " " })
     const dispatch = useDispatch()
 
     const handleChange = (e) => {

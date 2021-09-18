@@ -54,7 +54,7 @@ export const SaleOpprotunity = () => {
         <>
             <Header isBTNSearch={true} searchModalShow={() => setModalShow(true)} isBTNRequest={false} />
 
-            <div className="product-page orders w-100 margin--top--header">
+            <div className="product-page orders w-100 margin--top--header mb-5">
                 <Container fluid className="m-0 mt-5 w-100 d-flex justify-content-center flex-wrap " >
                     {
                         orderLoading &&
@@ -79,7 +79,7 @@ export const SaleOpprotunity = () => {
 
                         : null}
 
-                    <OrderSearch show={modalShow} onHide={() => setModalShow(false)} />
+                    <OrderSearch show={modalShow} onHide={() => setModalShow(false)} status={3} />
                     <Delivery show={deliveryShow} onHide={() => setDeliveryShow(false)} order={order} />
                     <RecordOrder show={recordOrderShow} onHide={() => setRecordOrderShow(false)} order={activeOrder} />
 

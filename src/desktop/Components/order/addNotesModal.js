@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import closeIcon from '../../assets/images/close.svg'
 
 // Actions
-import { notesActions } from '../../../actions';
+import { notesActions, orderActions } from '../../../actions';
 
 
 export const AddNotesModal = (props) => {
@@ -30,13 +30,17 @@ export const AddNotesModal = (props) => {
                 dispatch(notesActions.addNotes(props?.orderId, [notes]))
             else
                 props.setNotes((prevNotesState) => [...prevNotesState, notes])
-            props.onHide(false)
+
+            setTimeout(() => {
+                dispatch(orderActions.getOrders({ status: props.status || " " }))
+                props.onHide(false)
+            }, 1000);
+
 
         }
         else
             props.onHide(false)
     }
-
     return (
         <Modal
             {...props}

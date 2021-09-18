@@ -59,7 +59,7 @@ export const Notes = (props) => {
 
                     </Row>
                 </Container>
-                <Container style={{ height: "455px" }}>
+                <Container className="mb-5">
                     <Row>
                         <Col className="m-0 p-0" >
                             {(order.notes.Notes != undefined) ?
