@@ -12,7 +12,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 
 // For Detect device, and render view according to the detected device type
-import { BrowserView, MobileView, isDesktop, isMobile } from "react-device-detect";
+import { BrowserView, MobileView, isDesktop, isMobileOnly } from "react-device-detect";
 
 
 ReactDOM.render(
@@ -31,7 +31,7 @@ ReactDOM.render(
       </BrowserView>
       <MobileView>
         {
-          isMobile ? <AppMobile /> : null
+          isMobileOnly ? <AppMobile /> : null
         }
       </MobileView>
 

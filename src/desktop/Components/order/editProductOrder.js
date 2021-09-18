@@ -95,6 +95,8 @@ export const EditeProductOrder = (props) => {
             return dispatch(alertActions.error("کمتر از یک کالا در سبد خرید مجاز نیست"))
         let updatedOrder = order.filter(item => item._id !== product._id);
         insertOrder(updatedOrder)
+        setActiveProduct("")
+        setDeleteCurrentProduct(false)
     }
 
     const getTotalPrice = (order) => {
