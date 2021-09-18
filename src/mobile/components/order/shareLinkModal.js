@@ -36,7 +36,7 @@ export const ShareLinkModal = (props) => {
             className="px-4"
         >
             <Modal.Body className="add-product px-0 py-3">
-            <Button className="border-0 customer-modal-close" type="button" onClick={e => props.onHide(false)}>
+                <Button className="border-0 customer-modal-close" type="button" onClick={e => props.onHide(false)}>
                     <img className="d-flex m-auto customer-modal-close-svg" src={closeIcon} alt="close-btn" />
                 </Button>
                 <Container>
@@ -61,7 +61,7 @@ export const ShareLinkModal = (props) => {
                             </Col>
                             <Col className="col-6 pe-2">
                                 <Button className="w-100 btn--sale--opprotunity border-0">
-                                    <a className="text-light text-decoration-none" href="sms:09307580142;?&body=Hello">
+                                    <a className="text-light text-decoration-none" href={`sms:${props.customerMobile};?&body=${textLink}`}>
                                         <img src={smsIcon} alt="copy-icon" height="25px" className="pe-1" />
                                         <span className="pe-2 fs-6">sms</span>
                                     </a>
@@ -69,7 +69,7 @@ export const ShareLinkModal = (props) => {
                             </Col>
                         </Row>
                         <Row className="p-0 m-0 my-1">
-                        <Col className="col-6 ps-2">
+                            <Col className="col-6 ps-2">
                                 <Button className="w-100 btn--sale--opprotunity border-0">
                                     <a className="text-light text-decoration-none" href={`whatsapp://send?text=${textLink}`}>
                                         <img src={whatsAppIcon} alt="copy-icon" height="25px" className="pe-1" />
