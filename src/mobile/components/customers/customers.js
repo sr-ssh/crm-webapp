@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Container, Spinner, Col, Row, Alert } from 'react-bootstrap';
 
 // Actions
-import { customerActions } from '../../../actions/customerActions';
+import { customerActions, employeeActions } from '../../../actions';
 
 
 // components
@@ -20,21 +20,26 @@ export const Customers = () => {
     const [modalShow, setModalShow] = useState(false)
     let customers = useSelector(state => state.getCustomers.customers)
     let customerLoading = useSelector(state => state.getCustomers.loading)
+    const userPermissions = useSelector(state => state.getPermissions.permissions)
+
     const dispatch = useDispatch()
 
     const getExcel = () => {
-        
+
         dispatch(customerActions.getExcelCustomers(filters))
     }
 
     useEffect(() => {
         dispatch(customerActions.getCustomers());
+        dispatch(employeeActions.getPermissions())
+
     }, [dispatch])
+
 
     return (
         <>
             <div className="product-page orders">
-                <Header title="مشتریان" setModalShow={setModalShow} getExcel={getExcel}/>
+                <Header title="مشتریان" setModalShow={setModalShow} getExcel={getExcel} userPermission={userPermissions.excelCustomer} />
                 <Container fluid className="m-auto">
                     {
                         customerLoading &&
@@ -69,7 +74,7 @@ export const Customers = () => {
                             ? (customers.map((customer, index) => <Customer key={index} customer={customer} />))
                             : null
                     }
-                    <CustomerSearch show={modalShow} onHide={() => setModalShow(false)} filters={filters} setFilters={setFilters}/>
+                    <CustomerSearch show={modalShow} onHide={() => setModalShow(false)} filters={filters} setFilters={setFilters} />
                 </Container>
             </div>
         </>

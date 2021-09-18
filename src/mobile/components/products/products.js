@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import moment from 'jalali-moment';
 import persianJs from 'persianjs/persian.min';
 // Actions
-import { productActions } from '../../../actions'
+import { productActions, employeeActions } from '../../../actions'
 // Components
 import { Header } from '../base/productsExcelHeader';
 import { AddProduct } from './addProduct'
@@ -23,6 +23,7 @@ export const Products = () => {
     const products = useSelector(state => state.getProducts.product)
     const productLoading = useSelector(state => state.getProducts.loading)
     const addProductLoading = useSelector(state => state.addProduct.loading)
+    const userPermissions = useSelector(state => state.getPermissions.permissions)
 
     const getExcel = () => {
         dispatch(productActions.getExcelProducts())
@@ -31,11 +32,14 @@ export const Products = () => {
     useEffect(() => {
         if (!editModalShow && !addModalShow)
             dispatch(productActions.getProducts())
+        dispatch(employeeActions.getPermissions())
+
     }, [dispatch, editModalShow, addModalShow])
+
 
     return (
         <div className="product-page">
-            <Header title="محصولات" getExcel={getExcel} setModalShow={setAddModalShow} />
+            <Header title="محصولات" getExcel={getExcel} setModalShow={setAddModalShow} userPermission={userPermissions.excelProduct} />
             <Container className="m-auto">
                 {
                     (productLoading) &&
