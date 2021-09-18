@@ -34,6 +34,8 @@ export const EditeProductOrder = (props) => {
 
     const products = useSelector(state => state.getProducts.product)
     const loader = useSelector(state => state.editProducOrder.loading)
+    let alertMessage = useSelector(state => state.alert.message)
+    let alerType = useSelector(state => state.alert.type)
 
     let productHandler = (e) => {
         e.preventDefault()
@@ -69,12 +71,16 @@ export const EditeProductOrder = (props) => {
         }
     };
     let removeOrder = (e, product) => {
-
         e.preventDefault();
-        if (order.length == 1)
-            return dispatch(alertActions.error("کمتر از یک کالا در سبد خرید مجاز نیست"))
-        let updatedOrder = order.filter(item => item._id !== product._id);
-        insertOrder(updatedOrder)
+        if (order.length == 1) {
+            dispatch(alertActions.error("کمتر از یک کالا در سبد خرید مجاز نیست"))
+            setTimeout(() => {
+                dispatch(alertActions.clear())
+            }, 1000);
+        } else {
+            let updatedOrder = order.filter(item => item._id !== product._id);
+            insertOrder(updatedOrder)
+        }
     }
     const getTotalPrice = (order) => {
         let total = 0
@@ -142,6 +148,17 @@ export const EditeProductOrder = (props) => {
             centered
             className="w-100 m-0 p-0"
         >
+            {
+                alertMessage &&
+                <>
+                    <div className="modal-backdrop show"></div>
+                    <Row className="justify-content-center text-center ">
+                        <Alert variant={alerType}>
+                            {alertMessage}
+                        </Alert>
+                    </Row>
+                </>
+            }
             <Button className="border-0 customer-modal-close" type="button" onClick={closeHandler}>
                 <img className="d-flex m-auto customer-modal-close-svg" src={closeIcon} alt="close-btn" />
             </Button>
@@ -166,7 +183,7 @@ export const EditeProductOrder = (props) => {
                                 <Card className="border-0 p-3 pt-2  basket--edit--product--container">
                                     <Card.Body className="p-0 basket-flex">
                                         <Row className="d-flex align-content-center justify-content-evenly">
-                                            <Col className="col-7 pe-2 ps-1">
+                                            <Col className="col-6 pe-0 ps-1">
                                                 <Dropdown onToggle={(e) => setDimStatus(!dimStatus)} onClick={(e) => productHandler(e)}>
                                                     <Dropdown.Toggle className="d-flex align-items-center justify-content-between px-1 py-3 ">
 
@@ -220,8 +237,8 @@ export const EditeProductOrder = (props) => {
                                                 <Table className="lh-lg" borderless size="sm">
                                                     <thead>
                                                         <tr>
-                                                            <th className="fw-bold">سفارش</th>
-                                                            <th className="fw-bold">قیمت (تومان)</th>
+                                                            <th className="fw-bold col-4">سفارش</th>
+                                                            <th className="fw-bold ">قیمت (تومان)</th>
                                                             <th className="fw-bold">تعداد</th>
                                                             <th></th>
                                                         </tr>
@@ -238,6 +255,11 @@ export const EditeProductOrder = (props) => {
                                                                                 <img src={editIcon} className="ms-3 " alt="edit-icon" style={{ width: "33px" }} />
                                                                                 {(item.quantity * item.sellingPrice) && persianJs(item.quantity * item.sellingPrice).englishNumber().toString()}
                                                                             </td>
+                                                                            {/* <td className={`m-0 px-0`} >
+                                                                                <img src={editIcon} className="ms-2" alt="tick-icon" style={{ width: "20px" }} />
+                                                                                <img src={editIcon} className="ms-2" alt="delete-icon" style={{ width: "20px" }} />
+                                                                                <Form.Control className={`notes-round`} min="1" type="number" />
+                                                                            </td> */}
                                                                             <td className="pe-3">{item.quantity && persianJs(item.quantity).englishNumber().toString()}</td>
                                                                             <td onClick={(e) => removeOrder(e, item)}><img src={deleteIcon} className="d-block me-auto" alt="delete-icon" /></td>
                                                                         </tr>

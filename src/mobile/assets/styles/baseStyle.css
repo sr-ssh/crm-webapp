@@ -1,124 +1,118 @@
-
-
-:root{
-    --body-bachground: #ffffff;
-    --button-background: #64b5f6;
-    --button-color-one: #373737;
-    --pages-background: #ebebeb;
-    --text-color-one: #646464;
-    --text-color-two: #383738;
-    --text-color-three: #6d6b6d;
-    --button-color-two: #4caf50;
-    --card-background: #cdcdcd;
-    --dager-color: #e53935;
-    --background-blue: #c3e2fc;
-    --dark-blue: #1d64cd;
+:root {
+  --body-bachground: #ffffff;
+  --button-background: #64b5f6;
+  --button-color-one: #373737;
+  --pages-background: #ebebeb;
+  --text-color-one: #646464;
+  --text-color-two: #383738;
+  --text-color-three: #6d6b6d;
+  --button-color-two: #4caf50;
+  --card-background: #cdcdcd;
+  --dager-color: #e53935;
+  --background-blue: #c3e2fc;
+  --dark-blue: #1d64cd;
 }
 
 @font-face {
-    font-family: 'IranSans';
-    src: url('./../font/ir_sans.ttf');  
+  font-family: "IranSans";
+  src: url("./../font/ir_sans.ttf");
 }
 
-
-body{
-    font-family: 'IranSans';
-    background-color: var(--body-bachground);
-    margin: 0;
-    padding: 0;
+body {
+  font-family: "IranSans";
+  background-color: var(--body-bachground);
+  margin: 0;
+  padding: 0;
 }
 
 .determine-page {
-    background-color: var(--button-color-one);
-    height: 100%;
-    min-height: 100vh;
+  background-color: var(--button-color-one);
+  height: 100%;
+  min-height: 100vh;
 }
 
 .determine-btn-row {
-    position: relative;
-    top: 35vh;
+  position: relative;
+  top: 35vh;
 }
 
 .determine-btn-employee {
-    width: 40vw;
-    height: 6vh;
-    border-radius: 8px;
-    color: var(--button-color-one);
-    font-weight: bold;
-    background-color: var(--background-blue);
+  width: 40vw;
+  height: 6vh;
+  border-radius: 8px;
+  color: var(--button-color-one);
+  font-weight: bold;
+  background-color: var(--background-blue);
 }
 
 .determine-btn-employer {
-    width: 40vw;
-    height: 6vh;
-    border-radius: 8px;
-    color: var(--button-color-one);
-    font-weight: bold;
-    background-color: var(--button-background);
+  width: 40vw;
+  height: 6vh;
+  border-radius: 8px;
+  color: var(--button-color-one);
+  font-weight: bold;
+  background-color: var(--button-background);
 }
 
 #triangle-up {
-    top: 0;
-    left: 0;
-    z-index: 0;
-    position: absolute;
-    border-left: 368px solid var(--button-color-one);
-    border-right: 368px solid transparent;
-    border-top: 56px solid var(--button-color-one);
-    border-bottom: 56px solid transparent;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  position: absolute;
+  border-left: 368px solid var(--button-color-one);
+  border-right: 368px solid transparent;
+  border-top: 56px solid var(--button-color-one);
+  border-bottom: 56px solid transparent;
 }
-
 
 #triangle-down {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    z-index: 0;
-    border-right: 763px solid var(--button-color-one);
-    border-bottom: 34px solid var(--button-color-one);
-    border-top: 114px solid transparent;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+  border-right: 763px solid var(--button-color-one);
+  border-bottom: 34px solid var(--button-color-one);
+  border-top: 114px solid transparent;
 }
 
-.navbar-brand{
-    font-size: 14px;
-    transform: translateX(-50%);
-    left: 50%;
-    position: absolute;
+.navbar-brand {
+  font-size: 14px;
+  transform: translateX(-50%);
+  left: 50%;
+  position: absolute;
 }
 
-.my-nav{
-    background-color: var(--button-color-one);
-    
+.my-nav {
+  background-color: var(--button-color-one);
 }
 
 .navbar-expand .navbar-nav .nav-link {
-    padding-left: 1.5rem;
+  padding-left: 1.5rem;
 }
 
-
-.form-control:focus{
-    box-shadow: none;
+.form-control:focus {
+  box-shadow: none;
 }
 
 .search-input {
-    width: 90%;
-    padding-right: 10px;
-    height: calc(1.5em + 0.75rem + 1px);
-    font-size: 14px;
-    border-radius: 10px;
-    border: none;
+  width: 90%;
+  padding-right: 10px;
+  height: calc(1.5em + 0.75rem + 1px);
+  font-size: 14px;
+  border-radius: 10px;
+  border: none;
 }
 
 .alert {
-    position: absolute;
-    bottom: 26vh;
-    z-index: 1050;
+  position: absolute;
+  bottom: 26vh;
+  z-index: 9999;
 }
 
 .no-result-filter {
-    height: 75vh;
+  height: 75vh;
 }
 
 .header-title {
-    position: absolute;
+  position: absolute;
 }
