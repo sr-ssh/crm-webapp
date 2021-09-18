@@ -4,23 +4,32 @@ import { Container, Dropdown, Modal, Row, Col, Form, Button, Table, Spinner, Ale
 import persianJs from 'persianjs/persian.min';
 //Assets
 import closeIcon from '../../assets/images/close.svg'
-import deleteIcon from './../../assets/images/delete.svg'
+// import deleteIcon from './../../assets/images/delete.svg'
 import spinnerIcon from './../../assets/images/sppiner.svg'
 import plusIcon from './../../assets/images/plus.svg'
+import deleteIcon from '../../assets/images/discounts/deletee.svg'
+import editIcon from './../../assets/images/order/edit.svg'
 
 //Actions
-import { orderActions, productActions } from '../../../actions'
+import { orderActions, productActions, alertActions } from '../../../actions'
 
 export const EditeProductOrder = (props) => {
 
     const [dimStatus, setDimStatus] = useState(false)
     const [selectedItem, setItem] = useState("")
-    const [totalPrice, insertPrice] = useState("0")
-    const [quantityOrder, setQuantityOrder] = useState(1)
+    const [quantity, setQuantity] = useState(1)
+    const [quantityOrder, setQuantityOrder] = useState(false)
     const [order, insertOrder] = useState([])
     const [oldProduct, setOldProduct] = useState([])
     const [validated, setValidated] = useState(false)
+    const [inputProductValidation, setInputProductValidation] = useState(false)
     const [addressUser, setAddressUser] = useState('')
+    const [activeProduct, setActiveProduct] = useState("")
+    const [editPriceCurrentProduct, setEditPriceCurrentProduct] = useState(false)
+    const [deleteCurrentProduct, setDeleteCurrentProduct] = useState(false)
+    const [inputCurrentPriceProduct, setInputCurrentPriceProduct] = useState(false)
+    const [inputCurrentPriceProductValidation, setInputCurrentPriceProductValidation] = useState(false)
+
     const dispatch = useDispatch()
 
     const products = useSelector(state => state.getProducts.product)
@@ -31,42 +40,48 @@ export const EditeProductOrder = (props) => {
         dispatch(productActions.getProducts())
     }
     let newOrder = (e) => {
-
         e.preventDefault();
+        if (selectedItem == "")
+            return setInputProductValidation(true)
+        else
+            setInputProductValidation(false)
+
         let product = products.find(item => item.name === selectedItem)
         let oldProduct = order.find(item => item.name === selectedItem);
 
-        if (!product)
-            return
 
-        let newOrder = {
-            _id: product._id,
-            name: product.name,
-            quantity: parseInt(quantityOrder),
-            sellingPrice: product.sellingPrice
-        };
-        console.log(newOrder.quantity, order)
-        const isOrderPresent = order.some((item) => item._id === product._id);
-        if (isOrderPresent) {
+        if (oldProduct == undefined) {
+            let newOrder = {
+                _id: product._id,
+                name: product.name,
+                quantity: parseInt(quantity),
+                sellingPrice: product.sellingPrice
+            };
+            insertOrder((prevOrderState) => [...prevOrderState, newOrder]);
+        } else {
             const updatedOrder = order.map((item) => {
                 if (item._id === product._id) {
-                    return { ...item, quantity: parseInt(item.quantity) + parseInt(quantityOrder) };
+                    return { ...item, quantity: parseInt(item.quantity) + parseInt(quantity) };
                 }
                 return item;
             });
-            console.log(order);
-            insertPrice(parseInt(totalPrice) + (parseInt(quantityOrder) * parseInt(oldProduct.sellingPrice)))
             insertOrder(updatedOrder);
-        } else {
-            insertOrder((prevOrderState) => [...prevOrderState, newOrder]);
-            insertPrice(parseInt(totalPrice) + (parseInt(quantityOrder) * parseInt(product.sellingPrice)))
         }
     };
     let removeOrder = (e, product) => {
+
         e.preventDefault();
-        insertPrice(totalPrice - (parseInt(product.quantity) * parseInt(product.sellingPrice)));
+        if (order.length == 1)
+            return dispatch(alertActions.error("کمتر از یک کالا در سبد خرید مجاز نیست"))
         let updatedOrder = order.filter(item => item._id !== product._id);
         insertOrder(updatedOrder)
+    }
+    const getTotalPrice = (order) => {
+        let total = 0
+        order?.map(item => {
+            total += item.sellingPrice * item.quantity
+        })
+        return total
     }
 
     useEffect(async () => {
@@ -78,22 +93,20 @@ export const EditeProductOrder = (props) => {
             total += item.sellingPrice * item.quantity;
             return total
         })
-        insertPrice(parseInt(total))
     }, [props.show])
 
     let closeHandler = e => {
         props.onHide(false);
         insertOrder([])
-        insertPrice("0")
+        setQuantity(1)
         setItem("")
     }
     let addressInputHandler = e => {
         setAddressUser(e.target.value)
     }
     const formHandler = (e) => {
-        e.preventDefault()
-
-        if (order) {
+        e.preventDefault();
+        if (order.length > 0) {
             let orders = order.map(item => { return { _id: item._id, quantity: item.quantity, sellingPrice: item.sellingPrice } })
             let params = {
                 orderId: props.order.id,
@@ -102,19 +115,23 @@ export const EditeProductOrder = (props) => {
             };
 
             dispatch(orderActions.editProductOrder(params))
-            setValidated(true)
 
             setTimeout(() => {
-                dispatch(orderActions.getOrders())
+                dispatch(orderActions.getOrders({ status: props.status || " " }))
                 props.onHide(false)
             }, 1000);
+        }
+    }
+    let quantityOrderHandler = (e) => {
+        if (e.target.value == "0") {
+            setQuantityOrder(true)
         } else {
-            setValidated(false)
+            setQuantityOrder(false);
+            setQuantity(e.target.value || 1);
         }
     }
 
 
-    console.log(loader);
 
     return (
         <Modal
@@ -125,11 +142,10 @@ export const EditeProductOrder = (props) => {
             centered
             className="w-100 m-0 p-0"
         >
+            <Button className="border-0 customer-modal-close" type="button" onClick={closeHandler}>
+                <img className="d-flex m-auto customer-modal-close-svg" src={closeIcon} alt="close-btn" />
+            </Button>
             <Modal.Body className="add-product px-3">
-                <Button className="border-0 customer-modal-close" type="button" onClick={closeHandler}>
-                    <img className="d-flex m-auto customer-modal-close-svg" src={closeIcon} alt="close-btn" />
-                </Button>
-
                 {
                     props.show &&
                     <Form onSubmit={formHandler}>
@@ -146,18 +162,16 @@ export const EditeProductOrder = (props) => {
                                 </Col>
                             </Row>
                             <Row className="m-0 p-0 mt-4">
-                                <Card className="border-0 p-3 pt-2 basket--Product--Container">
+                                <Form.Label className="pe-3">سبد خرید</Form.Label>
+                                <Card className="border-0 p-3 pt-2  basket--edit--product--container">
                                     <Card.Body className="p-0 basket-flex">
-                                        <Row>
-                                            <h6 className="order-input fw-bold">سبد خرید</h6>
-                                        </Row>
-                                        <Row className="d-flex align-content-center">
-                                            <Col className="col-10 pe-2">
+                                        <Row className="d-flex align-content-center justify-content-evenly">
+                                            <Col className="col-7 pe-2 ps-1">
                                                 <Dropdown onToggle={(e) => setDimStatus(!dimStatus)} onClick={(e) => productHandler(e)}>
                                                     <Dropdown.Toggle className="d-flex align-items-center justify-content-between px-1 py-3 ">
 
                                                         {selectedItem.length ? <span>{selectedItem}</span> : <span>محصولات</span>}
-                                                        <img className="me-auto img-fluid" src={spinnerIcon} height="30px" alt="spinner-icon" />
+                                                        <img className="me-auto" src={spinnerIcon} height="30px" alt="spinner-icon" />
                                                     </Dropdown.Toggle>
                                                     <Dropdown.Menu className={`${dimStatus ? "dim" : ""} dropdownProductMenu`}>
                                                         {products
@@ -166,10 +180,10 @@ export const EditeProductOrder = (props) => {
                                                                     item.active && (
                                                                         <Col key={index}>
                                                                             {index ? <Dropdown.Divider /> : null}
-                                                                            <Dropdown.Item onClick={() => setItem(item.name)}>
+                                                                            <Dropdown.Item onClick={() => { setItem(item.name); setQuantity(1) }}>
                                                                                 <Row>
-                                                                                    <Col className="text-end  pe-1">{item.name}</Col>
-
+                                                                                    <Col className="text-end basket-dropdown-border-left pe-1">{item.name}</Col>
+                                                                                    <Col>{item.sellingPrice && persianJs(item.sellingPrice).englishNumber().toString()} </Col>
                                                                                 </Row>
                                                                             </Dropdown.Item>
                                                                         </Col>
@@ -180,8 +194,21 @@ export const EditeProductOrder = (props) => {
                                                     </Dropdown.Menu>
                                                 </Dropdown>
                                             </Col>
-                                            <Col className="col-2 m-0 p-0 ps-2 text-center products-add-btn">
-                                                <Button className="products-add  p-0 border-0 w-100 py-1" type="button" onClick={(e) => newOrder(e)}>
+                                            <Col className="col-3 p-0 m-0  d-flex justify-content-center">
+
+                                                <Form.Control
+                                                    placeholder="تعداد"
+                                                    value={Number.isInteger(quantity) ? "" : quantity}
+                                                    onChange={(e) => quantityOrderHandler(e)}
+                                                    className={` order-input--desktop text-center ${quantityOrder ? 'border border-danger' : null}`}
+                                                    type="number"
+                                                    min="1"
+                                                    name="duration"
+                                                    style={{ 'maxHeight': '35px' }} >
+                                                </Form.Control>
+                                            </Col>
+                                            <Col className="col-2 m-0 p-0 px-1 text-center products-add-btn">
+                                                <Button className="products-add--mobile  p-0 border-0 w-100 py-1" type="button" onClick={(e) => newOrder(e)}>
                                                     <img className="d-flex m-auto " src={plusIcon} alt="add-button" />
                                                 </Button>
                                             </Col>
@@ -194,6 +221,7 @@ export const EditeProductOrder = (props) => {
                                                     <thead>
                                                         <tr>
                                                             <th className="fw-bold">سفارش</th>
+                                                            <th className="fw-bold">قیمت (تومان)</th>
                                                             <th className="fw-bold">تعداد</th>
                                                             <th></th>
                                                         </tr>
@@ -206,6 +234,10 @@ export const EditeProductOrder = (props) => {
                                                                     return (
                                                                         <tr key={item.name}>
                                                                             <td>{item.name && persianJs(item.name).englishNumber().toString()}</td>
+                                                                            <td className="px-0">
+                                                                                <img src={editIcon} className="ms-3 " alt="edit-icon" style={{ width: "33px" }} />
+                                                                                {(item.quantity * item.sellingPrice) && persianJs(item.quantity * item.sellingPrice).englishNumber().toString()}
+                                                                            </td>
                                                                             <td className="pe-3">{item.quantity && persianJs(item.quantity).englishNumber().toString()}</td>
                                                                             <td onClick={(e) => removeOrder(e, item)}><img src={deleteIcon} className="d-block me-auto" alt="delete-icon" /></td>
                                                                         </tr>
@@ -216,12 +248,13 @@ export const EditeProductOrder = (props) => {
                                                     </tbody>
                                                 </Table>
                                             </div>
-                                            <Row className="border-top-blue pt-2 mt-auto">
-                                                <Col className="col-5 m-0 p-0">
+                                            <Row className="border-top-blue--desktop pt-2 mt-auto align-items-center">
+                                                <Col className="col-6 m-0 p-0">
                                                     <span className="">جمع کل :</span>
                                                 </Col>
                                                 <Col className="px-1">
-                                                    {totalPrice && persianJs(totalPrice).englishNumber().toString()}
+                                                    {getTotalPrice(order) && persianJs(getTotalPrice(order)).englishNumber().toString()}
+
                                                 </Col>
                                             </Row>
                                         </Row>

@@ -147,6 +147,20 @@
   border-left: 1px solid var(--button-background);
 }
 
+.products-add--mobile {
+  background-color: rgb(10, 88, 202);
+  border-radius: 13px;
+  padding: 150px 0px;
+  height: 35px;
+}
+.products-add--mobile:focus,
+.products-add--mobile:active,
+.products-add--mobile:hover,
+.products-add--mobile:active:focus {
+  background-color: rgb(10, 88, 202) !important;
+  border-radius: 13px;
+}
+
 .products-add {
   background-color: var(--body-bachground);
   border-radius: 11px;
@@ -287,6 +301,7 @@
   position: absolute;
   left: -2vw;
   top: -2vh;
+  z-index: 10000;
 }
 
 .customer-modal-close.products-add:focus + .btn-primary,
@@ -339,6 +354,10 @@
   font-family: "IranSans";
 }
 .basket--Product--Container {
+  border-radius: 11px;
+  background-color: var(--card-background);
+}
+.basket--edit--Product--mobile {
   border-radius: 11px;
   background-color: var(--card-background);
 }
