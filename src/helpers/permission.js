@@ -21,7 +21,7 @@ export function isPermitted(route) {
     } else if (route === "/order/add") {
         if (permissions?.addOrder)
             return true;
-    } else if (route === "/employees" || route === "/employee/add") {
+    } else if (route === "/employees" || route === "/employee/add" || route === "/employees/add") {
         if (permissions?.getEmployees)
             return true;
     } else if (route === "/finance" || route === "/bills" || route === "/finance/bills") {

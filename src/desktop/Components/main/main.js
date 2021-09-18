@@ -29,7 +29,7 @@ export const Main = () => {
     return (
 
         <div>
-            <Header />
+            <Header isBTNSearch={false} isBTNRequest={false} />
             <Container fluid className="m-0 w-100 d-flex justify-content-center align-items-center flex-column " style={{ height: "100vh" }}>
                 {((user_type === 1 && products.length > 0) || (user_type === 2 && application_status === 2)) &&
                     <MainMenuOptions />

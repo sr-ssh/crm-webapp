@@ -23,6 +23,8 @@ import { Order } from './order';
 import { Delivery } from './delivery'
 import { RecordOrder } from './recordOrder'
 import { OrderSearch } from './search'
+import { Header } from '../base/header'
+
 
 export const SaleOpprotunity = () => {
 
@@ -49,46 +51,40 @@ export const SaleOpprotunity = () => {
 
 
     return (
-        <div className="product-page orders w-100">
-            <Container fluid className="m-0 p-0 w-100 d-flex justify-content-start container--search--desktop">
-                <Row className="m-0 mx-2 p-0 w-100">
-                    <Col className="my-2">
-                        <Button className="btn--search--desktop" onClick={() => setModalShow(true)}>
-                            <SearchIcon className=" col-3" />
-                            <span className="col-9 text-light">جستجو</span>
-                        </Button>
-                    </Col>
-                </Row>
-            </Container>
-            <Container fluid className="m-0 mt-5 w-100 d-flex justify-content-center flex-wrap " >
-                {
-                    orderLoading &&
-                    <Col className="col-3 mt-5 m-auto d-block align-self-center w-100 mb-4 ">
-                        <Spinner className="m-auto d-block" animation="border" />
-                    </Col>
-                }
-                {
-                    (orders.length === 0 && !orderLoading) ? (
-                        <Row className="justify-content-center align-items-center no-result-filter">
-                            <Col className="col-8 text-center">
-                                هیج نتیجه ای یافت نشد!
-                            </Col>
-                        </Row>
-                    ) : null
-                }
+        <>
+            <Header isBTNSearch={true} searchModalShow={() => setModalShow(true)} isBTNRequest={false} />
+
+            <div className="product-page orders w-100 margin--top--header">
+                <Container fluid className="m-0 mt-5 w-100 d-flex justify-content-center flex-wrap " >
+                    {
+                        orderLoading &&
+                        <Col className="col-3 mt-5 m-auto d-block align-self-center w-100 mb-4 ">
+                            <Spinner className="m-auto d-block" animation="border" />
+                        </Col>
+                    }
+                    {
+                        (orders.length === 0 && !orderLoading) ? (
+                            <Row className="justify-content-center align-items-center no-result-filter">
+                                <Col className="col-8 text-center">
+                                    هیج نتیجه ای یافت نشد!
+                                </Col>
+                            </Row>
+                        ) : null
+                    }
 
 
 
-                {(orders.length > 0) ?
-                    (orders.map((order, index) => <Order key={index} order={order} deliveryShow={deliveryShow} setDeliveryShow={setDeliveryShow} recordOrderShow={recordOrderShow} setRecordOrderShow={setRecordOrderShow} setActiveOrder={setActiveOrder} setOrder={setOrder} status={3} />))
+                    {(orders.length > 0) ?
+                        (orders.map((order, index) => <Order key={index} order={order} deliveryShow={deliveryShow} setDeliveryShow={setDeliveryShow} recordOrderShow={recordOrderShow} setRecordOrderShow={setRecordOrderShow} setActiveOrder={setActiveOrder} setOrder={setOrder} status={3} />))
 
-                    : null}
+                        : null}
 
-                <OrderSearch show={modalShow} onHide={() => setModalShow(false)} />
-                <Delivery show={deliveryShow} onHide={() => setDeliveryShow(false)} order={order} />
-                <RecordOrder show={recordOrderShow} onHide={() => setRecordOrderShow(false)} order={activeOrder} />
+                    <OrderSearch show={modalShow} onHide={() => setModalShow(false)} />
+                    <Delivery show={deliveryShow} onHide={() => setDeliveryShow(false)} order={order} />
+                    <RecordOrder show={recordOrderShow} onHide={() => setRecordOrderShow(false)} order={activeOrder} />
 
-            </Container>
-        </div >
+                </Container>
+            </div >
+        </>
     )
 }

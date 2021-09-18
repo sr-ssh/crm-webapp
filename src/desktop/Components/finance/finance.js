@@ -5,6 +5,9 @@ import { Container, Button, Col, Card, Row, Alert, Spinner } from 'react-bootstr
 import persianJs from 'persianjs/persian.min';
 import { history } from '../../../helpers';
 
+// Components
+import { Header } from '../base/header'
+
 
 export const Finance = () => {
 
@@ -20,7 +23,9 @@ export const Finance = () => {
 
     return (
         <>
-            <div className="finance-page orders">
+            <Header isBTNSearch={false} isBTNRequest={false} />
+
+            <div className="finance-page orders margin--top--header">
                 <Container fluid className="m-0 w-100 d-flex justify-content-center flex-wrap">
 
                     {

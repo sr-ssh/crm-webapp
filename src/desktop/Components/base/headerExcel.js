@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { AppBar, Toolbar, IconButton, Drawer } from '@material-ui/core';
 import { Button } from 'react-bootstrap'
 import { makeStyles } from '@material-ui/core/styles';
-import { history } from '../../../helpers';
+
 // Icon
 import menuIcon from '../../assets/images/header/list.svg'
 import excelIcon from '../../assets/images/header/excel.svg'
@@ -40,6 +40,8 @@ export const Header = (props) => {
     const classes = useStyles();
     const [isSdieBarOpen, setIsSdieBarOpen] = useState(false)
 
+
+    console.log(props)
     return (
         <>
             <AppBar className={classes.appBar}>
@@ -72,12 +74,24 @@ export const Header = (props) => {
                         </>
                         : null
                     }
-                    {props.isBTNRequest ?
+                    {props.isGetExcel ?
                         <>
-                            <Button className="btn--add--desktop d-flex justify-content-center ff-iranSans p-2 me-auto"
-                                onClick={() => history.push("/employees/add")}
+                            <Button className="btn--excel--desktop border-0 ff-iranSans p-2 me-4"
+                                onClick={() => props.getExcel()}
                             >
-                                <span className="text-light">در خواست ها</span>
+                                <img src={excelIcon} className="" height="30px" alt="delete-icon" />
+
+                            </Button>
+                        </>
+                        : null
+                    }
+                    {props.isBtnAdd != " " ?
+                        <>
+                            <Button className="btn--add--desktop ff-iranSans p-2 me-auto"
+                                onClick={() => props.btnAdd()}
+                            >
+                                <AddIcon className="mx-2 col-3" />
+                                <span className="col-8 text-light ms-2 ">{props.isBtnAdd}</span>
                             </Button>
                         </>
                         : null

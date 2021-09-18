@@ -83,8 +83,8 @@ export const Dashboard = (props) => {
                         <PrivateRoute exact path="/finance" component={Finance}></PrivateRoute>
                         <PrivateRoute path="/finance/bills" component={Bills} ></PrivateRoute>
                         <PrivateRoute path="/customers" component={Customers} ></PrivateRoute>
-                        <PrivateRoute path="/employees" component={Employees} ></PrivateRoute>
-                        <PrivateRoute path="/employee/add" component={Applications} ></PrivateRoute>
+                        <PrivateRoute exact path="/employees" component={Employees} ></PrivateRoute>
+                        <PrivateRoute path="/employees/add" component={Applications} ></PrivateRoute>
                         {/* <PrivateRoute path="/discounts" component={Discounts} ></PrivateRoute> */}
                         <PrivateRoute path="/account" component={Account} ></PrivateRoute>
                         <PrivateRoute path="/setting" component={Setting} ></PrivateRoute>

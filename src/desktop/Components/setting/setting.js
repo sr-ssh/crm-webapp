@@ -11,6 +11,7 @@ import { orderActions } from '../../../actions'
 // Components
 // import { SettingMenu } from './settingMenu'
 import { OrderSetting } from './orderSetting'
+import { Header } from '../base/header'
 
 export const Setting = () => {
 
@@ -27,18 +28,8 @@ export const Setting = () => {
     console.log(value);
     return (
         <>
-            {/* {
-                alertMessage &&
-                <>
-                    <div className="modal-backdrop show"></div>
-                    <Row className="justify-content-center text-center ">
-                        <Alert variant={alerType}>
-                            {alertMessage}
-                        </Alert>
-                    </Row>
-                </>
-            } */}
-            <Container fluid className="m-0 w-100 d-flex justify-content-start flex-wrap ">
+            <Header isBTNSearch={false} isBTNRequest={false} />
+            <Container fluid className="m-0 w-100 d-flex justify-content-start flex-wrap margin--top--header ">
                 <Tabs
                     value={value}
                     onChange={handleChange}

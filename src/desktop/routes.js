@@ -60,7 +60,7 @@ const dashboardRoutes = [
                 layout: "/",
             },
             {
-                path: "/employee/add",
+                path: "/employees/add",
                 name: "درخواست ها",
                 layout: "/employees",
             }]

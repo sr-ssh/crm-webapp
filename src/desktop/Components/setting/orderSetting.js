@@ -89,7 +89,7 @@ export const OrderSetting = () => {
 
 
     return (
-        <Container className="m-0 p-0 mt-4 w-100 d-flex flex-column justify-content-center   ">
+        <Container fluid className="m-0 p-0 mt-4 w-100 d-flex flex-column justify-content-center   ">
             <Row className="d-flex flex-column">
                 <Col>
                     <h5 className="me-4">لینک اشتراک گذاری</h5>

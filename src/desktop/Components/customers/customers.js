@@ -10,16 +10,24 @@ import { customerActions } from '../../../actions/customerActions';
 // components
 import { Customer } from './customer'
 import { CustomerSearch } from './search';
+import { Header } from '../base/headerExcel'
 
 export const Customers = () => {
 
     let alertMessage = useSelector(state => state.alert.message)
     let alerType = useSelector(state => state.alert.type)
+    const [filters, setFilters] = useState({})
 
     const [modalShow, setModalShow] = useState(false)
     let customers = useSelector(state => state.getCustomers.customers)
     let customerLoading = useSelector(state => state.getCustomers.loading)
     const dispatch = useDispatch()
+
+
+    const getExcel = () => {
+
+        dispatch(customerActions.getExcelCustomers(filters))
+    }
 
     useEffect(() => {
         dispatch(customerActions.getCustomers());
@@ -28,16 +36,10 @@ export const Customers = () => {
 
     return (
         <>
-            <div className="product-page orders">
-                <Container fluid className="m-0 w-100 d-flex justify-content-center flex-wrap ">
-                    <Row>
-                        <Col>
-                            <Button variant="contained" size="large" color="primary" className="ff-iranSans " onClick={() => setModalShow(true)}>
-                                <span className="text-light">جستجو</span>
-                            </Button>
-                        </Col>
-                    </Row>
-                </Container>
+            <Header isBTNSearch={true} searchModalShow={() => setModalShow(true)} isGetExcel={true} getExcel={getExcel} isBtnAdd={" "} />
+
+
+            <div className="product-page orders margin--top--header">
                 <Container fluid className="m-0 w-100 d-flex justify-content-center flex-wrap ">
                     {
                         customerLoading &&
@@ -70,7 +72,7 @@ export const Customers = () => {
                             ? (customers.map((customer, index) => <Customer key={index} customer={customer} />))
                             : null
                     }
-                    <CustomerSearch show={modalShow} onHide={() => setModalShow(false)} />
+                    <CustomerSearch show={modalShow} onHide={() => setModalShow(false)} filters={filters} setFilters={setFilters} />
                 </Container>
             </div>
         </>

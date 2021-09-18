@@ -9,6 +9,7 @@ import moment from 'jalali-moment';
 
 //actions
 import { employeeActions } from '../../../actions/employeeActions';
+import { Header } from '../base/header'
 
 
 //icons
@@ -47,8 +48,8 @@ export const Applications = () => {
 
     return (
         <>
-
-            <div className="finance-page orders">
+            <Header />
+            <div className="finance-page orders margin--top--header">
                 <Container fluid className="m-0 mx-4 w-100 d-flex justify-content-center align-items-center flex-wrap ">
                     {
                         applicationsLoading &&

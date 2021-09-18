@@ -11,6 +11,7 @@ import { financeActions } from "../../../actions";
 //components
 import { Bill } from "./bill";
 import { AddBill } from './addBill'
+import { Header } from '../base/headerExcel'
 
 
 const Bills = () => {
@@ -24,26 +25,22 @@ const Bills = () => {
     }, [dispatch])
 
     return (
-        <div className="product-page orders">
-            <Container fluid className="m-0 w-100 d-flex justify-content-center flex-wrap ">
-                <Row>
-                    <Col>
-                        <Button variant="contained" size="large" color="primary" className="ff-iranSans " onClick={() => setAddModalShow(true)}>
-                            <span className="text-light">اضافه هزینه</span>
-                        </Button>
-                    </Col>
-                </Row>
-            </Container>
+        <>
+            <Header isBTNSearch={true}
+                //  isGetExcel={true} getExcel={getExcel}
+                isBtnAdd={"اضافه هزینه"} btnAdd={() => setAddModalShow(true)} />
 
-            <Container fluid className="m-0 w-100 d-flex justify-content-center flex-wrap ">
-                {
-                    bills ?
-                        bills.map((bill, index) => <Bill key={index} bill={bill} />)
-                        : null
-                }
-                <AddBill show={addModalShow} onHide={() => setAddModalShow(false)} />
-            </Container>
-        </div>
+            <div className="product-page orders margin--top--header">
+                <Container fluid className="m-0 w-100 d-flex justify-content-center flex-wrap ">
+                    {
+                        bills ?
+                            bills.map((bill, index) => <Bill key={index} bill={bill} />)
+                            : null
+                    }
+                    <AddBill show={addModalShow} onHide={() => setAddModalShow(false)} />
+                </Container>
+            </div>
+        </>
     )
 }
 

@@ -12,6 +12,8 @@ import { EmployerAccount } from './employerAccount'
 import { WaitingAccount } from './waitingAccount'
 import { EmployeeAccount } from './employeeAccount'
 import { NoApplicationAccount } from './noApplicationAccount';
+import { Header } from '../base/header'
+
 
 
 export const Account = () => {
@@ -26,25 +28,28 @@ export const Account = () => {
     }, [dispatch])
 
     return (
-        <div className="product-page">
-            <Container fluid className="m-0 w-100 d-flex justify-content-center flex-wrap emplyees-text-gray ">
-                <Card className="m-auto mt-3 productCard border-0 col-5" >
-                    <Card.Body className="ps-1 rounded-3">
-                        {
-                            userInfo && user_type === 1 && <EmployerAccount user={userInfo} />
-                        }
-                        {
-                            userInfo && user_type === 2 && application_status === 2 && <EmployeeAccount user={userInfo} />
-                        }
-                        {
-                            userInfo && user_type === 2 && application_status === 1 && <WaitingAccount user={userInfo} />
-                        }
-                        {
-                            userInfo && user_type === 2 && application_status === 3 && <NoApplicationAccount user={userInfo} />
-                        }
-                    </Card.Body>
-                </Card>
-            </Container>
-        </div>
+        <>
+            <Header isBTNSearch={false} isBTNRequest={false} />
+            <div className="product-page margin--top--header">
+                <Container fluid className="m-0 w-100 d-flex justify-content-center flex-wrap emplyees-text-gray ">
+                    <Card className="m-auto mt-3 productCard border-0 col-5" >
+                        <Card.Body className="ps-1 rounded-3">
+                            {
+                                userInfo && user_type === 1 && <EmployerAccount user={userInfo} />
+                            }
+                            {
+                                userInfo && user_type === 2 && application_status === 2 && <EmployeeAccount user={userInfo} />
+                            }
+                            {
+                                userInfo && user_type === 2 && application_status === 1 && <WaitingAccount user={userInfo} />
+                            }
+                            {
+                                userInfo && user_type === 2 && application_status === 3 && <NoApplicationAccount user={userInfo} />
+                            }
+                        </Card.Body>
+                    </Card>
+                </Container>
+            </div>
+        </>
     )
 }
