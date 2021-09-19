@@ -284,7 +284,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
             <CancelProductOrder show={cancelModalShow} onHide={() => { setCancelModalShow(false) }} productId={productId} orderId={orderId} />
             <EditeProductOrder show={editOrder} onHide={() => { setEditOrder(false) }} order={editProductOrder} />
             <AddNotesModal show={showNotesModal} onHide={() => { setShowNotesModal(false) }} permission={true} orderId={order.id} />
-            <ShareLinkModal show={isShareLinkOrder} onHide={() => setIsShareLinkOrder(false)} orderId={shareLinkOrder} customerMobile={order.customer.mobil} />
+            <ShareLinkModal show={isShareLinkOrder} onHide={() => setIsShareLinkOrder(false)} orderId={isShareLinkOrder ? shareLinkOrder : null} customerMobile={order.customer.mobil} />
         </Card >
     )
 }
