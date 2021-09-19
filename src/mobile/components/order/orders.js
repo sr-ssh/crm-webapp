@@ -65,13 +65,13 @@ export const Orders = () => {
                     ) : null
                 }
                 {(orders.length > 0) ?
-                    (orders.map((orderr, index) => <Order key={index} order={orderr} deliveryShow={deliveryShow} setDeliveryShow={setDeliveryShow} cancelOrderShow={cancelOrderShow} setCancelOrderShow={setCancelOrderShow} setActiveOrder={setActiveOrder} setOrder={setOrder} />))
+                    (orders.map((orderr, index) => <Order key={index} order={orderr} deliveryShow={deliveryShow} setDeliveryShow={setDeliveryShow} cancelOrderShow={cancelOrderShow} setCancelOrderShow={setCancelOrderShow} setActiveOrder={setActiveOrder} setOrder={setOrder}/>))
 
                     : null}
 
                 <OrderSearch show={modalShow} onHide={() => setModalShow(false)} />
                 <Delivery show={deliveryShow} onHide={() => setDeliveryShow(false)} order={order} />
-                <CancelOrder show={cancelOrderShow} onHide={() => setCancelOrderShow(false)} order={activeOrder} />
+                <CancelOrder status="2" show={cancelOrderShow} onHide={() => setCancelOrderShow(false)} order={activeOrder} />
             </Container>
         </div>
     )

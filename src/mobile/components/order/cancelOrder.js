@@ -21,7 +21,9 @@ export const CancelOrder = (props) => {
 
     const formHandler = (e) => {
         e.preventDefault()
-        dispatch(orderActions.editOrderStatus(props.order.id, "2"))
+        console.log(props.status)
+
+        dispatch(orderActions.editOrderStatus(props.order.id, props.status))
     }
 
     return (

@@ -278,6 +278,14 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                             <span className="pe-1">پرینت</span>
                         </Button>
                     </Col>
+                    {order.status === 3 &&
+                        <Col xs={6} className="p-0 px-1 pb-3 ps-2">
+                            <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setCancelOrderShow(true); setActiveOrder(order) }}>
+                                <img src={cancelIcon} height="25px" alt="print-icon" className="col-3" />
+                                <span className="pe-1">سفارش ناموفق</span>
+                            </Button>
+                        </Col>
+                    }
                 </Row>
             </Card.Body>
             <EditField show={editModalShow} onHide={() => { setEditModalShow(false); setInput(''); }} input={input} name={name} productId={productId} orderId={orderId} setInput={setInput} />

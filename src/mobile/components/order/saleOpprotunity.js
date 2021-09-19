@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Container, Row, Col, Spinner } from 'react-bootstrap';
 import { Header } from '../base/header2';
+import { CancelOrder } from './cancelOrder'
+
 
 // Actions
 
@@ -22,6 +24,8 @@ export const SaleOpprotunity = () => {
     const [deliveryShow, setDeliveryShow] = useState(false)
     const [activeOrder, setActiveOrder] = useState({})
     const [order, setOrder] = useState('')
+    const [cancelOrderShow, setCancelOrderShow] = useState(false)
+
 
     const dispatch = useDispatch()
 
@@ -62,14 +66,14 @@ export const SaleOpprotunity = () => {
 
 
                 {(orders.length > 0) ?
-                    (orders.map((order, index) => <Order key={index} order={order} deliveryShow={deliveryShow} setDeliveryShow={setDeliveryShow} recordOrderShow={recordOrderShow} setRecordOrderShow={setRecordOrderShow} setActiveOrder={setActiveOrder} setOrder={setOrder} />))
+                    (orders.map((order, index) => <Order key={index} order={order} deliveryShow={deliveryShow} setDeliveryShow={setDeliveryShow} recordOrderShow={recordOrderShow} setRecordOrderShow={setRecordOrderShow} setActiveOrder={setActiveOrder} setOrder={setOrder} cancelOrderShow={cancelOrderShow} setCancelOrderShow={setCancelOrderShow}/>))
 
                     : null}
 
                 {/* <OrderSearch show={modalShow} onHide={() => setModalShow(false)} /> */}
                 <Delivery show={deliveryShow} onHide={() => setDeliveryShow(false)} order={order} />
                 <RecordOrder show={recordOrderShow} onHide={() => setRecordOrderShow(false)} order={activeOrder} />
-
+                <CancelOrder status="4" show={cancelOrderShow} onHide={() => setCancelOrderShow(false)} order={activeOrder} />
             </Container>
         </div>
     )
