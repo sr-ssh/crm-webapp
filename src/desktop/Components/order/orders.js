@@ -77,7 +77,7 @@ export const Orders = () => {
 
                     <OrderSearch show={modalShow} onHide={() => { setModalShow(false) }} />
                     <Delivery show={deliveryShow} onHide={() => setDeliveryShow(false)} order={order} />
-                    <CancelOrder show={cancelOrderShow} onHide={() => setCancelOrderShow(false)} order={activeOrder} />
+                    <CancelOrder status="2"  show={cancelOrderShow} onHide={() => setCancelOrderShow(false)} order={activeOrder} />
 
                 </Container>
 

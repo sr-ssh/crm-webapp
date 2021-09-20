@@ -14,6 +14,7 @@ export const customerService = {
 
 function getCustomers(filter = {}) {
     console.log("into customerService");
+    console.log(filter)
 
     if (!filter.family)
         filter.family = " "
@@ -35,13 +36,17 @@ function getCustomers(filter = {}) {
         filter.totalFrom = "0"
     if (!filter.totalTo)
         filter.totalTo = "0"
+    if (filter.orderStatus !== 0 && filter.orderStatus !== 1 && filter.orderStatus !== 2)
+        filter.orderStatus = 2
+
+        console.log(filter)
 
     const requestOptions = {
         headers: authHeader()
     };
 
     return axios
-        .get(`${baseRoute}/customer/${encodeURI(filter.family)}/${encodeURI(filter.mobile)}/${encodeURI(filter.createdAtFrom)}/${encodeURI(filter.createdAtTo)}/${encodeURI(filter.lastBuyFrom)}/${encodeURI(filter.lastBuyTo)}/${encodeURI(filter.orderFrom)}/${encodeURI(filter.orderTo)}/${encodeURI(filter.totalFrom)}/${encodeURI(filter.totalTo)}`, requestOptions)
+        .get(`${baseRoute}/customer/${encodeURI(filter.family)}/${encodeURI(filter.mobile)}/${encodeURI(filter.createdAtFrom)}/${encodeURI(filter.createdAtTo)}/${encodeURI(filter.lastBuyFrom)}/${encodeURI(filter.lastBuyTo)}/${encodeURI(filter.orderFrom)}/${encodeURI(filter.orderTo)}/${encodeURI(filter.totalFrom)}/${encodeURI(filter.totalTo)}/${encodeURI(filter.orderStatus)}`, requestOptions)
         .then(res => {
             console.log("res.customers >> "); console.log(res.data.data);
             return res.data

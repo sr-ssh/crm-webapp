@@ -178,7 +178,14 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                             <span>لغو سفارش</span>
                         </Button>
                     </Col>
-
+                }
+                {order.status === 3 &&
+                    <Col className="d-flex justify-content-center">
+                        <Button className="w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setCancelOrderShow(true); setActiveOrder(order) }}>
+                            <img src={cancelIcon} height="25px" alt="print-icon" className="col-3" />
+                            <span>سفارش ناموفق</span>
+                        </Button>
+                    </Col>
                 }
             </Row>
             <Card.Body className="pb-0 ps-1 rounded-3 text-gray">

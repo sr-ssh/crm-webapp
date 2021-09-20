@@ -66,6 +66,30 @@ export const Customer = ({ customer }) => {
                     <Row className="mt-2">
                         <Col>
                             <Card.Text>
+                                سفارش های موفق:
+                            </Card.Text>
+                        </Col>
+                        <Col dir="ltr">
+                            <Card.Text>
+                                <span>{customer.successfullOrders && persianJs(customer.successfullOrders).englishNumber().toString()}</span>
+                            </Card.Text>
+                        </Col>
+                    </Row>
+                    <Row className="mt-2">
+                        <Col>
+                            <Card.Text>
+                                سفارش های ناموفق:
+                            </Card.Text>
+                        </Col>
+                        <Col dir="ltr">
+                            <Card.Text>
+                                <span>{customer.failOrders && persianJs(customer.failOrders).englishNumber().toString()}</span>
+                            </Card.Text>
+                        </Col>
+                    </Row>
+                    <Row className="mt-2">
+                        <Col>
+                            <Card.Text>
                                 آخرین خرید:
                             </Card.Text>
                         </Col>
