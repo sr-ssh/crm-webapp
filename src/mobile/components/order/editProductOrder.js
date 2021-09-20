@@ -9,31 +9,33 @@ import spinnerIcon from './../../assets/images/sppiner.svg'
 import plusIcon from './../../assets/images/plus.svg'
 import deleteIcon from '../../assets/images/discounts/deletee.svg'
 import editIcon from './../../assets/images/order/edit.svg'
+import tickIcon from './../../assets/images/order/ok.svg'
+import deleteeIcon from './../../assets/images/order/close.svg'
 
 //Actions
 import { orderActions, productActions, alertActions } from '../../../actions'
 
+
+// Componenst
+import { EditProduct } from './editProduct'
+
+
+
 export const EditeProductOrder = (props) => {
 
+    const dispatch = useDispatch()
     const [dimStatus, setDimStatus] = useState(false)
     const [selectedItem, setItem] = useState("")
     const [quantity, setQuantity] = useState(1)
     const [quantityOrder, setQuantityOrder] = useState(false)
     const [order, insertOrder] = useState([])
-    const [oldProduct, setOldProduct] = useState([])
-    const [validated, setValidated] = useState(false)
     const [inputProductValidation, setInputProductValidation] = useState(false)
     const [addressUser, setAddressUser] = useState('')
-    const [activeProduct, setActiveProduct] = useState("")
-    const [editPriceCurrentProduct, setEditPriceCurrentProduct] = useState(false)
-    const [deleteCurrentProduct, setDeleteCurrentProduct] = useState(false)
-    const [inputCurrentPriceProduct, setInputCurrentPriceProduct] = useState(false)
-    const [inputCurrentPriceProductValidation, setInputCurrentPriceProductValidation] = useState(false)
-
-    const dispatch = useDispatch()
+    const [validationInputPrice, setValidationInputPrice] = useState(false)
 
     const products = useSelector(state => state.getProducts.product)
     const loader = useSelector(state => state.editProducOrder.loading)
+
     let alertMessage = useSelector(state => state.alert.message)
     let alerType = useSelector(state => state.alert.type)
 
@@ -70,18 +72,33 @@ export const EditeProductOrder = (props) => {
             insertOrder(updatedOrder);
         }
     };
-    let removeOrder = (e, product) => {
-        e.preventDefault();
+    let editPriceProduct = (product, value) => {
+        if (value == "" || value == "0") {
+            setValidationInputPrice(true)
+        } else {
+            setValidationInputPrice(false)
+            let updatedOrder = order.map((item) => {
+                if (item._id === product._id) {
+                    return { ...item, sellingPrice: value };
+                }
+                return item;
+            });
+            insertOrder(updatedOrder);
+        }
+    }
+
+    let removeOrder = (product) => {
         if (order.length == 1) {
             dispatch(alertActions.error("کمتر از یک کالا در سبد خرید مجاز نیست"))
             setTimeout(() => {
                 dispatch(alertActions.clear())
-            }, 1000);
+            }, 1500);
         } else {
             let updatedOrder = order.filter(item => item._id !== product._id);
             insertOrder(updatedOrder)
         }
     }
+
     const getTotalPrice = (order) => {
         let total = 0
         order?.map(item => {
@@ -92,7 +109,6 @@ export const EditeProductOrder = (props) => {
 
     useEffect(async () => {
         await insertOrder(props.order.products)
-        await setOldProduct(props.order.products)
         await setAddressUser(props.order.address)
         let total = 0
         props.order.products?.map(item => {
@@ -136,7 +152,6 @@ export const EditeProductOrder = (props) => {
             setQuantity(e.target.value || 1);
         }
     }
-
 
 
     return (
@@ -184,8 +199,8 @@ export const EditeProductOrder = (props) => {
                                     <Card.Body className="p-0 basket-flex">
                                         <Row className="d-flex align-content-center justify-content-evenly">
                                             <Col className="col-6 pe-0 ps-1">
-                                                <Dropdown onToggle={(e) => setDimStatus(!dimStatus)} onClick={(e) => productHandler(e)}>
-                                                    <Dropdown.Toggle className="d-flex align-items-center justify-content-between px-1 py-3 ">
+                                                <Dropdown onToggle={(e) => setDimStatus(!dimStatus)} onClick={(e) => productHandler(e)} >
+                                                    <Dropdown.Toggle className={`d-flex align-items-center justify-content-between px-1 py-3 ${inputProductValidation ? 'border border-danger' : null} `}>
 
                                                         {selectedItem.length ? <span>{selectedItem}</span> : <span>محصولات</span>}
                                                         <img className="me-auto" src={spinnerIcon} height="30px" alt="spinner-icon" />
@@ -247,22 +262,8 @@ export const EditeProductOrder = (props) => {
                                                         {
                                                             order?.length
                                                                 ? order.map(item => {
-
                                                                     return (
-                                                                        <tr key={item.name}>
-                                                                            <td>{item.name && persianJs(item.name).englishNumber().toString()}</td>
-                                                                            <td className="px-0">
-                                                                                <img src={editIcon} className="ms-3 " alt="edit-icon" style={{ width: "33px" }} />
-                                                                                {(item.quantity * item.sellingPrice) && persianJs(item.quantity * item.sellingPrice).englishNumber().toString()}
-                                                                            </td>
-                                                                            {/* <td className={`m-0 px-0`} >
-                                                                                <img src={editIcon} className="ms-2" alt="tick-icon" style={{ width: "20px" }} />
-                                                                                <img src={editIcon} className="ms-2" alt="delete-icon" style={{ width: "20px" }} />
-                                                                                <Form.Control className={`notes-round`} min="1" type="number" />
-                                                                            </td> */}
-                                                                            <td className="pe-3">{item.quantity && persianJs(item.quantity).englishNumber().toString()}</td>
-                                                                            <td onClick={(e) => removeOrder(e, item)}><img src={deleteIcon} className="d-block me-auto" alt="delete-icon" /></td>
-                                                                        </tr>
+                                                                        <EditProduct key={item._id} item={item} order={order} removeOrder={() => removeOrder(item)} validationInputPrice={validationInputPrice} editPriceProduct={(item, inputCurrentPriceProduct) => editPriceProduct(item, inputCurrentPriceProduct)} />
                                                                     )
                                                                 })
                                                                 : null
@@ -270,6 +271,7 @@ export const EditeProductOrder = (props) => {
                                                     </tbody>
                                                 </Table>
                                             </div>
+
                                             <Row className="border-top-blue--desktop pt-2 mt-auto align-items-center">
                                                 <Col className="col-6 m-0 p-0">
                                                     <span className="">جمع کل :</span>
@@ -286,7 +288,7 @@ export const EditeProductOrder = (props) => {
                             </Row>
                             {
                                 loader ? (
-                                    <Button className="fw-bold order-submit border-0 w-100 mt-4" size="lg" type="submit" disabled>
+                                    <Button className="fw-bold order-submit btn-dark-blue border-0 w-100 mt-4" size="lg" type="submit" disabled>
                                         <Spinner
                                             as="span"
                                             animation="grow"
@@ -297,7 +299,7 @@ export const EditeProductOrder = (props) => {
                                         در حال انجام عملیات...
                                     </Button>
                                 ) : (
-                                    <Button className="fw-bold order-submit border-0 w-100 mt-4" size="lg" type="submit" block>
+                                    <Button className="fw-bold order-submit btn-dark-blue border-0 w-100 mt-4 notes-round" size="lg" type="submit" block>
                                         ثبت
                                     </Button>
                                 )
@@ -307,7 +309,6 @@ export const EditeProductOrder = (props) => {
                 }
 
             </Modal.Body >
-
         </Modal >
     )
 }
