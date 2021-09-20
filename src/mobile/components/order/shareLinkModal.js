@@ -23,9 +23,10 @@ export const ShareLinkModal = (props) => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(orderActions.getShareLinkOrder(props.orderId))
+        if (props.orderId != null)
+            dispatch(orderActions.getShareLinkOrder(props.orderId))
     }, [dispatch, props.orderId])
-    console.log(props)
+
 
     return (
         <Modal

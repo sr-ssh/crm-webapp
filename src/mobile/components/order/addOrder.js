@@ -83,10 +83,8 @@ export const AddOrder = () => {
 
     let formHandler = (e) => {
         e.preventDefault()
-
-
         if (order.length && customer.family && customer.mobile) {
-            if (e.nativeEvent.submitter.id === 'saleOpprotunity')
+            if (e.target.id === 'saleOpprotunity')
                 dispatch(orderActions.addOrder(order, customer, notes, 3))
             else
                 dispatch(orderActions.addOrder(order, customer, notes))
@@ -288,14 +286,14 @@ export const AddOrder = () => {
                             :
                             <>
                                 <Col className="col-7 m-0 p-0 ps-1">
-                                    <Button className="fw-bold order--btn order-submit border-0 w-100" size="lg" type="submit" block>
+                                    <Button className="fw-bold order--btn order-submit border-0 w-100" size="lg" type="submit" block onClick={formHandler}>
                                         ثبت
                                     </Button>
 
 
                                 </Col>
                                 <Col className="col-5 m-0 p-0 pe-1">
-                                    <Button className="order--btn border-0 w-100 btn-secondary order--sale--opportunity" id="saleOpprotunity" size="lg" type="submit" block>
+                                    <Button className="order--btn border-0 w-100 btn-secondary order--sale--opportunity" id="saleOpprotunity" size="lg" type="submit" block onClick={formHandler}>
                                         فرصت فروش
                                     </Button>
                                 </Col>
