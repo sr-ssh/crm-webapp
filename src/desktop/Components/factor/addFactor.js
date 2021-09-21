@@ -1,13 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Container, Form, Button, Row, Col, Alert, Spinner } from 'react-bootstrap';
-import DatePicker from "react-multi-date-picker";
-import moment from 'jalali-moment';
+import { Container, Form, Button, Row, Col, Spinner } from 'react-bootstrap';
 import "react-multi-date-picker/styles/layouts/mobile.css";
 
 // Actions
 import { alertActions } from '../../../actions/alertActions';
-import { orderActions, customerActions, supplierActions } from '../../../actions';
+import { receiptActions, supplierActions } from '../../../actions';
 
 // Components
 import { Basket } from './basket';
@@ -19,9 +17,6 @@ import downloadIcon from '../../assets/images/download.svg'
 import addIcon from '../../assets/images/order/add.svg'
 
 export const AddFactor = () => {
-
-
-
 
     const [validated, setValidated] = useState(false);
     const [mobileValidated, setMobileValidated] = useState(false);
@@ -85,14 +80,9 @@ export const AddFactor = () => {
 
     let formHandler = (e) => {
         e.preventDefault()
-
-        debugger;
         if (order.length && customer.family && customer.mobile) {
-            if (e.target.id === 'saleOpprotunity')
-                dispatch(orderActions.addOrder(order, customer, notes, 3))
-            else
-                dispatch(orderActions.addOrder(order, customer, notes))
-            setCustomer({ mobile: "", address: "", family: "", reminder: "", duration: "", company: "" })
+            dispatch(receiptActions.addReceipt(order, customer, notes[0]))
+            setCustomer({ mobile: "", address: "", family: "", company: "" })
             insertOrder([])
             setNotes([])
             insertPrice("0")
