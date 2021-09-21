@@ -1,3 +1,30 @@
 .radius-16 {
     border-radius: 16px !important;
 }
+
+.reciept--basket--card {
+    background-color: var(--card-background);
+}
+
+.receipt--add--note {
+    border-color: var(--note-border);
+    background-color: var(--note-background);
+    padding-top: 13px;
+    padding-bottom: 13px;
+}
+
+.receipt--btn {
+    border: none;
+    border-radius: 16px;
+    font-weight: bold;
+    padding: 13px;
+    background-color: var(--dark--blue);
+}
+
+.receipt--btn.btn-check:focus + .receipt--btn.btn-primary, .receipt--btn.btn-primary:focus {
+    background-color: var(--dark--blue);
+}
+
+.receipt--btn.btn-check:checked + .receipt--btn.btn-primary, .receipt--btn.btn-check:active + .receipt--btn.btn-primary, .receipt--btn.btn-primary:active, .receipt--btn.btn-primary.active, .receipt--btn.show > .receipt--btn.btn-primary.dropdown-toggle {
+    background-color: var(--dark--blue);
+}

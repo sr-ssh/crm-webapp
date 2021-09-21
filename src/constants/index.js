@@ -10,3 +10,5 @@ export * from './employeeConstants';
 export * from './notesConstants'
 export * from './settingConstants'
 export * from './stockConstants'
+export * from './supplierConstants'
+export * from './receiptConstants'
