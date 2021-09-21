@@ -45,12 +45,14 @@ import './mobile/assets/styles/saleOpprotunityStyle.css';
 import './mobile/assets/styles/notesStyle.css';
 import './mobile/assets/styles/orderDetails.css';
 import { OrderDetails } from './mobile/components/order/orderDetails';
+import { AddFactor } from './mobile/components/factors/addFactor';
 
 
 function AppMobile() {
   return (
     <Router history={history}>
       <Switch>
+
         <Route exact path="/" component={Login} />
         <Route path="/register" component={Determine} />
         <PrivateRoute path="/products" component={Products} ></PrivateRoute>
@@ -69,6 +71,8 @@ function AppMobile() {
         <PrivateRoute path="/account" component={Account} ></PrivateRoute>
         <PrivateRoute path="/saleopprotunity" component={SaleOpprotunity}></PrivateRoute>
         <Route exact path="/order/notes" component={Notes}></Route>
+        <PrivateRoute path="/factor/add" component={AddFactor} ></PrivateRoute>
+
         <Redirect from="*" to="/" />
       </Switch>
     </Router>

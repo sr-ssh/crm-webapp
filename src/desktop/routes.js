@@ -65,6 +65,24 @@ const dashboardRoutes = [
                 layout: "/employees",
             }]
     },
+    {
+        layout: "/factor/add",
+        path: "/factor/add",
+        name: "فاکتور ها",
+        children: [
+            {
+                path: "/factor/add",
+                name: "ثبت فاکتور",
+                layout: "/",
+            },
+            {
+                path: "/factor/",
+                name: "مواد خام",
+                layout: "/silo",
+            }
+        ]
+    },
+
     // {
     //     path: "/employee/add",
     //     name: "درخواست ها",

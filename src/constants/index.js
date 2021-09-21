@@ -9,3 +9,4 @@ export * from './discountConstants';
 export * from './employeeConstants';
 export * from './notesConstants'
 export * from './settingConstants'
+export * from './stockConstants'
