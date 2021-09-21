@@ -87,6 +87,9 @@ export const SidebarItems = () => {
                         <Link to="/discounts">تخفیف ها</Link>
                     </Col>
                 }
+                <Col xs={10} sm={10} md={10} lg={10} className="py-3 mx-3 fw-bold sidebarItem">
+                    <Link to="/factors">فاکتور ها</Link>
+                </Col>
             </Row>
 
             <Row className="d-flex justify-content-center align-items-center mt-auto dashboardIcons">

@@ -6,11 +6,13 @@
   --text-color-one: #646464;
   --text-color-two: #383738;
   --text-color-three: #6d6b6d;
+  --text-color-four: #626866;
   --button-color-two: #4caf50;
   --card-background: #cdcdcd;
   --dager-color: #e53935;
   --background-blue: #c3e2fc;
   --dark-blue: #1d64cd;
+  --light-blue: #cdddf4;
 }
 
 @font-face {
