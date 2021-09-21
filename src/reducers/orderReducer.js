@@ -309,3 +309,25 @@ export function getShareLinkOrder(state = {}, action) {
             return state
     }
 }
+export function confirmFinancial(state = {}, action) {
+    switch (action.type) {
+        case orderConstants.CONFIRM_FINANCIAL_ORDER_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+        case orderConstants.CONFIRM_FINANCIAL_ORDER_SUCCESS:
+            return {
+                ...state,
+                data: action.data,
+                loading: false,
+            }
+        case orderConstants.CONFIRM_FINANCIAL_ORDER_FAILURE:
+            return {
+                error: action.error,
+                loading: false
+            }
+        default:
+            return state
+    }
+}

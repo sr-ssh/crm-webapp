@@ -22,7 +22,8 @@ export const orderService = {
     cancelProductOrder,
     editProductOrder,
     orderDetails,
-    getShareLinkOrder
+    getShareLinkOrder,
+    confirmFinancial
 };
 
 function getOrders(filter = {}) {
@@ -323,6 +324,32 @@ function getShareLinkOrder(orderId) {
 
     return axios
         .post(`${baseRoute}/order/details/sharelink`, requestOptions.body, requestOptions.headers)
+        .then(res => {
+            console.log('res >>')
+            console.log(res)
+            return res.data
+        })
+        .catch(error => {
+            if (error.response) {
+                console.log(error.response.data)
+                handleError(error.response.status)
+            }
+        })
+}
+
+
+
+
+function confirmFinancial(orderId) {
+    console.log('into orderService (confirmFinancial)')
+
+    const requestOptions = {
+        headers: authHeader(),
+        body: { orderId: orderId }
+    }
+
+    return axios
+        .put(`${baseRoute}/order/financial/confirm `, requestOptions.body, requestOptions.headers)
         .then(res => {
             console.log('res >>')
             console.log(res)
