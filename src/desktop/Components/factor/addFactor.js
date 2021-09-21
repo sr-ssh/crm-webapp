@@ -7,7 +7,7 @@ import "react-multi-date-picker/styles/layouts/mobile.css";
 
 // Actions
 import { alertActions } from '../../../actions/alertActions';
-import { orderActions, customerActions } from '../../../actions';
+import { orderActions, customerActions, supplierActions } from '../../../actions';
 
 // Components
 import { Basket } from './basket';
@@ -31,10 +31,11 @@ export const AddFactor = () => {
     const [totalPrice, insertPrice] = useState("0")
     const [selectedItem, setItem] = useState("")
     const [quantity, setQuantity] = useState(1)
+    const [price, setPrice] = useState(0)
     const [notes, setNotes] = useState([])
     const [showNotesModal, setShowNotesModal] = useState(false)
     const dispatch = useDispatch()
-    let oldCustomer = useSelector(state => state.getCustomer.customer)
+    let oldCustomer = useSelector(state => state.getSupplier.supplier)
     let { loading } = useSelector(state => state.getCustomer)
     let addOrderLoading = useSelector(state => state.addOrder.loading)
 
@@ -64,7 +65,7 @@ export const AddFactor = () => {
     let handleOldCustomer = (e) => {
         e.preventDefault()
         if (customer.mobile)
-            dispatch(customerActions.getCustomer(customer.mobile))
+            dispatch(supplierActions.getSupplier(customer.mobile))
         else
             setMobileValidated(true)
     }
@@ -97,6 +98,7 @@ export const AddFactor = () => {
             insertPrice("0")
             setItem("")
             setQuantity(1)
+            setPrice(0)
             oldCustomer = null;
         } else {
             if (customer.mobile && customer.family && !order.length)
@@ -198,14 +200,13 @@ export const AddFactor = () => {
                                 </Col>
                             </Row>
                             <Row className="col-12 m-0 mt-4 basketContainer">
-                                <Form.Label className="me-2">سبد خرید</Form.Label>
                                 <Col>
-                                    <Basket order={order} insertOrder={insertOrder} totalPrice={totalPrice} insertPrice={insertPrice} selectedItem={selectedItem} setItem={setItem} quantity={quantity} setQuantity={setQuantity} />
+                                    <Basket order={order} insertOrder={insertOrder} totalPrice={totalPrice} insertPrice={insertPrice} selectedItem={selectedItem} setItem={setItem} quantity={quantity} setQuantity={setQuantity} price={price} setPrice={setPrice} />
                                 </Col>
                             </Row>
                             <Row className="m-0 p-0 " >
                                 <Col className="mt-3 w-100">
-                                    <Button className={`d-flex flex-row w-100 align-items-center justify-content-center btn--add--note--desktop radius-16 `} onClick={noteHandler}>
+                                    <Button className={`d-flex flex-row w-100 align-items-center justify-content-center btn--add--note--desktop radius-16 receipt--add--note`} onClick={noteHandler}>
                                         {
                                             notes.length > 0 ?
                                                 <>
@@ -216,7 +217,7 @@ export const AddFactor = () => {
                                                 :
                                                 <>
                                                     <img className="me-3" src={addIcon} height="25px" alt="edit-icon" />
-                                                    <span className="me-1 fw-bold ms-3">
+                                                    <span className="me-3 fw-bold ms-3">
                                                         اضافه یادداشت
                                                     </span>
 
@@ -225,9 +226,7 @@ export const AddFactor = () => {
                                     </Button>
                                 </Col>
                             </Row>
-                            <Row className="m-0 mt-4 justify-content-center w-100">
-
-
+                            <Row className="m-0 mt-3 justify-content-center w-100">
                                 {addOrderLoading ?
                                     <Button className="fw-bold order--btn order-submit--desktop border-0 w-100" size="lg" type="submit" disabled>
                                         <Spinner
@@ -242,7 +241,7 @@ export const AddFactor = () => {
                                     :
                                     <>
                                         <Col className="col-12 m-0 p-0 ps-1">
-                                            <Button className="fw-bold order--btn order-submit--desktop border-0 w-100" size="lg" type="submit" block onClick={formHandler}>
+                                            <Button className="fw-bold receipt--btn border-0 w-100 fs-6" size="lg" type="submit" block onClick={formHandler}>
                                                 ثبت
                                             </Button>
                                         </Col>

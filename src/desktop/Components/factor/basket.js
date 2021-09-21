@@ -11,27 +11,27 @@ import deleteIcon from './../../assets/images/delete.svg'
 import spinnerIcon from './../../assets/images/sppiner.svg'
 import plusIcon from './../../assets/images/plus.svg'
 
-export const Basket = ({ order, insertOrder, totalPrice, insertPrice, selectedItem, setItem, quantity, setQuantity }) => {
+export const Basket = ({ order, insertOrder, totalPrice, insertPrice, selectedItem, setItem, quantity, setQuantity, price, setPrice }) => {
 
     const [dimStatus, setDimStatus] = useState(false)
     const [quantityOrder, setQuantityOrder] = useState(false)
+    const [priceOrder, setPriceOrder] = useState(false)
     const stock = useSelector(state => state.getStock.stock)
     const dispatch = useDispatch()
 
     let newOrder = (e) => {
         e.preventDefault();
         let product = stock.find(item => item.name === selectedItem)
-        if (!product || quantityOrder)
+        if (!product || quantityOrder || priceOrder)
             return
 
-        insertPrice(parseInt(totalPrice) + (parseInt(quantity) * parseInt(product.sellingPrice)))
+        insertPrice(parseInt(totalPrice) + (parseInt(quantity) * parseInt(price)))
         let newOrder = {
             _id: product._id,
             name: product.name,
             quantity: parseInt(quantity),
-            sellingPrice: product.sellingPrice,
+            price: price,
         };
-        console.log(newOrder.quantity, order)
         const isOrderPresent = order.some((item) => item._id === product._id);
         if (isOrderPresent) {
             const updatedOrder = order.map((item) => {
@@ -48,7 +48,7 @@ export const Basket = ({ order, insertOrder, totalPrice, insertPrice, selectedIt
 
     let removeOrder = (e, product) => {
         e.preventDefault();
-        insertPrice(totalPrice - (parseInt(product.quantity) * parseInt(product.sellingPrice)));
+        insertPrice(totalPrice - (parseInt(product.quantity) * parseInt(product.price)));
         let updatedOrder = order.filter(item => item._id !== product._id);
         insertOrder(updatedOrder)
     }
@@ -65,16 +65,26 @@ export const Basket = ({ order, insertOrder, totalPrice, insertPrice, selectedIt
             setQuantity(e.target.value || 1);
         }
     }
+    let priceOrderHandler = (e) => {
+        if (e.target.value == "") {
+            setPriceOrder(true)
+        } else {
+            setPriceOrder(false);
+            setPrice(e.target.value || 1);
+        }
+    }
+
     return (
         <>
             <Row>
-                <Card className="border-0 p-3 pt-2  basketContainer">
+                <Card className="border-0 p-3 pt-2  basketContainer reciept--basket--card">
                     <Card.Body className="mt-2 mx-3 p-0 basket-flex--desktop">
+                    <Form.Label className="me-2">سبد خرید</Form.Label>
                         <Row className="justify-content-evenly">
                             <Col className="col-5 p-0 m-0">
                                 <Dropdown onToggle={(e) => setDimStatus(!dimStatus)} onClick={(e) => productHandler(e)}>
                                     <Dropdown.Toggle className=" px-1 d-flex align-items-center">
-                                        {selectedItem.length ? <span className="me-2">{selectedItem}</span > : <span className="me-2 fw-bold">محصولات</span>}
+                                        {selectedItem.length ? <span className="me-2">{selectedItem}</span > : <span className="me-2 fw-bold">مواد خام</span>}
                                         <img className="me-auto" src={spinnerIcon} height="20px" alt="spinner-icon" />
                                     </Dropdown.Toggle>
                                     <Dropdown.Menu className={`${dimStatus ? "dim" : ""} dropdownProductMenu`}>
@@ -84,7 +94,7 @@ export const Basket = ({ order, insertOrder, totalPrice, insertPrice, selectedIt
                                                     item.active && (
                                                         <Col key={index}>
                                                             {index ? <Dropdown.Divider /> : null}
-                                                            <Dropdown.Item onClick={() => { setItem(item.name); setQuantity(1) }}>
+                                                            <Dropdown.Item onClick={() => { setItem(item.name); setQuantity(1); setPrice(0) }}>
                                                                 <Row>
                                                                     <Col className="text-end basket-dropdown-border-left pe-1">{item.name}</Col>
                                                                     <Col>{item.sellingPrice && persianJs(item.sellingPrice).englishNumber().toString()} </Col>
@@ -98,15 +108,15 @@ export const Basket = ({ order, insertOrder, totalPrice, insertPrice, selectedIt
                                     </Dropdown.Menu>
                                 </Dropdown>
                             </Col>
-                            <Col className="col-3 p-0 m-0 px-3 d-flex justify-content-center">
+                            <Col className="col-3 p-0 m-0 px-3 d-flex justify-content-center ps-1">
                                 <Form.Control
-                                    placeholder="تعداد"
-                                    value={Number.isInteger(quantity) ? "" : quantity}
-                                    onChange={(e) => quantityOrderHandler(e)}
-                                    className={` order-input--desktop text-center ${quantityOrder ? 'border border-danger' : null}`}
+                                    placeholder="قیمت"
+                                    value={Number.isInteger(price) ? "" : price}
+                                    onChange={(e) => priceOrderHandler(e)}
+                                    className={`order-input--desktop text-center ${priceOrder ? 'border border-danger' : null}`}
                                     type="number"
-                                    min="1"
-                                    name="duration"
+                                    min="0"
+                                    name="price"
                                     style={{ 'maxHeight': '40px' }} >
                                 </Form.Control>
                             </Col>
@@ -119,7 +129,7 @@ export const Basket = ({ order, insertOrder, totalPrice, insertPrice, selectedIt
                                     className={` order-input--desktop text-center ${quantityOrder ? 'border border-danger' : null}`}
                                     type="number"
                                     min="1"
-                                    name="duration"
+                                    name="quantity"
                                     style={{ 'maxHeight': '40px' }} >
                                 </Form.Control>
                             </Col>
@@ -136,7 +146,7 @@ export const Basket = ({ order, insertOrder, totalPrice, insertPrice, selectedIt
                                 <Table className="lh-lg" borderless size="sm">
                                     <thead>
                                         <tr>
-                                            <th className="fw-bold col-6">سفارش</th>
+                                            <th className="fw-bold col-6">فاکتور</th>
                                             <th className="fw-bold">قیمت (تومان)</th>
                                             <th className="fw-bold">تعداد</th>
                                             <th className="col-1"></th>
@@ -149,16 +159,7 @@ export const Basket = ({ order, insertOrder, totalPrice, insertPrice, selectedIt
                                                     return (
                                                         <tr key={item.name}>
                                                             <td>{item.name && persianJs(item.name).englishNumber().toString()}</td>
-                                                            <td className="">
-                                                            <Form.Group className="add-order-input text-center" style={{'width': '73px'}}>
-                                                                    <Form.Control className="order-input" type="number" name="mobile"
-                                                                        // isInvalid={((!customer.mobile && validated) || (mobileValidated) && true)}
-                                                                        // isValid={((customer.mobile && validated) || (mobileValidated && customer.mobile) && true)}
-                                                                        // onChange={handleChange}
-                                                                        // value={customer.mobile}
-                                                                        required
-                                                                    />
-                                                                </Form.Group>
+                                                            <td className="">{item.price && persianJs(item.price).englishNumber().toString()}
                                                             </td>
                                                             <td className="pe-3">{item.quantity && persianJs(item.quantity).englishNumber().toString()}</td>
                                                             <td onClick={(e) => removeOrder(e, item)}><img src={deleteIcon} className="d-block me-auto" alt="delete-icon" /></td>

@@ -69,6 +69,7 @@
   height: 43px;
   font-family: "IranSans";
   padding: 11px;
+  background-color: var(--dark--blue);
 }
 .order-submit {
   background-color: var(--button-background);
