@@ -180,7 +180,7 @@ function cancelProductOrder(orderId, productId) {
 }
 
 function addReceipt(stock, supplier, note) {
-    console.log("into orderService");
+    console.log("into receiptService");
 
     let address;
     if (!supplier.address)

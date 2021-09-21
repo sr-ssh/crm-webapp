@@ -430,3 +430,26 @@
     display: none;
   }
 }
+.spinner--download--btn--mobile{
+  position: relative;
+  top: -28px;
+  right: 34vw;
+}
+.quantity--span {
+  position: relative;
+  top: 29px;
+  right: 3vw;
+  font-size: 13px;
+  color: var(--text-color-one);
+}
+.quantity--input{
+  position: relative;
+  top: -23px;
+}
+.basket--top{
+  position: relative;
+  top: -26px;
+}
+.border-10 {
+  border-radius: 10px;
+}

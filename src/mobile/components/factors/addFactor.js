@@ -145,26 +145,29 @@ export const AddFactor = () => {
                                     value={customer.mobile}
                                     required
                                 />
-                            </Form.Group>
-                        </Col>
-                        <Col className="col-4 align-self-end">
-                            {loading ?
-                                <div className="add-order-download-btn-loading">
+                                {loading ?
                                     <Spinner
+                                        className="spinner--download--btn--mobile "
                                         as="div"
                                         variant="primary"
                                         animation="border"
                                         size="sm"
                                     />
-                                </div>
-                                : <img src={downloadIcon} className="add-order-download-btn p-1" onClick={(e) => handleOldCustomer(e)} height="33vh" width="50vw" alt="down-icon" />
-                            }
-
-
+                                    : <img src={downloadIcon} className="m-0 p-0 spinner--download--btn--mobile" onClick={(e) => handleOldCustomer(e)} height="25px" alt="down-icon" />
+                                }
+                            </Form.Group>
+                        </Col>
+                        <Col className="p-0 col-5 me-auto add-order-input">
+                            <Form.Group controlId="birthday">
+                                <Form.Label className="pe-2">نام شرکت</Form.Label>
+                                <Form.Control className="order-input" type="text" name="company"
+                                    onChange={handleChange}
+                                    value={customer.company}
+                                />
+                            </Form.Group>
                         </Col>
                     </Row>
-
-                    <Row className="m-0 p-0 mt-2 order-inputs">
+                    <Row className="m-0 p-0 mt-0 order-inputs" style={{'position': 'relative', 'top': '-2vh'}}>
                         <Col className="p-0 add-order-input">
                             <Form.Group controlId="address">
                                 <Form.Label className="pe-2">آدرس</Form.Label>
@@ -177,8 +180,8 @@ export const AddFactor = () => {
                             </Form.Group>
                         </Col>
                     </Row>
-                    <Row className="m-0 p-0 mt-2 order-inputs">
-                        <Col className="p-0 col-5 add-order-input">
+                    <Row className="m-0 p-0 mt-0 order-inputs">
+                        <Col className="p-0 add-order-input">
                             <Form.Group >
                                 <Form.Label className="pe-2">نام</Form.Label>
                                 <Form.Control className="order-input" type="text" name="family"
@@ -190,34 +193,10 @@ export const AddFactor = () => {
                                 />
                             </Form.Group>
                         </Col>
-                        <Col className="p-0 col-5 me-auto add-order-input">
-                            <Form.Group controlId="birthday">
-                                <Form.Label className="pe-2">نام شرکت</Form.Label>
-                                {/* <DatePicker
-                                    style={{
-                                        width: "100%"
-                                    }}
-                                    inputClass="search-input"
-                                    className="rmdp-mobile"
-                                    calendar="persian"
-                                    locale="fa"
-                                    value={customer.birthday !== "1900-01-01T05:42:13.845Z" && customer.birthday ? moment(customer.birthday, 'YYYY-MM-DD').locale('fa').format('YYYY/MM/DD') : null}
-                                    calendarPosition="auto-right"
-                                    editable={false}
-                                    animation
-                                    maxDate={new Date()}
-                                    onChange={value => submitCalendar(value, 'birthday')}
-                                /> */}
-                                <Form.Control className="order-input" type="text" name="company"
-                                    onChange={handleChange}
-                                    value={customer.company}
-                                />
-                            </Form.Group>
-                        </Col>
                     </Row>
-
                     <Row className="m-0 mt-4 basketContainer">
                         <Col>
+                            <Form.Label className="pe-0">سبد خرید</Form.Label>
                             <Basket order={order} insertOrder={insertOrder} totalPrice={totalPrice} insertPrice={insertPrice} selectedItem={selectedItem} setItem={setItem} quantity={quantity} setQuantity={setQuantity} />
                         </Col>
                     </Row>

@@ -70,14 +70,12 @@ export const Basket = ({ order, insertOrder, totalPrice, insertPrice, selectedIt
             <Row>
                 <Card className="border-0 p-3 pt-2  basketContainer">
                     <Card.Body className="p-0 basket-flex">
-                        <Row>
-                            <h6 className="order-input fw-bold">سفارشات</h6>
-                        </Row>
-                        <Row>
-                            <Col className="col-8 pe-2">
+                        
+                        <Row className="ps-1">
+                            <Col className="col-6 pe-1 ps-1">
                                 <Dropdown onToggle={(e) => setDimStatus(!dimStatus)} onClick={(e) => productHandler(e)}>
                                     <Dropdown.Toggle className="d-flex">
-                                        {selectedItem.length ? <span>{selectedItem}</span> : <span>محصولات</span>}
+                                        {selectedItem.length ? <span>{selectedItem}</span> : <span>مواد خام</span>}
                                         <img className="me-auto" src={spinnerIcon} height="20px" alt="spinner-icon" />
                                     </Dropdown.Toggle>
                                     <Dropdown.Menu className={`${dimStatus ? "dim" : ""} dropdownProductMenu`}>
@@ -101,24 +99,28 @@ export const Basket = ({ order, insertOrder, totalPrice, insertPrice, selectedIt
                                     </Dropdown.Menu>
                                 </Dropdown>
                             </Col>
-
-                            <Col className="col-2 px-1">
-                                <FormControl value={Number.isInteger(quantity) ? "" : quantity} onChange={(e) => quantityOrderHandler(e)} className={`order-input text-center ${quantityOrder ? 'border border-danger' : null}`} type="number" min="1" name="duration" style={{ 'maxHeight': '32px' }} />
+                            <Col className="col-4 px-1 quantity--input">
+                                <span className="quantity--span">تعداد</span>
+                                <FormControl value={Number.isInteger(quantity) ? "" : quantity} onChange={(e) => quantityOrderHandler(e)} className={`order-input text-center ${quantityOrder ? 'border border-danger' : null}`} type="number" min="1" name="duration" style={{ 'maxHeight': '35px' }} />
                             </Col>
-                            <Col className="col-2 p-0 text-center products-add-btn">
-                                <Button className="products-add border-0 py-1" onClick={(e) => newOrder(e)} type="button">
+                            <Col className="col-2 p-0 text-center products-add-btn pe-1">
+                                <Button className="border-10 border-0" onClick={(e) => newOrder(e)} type="button" style={{ 'maxHeight': '35px' }}>
                                     <img className="d-flex m-auto " src={plusIcon} alt="add-button" />
                                 </Button>
                             </Col>
 
                         </Row>
-
-                        <Row className="pt-2 pe-2">
+                        <Row className="pt-2 pe-2 basket--top">
                             <div className="table-wrapper-scroll-y my-custom-scrollbar px-1">
                                 <Table className="lh-lg" borderless size="sm">
                                     <thead>
                                         <tr>
-                                            <th className="fw-bold">سفارش</th>
+                                            <th className="fw-bold">
+                                                <Col xs={6}>
+                                                    فاکتور
+                                                </Col>
+                                                
+                                                </th>
                                             <th className="fw-bold">قیمت (تومان)</th>
                                             <th className="fw-bold">تعداد</th>
                                             <th></th>
