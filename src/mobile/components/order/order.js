@@ -6,6 +6,8 @@ import { Dialog } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 
 //icons
+import tickIcon from './../../assets/images/factor/tick.svg'
+import closeIcon from './../../assets/images/order/close.svg'
 import ShareIcon from '@material-ui/icons/Share';
 import deliveryIcon from './../../assets/images/order/delivery1.svg'
 import printIcon from './../../assets/images/order/print.svg'
@@ -90,12 +92,100 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
         window.print()
         setPrint(false)
     }
-    console.log("order", order.id)
+    let getDate = (date) => {
+        const now = new Date(date);
+        const option = {
+            month: 'long',
+        }
+        const month = new Intl.DateTimeFormat("fa-IR", option).format(now)
+        const day = moment.from(date, 'DD').locale('fa').format('DD')
+        const year = moment.from(date, 'YYYY').locale('fa').format('YYYY')
+
+
+        return `${persianJs(day).englishNumber().toString()}  ${month}  ${persianJs(year).englishNumber().toString()}`
+    }
+
+
+    console.log("order", order)
     return (
 
         <Card className={`m-auto mt-3 bg-light productCard border-0 lh-lg ${!print ? 'noPrint' : ''}`} >
             <Card.Body className="pb-0 ps-1 rounded-3 text-gray">
                 <Row className="p-0 ps-2 m-0 ">
+                    <Card className="factor--blue--section border-0">
+                        <Card.Body className="m-0 p-0 py-2 mx-3 ">
+                            <Row className="d-flex justify-content-between align-items-center my-1">
+                                <Col className="lable--factor p-0">
+                                    تایید مالی:
+                                </Col>
+                                {order.financialApproval.status ?
+                                    <Col className="d-flex justify-content-end align-items-center text--factor p-0 ">
+                                        <img src={tickIcon} alt="tick-icon" className="m-0 p-0 ms-1 p-1 icon--tick--confirm " />
+                                        <span>{order.financialApproval.acceptedBy}</span>
+                                    </Col>
+                                    :
+                                    <Col className="d-flex justify-content-end align-items-center text--factor p-0 ">
+                                        <img src={closeIcon} alt="tick-icon" className="m-0 p-0 ms-1 p-1 icon--tick--confirm " />
+                                        <span>تایید نشده است</span>
+                                    </Col>
+                                }
+
+                            </Row>
+
+                            <Row className="d-flex justify-content-between align-items-center my-1">
+                                <Col className="lable--factor p-0" >
+                                    تاریخ و ساعت :
+                                </Col>
+                                <Col className="d-flex justify-content-end text--factor p-0">
+                                    <span className="ms-2">{getDate(order.createdAt)}</span>
+                                    <span>{order.createdAt && persianJs(moment.from(order.createdAt, 'HH:mm').locale('fa').format('HH:mm')).englishNumber().toString()}</span>
+                                </Col>
+                            </Row>
+                            <Row className="d-flex justify-content-between align-items-center my-1">
+                                <Col className="lable--factor p-0" >
+                                    نام مشتری:
+                                </Col>
+                                <Col className="d-flex justify-content-end text--factor p-0">
+                                    <span>{order.customer.family}</span>
+                                </Col>
+                            </Row>
+                            <Row className="d-flex justify-content-between align-items-center my-1" >
+                                <Col className="lable--factor p-0" >
+                                    موبایل:
+                                </Col>
+                                <Col className="d-flex justify-content-end text--factor p-0">
+                                    <span>{order.customer.mobile && persianJs(order.customer.mobile).englishNumber().toString()}</span>
+                                </Col>
+                            </Row>
+                            <Row className="d-flex justify-content-between align-items-center my-1" >
+                                <Col className="lable--factor p-0" >
+                                    آدرس:
+                                </Col>
+                                <Col className="d-flex justify-content-end text--factor p-0">
+                                    <span>{order.address && persianJs(order.address).englishNumber().toString()}</span>
+                                </Col>
+                            </Row>
+                            <Row className="d-flex justify-content-between align-items-center my-1" >
+                                <Col className="lable--factor p-0" >
+                                    اتمام آماده سازی:
+                                </Col>
+                                <Col className="d-flex justify-content-end text--factor p-0">
+                                    <span>{order.readyTime && persianJs(moment.from(order.readyTime, 'YYYY/MM/DD HH:mm').locale('fa').format('HH:mm DD MMMM YYYY')).englishNumber().toString()}</span>
+
+                                </Col>
+                            </Row>
+                            <Row className="d-flex justify-content-between align-items-center my-1" >
+                                <Col className="lable--factor p-0" >
+                                    ثبت شده توسط:
+                                </Col>
+                                <Col className="d-flex justify-content-end text--factor p-0">
+                                    <span>{order.employee ? order.employee.family : null}</span>
+                                </Col>
+                            </Row>
+                        </Card.Body>
+                    </Card>
+                </Row>
+                {/* <Row className="p-0 ps-2 m-0 ">
                     <Card className="background-blue border-0 customer-round">
                         <Card.Body className="pe-0 ps-0 ">
                             <Row>
@@ -116,7 +206,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                                         نام مشتری: <span>{order.customer.family}</span>
                                     </Card.Text>
                                 </Col>
-                                {/* <Col className="col-5">
+                                <Col className="col-5">
                                     <Card.Text className="text-center">
                                         وضعیت: {(() => {
                                             switch (order.status) {
@@ -131,7 +221,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                                             }
                                         })()}
                                     </Card.Text>
-                                </Col> */}
+                                </Col>
                             </Row>
                             <Row className="flex-nowrap mt-2">
                                 <Col>
@@ -163,7 +253,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                             </Row>
                         </Card.Body>
                     </Card>
-                </Row>
+                </Row> */}
                 <Row className="m-0 p-0 ps-2">
                     <Table borderless size="sm">
                         <thead>
