@@ -309,20 +309,20 @@ export function getShareLinkOrder(state = {}, action) {
             return state
     }
 }
-export function confirmFinancial(state = {}, action) {
+export function confirmShop(state = {}, action) {
     switch (action.type) {
-        case receiptConstants.CONFIRM_FINANCIAL_ORDER_REQUEST:
+        case receiptConstants.CONFIRM_FINANCIAL_RECEIPT_REQUEST:
             return {
                 ...state,
                 loading: true
             }
-        case receiptConstants.CONFIRM_FINANCIAL_ORDER_SUCCESS:
+        case receiptConstants.CONFIRM_FINANCIAL_RECEIPT_SUCCESS:
             return {
                 ...state,
                 data: action.data,
                 loading: false,
             }
-        case receiptConstants.CONFIRM_FINANCIAL_ORDER_FAILURE:
+        case receiptConstants.CONFIRM_FINANCIAL_RECEIPT_FAILURE:
             return {
                 error: action.error,
                 loading: false

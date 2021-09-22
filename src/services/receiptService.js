@@ -18,7 +18,7 @@ export const recieptService = {
     editProductOrder,
     orderDetails,
     getShareLinkOrder,
-    confirmFinancial
+    confirmShop
 };
 
 function getOrders(filter = {}) {
@@ -327,8 +327,8 @@ function getShareLinkOrder(orderId) {
 
 
 
-function confirmFinancial(orderId) {
-    console.log('into orderService (confirmFinancial)')
+function confirmShop(orderId) {
+    console.log('into receiptService (confirmShop)')
 
     const requestOptions = {
         headers: authHeader(),
@@ -336,7 +336,7 @@ function confirmFinancial(orderId) {
     }
 
     return axios
-        .put(`${baseRoute}/order/financial/confirm `, requestOptions.body, requestOptions.headers)
+        .put(`${baseRoute}/confirm/shop `, requestOptions.body, requestOptions.headers)
         .then(res => {
             console.log('res >>')
             console.log(res)
