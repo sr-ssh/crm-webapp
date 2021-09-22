@@ -1,27 +1,28 @@
 import { receiptConstants } from '../constants'
 
 const initialState = {
-    receipt: [],
+    receipts: [],
     orders: [],
     loading: false
 }
 
-export function getOrders(state = initialState, action) {
+export function getReceipts(state = initialState, action) {
     switch (action.type) {
-        case receiptConstants.GET_ORDERS_REQUEST:
+        case receiptConstants.GET_RECEIPTS_REQUEST:
             return {
                 ...state,
                 loading: true
             }
-        case receiptConstants.GET_ORDERS_SUCCESS:
+        case receiptConstants.GET_RECEIPTS_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                orders: action.data
+                receipts: action.data
             }
-        case receiptConstants.GET_ORDERS_FAILURE:
+        case receiptConstants.GET_RECEIPTS_FAILURE:
             return {
-                err: action.error
+                err: action.error,
+                loading: false
             }
         default:
             return state
