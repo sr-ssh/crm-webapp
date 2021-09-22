@@ -114,23 +114,25 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                 <Row className="p-0 ps-2 m-0 ">
                     <Card className="factor--blue--section border-0">
                         <Card.Body className="m-0 p-0 py-2 mx-3 ">
-                            <Row className="d-flex justify-content-between align-items-center my-1">
-                                <Col className="lable--factor p-0">
-                                    تایید مالی:
-                                </Col>
-                                {order.financialApproval.status ?
-                                    <Col className="d-flex justify-content-end align-items-center text--factor p-0 ">
-                                        <img src={tickIcon} alt="tick-icon" className="m-0 p-0 ms-1 p-1 icon--tick--confirm " />
-                                        <span>{order.financialApproval.acceptedBy}</span>
+                            {order.status === 0 &&
+                                <Row className="d-flex justify-content-between align-items-center my-1">
+                                    <Col className="lable--factor p-0">
+                                        تایید مالی:
                                     </Col>
-                                    :
-                                    <Col className="d-flex justify-content-end align-items-center text--factor p-0 ">
-                                        <img src={closeIcon} alt="tick-icon" className="m-0 p-0 ms-1 p-1 icon--tick--confirm " />
-                                        <span>تایید نشده است</span>
-                                    </Col>
-                                }
+                                    {order.financialApproval.status ?
+                                        <Col className="d-flex justify-content-end align-items-center text--factor p-0 ">
+                                            <img src={tickIcon} alt="tick-icon" className="m-0 p-0 ms-1 p-1 icon--tick--confirm " />
+                                            <span>{order.financialApproval.acceptedBy}</span>
+                                        </Col>
+                                        :
+                                        <Col className="d-flex justify-content-end align-items-center text--factor p-0 ">
+                                            <img src={closeIcon} alt="tick-icon" className="m-0 p-0 ms-1 p-1 icon--tick--confirm " />
+                                            <span>تایید نشده است</span>
+                                        </Col>
+                                    }
 
-                            </Row>
+                                </Row>
+                            }
 
                             <Row className="d-flex justify-content-between align-items-center my-1">
                                 <Col className="lable--factor p-0" >
