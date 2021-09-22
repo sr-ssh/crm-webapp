@@ -44,6 +44,7 @@ import './mobile/assets/styles/settingStyle.css';
 import './mobile/assets/styles/saleOpprotunityStyle.css';
 import './mobile/assets/styles/notesStyle.css';
 import './mobile/assets/styles/orderDetails.css';
+import './mobile/assets/styles/receiptStyle.css';
 import { OrderDetails } from './mobile/components/order/orderDetails';
 import { AddFactor } from './mobile/components/factors/addFactor';
 

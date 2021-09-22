@@ -239,8 +239,6 @@ export const AddFactor = () => {
                                 }
                             </Row>
                         </Row>
-
-
                     </Form>
                 </Container>
                 <AddNotesModal show={showNotesModal} onHide={() => { setShowNotesModal(false) }} setNotes={setNotes} />

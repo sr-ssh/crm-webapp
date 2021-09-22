@@ -111,35 +111,36 @@
   font-size: 13px;
 }
 
-.basket-flex .btn-primary:not(:disabled):not(.disabled):active,
-.btn-primary:not(:disabled):not(.disabled).active,
-.show > .btn-primary.dropdown-toggle {
+.basket-flex.btn-primary:not(:disabled):not(.disabled):active,
+.basket-flex.btn-primary:not(:disabled):not(.disabled):active,
+.basket-flex.btn-primary:not(:disabled):not(.disabled).active,
+.basket-flex.show > .basket-flex.btn-primary.dropdown-toggle {
   color: var(--text-color-one);
   background-color: var(--body-bachground);
   border: none;
 }
 
-.basket-flex .btn-primary:not(:disabled):not(.disabled):active:focus,
-.btn-primary:not(:disabled):not(.disabled).active:focus,
-.show > .btn-primary.dropdown-toggle:focus {
+.basket-flex.btn-primary:not(:disabled):not(.disabled):active:focus,
+.basket-flex.btn-primary:not(:disabled):not(.disabled).active:focus,
+.basket-flex.show > .basket-flex.btn-primary.dropdown-toggle:focus {
   box-shadow: none;
 }
 
-.basket-flex .btn-primary:focus,
-.btn-primary.focus {
+.basket-flex.btn-primary:focus,
+.basket-flex.btn-primary.focus {
   box-shadow: none;
 }
 
-.basket-flex .products-add:focus + .btn-primary,
-.products-add:focus {
+.basket-flex.products-add:focus + .basket-flex.btn-primary,
+.basket-flex.products-add:focus {
   background-color: var(--body-bachground);
 }
 
-.basket-flex .btn-primary:hover {
+.basket-flex.btn-primary:hover {
   background-color: var(--body-bachground);
 }
 
-.basket-flex .dropdown-divider {
+.basket-flex.dropdown-divider {
   margin: 0.3rem 0;
   border-top: 1px solid var(--text-color-one);
 }

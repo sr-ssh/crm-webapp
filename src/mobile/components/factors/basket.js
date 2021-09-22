@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Card, Dropdown, Button, Table, Row, Col, FormControl, Form } from 'react-bootstrap';
 import persianJs from 'persianjs/persian.min';
 
 // Actions
-import { productActions } from '../../../actions';
+import { stockActions } from '../../../actions';
 
 //icons
 import deleteIcon from './../../assets/images/delete.svg'
@@ -15,23 +15,21 @@ export const Basket = ({ order, insertOrder, totalPrice, insertPrice, selectedIt
 
     const [dimStatus, setDimStatus] = useState(false)
     const [quantityOrder, setQuantityOrder] = useState(false)
-    const products = useSelector(state => state.getProducts.product)
+    const stock = useSelector(state => state.getStock.stock)
     const dispatch = useDispatch()
 
     let newOrder = (e) => {
         e.preventDefault();
-        let product = products.find(item => item.name === selectedItem)
+        let product = stock.find(item => item.name === selectedItem)
         if (!product || quantityOrder)
             return
 
-        insertPrice(parseInt(totalPrice) + (parseInt(quantity) * parseInt(product.sellingPrice)))
         let newOrder = {
             _id: product._id,
             name: product.name,
             quantity: parseInt(quantity),
-            sellingPrice: product.sellingPrice,
+            price: 0,
         };
-        console.log(newOrder.quantity, order)
         const isOrderPresent = order.some((item) => item._id === product._id);
         if (isOrderPresent) {
             const updatedOrder = order.map((item) => {
@@ -46,16 +44,43 @@ export const Basket = ({ order, insertOrder, totalPrice, insertPrice, selectedIt
         }
     };
 
+    let addPrice = (e, itemName) => {
+        e.preventDefault();
+        let product = stock.find(item => item.name === itemName)
+
+        let newOrder = {
+            _id: product._id,
+            name: product.name,
+            quantity: parseInt(quantity),
+            price: e.target.value
+        };
+            const updatedOrder = order.map((item) => {
+                if (item._id === product._id) {
+                    return { ...item, price: e.target.value };
+                }
+                return item;
+            });
+            insertOrder(updatedOrder);
+            setTotalPrice()
+    };
+
+    let setTotalPrice = () => {
+        let total = 0
+        order.map(st => total = parseInt(total) + (parseInt(st.quantity) * parseInt(st.price)))
+        return total
+    }
+
+
     let removeOrder = (e, product) => {
         e.preventDefault();
-        insertPrice(totalPrice - (parseInt(product.quantity) * parseInt(product.sellingPrice)));
+        insertPrice(totalPrice - (parseInt(product.quantity) * parseInt(product.price)));
         let updatedOrder = order.filter(item => item._id !== product._id);
         insertOrder(updatedOrder)
     }
 
     let productHandler = (e) => {
         e.preventDefault()
-        dispatch(productActions.getProducts())
+        dispatch(stockActions.getStock())
     }
     let quantityOrderHandler = (e) => {
         if (e.target.value == "0") {
@@ -72,15 +97,15 @@ export const Basket = ({ order, insertOrder, totalPrice, insertPrice, selectedIt
                     <Card.Body className="p-0 basket-flex">
                         
                         <Row className="ps-1">
-                            <Col className="col-6 pe-1 ps-1">
+                            <Col className="col-5 px-0">
                                 <Dropdown onToggle={(e) => setDimStatus(!dimStatus)} onClick={(e) => productHandler(e)}>
                                     <Dropdown.Toggle className="d-flex">
                                         {selectedItem.length ? <span>{selectedItem}</span> : <span>مواد خام</span>}
                                         <img className="me-auto" src={spinnerIcon} height="20px" alt="spinner-icon" />
                                     </Dropdown.Toggle>
                                     <Dropdown.Menu className={`${dimStatus ? "dim" : ""} dropdownProductMenu`}>
-                                        {products
-                                            ? products.map((item, index) => {
+                                        {stock
+                                            ? stock.map((item, index) => {
                                                 return (
                                                     item.active && (
                                                         <Col key={index}>
@@ -88,7 +113,6 @@ export const Basket = ({ order, insertOrder, totalPrice, insertPrice, selectedIt
                                                             <Dropdown.Item onClick={() => { setItem(item.name); setQuantity(1) }}>
                                                                 <Row>
                                                                     <Col className="text-end basket-dropdown-border-left pe-1">{item.name}</Col>
-                                                                    <Col>{item.sellingPrice && persianJs(item.sellingPrice).englishNumber().toString()} </Col>
                                                                 </Row>
                                                             </Dropdown.Item>
                                                         </Col>
@@ -99,29 +123,29 @@ export const Basket = ({ order, insertOrder, totalPrice, insertPrice, selectedIt
                                     </Dropdown.Menu>
                                 </Dropdown>
                             </Col>
-                            <Col className="col-4 px-1 quantity--input">
-                                <span className="quantity--span">تعداد</span>
-                                <FormControl value={Number.isInteger(quantity) ? "" : quantity} onChange={(e) => quantityOrderHandler(e)} className={`order-input text-center ${quantityOrder ? 'border border-danger' : null}`} type="number" min="1" name="duration" style={{ 'maxHeight': '35px' }} />
+                            <Col className="col-4 pe-2 ps-0" >
+                                <FormControl value={Number.isInteger(quantity) ? "" : quantity} onChange={(e) => quantityOrderHandler(e)} className={`order-input text-center ${quantityOrder ? 'border border-danger' : null}`} type="number" min="1" name="duration" style={{ 'maxHeight': '35px' }} placeholder="تعداد"/>
                             </Col>
-                            <Col className="col-2 p-0 text-center products-add-btn pe-1">
-                                <Button className="border-10 border-0" onClick={(e) => newOrder(e)} type="button" style={{ 'maxHeight': '35px' }}>
+                            <Col className="col-3 p-0 text-center pe-2">
+                                <Button className="border-10 w-100 receipt-add-btn border-0" onClick={(e) => newOrder(e)} type="button" style={{ 'maxHeight': '35px' }}>
                                     <img className="d-flex m-auto " src={plusIcon} alt="add-button" />
                                 </Button>
                             </Col>
-
                         </Row>
-                        <Row className="pt-2 pe-2 basket--top">
+                        <Row className="pt-2 pe-2">
                             <div className="table-wrapper-scroll-y my-custom-scrollbar px-1">
                                 <Table className="lh-lg" borderless size="sm">
                                     <thead>
                                         <tr>
                                             <th className="fw-bold">
-                                                <Col xs={6}>
+                                                <Col style={{'width': '32vw'}}>
                                                     فاکتور
                                                 </Col>
-                                                
-                                                </th>
-                                            <th className="fw-bold">قیمت (تومان)</th>
+                                            </th>
+                                            <th className="fw-bold">
+                                                <Col style={{'width': '27vw', 'paddingRight': '4px'}}>
+                                                    قیمت (تومان)
+                                                </Col></th>
                                             <th className="fw-bold">تعداد</th>
                                             <th></th>
                                         </tr>
@@ -133,12 +157,12 @@ export const Basket = ({ order, insertOrder, totalPrice, insertPrice, selectedIt
                                                     return (
                                                         <tr key={item.name}>
                                                             <td>{item.name && persianJs(item.name).englishNumber().toString()}</td>
-                                                            <td className="text-center">
-                                                                <Form.Group className="add-order-input text-center" style={{'width': '73px'}}>
+                                                            <td className="text-center" style={{'paddingRight': '0'}}>
+                                                                <Form.Group className="add-order-input text-center" style={{'width': '27vw'}}>
                                                                     <Form.Control className="order-input" type="number" name="mobile"
                                                                         // isInvalid={((!customer.mobile && validated) || (mobileValidated) && true)}
                                                                         // isValid={((customer.mobile && validated) || (mobileValidated && customer.mobile) && true)}
-                                                                        // onChange={handleChange}
+                                                                        onChange={e => addPrice(e, item.name)}
                                                                         // value={customer.mobile}
                                                                         required
                                                                     />
@@ -154,12 +178,12 @@ export const Basket = ({ order, insertOrder, totalPrice, insertPrice, selectedIt
                                     </tbody>
                                 </Table>
                             </div>
-                            <Row className="border-top-blue pt-2 mt-auto">
-                                <Col className="col-5">
-                                    <span className="">جمع کل</span>
+                            <Row className="border-top-dark-blue pt-2 mt-auto px-0 mx-0">
+                                <Col className="col-5 px-2">
+                                    <span className="fs-7 fw-bold">جمع کل :</span>
                                 </Col>
                                 <Col className="px-1">
-                                    {totalPrice && persianJs(totalPrice).englishNumber().toString()}
+                                    {setTotalPrice() && persianJs(setTotalPrice()).englishNumber().toString()}
                                 </Col>
                             </Row>
                         </Row>
