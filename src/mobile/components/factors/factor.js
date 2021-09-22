@@ -67,10 +67,10 @@ export const Factor = ({ factor, deliveryShow, setDeliveryShow, cancelOrderShow,
     }
 
 
-    const getTotalPrice = (order) => {
+    const getTotalPrice = (factor) => {
         let total = 0
-        order.map(item => {
-            total += item.sellingPrice * item.quantity
+        factor.map(item => {
+            total += item.price * item.quantity
         })
         return total
     }
@@ -86,9 +86,22 @@ export const Factor = ({ factor, deliveryShow, setDeliveryShow, cancelOrderShow,
         window.print()
         setPrint(false)
     }
-    console.log("order", factor.id)
-    // 
-    // 
+
+
+    let getDate = (date) => {
+        const now = new Date(date);
+        const option = {
+            month: 'long',
+        }
+        const month = new Intl.DateTimeFormat("fa-IR", option).format(now)
+        const day = moment.from(date, 'DD').locale('fa').format('DD')
+        const year = moment.from(date, 'YYYY').locale('fa').format('YYYY')
+
+
+        return `${persianJs(day).englishNumber().toString()}  ${month}  ${persianJs(year).englishNumber().toString()}`
+    }
+
+
     return (
 
         <Card className={`m-auto mt-3 bg-light factorCard border-0 lh-lg ${!print ? 'noPrint' : ''}`} >
@@ -102,7 +115,7 @@ export const Factor = ({ factor, deliveryShow, setDeliveryShow, cancelOrderShow,
                                 </Col>
                                 <Col className="d-flex justify-content-end align-items-center text--factor p-0 ">
                                     <img src={tickIcon} alt="tick-icon" className="m-0 p-0 ms-1 p-1 icon--tick--confirm " />
-                                    <span>{factor.customer.family}</span>
+                                    {/* <span>{factor.customer.family}</span> */}
                                 </Col>
 
                             </Row>
@@ -112,7 +125,8 @@ export const Factor = ({ factor, deliveryShow, setDeliveryShow, cancelOrderShow,
                                     تاریخ و ساعت :
                                 </Col>
                                 <Col className="d-flex justify-content-end text--factor p-0">
-                                    <span>{factor.createdAt && persianJs(moment.from(factor.createdAt, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD')).englishNumber().toString()}</span><span>{factor.createdAt && persianJs(moment.from(factor.createdAt, 'HH:mm').locale('fa').format('HH:mm')).englishNumber().toString()}</span>
+                                    <span className="ms-2">{getDate(factor.createdAt)}</span>
+                                    <span>{factor.createdAt && persianJs(moment.from(factor.createdAt, 'HH:mm').locale('fa').format('HH:mm')).englishNumber().toString()}</span>
                                 </Col>
                             </Row>
                             <Row className="d-flex justify-content-between align-items-center my-1">
@@ -120,7 +134,7 @@ export const Factor = ({ factor, deliveryShow, setDeliveryShow, cancelOrderShow,
                                     نام تامین کننده:
                                 </Col>
                                 <Col className="d-flex justify-content-end text--factor p-0">
-                                    <span>{factor.customer.family}</span>
+                                    <span>{factor.supplier.family}</span>
                                 </Col>
 
                                 {/* <Col className="col-5">
@@ -145,7 +159,7 @@ export const Factor = ({ factor, deliveryShow, setDeliveryShow, cancelOrderShow,
                                     موبایل:
                                 </Col>
                                 <Col className="d-flex justify-content-end text--factor p-0">
-                                    <span>{factor.customer.mobile && persianJs(factor.customer.mobile).englishNumber().toString()}</span>
+                                    <span>{factor.supplier.mobile && persianJs(factor.supplier.mobile).englishNumber().toString()}</span>
                                 </Col>
                             </Row>
                             <Row className="d-flex justify-content-between align-items-center my-1" >
@@ -153,7 +167,7 @@ export const Factor = ({ factor, deliveryShow, setDeliveryShow, cancelOrderShow,
                                     آدرس:
                                 </Col>
                                 <Col className="d-flex justify-content-end text--factor p-0">
-                                    <span>1{factor.address && persianJs(factor.address).englishNumber().toString()}</span>
+                                    <span>{factor.address}</span>
                                 </Col>
                             </Row>
                             <Row className="d-flex justify-content-between align-items-center my-1" >
@@ -179,15 +193,15 @@ export const Factor = ({ factor, deliveryShow, setDeliveryShow, cancelOrderShow,
                         <tbody>
                             {
 
-                                factor.products.length
-                                    ? factor.products.map(item => {
+                                factor.stock.length
+                                    ? factor.stock.map(item => {
                                         return (
                                             <tr key={item.name}>
                                                 <td className="pe-3 td--body--table--factor ">{
                                                     item.name && persianJs(item.name).englishNumber().toString()}
                                                 </td>
                                                 <td className="td--body--table--factor ">
-                                                    {(item.quantity * item.sellingPrice) && persianJs(item.quantity * item.sellingPrice).englishNumber().toString()}
+                                                    {(item.quantity * item.price) && persianJs(item.quantity * item.price).englishNumber().toString()}
                                                 </td>
                                                 <td className="td--body--table--factor  text-start ps-4">
                                                     {item.quantity && persianJs(item.quantity).englishNumber().toString()}
@@ -207,7 +221,7 @@ export const Factor = ({ factor, deliveryShow, setDeliveryShow, cancelOrderShow,
                             <span className="">جمع کل :</span>
                         </Col>
                         <Col className="px-1 fs-md-5 fs-6">
-                            {getTotalPrice(factor.products) && persianJs(getTotalPrice(factor.products)).englishNumber().toString()} تومان
+                            {getTotalPrice(factor.stock) && persianJs(getTotalPrice(factor.stock)).englishNumber().toString()} تومان
 
                         </Col>
                     </Row>
