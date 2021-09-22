@@ -29,7 +29,6 @@ import { OrderDetails } from './mobile/components/order/orderDetails';
 import { AddFactor } from './mobile/components/factors/addFactor';
 import { Factors } from './mobile/components/factors/factors';
 
-
 // Styles 
 import 'bootstrap/dist/css/bootstrap.css';
 import './mobile/assets/styles/formStyle.css';
@@ -49,6 +48,9 @@ import './mobile/assets/styles/saleOpprotunityStyle.css';
 import './mobile/assets/styles/notesStyle.css';
 import './mobile/assets/styles/orderDetails.css';
 import './mobile/assets/styles/factorStyle.css';
+import './mobile/assets/styles/receiptStyle.css';
+
+
 
 
 

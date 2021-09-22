@@ -88,7 +88,16 @@ export const SidebarItems = () => {
                     </Col>
                 }
                 <Col xs={10} sm={10} md={10} lg={10} className="py-3 mx-3 fw-bold sidebarItem">
-                    <Link to="/factors">فاکتور ها</Link>
+                    <Link to="/factor/add">ثبت فاکتورها</Link>
+                </Col>
+                <Col xs={10} sm={10} md={10} lg={10} className="py-3 mx-3 fw-bold sidebarItem">
+                    <Link to="/factors">فاکتورها</Link>
+                </Col>
+                <Col xs={10} sm={10} md={10} lg={10} className="py-3 mx-3 fw-bold sidebarItem">
+                    <Link to="/discounts">تامین کننده ها</Link>
+                </Col>
+                <Col xs={10} sm={10} md={10} lg={10} className="py-3 mx-3 fw-bold sidebarItem">
+                    <Link to="/discounts">لیست مواد خام</Link>
                 </Col>
             </Row>
 

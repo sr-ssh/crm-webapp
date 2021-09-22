@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Container, Form, Button, Row, Col, Alert, Spinner } from 'react-bootstrap';
-import DatePicker from "react-multi-date-picker";
-import moment from 'jalali-moment';
 import "react-multi-date-picker/styles/layouts/mobile.css";
 
 // Actions
 import { alertActions } from '../../../actions/alertActions';
-import { orderActions, customerActions } from '../../../actions';
+import { receiptActions, supplierActions } from '../../../actions';
 
 // Components
 import { Header } from '../base/header2';
@@ -33,7 +31,7 @@ export const AddFactor = () => {
     const [notes, setNotes] = useState([])
     const [showNotesModal, setShowNotesModal] = useState(false)
     const dispatch = useDispatch()
-    let oldCustomer = useSelector(state => state.getCustomer.customer)
+    let oldCustomer = useSelector(state => state.getSupplier.supplier)
     let { loading } = useSelector(state => state.getCustomer)
     let addOrderLoading = useSelector(state => state.addOrder.loading)
 
@@ -63,7 +61,7 @@ export const AddFactor = () => {
     let handleOldCustomer = (e) => {
         e.preventDefault()
         if (customer.mobile)
-            dispatch(customerActions.getCustomer(customer.mobile))
+            dispatch(supplierActions.getSupplier(customer.mobile))
         else
             setMobileValidated(true)
     }
@@ -84,10 +82,7 @@ export const AddFactor = () => {
     let formHandler = (e) => {
         e.preventDefault()
         if (order.length && customer.family && customer.mobile) {
-            if (e.target.id === 'saleOpprotunity')
-                dispatch(orderActions.addOrder(order, customer, notes, 3))
-            else
-                dispatch(orderActions.addOrder(order, customer, notes))
+            dispatch(receiptActions.addReceipt(order, customer, notes[0]))
             setCustomer({ mobile: "", address: "", family: "", reminder: "", duration: "", company: "" })
             insertOrder([])
             setNotes([])
@@ -145,26 +140,29 @@ export const AddFactor = () => {
                                     value={customer.mobile}
                                     required
                                 />
-                            </Form.Group>
-                        </Col>
-                        <Col className="col-4 align-self-end">
-                            {loading ?
-                                <div className="add-order-download-btn-loading">
+                                {loading ?
                                     <Spinner
+                                        className="spinner--download--btn--mobile "
                                         as="div"
                                         variant="primary"
                                         animation="border"
                                         size="sm"
                                     />
-                                </div>
-                                : <img src={downloadIcon} className="add-order-download-btn p-1" onClick={(e) => handleOldCustomer(e)} height="33vh" width="50vw" alt="down-icon" />
-                            }
-
-
+                                    : <img src={downloadIcon} className="m-0 p-0 spinner--download--btn--mobile" onClick={(e) => handleOldCustomer(e)} height="25px" alt="down-icon" />
+                                }
+                            </Form.Group>
+                        </Col>
+                        <Col className="p-0 col-5 me-auto add-order-input">
+                            <Form.Group controlId="birthday">
+                                <Form.Label className="pe-2">نام شرکت</Form.Label>
+                                <Form.Control className="order-input" type="text" name="company"
+                                    onChange={handleChange}
+                                    value={customer.company}
+                                />
+                            </Form.Group>
                         </Col>
                     </Row>
-
-                    <Row className="m-0 p-0 mt-2 order-inputs">
+                    <Row className="m-0 p-0 mt-0 order-inputs" style={{'position': 'relative', 'top': '-2vh'}}>
                         <Col className="p-0 add-order-input">
                             <Form.Group controlId="address">
                                 <Form.Label className="pe-2">آدرس</Form.Label>
@@ -177,8 +175,8 @@ export const AddFactor = () => {
                             </Form.Group>
                         </Col>
                     </Row>
-                    <Row className="m-0 p-0 mt-2 order-inputs">
-                        <Col className="p-0 col-5 add-order-input">
+                    <Row className="m-0 p-0 mt-0 order-inputs">
+                        <Col className="p-0 add-order-input">
                             <Form.Group >
                                 <Form.Label className="pe-2">نام</Form.Label>
                                 <Form.Control className="order-input" type="text" name="family"
@@ -190,55 +188,37 @@ export const AddFactor = () => {
                                 />
                             </Form.Group>
                         </Col>
-                        <Col className="p-0 col-5 me-auto add-order-input">
-                            <Form.Group controlId="birthday">
-                                <Form.Label className="pe-2">نام شرکت</Form.Label>
-                                {/* <DatePicker
-                                    style={{
-                                        width: "100%"
-                                    }}
-                                    inputClass="search-input"
-                                    className="rmdp-mobile"
-                                    calendar="persian"
-                                    locale="fa"
-                                    value={customer.birthday !== "1900-01-01T05:42:13.845Z" && customer.birthday ? moment(customer.birthday, 'YYYY-MM-DD').locale('fa').format('YYYY/MM/DD') : null}
-                                    calendarPosition="auto-right"
-                                    editable={false}
-                                    animation
-                                    maxDate={new Date()}
-                                    onChange={value => submitCalendar(value, 'birthday')}
-                                /> */}
-                                <Form.Control className="order-input" type="text" name="company"
-                                    onChange={handleChange}
-                                    value={customer.company}
-                                />
-                            </Form.Group>
-                        </Col>
                     </Row>
-
-                    <Row className="m-0 mt-4 basketContainer">
+                    <Row className="m-0 mt-3 basketContainer">
                         <Col>
+                            <Form.Label className="pe-0">سبد خرید</Form.Label>
                             <Basket order={order} insertOrder={insertOrder} totalPrice={totalPrice} insertPrice={insertPrice} selectedItem={selectedItem} setItem={setItem} quantity={quantity} setQuantity={setQuantity} />
                         </Col>
                     </Row>
                     <Row >
                         <Col className="mt-3 w-100">
-                            <Button className={`d-flex flex-row ${notes.length > 0 ? 'w-100' : 'w-auto'}  align-items-center btn--add--note `} onClick={noteHandler}>
-                                <img className="me-3" src={addIcon} height="25px" alt="edit-icon" /><span className="me-1 fw-bold ms-3">
-                                    {
-                                        notes.length > 0 ?
-                                            notes[0].text
-                                            :
-                                            <>
-                                                اضافه یادداشت
-                                            </>
-                                    }
-                                </span>
+                            <Button className="d-flex flex-row w-100 align-items-center btn--add--note" onClick={noteHandler}>
+                                <Col xs={1}>
+                                    <img className="me-3" src={addIcon} height="25px" alt="edit-icon" />
+                                </Col>
+                                <Col>
+                                    <span className="me-1 fw-bold ms-3 text-center fs-6">
+                                        {
+                                            notes.length > 0 ?
+                                                notes[0].text
+                                                :
+                                                <>
+                                                    یادداشت
+                                                </>
+                                        }
+                                    </span>
+                                </Col>
+                               
                             </Button>
                         </Col>
                     </Row>
 
-                    <Row className="m-0 mt-4 justify-content-center w-100">
+                    <Row className="m-0 mt-2 justify-content-center w-100">
 
 
                         {addOrderLoading ?
@@ -254,8 +234,8 @@ export const AddFactor = () => {
                             </Button>
                             :
                             <>
-                                <Col className="col-12 m-0 p-0 ps-1 mb-3">
-                                    <Button className="fw-bold order--btn order-submit border-0 w-100" size="lg" type="submit" block onClick={formHandler}>
+                                <Col className="col-12 m-0 p-0 mb-3">
+                                    <Button className="fw-bold receipt--btn--mobile border-0 w-100 fs-6" size="lg" type="submit" block onClick={formHandler}>
                                         ثبت
                                     </Button>
                                 </Col>

@@ -1,0 +1,29 @@
+.border-top-dark-blue {
+    border-top: 1px solid var(--dark--blue);
+    margin-right: 0vw;
+}
+.receipt--btn--mobile {
+    border: none;
+    border-radius: 11px;
+    font-weight: bold;
+    padding: 11px;
+    background-color: var(--dark--blue);
+}
+
+.receipt--btn--mobile.btn-check:focus + .receipt--btn--mobile.btn-primary, .receipt--btn--mobile.btn-primary:focus {
+    background-color: var(--dark--blue);
+}
+
+.receipt--btn--mobile.btn-check:checked + .receipt--btn--mobile.btn-primary, .receipt--btn--mobile.btn-check:active + .receipt--btn--mobile.btn-primary, .receipt--btn--mobile.btn-primary:active, .receipt--btn--mobile.btn-primary.active, .receipt--btn--mobile.show > .receipt--btn--mobile.btn-primary.dropdown-toggle {
+    background-color: var(--dark--blue);
+}
+
+.receipt-add-btn {
+    background-color: var(--dark--blue);
+}
+.receipt-add-btn.btn-check:checked + .receipt-add-btn.btn-primary, .receipt-add-btn.btn-check:active + .receipt-add-btn.btn-primary, .receipt-add-btn.btn-primary:active, .receipt-add-btn.btn-primary.active, .receipt-add-btn.show > .receipt-add-btn.btn-primary.dropdown-toggle {
+    background-color: var(--dark--blue);
+}
+.receipt-add-btn.btn-check:focus + .receipt-add-btn.btn-primary, .receipt-add-btn.btn-primary:focus {
+    background-color: var(--dark--blue);
+}

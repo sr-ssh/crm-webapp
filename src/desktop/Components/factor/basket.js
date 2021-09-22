@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Card, Dropdown, Button, Table, Row, Col, Form } from 'react-bootstrap';
 import persianJs from 'persianjs/persian.min';
