@@ -37,9 +37,9 @@ function getSuppliers(filter) {
             );
     };
 
-    function request() { console.log("into request"); return { type: supplierConstants.GET_CUSTOMERS_REQUEST } }
-    function success(customers) { console.log("into success"); return { type: supplierConstants.GET_CUSTOMERS_SUCCESS, customers } }
-    function failure(error) { return { type: supplierConstants.GET_CUSTOMERS_FAILURE, error } }
+    function request() { console.log("into request"); return { type: supplierConstants.GET_SUPPLIERS_REQUEST } }
+    function success(customers) { console.log("into success"); return { type: supplierConstants.GET_SUPPLIERS_SUCCESS, customers } }
+    function failure(error) { return { type: supplierConstants.GET_SUPPLIERS_FAILURE, error } }
 }
 
 function getSupplier(mobile) {

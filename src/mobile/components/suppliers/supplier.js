@@ -4,7 +4,7 @@ import { Card, Row, Col } from 'react-bootstrap';
 import persianJs from 'persianjs/persian.min';
 
 
-export const Supplier = ({ customer }) => {
+export const Supplier = ({ supplier }) => {
     return (
         <Card className="m-auto mt-3 bg-light productCard border-0 lh-lg pb-2" >
             <Card.Body className="pb-0 ps-0 text-gray">
@@ -14,12 +14,12 @@ export const Supplier = ({ customer }) => {
                             <Row>
                                 <Col className="col-3 ps-0 ms-0">
                                     <Card.Text>
-                                        <span>{customer.family}</span>
+                                        <span>{supplier.family}</span>
                                     </Card.Text>
                                 </Col>
                                 <Col dir="ltr" className="col-9">
                                     <Card.Text>
-                                        تاریخ عضویت : <span>{customer.createdAt && persianJs(moment.from(customer.createdAt, 'YYYY/MM/DD').locale('fa').format('DD MMMM YYYY')).englishNumber().toString()}</span>
+                                        تاریخ عضویت : <span>{supplier.createdAt && persianJs(moment.from(supplier.createdAt, 'YYYY/MM/DD').locale('fa').format('DD MMMM YYYY')).englishNumber().toString()}</span>
                                     </Card.Text>
                                 </Col>
                             </Row>
@@ -35,55 +35,31 @@ export const Supplier = ({ customer }) => {
                         </Col>
                         <Col dir="ltr">
                             <Card.Text>
-                                <span>{customer.mobile && persianJs(customer.mobile).englishNumber().toString()}</span>
+                                <span>{supplier.mobile && persianJs(supplier.mobile).englishNumber().toString()}</span>
                             </Card.Text>
                         </Col>
                     </Row>
-                    {/* <Row className="mt-2">
+                     <Row className="mt-2">
                         <Col>
                             <Card.Text>
-                                تاریخ تولد:
+                                نام شرکت:
                             </Card.Text>
                         </Col>
                         <Col dir="ltr">
                             <Card.Text>
-                                <span dir="rtl">{customer.birthday && persianJs(moment.from(customer.birthday, 'YYYY/MM/DD').locale('fa').format('DD MMMM YYYY')).englishNumber().toString()}</span>
-                            </Card.Text>
-                        </Col>
-                    </Row> */}
-                    <Row className="mt-2">
-                        <Col>
-                            <Card.Text>
-                                تعداد سفارش:
-                            </Card.Text>
-                        </Col>
-                        <Col dir="ltr">
-                            <Card.Text>
-                                <span>{customer.order && persianJs(customer.order).englishNumber().toString()}</span>
+                                <span>{supplier.company && persianJs(supplier.company).englishNumber().toString()}</span>
                             </Card.Text>
                         </Col>
                     </Row>
                     <Row className="mt-2">
                         <Col>
                             <Card.Text>
-                                سفارش های موفق:
+                                تعداد خرید:
                             </Card.Text>
                         </Col>
                         <Col dir="ltr">
                             <Card.Text>
-                                <span>{customer.successfullOrders && persianJs(customer.successfullOrders).englishNumber().toString()}</span>
-                            </Card.Text>
-                        </Col>
-                    </Row>
-                    <Row className="mt-2">
-                        <Col>
-                            <Card.Text>
-                                سفارش های ناموفق:
-                            </Card.Text>
-                        </Col>
-                        <Col dir="ltr">
-                            <Card.Text>
-                                <span>{customer.failOrders && persianJs(customer.failOrders).englishNumber().toString()}</span>
+                                <span>{supplier.receipts && persianJs(supplier.receipts).englishNumber().toString()}</span>
                             </Card.Text>
                         </Col>
                     </Row>
@@ -95,19 +71,7 @@ export const Supplier = ({ customer }) => {
                         </Col>
                         <Col dir="ltr">
                             <Card.Text>
-                                <span dir="rtl">{customer.lastBuy && persianJs(moment.from(customer.lastBuy, 'YYYY/MM/DD').locale('fa').format('DD MMMM YYYY')).englishNumber().toString()}</span>
-                            </Card.Text>
-                        </Col>
-                    </Row>
-                    <Row className="mt-2">
-                        <Col>
-                            <Card.Text>
-                                جمع خرید:
-                            </Card.Text>
-                        </Col>
-                        <Col dir="ltr">
-                            <Card.Text>
-                                <span>{customer.total && persianJs(customer.total).englishNumber().toString()}</span>
+                                <span dir="rtl">{supplier.lastBuy && persianJs(moment.from(supplier.lastBuy, 'YYYY/MM/DD').locale('fa').format('DD MMMM YYYY')).englishNumber().toString()}</span>
                             </Card.Text>
                         </Col>
                     </Row>
