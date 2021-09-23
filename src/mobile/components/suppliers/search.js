@@ -5,49 +5,23 @@ import moment from 'jalali-moment';
 import DatePicker from "react-multi-date-picker";
 
 // Actions
-import { customerActions } from '../../../actions/customerActions';
+import { supplierActions } from '../../../actions/supplierActions';
 // Icons
 import closeIcon from '../../assets/images/close.svg'
 
 export const CustomerSearch = (props) => {
 
     const {filters, setFilters} = props
-    let [check1, setCheck1] = useState(false)
-    let [check0, setCheck0] = useState(false)
-    let [check2, setCheck2] = useState(true)
     const dispatch = useDispatch()
 
     const handleChange = (e) => {
         console.log("handlechange", e.target)
-        
-        if (e.target.id === 'active1'){
-            setFilters({ ...filters, orderStatus: 1 })
-            setCheck0(false)
-            setCheck1(true)
-            setCheck2(false)
-        }
-        else if (e.target.id === 'active0'){
-            setFilters({ ...filters, orderStatus: 0 })
-            setCheck0(true)
-            setCheck1(false)
-            setCheck2(false)
-        }
-        else if (e.target.id === 'active2'){
-            setFilters({ ...filters, orderStatus: 2 })
-            setCheck0(false)
-            setCheck1(false)
-            setCheck2(true)
-        }
-        else{
-            setFilters({ ...filters, [e.target.name]: e.target.value })
-        }
-           
-            console.log(filters)
+        setFilters({ ...filters, [e.target.name]: e.target.value })
     }
 
     const formHandler = (e) => {
         e.preventDefault();
-        dispatch(customerActions.getCustomers(filters))
+        dispatch(supplierActions.getSuppliers(filters))
         props.onHide(false)
     }
 
@@ -70,15 +44,15 @@ export const CustomerSearch = (props) => {
                 </Button>
                 <Form onSubmit={formHandler} >
                     <Row>
-                        <Col className="col-6 order-filter-input">
+                        <Col className="col-8 order-filter-input">
                             <Form.Group>
-                                <Form.Label className="pe-2">نام مشتری</Form.Label>
+                                <Form.Label className="pe-2">نام</Form.Label>
                                 <Form.Control style={{ "width": "94%" }} className="order-input h-100" type="text" name="family" value={filters.family} onChange={handleChange} />
                             </Form.Group>
                         </Col>
                     </Row>
                     <Row className="my-2">
-                        <Col className="col-6  order-filter-input">
+                        <Col className="col-8 order-filter-input">
                             <Form.Group>
                                 <Form.Label className="pe-2">موبایل</Form.Label>
                                 <Form.Control style={{ "width": "94%" }} className="order-input h-100" type="number" name="mobile" value={filters.mobile} onChange={handleChange} />
@@ -86,8 +60,8 @@ export const CustomerSearch = (props) => {
                         </Col>
                     </Row>
                     <Row className="my-3 justify-content-between">
-                        <Col className="col-6 order-filter-input">
-                            <Form.Group className="ms-2">
+                        <Col className="col-6 order-filter-input ">
+                            <Form.Group className="ms-0">
                                 <Form.Label className="pe-2">تاریخ عضویت از</Form.Label>
                                 <DatePicker
                                     inputClass="search-input"
@@ -103,7 +77,7 @@ export const CustomerSearch = (props) => {
                             </Form.Group>
                         </Col>
                         <Col className="col-6 order-filter-input">
-                            <Form.Group className="me-2">
+                            <Form.Group className="me-0">
                                 <Form.Label className="pe-2">تا</Form.Label>
                                 <DatePicker
                                     inputClass="search-input"
@@ -121,7 +95,7 @@ export const CustomerSearch = (props) => {
                     </Row>
                     <Row className="my-3 justify-content-between">
                         <Col className="col-6 order-filter-input">
-                            <Form.Group className="ms-2">
+                            <Form.Group className="ms-0">
                                 <Form.Label className="pe-2">تاریخ آخرین خرید از</Form.Label>
                                 <DatePicker
                                     inputClass="search-input"
@@ -137,7 +111,7 @@ export const CustomerSearch = (props) => {
                             </Form.Group>
                         </Col>
                         <Col className="col-6 order-filter-input">
-                            <Form.Group className="me-2">
+                            <Form.Group className="me-0">
                                 <Form.Label className="pe-2">تا</Form.Label>
                                 <DatePicker
                                     inputClass="search-input"
@@ -156,7 +130,7 @@ export const CustomerSearch = (props) => {
                     <Row className="my-3 justify-content-between">
                         <Col className="col-6 order-filter-input">
                             <Form.Group className="ms-2">
-                                <Form.Label className="pe-2">تعداد خرید از</Form.Label>
+                                <Form.Label className="pe-2">تعداد آخرین خرید از</Form.Label>
                                 <Form.Control style={{ "width": "94%" }} className="order-input h-100" type="number" name="orderFrom" min="0" value={filters.orderFrom} onChange={handleChange} />
                             </Form.Group>
                         </Col>
@@ -167,42 +141,8 @@ export const CustomerSearch = (props) => {
                             </Form.Group>
                         </Col>
                     </Row>
-                    <Row className="my-3 justify-content-between">
-                        <Col className="col-6 order-filter-input">
-                            <Form.Group className="ms-2">
-                                <Form.Label className="pe-2">جمع خرید از</Form.Label>
-                                <Form.Control style={{ "width": "94%" }} className="order-input h-100" type="number" name="totalFrom" min="0" value={filters.totalFrom} onChange={handleChange} />
-                            </Form.Group>
-                        </Col>
-                        <Col className="col-6 order-filter-input">
-                            <Form.Group className="me-2">
-                                <Form.Label className="pe-2">تا</Form.Label>
-                                <Form.Control style={{ "width": "94%" }} className="order-input h-100" type="number" name="totalTo" value={filters.totalTo} onChange={handleChange} />
-                            </Form.Group>
-                        </Col>
-                    </Row>
-                    <Row className="my-3 justify-content-center">
-                        <Col className="ms-3 order-filter-input">
-                            <Form.Group className="fw-bold" onChange={handleChange}>
-                                <Form.Check.Input name="activity" id="active1" defaultChecked={check1} inline type="radio" />
-                                <Form.Check.Label htmlFor="active1" inline className="me-1">سفارش موفق</Form.Check.Label>
-                            </Form.Group>
-                        </Col>
-                        <Col className="order-filter-input">
-                            <Form.Group className="fw-bold" onChange={handleChange}>
-                                <Form.Check.Input name="activity" id="active0" defaultChecked={check0} inline type="radio" />
-                                <Form.Check.Label htmlFor="active0" inline className="me-1">سفارش ناموفق</Form.Check.Label>
-                            </Form.Group>
-                        </Col>
-                        <Col className="ms-3 order-filter-input">
-                            <Form.Group className="fw-bold" onChange={handleChange} >
-                                <Form.Check.Input name="activity" id="active2" defaultChecked={check2} inline type="radio" />
-                                <Form.Check.Label htmlFor="active2" inline className="me-1">همه سفارش ها</Form.Check.Label>
-                            </Form.Group>
-                        </Col>
-                    </Row>
-                    <Row className="px-2 mt-4">
-                        <Button className="order-filter-button" type="submit">جست و جو</Button>
+                    <Row className="px-2 mt-3">
+                        <Button className=" receipt--btn--mobile " type="submit">جست و جو</Button>
                     </Row>
                 </Form>
             </Modal.Body>

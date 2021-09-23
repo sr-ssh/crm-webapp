@@ -7,7 +7,7 @@ import { supplierActions, employeeActions } from '../../../actions';
 
 
 // components
-import { Header } from '../base/searchExcelHeader';
+import { Header } from '../base/searchHeader2';
 import { Supplier } from './supplier'
 import { CustomerSearch } from './search';
 
