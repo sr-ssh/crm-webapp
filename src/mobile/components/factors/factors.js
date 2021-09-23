@@ -38,12 +38,13 @@ export const Factors = () => {
             <Header className="noPrint" title="فاکتور ها " modalShow={modalShow} setModalShow={setModalShow} />
             <Container fluid>
                 {
-                    loading &&
-                    <Row>
-                        <Col className="col-3 mt-2 m-auto ">
-                            <Spinner className="m-auto d-block" animation="border" />
-                        </Col>
-                    </Row>
+                    loading ?
+                        <Row>
+                            <Col className="col-3 mt-2 m-auto ">
+                                <Spinner className="m-auto d-block" animation="border" />
+                            </Col>
+                        </Row>
+                        : null
                 }
                 {
                     (receipts.length === 0 && !loading) ? (
