@@ -26,7 +26,7 @@ import './desktop/assets/styles/settingStyle.css'
 import './desktop/assets/styles/notesStyle.css'
 import './desktop/assets/styles/factorStyle.css'
 import './desktop/assets/styles/receiptStyle.css'
-
+import './desktop/assets/styles/stockStyle.css'
 
 
 

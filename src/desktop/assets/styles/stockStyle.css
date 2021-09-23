@@ -1,0 +1,14 @@
+@media (min-width: 992px){
+    
+.order-serach-modal--medium .modal-lg {
+    max-width: 33vw;
+}
+
+}
+
+.order-input--description{
+  border-radius: 10px;
+  color: var(--text-color-two);
+  font-size: 14px;
+  border: none;
+}

@@ -51,9 +51,9 @@ const dashboardRoutes = [
                 layout: "/",
             },
             {
-                path: "/factor/",
+                path: "/stock",
                 name: "مواد خام",
-                layout: "/silo",
+                layout: "/",
             }
         ]
     },
