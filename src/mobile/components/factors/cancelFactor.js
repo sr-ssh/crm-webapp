@@ -2,16 +2,18 @@ import React from 'react'
 import { Modal, Row, Col, Form, Button, Spinner, Alert } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 // Actions
-import { orderActions } from '../../../actions'
+import { receiptActions } from '../../../actions'
 
 // Icons
 import closeIcon from '../../assets/images/close.svg'
 
-export const CancelOrder = (props) => {
+export const CancelFactor = (props) => {
+
+
     const dispatch = useDispatch()
 
     let alert = useSelector(state => state.alert)
-    let editLoading = useSelector(state => state.editOrderStatus.loading)
+    let editLoading = useSelector(state => state.editReceiptStatus.loading)
 
     const editHandler = (e) => {
         setTimeout(() => {
@@ -23,7 +25,7 @@ export const CancelOrder = (props) => {
         e.preventDefault()
         console.log(props.status)
 
-        dispatch(orderActions.editOrderStatus(props.order.id, props.status))
+        dispatch(receiptActions.editReceiptStatus(props.factor.id, props.status))
     }
 
     return (

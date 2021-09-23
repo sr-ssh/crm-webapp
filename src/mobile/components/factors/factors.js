@@ -9,6 +9,7 @@ import { receiptActions } from '../../../actions';
 import { Header } from '../base/serachHeader'
 import { FactorSearch } from './search'
 import { Factor } from './factor'
+import { CancelFactor } from './cancelFactor'
 
 
 export const Factors = () => {
@@ -17,6 +18,8 @@ export const Factors = () => {
 
     const [modalShow, setModalShow] = useState(false)
     const [cancelFactorShow, setCancelFactorShow] = useState(false)
+    const [activeFactor, setActiveOrder] = useState({})
+
 
     let { receipts, loading } = useSelector(state => state.getReceipts)
 
@@ -54,12 +57,12 @@ export const Factors = () => {
 
                 {(receipts.length > 0) ?
                     (receipts.map((factores, index) =>
-                        <Factor key={index} factor={factores} />
+                        <Factor key={index} factor={factores} setCancelFactorShow={setCancelFactorShow} setActiveFactor={setActiveOrder} />
                     ))
                     : null}
 
                 <FactorSearch show={modalShow} onHide={() => setModalShow(false)} />
-                {/* <CancelOrder status="2" show={cancelOrderShow} onHide={() => setCancelOrderShow(false)} order={activeOrder} /> */}
+                <CancelFactor status="1" show={cancelFactorShow} onHide={() => setCancelFactorShow(false)} factor={activeFactor} />
 
 
             </Container>
