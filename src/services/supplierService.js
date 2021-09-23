@@ -8,7 +8,7 @@ let baseRoute = SERVER_URL + '/supplier';
 export const supplierService = {
     getSuppliers,
     getSupplier,
-    getExcelCustomers
+    getExcelSuppliers
 };
 
 
@@ -72,8 +72,8 @@ function getSupplier(mobile) {
 }
 
 
-function getExcelCustomers(filter = {}) {
-    console.log("into customerService (getExcelCustomers)");
+function getExcelSuppliers(filter = {}) {
+    console.log("into customerService (getExcelSuppliers)");
 
     if (!filter.family)
         filter.family = " "
@@ -91,23 +91,18 @@ function getExcelCustomers(filter = {}) {
         filter.orderFrom = "0"
     if (!filter.orderTo)
         filter.orderTo = "0"
-    if (!filter.totalFrom)
-        filter.totalFrom = "0"
-    if (!filter.totalTo)
-        filter.totalTo = "0"
-
 
     let headers = authHeader()
-    let filename = "ExcelCustomers.xlsx";
+    let filename = "ExcelSuppliers.xlsx";
 
 
     return axios({
-        url: `${baseRoute}/customer/excel/${encodeURI(filter.family)}/${encodeURI(filter.mobile)}/${encodeURI(filter.createdAtFrom)}/${encodeURI(filter.createdAtTo)}/${encodeURI(filter.lastBuyFrom)}/${encodeURI(filter.lastBuyTo)}/${encodeURI(filter.orderFrom)}/${encodeURI(filter.orderTo)}/${encodeURI(filter.totalFrom)}/${encodeURI(filter.totalTo)}`, headers,
+        url: `${baseRoute}/excel/${encodeURI(filter.family)}/${encodeURI(filter.mobile)}/${encodeURI(filter.createdAtFrom)}/${encodeURI(filter.createdAtTo)}/${encodeURI(filter.lastBuyFrom)}/${encodeURI(filter.lastBuyTo)}/${encodeURI(filter.orderFrom)}/${encodeURI(filter.orderTo)}`, headers,
         method: `GET`,
         responseType: `blob` // important
 
     }).then(res => {
-        console.log("res.customers >> "); console.log(res);
+        console.log("res.supplier >> "); console.log(res);
         const url = window.URL.createObjectURL(new Blob([res.data]));
         const link = document.createElement('a');
         link.href = url;

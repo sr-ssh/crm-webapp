@@ -5,7 +5,7 @@ import { alertActions } from './alertActions';
 export const supplierActions = {
     getSuppliers,
     getSupplier,
-    getExcelCustomers
+    getExcelSuppliers
 };
 
 function getSuppliers(filter) {
@@ -81,14 +81,14 @@ function getSupplier(mobile) {
 
 
 
-function getExcelCustomers(filter) {
+function getExcelSuppliers(filter) {
     return dispatch => {
         dispatch(request());
 
-        supplierService.getExcelCustomers(filter)
+        supplierService.getExcelSuppliers(filter)
             .then(
                 res => {
-                    console.log("got the excel customers")
+                    console.log("got the excel suppliers")
                     dispatch(success(res));
                 },
                 error => {
@@ -100,7 +100,7 @@ function getExcelCustomers(filter) {
             );
     };
 
-    function request() { console.log("into request"); return { type: supplierConstants.GET_EXCEL_CUSTOMERS_REQUEST } }
-    function success(data) { console.log("into success"); return { type: supplierConstants.GET_EXCEL_CUSTOMERS_SUCCESS, data } }
-    function failure(error) { return { type: supplierConstants.GET_EXCEL_CUSTOMERS_FAILURE, error } }
+    function request() { console.log("into request"); return { type: supplierConstants.GET_EXCEL_SUPPLIERS_REQUEST } }
+    function success(data) { console.log("into success"); return { type: supplierConstants.GET_EXCEL_SUPPLIERS_SUCCESS, data } }
+    function failure(error) { return { type: supplierConstants.GET_EXCEL_SUPPLIERS_FAILURE, error } }
 }

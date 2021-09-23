@@ -7,7 +7,7 @@ import { supplierActions, employeeActions } from '../../../actions';
 
 
 // components
-import { Header } from '../base/searchHeader2';
+import { Header } from '../base/searchExcelHeader2';
 import { Supplier } from './supplier'
 import { CustomerSearch } from './search';
 
@@ -26,7 +26,7 @@ export const Suppliers = () => {
 
     const getExcel = () => {
 
-        dispatch(supplierActions.getExcelCustomers(filters))
+        dispatch(supplierActions.getExcelSuppliers(filters))
     }
 
     useEffect(() => {

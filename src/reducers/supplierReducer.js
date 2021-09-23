@@ -51,21 +51,21 @@ export function getSupplier(state = initialState, action) {
 }
 
 
-export function getExcelCustomers(state = initialState, action) {
+export function getExcelSuppliers(state = initialState, action) {
 
     switch (action.type) {
-        case supplierConstants.GET_EXCEL_CUSTOMERS_REQUEST:
+        case supplierConstants.GET_EXCEL_SUPPLIERS_REQUEST:
             return {
                 ...state,
                 loading: true
             }
-        case supplierConstants.GET_EXCEL_CUSTOMERS_SUCCESS:
+        case supplierConstants.GET_EXCEL_SUPPLIERS_SUCCESS:
             return {
                 ...state,
                 data: action.data,
                 loading: false
             }
-        case supplierConstants.GET_EXCEL_CUSTOMERS_FAILURE:
+        case supplierConstants.GET_EXCEL_SUPPLIERS_FAILURE:
             return {
                 ...state,
                 error: action.error,

@@ -49,10 +49,6 @@ export const Header = (props) => {
     let userType = JSON.parse(localStorage.getItem('type'));
 
 
-
-
-
-
     return (
         <>
             <AppBar className={classes.appBar}>

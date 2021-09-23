@@ -28,7 +28,7 @@ export const Suppliers = () => {
 
     const getExcel = () => {
 
-        dispatch(supplierActions.getExcelCustomers(filters))
+        dispatch(supplierActions.getExcelSuppliers(filters))
     }
 
     useEffect(() => {
