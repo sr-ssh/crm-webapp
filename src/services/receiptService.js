@@ -6,7 +6,7 @@ import { handleResponse, handleError } from '../helpers'
 let baseRoute = SERVER_URL + '/receipt';
 
 export const recieptService = {
-    getOrders,
+    getReceipts,
     addReceipt,
     editOrderStatus,
     getOrderSms,
@@ -21,12 +21,12 @@ export const recieptService = {
     confirmShop
 };
 
-function getOrders(filter = {}) {
-    console.log("into orderService");
-    if (filter.customerName === "")
-        filter.customerName = " "
-    if (filter.customerMobile === "")
-        filter.customerMobile = "0"
+function getReceipts(filter = {}) {
+    console.log("into receiptService");
+    if (filter.supplierName === "")
+        filter.supplierName = " "
+    if (filter.supplierMobile === "")
+        filter.supplierMobile = "0"
     if (filter.startDate === "")
         filter.startDate = "1900-01-01T05:42:13.845Z"
     if (filter.endDate === "")
@@ -35,9 +35,8 @@ function getOrders(filter = {}) {
         filter.status = " "
 
     let {
-        status = ' ',
-        customerName = ' ',
-        customerMobile = '0',
+        supplierName = ' ',
+        supplierMobile = '0',
         startDate = "1900-01-01T05:42:13.845Z",
         endDate = "1900-01-01T05:42:13.845Z"
     } = filter
@@ -46,7 +45,7 @@ function getOrders(filter = {}) {
         headers: authHeader()
     };
     return axios
-        .get(`${baseRoute}/order/v1/${encodeURI(status)}/${encodeURI(customerName)}/${customerMobile}/${startDate}/${endDate}`, requestOptions)
+        .get(`${baseRoute}/${encodeURI(supplierName)}/${supplierMobile}/${startDate}/${endDate}`, requestOptions)
         .then(res => {
             console.log("res.user >> "); console.log(res.data.data);
             return res.data

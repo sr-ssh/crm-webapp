@@ -1,5 +1,4 @@
 import { orderConstants } from '../constants'
-import { history } from '../helpers';
 import { orderService } from '../services'
 import { alertActions } from './alertActions';
 

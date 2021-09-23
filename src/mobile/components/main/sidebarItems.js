@@ -91,7 +91,7 @@ export const SidebarItems = () => {
                     <Link to="/factor/add">ثبت فاکتورها</Link>
                 </Col>
                 <Col xs={10} sm={10} md={10} lg={10} className="py-3 mx-3 fw-bold sidebarItem">
-                    <Link to="/discounts">فاکتورها</Link>
+                    <Link to="/factors">فاکتورها</Link>
                 </Col>
                 <Col xs={10} sm={10} md={10} lg={10} className="py-3 mx-3 fw-bold sidebarItem">
                     <Link to="/discounts">تامین کننده ها</Link>

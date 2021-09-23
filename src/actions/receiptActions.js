@@ -3,7 +3,7 @@ import { recieptService } from '../services'
 import { alertActions } from './alertActions';
 
 export const receiptActions = {
-    getOrders,
+    getReceipts,
     addReceipt,
     editOrderStatus,
     editOrderPrice,
@@ -19,17 +19,23 @@ export const receiptActions = {
     confirmShop
 }
 
-function getOrders(filter) {
+function getReceipts(filter) {
     return dispatch => {
-        dispatch(request(receiptConstants.GET_ORDERS_REQUEST))
-        recieptService.getOrders(filter)
+        dispatch(request(receiptConstants.GET_RECEIPTS_REQUEST))
+        recieptService.getReceipts(filter)
             .then(
                 res => {
-                    if (res === undefined)
+                    if (res === undefined) {
                         dispatch(alertActions.error('ارتباط با سرور برقرار نیست'));
+                        dispatch(failure(receiptConstants.GET_RECEIPTS_FAILURE, 'ارتباط با سرور برقرار نیست'));
+                    }
                     else if (res.success) {
-                        console.log("orders received")
-                        dispatch(success(receiptConstants.GET_ORDERS_SUCCESS, res.data));
+                        console.log("Receipts received")
+                        dispatch(success(receiptConstants.GET_RECEIPTS_SUCCESS, res.data));
+                    } else if (res.success === false) {
+                        console.log("error >>>> " + res)
+                        dispatch(failure(receiptConstants.GET_RECEIPTS_FAILURE, res.message));
+                        dispatch(alertActions.error(res.message));
                     }
 
                     setTimeout(() => {
@@ -37,7 +43,7 @@ function getOrders(filter) {
                     }, 1500);
                 },
                 error => {
-                    dispatch(failure(receiptConstants.GET_ORDERS_FAILURE, error.toString()));
+                    dispatch(failure(receiptConstants.GET_RECEIPTS_FAILURE, error.toString()));
                     console.log("occure error");
                     console.log(error.toString());
                     dispatch(alertActions.error(error.toString()));

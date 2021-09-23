@@ -5,24 +5,23 @@ import { Modal, Button, Row, Col, Form } from 'react-bootstrap'
 import DatePicker from "react-multi-date-picker";
 import moment from 'jalali-moment';
 // Actions
-import { orderActions } from '../../../actions';
+// import { orderActions } from '../../../actions';
 // Icons
 import closeIcon from '../../assets/images/close.svg'
 
-export const OrderSearch = (props) => {
+export const FactorSearch = (props) => {
 
     const [filters, setFilters] = useState({ status: '' })
     const dispatch = useDispatch()
 
     const handleChange = (e) => {
         e.preventDefault()
-
         setFilters({ ...filters, [e.target.name]: e.target.value })
     }
 
     const formHandler = (e) => {
         e.preventDefault();
-        dispatch(orderActions.getOrders(filters))
+        // dispatch(orderActions.getOrders(filters))
         props.onHide(false)
     }
 
@@ -46,7 +45,7 @@ export const OrderSearch = (props) => {
                     <Row>
                         <Col className="col-6 order-filter-input">
                             <Form.Group>
-                                <Form.Label className="pe-2">نام مشتری</Form.Label>
+                                <Form.Label className="pe-2">نام تامین کننده</Form.Label>
                                 <Form.Control style={{ "width": "94%" }} className="order-input" type="text" name="customerName" value={filters.customerName} onChange={handleChange} />
                             </Form.Group>
                         </Col>
@@ -62,7 +61,7 @@ export const OrderSearch = (props) => {
                     <Row className="my-3 justify-content-between">
                         <Col className="col-6 order-filter-input">
                             <Form.Group className="ms-2">
-                                <Form.Label className="pe-2">تاریخ سفارش از</Form.Label>
+                                <Form.Label className="pe-2">تاریخ فاکتور از</Form.Label>
                                 <DatePicker
                                     inputClass="search-input"
                                     className="rmdp-mobile"

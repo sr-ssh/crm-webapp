@@ -202,7 +202,7 @@
 }
 
 .border-top-blue {
-  border-top: 1px solid var(--button-background);
+  border-top: 2px solid var(--dark-blue);
   margin-right: 0vw;
 }
 .border-top-blue .col-5 {

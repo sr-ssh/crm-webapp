@@ -25,6 +25,9 @@ import { Applications } from './mobile/components/employee/applications';
 import { Account } from './mobile/components/acounts/account';
 import { SaleOpprotunity } from './mobile/components/order/saleOpprotunity';
 import { Notes } from './mobile/components/order/notes'
+import { OrderDetails } from './mobile/components/order/orderDetails';
+import { AddFactor } from './mobile/components/factors/addFactor';
+import { Factors } from './mobile/components/factors/factors';
 
 // Styles 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -44,9 +47,11 @@ import './mobile/assets/styles/settingStyle.css';
 import './mobile/assets/styles/saleOpprotunityStyle.css';
 import './mobile/assets/styles/notesStyle.css';
 import './mobile/assets/styles/orderDetails.css';
+import './mobile/assets/styles/factorStyle.css';
 import './mobile/assets/styles/receiptStyle.css';
-import { OrderDetails } from './mobile/components/order/orderDetails';
-import { AddFactor } from './mobile/components/factors/addFactor';
+
+
+
 
 
 function AppMobile() {
@@ -73,6 +78,8 @@ function AppMobile() {
         <PrivateRoute path="/saleopprotunity" component={SaleOpprotunity}></PrivateRoute>
         <Route exact path="/order/notes" component={Notes}></Route>
         <PrivateRoute path="/factor/add" component={AddFactor} ></PrivateRoute>
+        <PrivateRoute path="/factors" component={Factors} ></PrivateRoute>
+
 
         <Redirect from="*" to="/" />
       </Switch>
