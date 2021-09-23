@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const Factor = ({ factor, deliveryShow, setDeliveryShow, cancelOrderShow, setCancelOrderShow, recordOrderShow = '', setRecordOrderShow = {}, setActiveOrder, setOrder, status }) => {
 
-
+    // debugger;
     const classes = useStyles();
     const dispatch = useDispatch()
     let [print, setPrint] = useState(false)
@@ -72,10 +72,10 @@ export const Factor = ({ factor, deliveryShow, setDeliveryShow, cancelOrderShow,
     const [showNotesModal, setShowNotesModal] = useState(false)
     const [open, setOpen] = useState(false);
     const [isShareLinkOrder, setIsShareLinkOrder] = useState(false)
-    const [isPrivate, setIsPrivate] = useState(factor.note.isPrivate);
+    const [isPrivate, setIsPrivate] = useState(factor?.note?.isPrivate);
 
     let editStatusNotesLoading = useSelector(state => state.editStatusNotes)
-
+    console.log(isPrivate)
     const [input, setInput] = useState('')
     const [name, setName] = useState('')
     const [factorId, setFactorId] = useState("")
