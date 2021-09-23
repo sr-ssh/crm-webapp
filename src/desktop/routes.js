@@ -29,7 +29,35 @@ const dashboardRoutes = [
         path: "/products",
         name: "محصول ها",
         layout: "/",
-    }, {
+    },
+    {
+        layout: "/factor/add",
+        path: "/factor/add",
+        name: "لیست خرید",
+        children: [
+            {
+                path: "/factor/add",
+                name: "ثبت فاکتور",
+                layout: "/",
+            },
+            {
+                path: "/factor",
+                name: "فاکتور ها",
+                layout: "/",
+            },
+            {
+                path: "/factor/add",
+                name: "تامین کننده ها",
+                layout: "/",
+            },
+            {
+                path: "/factor/",
+                name: "مواد خام",
+                layout: "/silo",
+            }
+        ]
+    },
+    {
         layout: "/finance",
         path: "/finance",
         name: "مالی",
@@ -65,23 +93,7 @@ const dashboardRoutes = [
                 layout: "/employees",
             }]
     },
-    {
-        layout: "/factor/add",
-        path: "/factor/add",
-        name: "فاکتور ها",
-        children: [
-            {
-                path: "/factor/add",
-                name: "ثبت فاکتور",
-                layout: "/",
-            },
-            {
-                path: "/factor/",
-                name: "مواد خام",
-                layout: "/silo",
-            }
-        ]
-    },
+
 
     // {
     //     path: "/employee/add",
