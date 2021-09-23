@@ -30,6 +30,7 @@ import { Applications } from '../employee/applications';
 import { Account } from '../acounts/account';
 import { Setting } from '../setting/setting'
 import { AddFactor } from '../factor/addFactor';
+import { Suppliers } from '../suppliers/suppliers';
 
 
 
@@ -91,7 +92,7 @@ export const Dashboard = (props) => {
                         <PrivateRoute path="/setting" component={Setting} ></PrivateRoute>
                         <PrivateRoute path="/factor/add" component={AddFactor} ></PrivateRoute>
                         <PrivateRoute path="/needs" component={AddOrder} ></PrivateRoute>
-                        
+                        <PrivateRoute path="/suppliers" component={Suppliers} ></PrivateRoute>                        
                         <Redirect from="*" to="/" />
                     </Switch>
                 </div>
