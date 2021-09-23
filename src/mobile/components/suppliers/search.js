@@ -60,7 +60,7 @@ export const CustomerSearch = (props) => {
                         </Col>
                     </Row>
                     <Row className="my-3 justify-content-between">
-                        <Col className="col-6 order-filter-input ">
+                        <Col className="col-6 order-filter-input ps-0">
                             <Form.Group className="ms-0">
                                 <Form.Label className="pe-2">تاریخ عضویت از</Form.Label>
                                 <DatePicker
@@ -76,7 +76,7 @@ export const CustomerSearch = (props) => {
                                 />
                             </Form.Group>
                         </Col>
-                        <Col className="col-6 order-filter-input">
+                        <Col className="col-6 order-filter-input pe-0">
                             <Form.Group className="me-0">
                                 <Form.Label className="pe-2">تا</Form.Label>
                                 <DatePicker
@@ -94,7 +94,21 @@ export const CustomerSearch = (props) => {
                         </Col>
                     </Row>
                     <Row className="my-3 justify-content-between">
-                        <Col className="col-6 order-filter-input">
+                        <Col className="col-6 order-filter-input ps-0">
+                            <Form.Group className="ms-2">
+                                <Form.Label className="pe-2">تعداد خرید از</Form.Label>
+                                <Form.Control style={{ "width": "94%" }} className="order-input h-100" type="number" name="orderFrom" min="0" value={filters.orderFrom} onChange={handleChange} />
+                            </Form.Group>
+                        </Col>
+                        <Col className="col-6 order-filter-input pe-0">
+                            <Form.Group className="me-0">
+                                <Form.Label className="pe-2">تا</Form.Label>
+                                <Form.Control style={{ "width": "94%" }} className="order-input h-100" type="number" name="orderTo" value={filters.orderTo} onChange={handleChange} />
+                            </Form.Group>
+                        </Col>
+                    </Row>
+                    <Row className="my-3 justify-content-between">
+                        <Col className="col-6 order-filter-input ps-0">
                             <Form.Group className="ms-0">
                                 <Form.Label className="pe-2">تاریخ آخرین خرید از</Form.Label>
                                 <DatePicker
@@ -110,7 +124,7 @@ export const CustomerSearch = (props) => {
                                 />
                             </Form.Group>
                         </Col>
-                        <Col className="col-6 order-filter-input">
+                        <Col className="col-6 order-filter-input pe-0">
                             <Form.Group className="me-0">
                                 <Form.Label className="pe-2">تا</Form.Label>
                                 <DatePicker
@@ -124,20 +138,6 @@ export const CustomerSearch = (props) => {
                                     animation
                                     onChange={value => submitCalendar(value, 'lastBuyTo')}
                                 />
-                            </Form.Group>
-                        </Col>
-                    </Row>
-                    <Row className="my-3 justify-content-between">
-                        <Col className="col-6 order-filter-input">
-                            <Form.Group className="ms-2">
-                                <Form.Label className="pe-2">تعداد آخرین خرید از</Form.Label>
-                                <Form.Control style={{ "width": "94%" }} className="order-input h-100" type="number" name="orderFrom" min="0" value={filters.orderFrom} onChange={handleChange} />
-                            </Form.Group>
-                        </Col>
-                        <Col className="col-6 order-filter-input">
-                            <Form.Group className="me-2">
-                                <Form.Label className="pe-2">تا</Form.Label>
-                                <Form.Control style={{ "width": "94%" }} className="order-input h-100" type="number" name="orderTo" value={filters.orderTo} onChange={handleChange} />
                             </Form.Group>
                         </Col>
                     </Row>
