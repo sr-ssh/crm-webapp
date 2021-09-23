@@ -30,8 +30,7 @@ export function isPermitted(route) {
     } else if (route === "/setting") {
         return true
     }
-    else if (['/', '/register', '/dashboard', '/account', '/factor/add', '/factors', '/suppliers'].includes(route))
+    else if (['/', '/register', '/dashboard', '/account', '/factor/add', '/factors', '/factor', '/suppliers'].includes(route))
         return true;
-
     return false;
 }

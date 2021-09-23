@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, setCancelOrderShow, recordOrderShow = '', setRecordOrderShow = {}, setActiveOrder, setOrder, status }) => {
+export const Factor = ({ factor, deliveryShow, setDeliveryShow, cancelOrderShow, setCancelOrderShow, recordOrderShow = '', setRecordOrderShow = {}, setActiveOrder, setOrder, status }) => {
 
 
     const classes = useStyles();
@@ -72,34 +72,34 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
     const [showNotesModal, setShowNotesModal] = useState(false)
     const [open, setOpen] = useState(false);
     const [isShareLinkOrder, setIsShareLinkOrder] = useState(false)
-    const [isPrivate, setIsPrivate] = useState(order.notes.isPrivate);
+    const [isPrivate, setIsPrivate] = useState(factor.note.isPrivate);
 
     let editStatusNotesLoading = useSelector(state => state.editStatusNotes)
 
     const [input, setInput] = useState('')
     const [name, setName] = useState('')
-    const [orderId, setOrderId] = useState("")
+    const [factorId, setFactorId] = useState("")
     const [productId, setProductId] = useState("")
     const [editProductOrder, setEditProductOrder] = useState("");
 
-    const edit = (value, name, orderId, productId) => {
+    const edit = (value, name, factorId, productId) => {
         setInput(value)
         setName(name)
         setProductId(productId)
-        setOrderId(orderId)
+        setFactorId(factorId)
         setEditModalShow(true);
     }
-    const cancel = (orderId, productId) => {
+    const cancel = (factorId, productId) => {
         setProductId(productId)
-        setOrderId(orderId)
+        setFactorId(factorId)
         setCancelModalShow(true);
     }
 
 
-    const getTotalPrice = (order) => {
+    const getTotalPrice = (factor) => {
         let total = 0
-        order.map(item => {
-            total += item.sellingPrice * item.quantity
+        factor.map(item => {
+            total += item.price * item.quantity
         })
         return total
     }
@@ -112,13 +112,14 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
     };
 
     let toggleHanler = (e) => {
-        if (e.target.checked === true) {
-            dispatch(notesActions.editStatusNotes(order.id, '1'))
-        }
-        else if (e.target.checked === false) {
-            dispatch(notesActions.editStatusNotes(order.id, '0'))
-        }
-        setTimeout(() => { setOrderId("") }, 1000)
+        // if (e.target.checked === true) {
+        //     dispatch(notesActions.editStatusNotes(order.id, '1'))
+        // }
+        // else if (e.target.checked === false) {
+        //     dispatch(notesActions.editStatusNotes(order.id, '0'))
+        // }
+        // setTimeout(() => { setFactorId("") }, 1000)
+        console.log("log")
     }
 
     const printWindow = async () => {
@@ -127,86 +128,66 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
         setPrint(false)
     }
 
-    // 
+    let getDate = (date) => {
+        const now = new Date(date);
+        const option = {
+            month: 'long',
+        }
+        const month = new Intl.DateTimeFormat("fa-IR", option).format(now)
+        const day = moment.from(date, 'DD').locale('fa').format('DD')
+        const year = moment.from(date, 'YYYY').locale('fa').format('YYYY')
+
+
+        return `${persianJs(day).englishNumber().toString()}  ${month}  ${persianJs(year).englishNumber().toString()}`
+    }
     return (
 
         <Card className={`m-auto mt-3 bg-light productCard border-0 lh-lg ${!print ? 'noPrint' : ''} mx-1 ${classes.productCard}`} >
-            <Row className="mt-3 noPrint">
-                <Col className="d-flex justify-content-center ">
-                    <Button className={`${order.status == 2 ? "w-50" : "w-75"} btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2`} type="button" onClick={() => { dispatch(orderActions.getShareLinkOrder(order.id)); setIsShareLinkOrder(true) }}>
-                        <img src={pishFactorIcon} height="25px" alt="edit-order-icon" className="col-3 py-1" />
-                        <span>پیش فاکتور</span>
+            <Row className="mx-2 mt-3 noPrint d-flex justify-content-between">
+
+
+                <Col className="d-flex justify-content-start col-2">
+                    <Button className="w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setEditOrder(true); setEditProductOrder(factor) }}>
+                        <img src={editeOrderIcon} height="25px" alt="edit-order-icon" className="col-3 py-1" />
+                        <span className="noPrint">ویرایش</span>
                     </Button>
                 </Col>
-                {
-                    order.status !== 2 &&
-                    <Col className="d-flex justify-content-center">
 
-                        <Button className="w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setEditOrder(true); setEditProductOrder(order) }}>
-                            <img src={editeOrderIcon} height="25px" alt="edit-order-icon" className="col-3 py-1" />
-                            <span>ویرایش</span>
-                        </Button>
-                    </Col>
-                }
-
-                <Col className="d-flex justify-content-center">
-                    <Button className={`${order.status == 2 ? "w-50" : "w-75"} btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2`} type="button" onClick={() => printWindow()}>
+                <Col className="d-flex justify-content-cent col-2">
+                    <Button className={`w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2`} type="button" onClick={() => printWindow()}>
                         <img src={printIcon} height="25px" alt="submit-icon" className="col-3 py-1" />
-                        <span>چاپ</span>
+                        <span className="noPrint">چاپ</span>
                     </Button>
                 </Col>
-                <Col className="d-flex justify-content-center">
-                    <Button className={`${order.status == 2 ? "w-50" : "w-75"} btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2`} type="button" onClick={() => { setDeliveryShow(true); setOrder(order.id); }}>
-                        <img src={deliveryIcon} height="25px" alt="delivery-icon" className="col-3" />
-                        <span>پیک</span>
+                <Col className="d-flex justify-content-end col-2">
+                    <Button className="w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setCancelOrderShow(true); setActiveOrder(factor) }}>
+                        <img src={cancelIcon} height="25px" alt="print-icon" className="col-3" />
+                        <span className="noPrint">لغو فاکتور</span>
                     </Button>
                 </Col>
-                {order.status === 3 &&
 
-                    <Col className="d-flex justify-content-center">
-                        <Button className="w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setRecordOrderShow(true); setActiveOrder(order) }}>
-                            <img src={submitIcon} height="25px" alt="print-icon" className="col-3" />
-                            <span>ثبت</span>
-                        </Button>
-                    </Col>
-
-                }
-                {order.status !== 3 && order.status !== 2 &&
-                    <Col className="d-flex justify-content-center">
-                        <Button className="w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setCancelOrderShow(true); setActiveOrder(order) }}>
-                            <img src={cancelIcon} height="25px" alt="print-icon" className="col-3" />
-                            <span>لغو سفارش</span>
-                        </Button>
-                    </Col>
-                }
-                {order.status === 3 &&
-                    <Col className="d-flex justify-content-center">
-                        <Button className="w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setCancelOrderShow(true); setActiveOrder(order) }}>
-                            <img src={cancelIcon} height="25px" alt="print-icon" className="col-3" />
-                            <span>سفارش ناموفق</span>
-                        </Button>
-                    </Col>
-                }
             </Row>
             <Card.Body className="pb-0 ps-1 rounded-3 text-gray">
                 <Row className="p-0 ps-2 m-0 ">
                     <Card className="background-blue border-0 customer-round">
                         <Card.Body className="pe-0 ps-0 ">
-                            <Row className="mx-2">
+                            <Row className="mx-2 d-flex justify-content-around">
+
+
                                 <Col className="p-0 d-flex justify-content-start">
-                                    <Card.Text>
-                                        تاریخ : <span className="me-2">{order.createdAt && persianJs(moment.from(order.createdAt, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD')).englishNumber().toString()}</span>
-                                    </Card.Text>
+                                    تایید خرید :
+                                    {/* <span className="me-2">{order.createdAt && persianJs(moment.from(order.createdAt, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD')).englishNumber().toString()}</span> */}
                                 </Col>
-                                <Col className="p-0 d-flex justify-content-start" >
-                                    <Card.Text className="text-center">
-                                        ساعت : <span className="me-2">{order.createdAt && persianJs(moment.from(order.createdAt, 'HH:mm').locale('fa').format('HH:mm')).englishNumber().toString()}</span>
-                                    </Card.Text>
+                                <Col className="p-0 d-flex justify-content-start">
+
+                                    تاریخ و ساعت
+                                    <span className="me-2">{getDate(factor.createdAt)}</span>
+
+                                    <span className="me-2">{factor.createdAt && persianJs(moment.from(factor.createdAt, 'HH:mm').locale('fa').format('HH:mm')).englishNumber().toString()}</span>
                                 </Col>
-                                <Col className="p-0 d-flex justify-content-start flex-grow-1-5" >
-                                    <Card.Text>
-                                        نام مشتری: <span className="me-2">{order.customer.family}</span>
-                                    </Card.Text>
+                                <Col className="p-0 d-flex justify-content-center" >
+                                    نام :
+                                    <span className="me-2">{factor.supplier.family}</span>
                                 </Col>
                                 {/* <Col className="col-5">
                                     <Card.Text className="text-center">
@@ -225,23 +206,17 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                                     </Card.Text>
                                 </Col> */}
 
-                                <Col className="p-0 d-flex justify-content-start" >
-                                    <Card.Text>
-                                        موبایل: <span className="me-2">{order.customer.mobile && persianJs(order.customer.mobile).englishNumber().toString()}</span>
-                                    </Card.Text>
-                                </Col>
-
-                                <Col className="p-0 d-flex justify-content-start" >
-                                    <Card.Text>
-                                        اتمام آماده سازی: <span className="me-2">{order.readyTime && persianJs(moment.from(order.readyTime, 'YYYY/MM/DD HH:mm').locale('fa').format('HH:mm DD MMMM YYYY')).englishNumber().toString()}</span>
-                                    </Card.Text>
+                                <Col className="p-0 d-flex justify-content-center" >
+                                    موبایل:
+                                    <span className="me-2">{factor.supplier.mobile && persianJs(factor.supplier.mobile).englishNumber().toString()}</span>
                                 </Col>
                             </Row>
                             <Row className="flex-nowrap mt-2 mx-2">
                                 <Col className="p-0 d-flex justify-content-start" >
-                                    <Card.Text>
-                                        آدرس: <span className="me-2">{order.address && persianJs(order.address).englishNumber().toString()}</span>
-                                    </Card.Text>
+
+                                    آدرس:
+                                    <span className="me-2">{factor.address && persianJs(factor.address).englishNumber().toString()}</span>
+
                                 </Col>
                             </Row>
                         </Card.Body>
@@ -262,8 +237,8 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                             <tbody>
                                 {
 
-                                    order.products.length
-                                        ? order.products.map(item => {
+                                    factor.stock.length
+                                        ? factor.stock.map(item => {
                                             return (
 
                                                 <tr key={item.name}>
@@ -271,7 +246,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                                                     <td>
                                                         <Row>
                                                             <Col className="ps-0">
-                                                                {(item.quantity * item.sellingPrice) && persianJs(item.quantity * item.sellingPrice).englishNumber().toString()}
+                                                                {(item.quantity * item.price) && persianJs(item.quantity * item.price).englishNumber().toString()}
                                                             </Col>
                                                         </Row>
                                                     </td>
@@ -296,7 +271,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                                 }
                                 <tr className="border-top-blue">
                                     <td>جمع کل:</td>
-                                    <td className="fs-6">{getTotalPrice(order.products) && persianJs(getTotalPrice(order.products)).englishNumber().toString()} </td>
+                                    <td className="fs-6">{getTotalPrice(factor.stock) && persianJs(getTotalPrice(factor.stock)).englishNumber().toString()} </td>
                                     <td></td>
                                     <td></td>
                                 </tr>
@@ -305,13 +280,13 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                         </Table>
                     </Col>
                     <Col className="mb-3 noPrint">
-                        <div className="notes--page--dektop">
+                        <div className="notes--factor--page--dektop">
                             <Container fluid className="m-0 p-0" style={{ position: "sticky", top: "0", zIndex: "2" }} >
                                 <Row className="m-0 p-0 header--notes--desktop d-flex flex-row justify-content-between ">
                                     <Col className="m-0 p-0">
                                         <Form.Group className="fw-bold mx-4" onChange={() => setIsPrivate(!isPrivate)} >
                                             <label for="r1">
-                                                {(editStatusNotesLoading.loading && orderId == order.id) ?
+                                                {(editStatusNotesLoading.loading && factorId == factor.id) ?
                                                     <CircularProgress color="secondary" size={24} />
                                                     :
                                                     <>
@@ -319,56 +294,43 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                                                             id="r1" name="r-group"
                                                             className="btn-toggle-status-notes--desktop"
                                                             checked={isPrivate}
-                                                            onChange={(e) => { toggleHanler(e); setOrderId(order.id) }} />
+                                                            onChange={(e) => { toggleHanler(e); setFactorId(factor.id) }} />
                                                     </>
                                                 }
                                                 <span className="text-light me-3">خصوصی</span>
                                             </label>
                                         </Form.Group>
                                     </Col>
-                                    <Col className="m-0 p-0 d-flex justify-content-end">
-                                        <Button className="m-0 p-0 py-1 btn-outline-dark btn--add--note--desktop border-0 noPrint ms-2 " type="button" onClick={() => { setShowNotesModal(true); setActiveOrder(order) }}>
-                                            <img src={addNoteIcon} height="25px" alt="add-note-icon" className="mx-2" />
-                                            <span className="ms-2">اضافه یادداشت</span>
-                                        </Button>
-                                    </Col>
-
                                 </Row>
                             </Container>
-                            <Container style={{ height: "195px", overflow: "hidden" }}>
+                            <Container style={{ height: "calc(100% - 50px)", overflow: "auto" }}>
 
-                                <Row>
-                                    <Col className="m-0 p-0" >
-                                        {(order.notes.Notes != undefined) ?
-                                            (order.notes.Notes?.map((note) => <Note note={note} />))
-                                            :
-                                            <span> هنوز یادداشتی برای این سفارش ثبت نشده است</span>
-                                        }
-                                    </Col>
+                                <Row style={{ height: "100%", }}>
+                                    {(factor.note?.Note != undefined) ?
+
+                                        <Note note={factor.note?.Note} />
+                                        :
+                                        <Col className="m-0 p-0 d-flex justify-content-center align-items-center" >
+                                            <span> هنوز یادداشتی برای این فاکتور ثبت نشده است</span>
+                                        </Col>
+                                    }
                                 </Row>
 
-                            </Container>
-                            <Container fluid className="m-0 p-0 w-100 mt-1" >
-                                <Row className="m-0 p-0 ">
-                                    <Col className="m-0 p-0 d-flex justify-content-end ms-4 text--more--note--desktop" >
-                                        <span onClick={() => setOpen(true)}>بیشتر ...</span>
-                                    </Col>
-                                </Row>
                             </Container>
                         </div >
                     </Col>
                 </Row>
             </Card.Body>
-            <EditField show={editModalShow} onHide={() => { setEditModalShow(false); setInput(''); }} input={input} name={name} productId={productId} orderId={orderId} setInput={setInput} />
-            <CancelProductOrder show={cancelModalShow} onHide={() => { setCancelModalShow(false) }} productId={productId} orderId={orderId} />
+            {/* <EditField show={editModalShow} onHide={() => { setEditModalShow(false); setInput(''); }} input={input} name={name} productId={productId} factorId={factorId} setInput={setInput} />
+            <CancelProductOrder show={cancelModalShow} onHide={() => { setCancelModalShow(false) }} productId={productId} factorId={factorId} />
             <EditeProductOrder show={editOrder} onHide={() => { setEditOrder(false) }} order={editProductOrder} status={status} />
-            <AddNotesModal show={showNotesModal} onHide={() => { setShowNotesModal(false) }} permission={true} orderId={order.id} status={status} />
+            <AddNotesModal show={showNotesModal} onHide={() => { setShowNotesModal(false) }} permission={true} factorId={factor.id} status={status} />
             <Dialog onClose={handleClose} className="notes-round" aria-labelledby="notes-dialog" open={open} classes={{ paper: classes.paper }} >
                 <Notes order={order} open={open} setOpen={setOpen} setShowNotesModal={setShowNotesModal} setActiveOrder={() => setActiveOrder(order)} />
             </Dialog>
             <Dialog classes={{ paper: classes.paper }} onClose={() => setIsShareLinkOrder(false)} aria-labelledby="shareLink-dialog" open={isShareLinkOrder}>
-                <ShareLinkOrder isShareLinkOrder={isShareLinkOrder} setIsShareLinkOrder={setIsShareLinkOrder} customerMobile={order.customer.mobile} />
-            </Dialog>
+                <ShareLinkOrder isShareLinkOrder={isShareLinkOrder} setIsShareLinkOrder={setIsShareLinkOrder} customerMobile={factor.customer.mobile} />
+            </Dialog> */}
 
         </Card >
     )

@@ -31,8 +31,8 @@ const dashboardRoutes = [
         layout: "/",
     },
     {
-        layout: "/factor/add",
-        path: "/factor/add",
+        layout: "/factor",
+        path: "/factor",
         name: "لیست خرید",
         children: [
             {
