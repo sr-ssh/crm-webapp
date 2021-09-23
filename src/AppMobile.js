@@ -28,6 +28,8 @@ import { Notes } from './mobile/components/order/notes'
 import { OrderDetails } from './mobile/components/order/orderDetails';
 import { AddFactor } from './mobile/components/factors/addFactor';
 import { Factors } from './mobile/components/factors/factors';
+import { NoteFactor } from './mobile/components/factors/noteFactor'
+
 
 // Styles 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -78,6 +80,7 @@ function AppMobile() {
         <PrivateRoute path="/account" component={Account} ></PrivateRoute>
         <PrivateRoute path="/saleopprotunity" component={SaleOpprotunity}></PrivateRoute>
         <Route exact path="/order/notes" component={Notes}></Route>
+        <Route exact path="/factor/note" component={NoteFactor}></Route>
         <PrivateRoute path="/factor/add" component={AddFactor} ></PrivateRoute>
         <PrivateRoute path="/factors" component={Factors} ></PrivateRoute>
         <PrivateRoute path="/suppliers" component={Suppliers} ></PrivateRoute>

@@ -76,8 +76,8 @@ export const Factor = ({ factor, setActiveFactor, setCancelFactorShow, cancelOrd
     }
     let notesHandler = () => {
         history.push({
-            pathname: '/order/notes',
-            state: { id: factor.id }
+            pathname: '/factor/note',
+            state: { factor }
         })
     }
 
@@ -105,6 +105,7 @@ export const Factor = ({ factor, setActiveFactor, setCancelFactorShow, cancelOrd
     return (
 
         <Card className={`m-auto mt-3 bg-light factorCard border-0 lh-lg ${!print ? 'noPrint' : ''}`} >
+
             <Card.Body className="pb-0 ps-1 rounded-3 text-gray">
                 <Row className="p-0 ps-2 m-0 ">
                     <Card className="factor--blue--section border-0">
