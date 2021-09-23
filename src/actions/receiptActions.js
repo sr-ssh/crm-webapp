@@ -5,7 +5,7 @@ import { alertActions } from './alertActions';
 export const receiptActions = {
     getReceipts,
     addReceipt,
-    editOrderStatus,
+    editReceiptStatus,
     editOrderPrice,
     editOrderQuantity,
     getSms,
@@ -53,10 +53,10 @@ function getReceipts(filter) {
 
 }
 
-function editOrderStatus(orderId, status) {
+function editReceiptStatus(receiptId, status) {
     return dispatch => {
         dispatch(request())
-        recieptService.editOrderStatus(orderId, status)
+        recieptService.editReceiptStatus(receiptId, status)
             .then(
                 res => {
                     if (res === undefined) {
@@ -64,9 +64,13 @@ function editOrderStatus(orderId, status) {
                         dispatch(failure('ارتباط با سرور برقرار نمیباشد'))
                     }
                     else if (res.success) {
-                        console.log("order status changed")
-                        dispatch(success(receiptConstants.EDIT_ORDER_STATUS_SUCCESS))
+                        console.log("receipt status changed")
+                        dispatch(success())
                         dispatch(alertActions.success(res.message));
+                    } else if (res.success === false) {
+                        console.log("error >>>> " + res)
+                        dispatch(failure(res.message))
+                        dispatch(alertActions.error(res.message));
                     }
 
                     setTimeout(() => {
@@ -74,7 +78,7 @@ function editOrderStatus(orderId, status) {
                     }, 1500);
                 },
                 error => {
-                    dispatch(failure(receiptConstants.EDIT_ORDER_STATUS_FAILURE, error.toString()));
+                    dispatch(failure(error.toString()));
                     console.log("occure error");
                     console.log(error.toString());
                     dispatch(alertActions.error(error.toString()));
@@ -83,9 +87,9 @@ function editOrderStatus(orderId, status) {
 
     }
 
-    function request() { console.log("into request"); return { type: receiptConstants.EDIT_ORDER_STATUS_REQUEST } }
-    function success() { console.log("into success"); return { type: receiptConstants.EDIT_ORDER_STATUS_SUCCESS } }
-    function failure(error) { return { type: receiptConstants.EDIT_ORDER_STATUS_FAILURE, error } }
+    function request() { console.log("into request"); return { type: receiptConstants.EDIT_RECEIPT_STATUS_REQUEST } }
+    function success() { console.log("into success"); return { type: receiptConstants.EDIT_RECEIPT_STATUS_SUCCESS } }
+    function failure(error) { return { type: receiptConstants.EDIT_RECEIPT_STATUS_FAILURE, error } }
 }
 
 

@@ -29,19 +29,19 @@ export function getReceipts(state = initialState, action) {
     }
 }
 
-export function editOrderStatus(state = initialState, action) {
+export function editReceiptStatus(state = {}, action) {
     switch (action.type) {
-        case receiptConstants.EDIT_ORDER_STATUS_REQUEST:
+        case receiptConstants.EDIT_RECEIPT_STATUS_REQUEST:
             return {
                 ...state,
                 loading: true
             }
-        case receiptConstants.EDIT_ORDER_STATUS_SUCCESS:
+        case receiptConstants.EDIT_RECEIPT_STATUS_SUCCESS:
             return {
                 ...state,
                 loading: false,
             }
-        case receiptConstants.EDIT_ORDER_STATUS_FAILURE:
+        case receiptConstants.EDIT_RECEIPT_STATUS_FAILURE:
             return {
                 err: action.err,
                 loading: false

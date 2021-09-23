@@ -8,7 +8,7 @@ let baseRoute = SERVER_URL + '/receipt';
 export const recieptService = {
     getReceipts,
     addReceipt,
-    editOrderStatus,
+    editReceiptStatus,
     getOrderSms,
     editOrderSms,
     sendDeliverySms,
@@ -58,16 +58,16 @@ function getReceipts(filter = {}) {
         });
 }
 
-function editOrderStatus(orderId, status) {
-    console.log("into orderService")
+function editReceiptStatus(receiptId, status) {
+    console.log("into receiptService")
 
     const requestOptions = {
         headers: authHeader(),
-        body: { orderId, status }
+        body: { receiptId, status }
     };
 
     return axios
-        .put(`${baseRoute}/order/status`, requestOptions.body, { headers: requestOptions.headers })
+        .put(`${baseRoute}/status`, requestOptions.body, { headers: requestOptions.headers })
         .then(res => {
             console.log("res.user >> ");
             console.log(res.data);
