@@ -21,7 +21,7 @@ import { AddNotesModal } from './addNotesModal'
 import { EditField } from './editField'
 import { history } from '../../../helpers/history'
 import { CancelProductOrder } from './cancelProductOrder'
-import { EditeProductOrder } from './editProductOrder'
+import { EditFactor } from './editFactor'
 
 
 
@@ -42,7 +42,7 @@ export const Factor = ({ factor, setActiveFactor, setCancelFactorShow, cancelOrd
     let [print, setPrint] = useState(false)
     const [editModalShow, setEditModalShow] = useState(false)
     const [cancelModalShow, setCancelModalShow] = useState(false);
-    const [editOrder, setEditOrder] = useState(false)
+    const [editFactorModalShow, setEditFactorModalShow] = useState(false)
     const [showNotesModal, setShowNotesModal] = useState(false)
 
 
@@ -50,7 +50,7 @@ export const Factor = ({ factor, setActiveFactor, setCancelFactorShow, cancelOrd
     const [name, setName] = useState('')
     const [orderId, setOrderId] = useState("")
     const [productId, setProductId] = useState("")
-    const [editProductOrder, setEditProductOrder] = useState("");
+    const [editFactor, setEditFactor] = useState("");
     const [shareLinkOrder, setShareLinkOrder] = useState("")
 
     const edit = (value, name, orderId, productId) => {
@@ -228,7 +228,7 @@ export const Factor = ({ factor, setActiveFactor, setCancelFactorShow, cancelOrd
                 </Row>
                 <Row className="p-0 m-0 pb-3 w-100">
                     <Col xs={6} className="p-0 px-1 pb-3 ps-2">
-                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setEditOrder(true); setEditProductOrder(factor) }}>
+                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setEditFactorModalShow(true); setEditFactor(factor) }}>
                             <img src={editeOrderIcon} height="25px" alt="edit-order-icon" className="col-3 py-1" />
                             <span className="pe-1 noPrint">ویرایش</span>
                         </Button>
@@ -257,7 +257,7 @@ export const Factor = ({ factor, setActiveFactor, setCancelFactorShow, cancelOrd
             </Card.Body>
             <EditField show={editModalShow} onHide={() => { setEditModalShow(false); setInput(''); }} input={input} name={name} productId={productId} orderId={orderId} setInput={setInput} />
             <CancelProductOrder show={cancelModalShow} onHide={() => { setCancelModalShow(false) }} productId={productId} orderId={orderId} />
-            <EditeProductOrder show={editOrder} onHide={() => { setEditOrder(false) }} order={editProductOrder} />
+            <EditFactor show={editFactorModalShow} onHide={() => { setEditFactorModalShow(false) }} factor={editFactor} />
         </Card >
     )
 }

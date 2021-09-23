@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Container, Dropdown, Modal, Row, Col, Form, Button, Table, Spinner, Alert, Card } from 'react-bootstrap'
 import persianJs from 'persianjs/persian.min';
@@ -13,113 +13,120 @@ import tickIcon from './../../assets/images/order/ok.svg'
 import deleteeIcon from './../../assets/images/order/close.svg'
 
 //Actions
-import { orderActions, productActions, alertActions } from '../../../actions'
+import { receiptActions, stockActions, alertActions } from '../../../actions'
 
 
 // Componenst
-import { EditProduct } from './editProduct'
+import { EditStock } from './editStock'
 
 
 
-export const EditeProductOrder = (props) => {
+export const EditFactor = (props) => {
 
     const dispatch = useDispatch()
     const [dimStatus, setDimStatus] = useState(false)
     const [selectedItem, setItem] = useState("")
     const [quantity, setQuantity] = useState(1)
-    const [quantityOrder, setQuantityOrder] = useState(false)
-    const [order, insertOrder] = useState([])
+    const [quantityFactor, setQuantityFactor] = useState(false)
+    const [factor, setFactor] = useState([])
     const [inputProductValidation, setInputProductValidation] = useState(false)
     const [addressUser, setAddressUser] = useState('')
     const [validationInputPrice, setValidationInputPrice] = useState(false)
+    const [getTotalPriceLoading, setGetTotalPriceLoading] = useState(false)
 
-    const products = useSelector(state => state.getProducts.product)
-    const loader = useSelector(state => state.editProducOrder.loading)
+    const stocks = useSelector(state => state.getStock.stock)
+    const loader = useSelector(state => state.editReceipt.loading)
 
     let alertMessage = useSelector(state => state.alert.message)
     let alerType = useSelector(state => state.alert.type)
 
-    let productHandler = (e) => {
+    useEffect(async () => {
+        await setFactor(props.factor.stock)
+        await setAddressUser(props.factor.address)
+        let total = 0
+        props.factor.stock?.map(item => {
+            total += item.price * item.quantity;
+            return total
+        })
+    }, [props.show])
+
+
+    let stockHandler = (e) => {
         e.preventDefault()
-        dispatch(productActions.getProducts())
+        dispatch(stockActions.getStock())
     }
     let newOrder = (e) => {
         e.preventDefault();
+
         if (selectedItem == "")
             return setInputProductValidation(true)
         else
             setInputProductValidation(false)
 
-        let product = products.find(item => item.name === selectedItem)
-        let oldProduct = order.find(item => item.name === selectedItem);
+        let stock = stocks.find(item => item.name === selectedItem)
+        let oldFactor = factor.find(item => item.name === selectedItem);
 
 
-        if (oldProduct == undefined) {
-            let newOrder = {
-                _id: product._id,
-                name: product.name,
+        if (oldFactor == undefined) {
+            let newFactor = {
+                _id: stock._id,
+                name: stock.name,
                 quantity: parseInt(quantity),
-                sellingPrice: product.sellingPrice
+                price: stock.price
             };
-            insertOrder((prevOrderState) => [...prevOrderState, newOrder]);
+            setFactor((prevFactorState) => [...prevFactorState, newFactor]);
+            setGetTotalPriceLoading(true)
         } else {
-            const updatedOrder = order.map((item) => {
-                if (item._id === product._id) {
+            const updatedFactor = factor.map((item) => {
+                if (item._id === stock._id) {
                     return { ...item, quantity: parseInt(item.quantity) + parseInt(quantity) };
                 }
                 return item;
             });
-            insertOrder(updatedOrder);
+            setFactor(updatedFactor);
         }
     };
-    let editPriceProduct = (product, value) => {
+    let editPriceStock = (stock, value) => {
         if (value == "" || value == "0") {
             setValidationInputPrice(true)
         } else {
             setValidationInputPrice(false)
-            let updatedOrder = order.map((item) => {
-                if (item._id === product._id) {
-                    return { ...item, sellingPrice: value };
+            let updatedFactor = factor.map((item) => {
+                if (item._id === stock._id) {
+                    return { ...item, price: value };
                 }
                 return item;
             });
-            insertOrder(updatedOrder);
+            setFactor(updatedFactor);
+            setGetTotalPriceLoading(false)
         }
     }
 
-    let removeOrder = (product) => {
-        if (order.length == 1) {
+    let removeFactor = (stock) => {
+        if (factor.length == 1) {
             dispatch(alertActions.error("کمتر از یک کالا در سبد خرید مجاز نیست"))
             setTimeout(() => {
                 dispatch(alertActions.clear())
             }, 1500);
         } else {
-            let updatedOrder = order.filter(item => item._id !== product._id);
-            insertOrder(updatedOrder)
+            let updateFactor = factor.filter(item => item._id !== stock._id);
+            setFactor(updateFactor)
         }
     }
 
-    const getTotalPrice = (order) => {
+    const getTotalPrice = (factor) => {
         let total = 0
-        order?.map(item => {
-            total += item.sellingPrice * item.quantity
+        factor?.map(item => {
+            total += parseInt(item.price) * item.quantity
         })
         return total
     }
 
-    useEffect(async () => {
-        await insertOrder(props.order.products)
-        await setAddressUser(props.order.address)
-        let total = 0
-        props.order.products?.map(item => {
-            total += item.sellingPrice * item.quantity;
-            return total
-        })
-    }, [props.show])
+
 
     let closeHandler = e => {
         props.onHide(false);
-        insertOrder([])
+        setFactor([])
         setQuantity(1)
         setItem("")
     }
@@ -128,31 +135,30 @@ export const EditeProductOrder = (props) => {
     }
     const formHandler = (e) => {
         e.preventDefault();
-        if (order.length > 0) {
-            let orders = order.map(item => { return { _id: item._id, quantity: item.quantity, sellingPrice: item.sellingPrice } })
+        if (factor.length > 0) {
+            let stocks = factor.map(item => { return { _id: item._id, quantity: item.quantity, price: item.price } })
             let params = {
-                orderId: props.order.id,
-                products: orders,
+                receiptId: props.factor.id,
+                stocks: stocks,
                 address: addressUser || ""
             };
 
-            dispatch(orderActions.editProductOrder(params))
+            dispatch(receiptActions.editReceipt(params))
 
             setTimeout(() => {
-                dispatch(orderActions.getOrders({ status: props.status || " " }))
+                dispatch(receiptActions.getReceipts())
                 props.onHide(false)
             }, 1000);
         }
     }
-    let quantityOrderHandler = (e) => {
+    let quantityFactorHandler = (e) => {
         if (e.target.value == "0") {
-            setQuantityOrder(true)
+            setQuantityFactor(true)
         } else {
-            setQuantityOrder(false);
+            setQuantityFactor(false);
             setQuantity(e.target.value || 1);
         }
     }
-
 
     return (
         <Modal
@@ -187,7 +193,7 @@ export const EditeProductOrder = (props) => {
                                     <Card className="border-0 bg-transparent text-light">
                                         <Form.Label className="pe-3">آدرس</Form.Label>
                                         <Form.Control className="order-input address-input" type="text"
-                                            defaultValue={props.order.address}
+                                            defaultValue={props.factor.address}
                                             onChange={addressInputHandler}
                                         />
                                     </Card>
@@ -199,23 +205,23 @@ export const EditeProductOrder = (props) => {
                                     <Card.Body className="p-0 basket-flex">
                                         <Row className="d-flex align-content-center justify-content-evenly">
                                             <Col className="col-6 pe-0 ps-1">
-                                                <Dropdown onToggle={(e) => setDimStatus(!dimStatus)} onClick={(e) => productHandler(e)} >
+                                                <Dropdown onToggle={(e) => setDimStatus(!dimStatus)} onClick={(e) => stockHandler(e)} >
                                                     <Dropdown.Toggle className={`d-flex align-items-center justify-content-between px-1 py-3 ${inputProductValidation ? 'border border-danger' : null} `}>
 
                                                         {selectedItem.length ? <span>{selectedItem}</span> : <span>محصولات</span>}
                                                         <img className="me-auto" src={spinnerIcon} height="30px" alt="spinner-icon" />
                                                     </Dropdown.Toggle>
                                                     <Dropdown.Menu className={`${dimStatus ? "dim" : ""} dropdownProductMenu`}>
-                                                        {products
-                                                            ? products.map((item, index) => {
+                                                        {stocks
+                                                            ? stocks.map((item, index) => {
                                                                 return (
                                                                     item.active && (
                                                                         <Col key={index}>
                                                                             {index ? <Dropdown.Divider /> : null}
                                                                             <Dropdown.Item onClick={() => { setItem(item.name); setQuantity(1) }}>
                                                                                 <Row>
-                                                                                    <Col className="text-end basket-dropdown-border-left pe-1">{item.name}</Col>
-                                                                                    <Col>{item.sellingPrice && persianJs(item.sellingPrice).englishNumber().toString()} </Col>
+                                                                                    <Col className="text-end pe-1">{item.name}</Col>
+                                                                                    {/* <Col>{item.price && persianJs(item.price).englishNumber().toString()} </Col> */}
                                                                                 </Row>
                                                                             </Dropdown.Item>
                                                                         </Col>
@@ -231,8 +237,8 @@ export const EditeProductOrder = (props) => {
                                                 <Form.Control
                                                     placeholder="تعداد"
                                                     value={Number.isInteger(quantity) ? "" : quantity}
-                                                    onChange={(e) => quantityOrderHandler(e)}
-                                                    className={` order-input--desktop text-center ${quantityOrder ? 'border border-danger' : null}`}
+                                                    onChange={(e) => quantityFactorHandler(e)}
+                                                    className={` order-input--desktop text-center ${quantityFactor ? 'border border-danger' : null}`}
                                                     type="number"
                                                     min="1"
                                                     name="duration"
@@ -260,10 +266,10 @@ export const EditeProductOrder = (props) => {
                                                     </thead>
                                                     <tbody>
                                                         {
-                                                            order?.length
-                                                                ? order.map(item => {
+                                                            factor?.length
+                                                                ? factor.map(item => {
                                                                     return (
-                                                                        <EditProduct key={item._id} item={item} order={order} removeOrder={() => removeOrder(item)} validationInputPrice={validationInputPrice} editPriceProduct={(item, inputCurrentPriceProduct) => editPriceProduct(item, inputCurrentPriceProduct)} />
+                                                                        <EditStock key={item._id} item={item} factor={factor} removeFactor={() => removeFactor(item)} validationInputPrice={validationInputPrice} editPriceStock={(item, inputCurrentPriceProduct) => editPriceStock(item, inputCurrentPriceProduct)} getTotalPriceLoading={setGetTotalPriceLoading} />
                                                                     )
                                                                 })
                                                                 : null
@@ -277,8 +283,13 @@ export const EditeProductOrder = (props) => {
                                                     <span className="">جمع کل :</span>
                                                 </Col>
                                                 <Col className="px-1">
-                                                    {getTotalPrice(order) && persianJs(getTotalPrice(order)).englishNumber().toString()}
-
+                                                    {getTotalPriceLoading ?
+                                                        <Spinner className="" animation="border" />
+                                                        :
+                                                        <>
+                                                            {getTotalPrice(factor) && persianJs(getTotalPrice(factor)).englishNumber().toString()}
+                                                        </>
+                                                    }
                                                 </Col>
                                             </Row>
                                         </Row>
