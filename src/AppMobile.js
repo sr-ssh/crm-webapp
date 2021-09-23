@@ -49,6 +49,7 @@ import './mobile/assets/styles/notesStyle.css';
 import './mobile/assets/styles/orderDetails.css';
 import './mobile/assets/styles/factorStyle.css';
 import './mobile/assets/styles/receiptStyle.css';
+import { Suppliers } from './mobile/components/suppliers/suppliers';
 
 
 
@@ -79,6 +80,7 @@ function AppMobile() {
         <Route exact path="/order/notes" component={Notes}></Route>
         <PrivateRoute path="/factor/add" component={AddFactor} ></PrivateRoute>
         <PrivateRoute path="/factors" component={Factors} ></PrivateRoute>
+        <PrivateRoute path="/supplier" component={Suppliers} ></PrivateRoute>
 
 
         <Redirect from="*" to="/" />
