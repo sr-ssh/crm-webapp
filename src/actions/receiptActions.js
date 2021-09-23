@@ -13,7 +13,7 @@ export const receiptActions = {
     sendDeliverySms,
     editNewSms,
     cancelProductOrder,
-    editProductOrder,
+    editReceipt,
     orderDetails,
     getShareLinkOrder,
     confirmShop
@@ -154,20 +154,24 @@ function editOrderQuantity(orderId, productId, status) {
     }
 }
 
-function editProductOrder({ orderId, products, address }) {
+function editReceipt({ receiptId, stocks, address }) {
     return dispatch => {
-        dispatch(request(receiptConstants.EDIT_PRODUCT_ORDER_REQUEST))
-        recieptService.editProductOrder(orderId, products, address)
+        dispatch(request(receiptConstants.EDIT_RECEIPT_REQUEST))
+        recieptService.editReceipt(receiptId, stocks, address)
             .then(
                 res => {
                     if (res === undefined) {
                         dispatch(alertActions.error('ارتباط با سرور برقرار نیست'))
-                        dispatch(failure('ارتباط با سرور برقرار نمیباشد'))
+                        dispatch(failure(receiptConstants.EDIT_RECEIPT_FAILURE, 'ارتباط با سرور برقرار نمیباشد'))
                     }
                     else if (res.success) {
-                        console.log("order status changed")
-                        dispatch(success(receiptConstants.EDIT_PRODUCT_ORDER_SUCCESS, res.data))
+                        console.log("receipt changed")
+                        dispatch(success(receiptConstants.EDIT_RECEIPT_SUCCESS, res.data))
                         dispatch(alertActions.success(res.message));
+                    } else if (res.success === false) {
+                        console.log("error >>>> " + res)
+                        dispatch(failure(receiptConstants.EDIT_RECEIPT_FAILURE, res.message))
+                        dispatch(alertActions.error(res.message));
                     }
 
                     setTimeout(() => {
@@ -175,7 +179,7 @@ function editProductOrder({ orderId, products, address }) {
                     }, 1500);
                 },
                 error => {
-                    dispatch(failure(receiptConstants.EDIT_PRODUCT_ORDER_FAILURE, error.toString()));
+                    dispatch(failure(receiptConstants.EDIT_RECEIPT_FAILURE, error.toString()));
                     console.log("occure error");
                     console.log(error.toString());
                     dispatch(alertActions.error(error.toString()));

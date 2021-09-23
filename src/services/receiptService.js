@@ -15,7 +15,7 @@ export const recieptService = {
     editOrderPrice,
     editOrderQuantity,
     cancelProductOrder,
-    editProductOrder,
+    editReceipt,
     orderDetails,
     getShareLinkOrder,
     confirmShop
@@ -131,16 +131,16 @@ function editOrderQuantity(orderId, productId, quantity) {
 
 }
 
-function editProductOrder(orderId, products, address) {
-    console.log("into orderService")
+function editReceipt(receiptId, stocks, address) {
+    console.log("into receiptService")
 
     const requestOptions = {
         headers: authHeader(),
-        body: { orderId, products, address }
+        body: { receiptId, stocks, address }
     };
 
     return axios
-        .put(`${baseRoute}/order/product`, requestOptions.body, { headers: requestOptions.headers })
+        .put(`${baseRoute}/edit`, requestOptions.body, { headers: requestOptions.headers })
         .then(res => {
             console.log("res.user >> ");
             console.log(res.data);

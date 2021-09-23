@@ -97,19 +97,19 @@ export function editOrderQuantity(state = initialState, action) {
 }
 
 
-export function editProducOrder(state = initialState, action) {
+export function editReceipt(state = {}, action) {
     switch (action.type) {
-        case receiptConstants.EDIT_PRODUCT_ORDER_REQUEST:
+        case receiptConstants.EDIT_RECEIPT_REQUEST:
             return {
                 ...state,
                 loading: true
             }
-        case receiptConstants.EDIT_PRODUCT_ORDER_SUCCESS:
+        case receiptConstants.EDIT_RECEIPT_SUCCESS:
             return {
                 ...state,
                 loading: false,
             }
-        case receiptConstants.EDIT_PRODUCT_ORDER_FAILURE:
+        case receiptConstants.EDIT_RECEIPT_FAILURE:
             return {
                 err: action.err,
                 loading: false
