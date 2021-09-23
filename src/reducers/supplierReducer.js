@@ -6,21 +6,21 @@ const initialState = {
 }
 
 
-export function getCustomers(state = initialState, action) {
+export function getSuppliers(state = initialState, action) {
 
     switch (action.type) {
-        case supplierConstants.GET_CUSTOMERS_REQUEST:
+        case supplierConstants.GET_SUPPLIERS_REQUEST:
             return {
                 ...state,
                 loading: true
             }
-        case supplierConstants.GET_CUSTOMERS_SUCCESS:
+        case supplierConstants.GET_SUPPLIERS_SUCCESS:
             return {
                 ...state,
-                customers: action.customers,
+                suppliers: action.customers,
                 loading: false
             }
-        case supplierConstants.GET_CUSTOMERS_FAILURE:
+        case supplierConstants.GET_SUPPLIERS_FAILURE:
             return {
                 loading: false
             }

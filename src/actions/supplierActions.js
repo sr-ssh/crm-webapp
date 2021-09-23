@@ -3,24 +3,24 @@ import { supplierService } from '../services';
 import { alertActions } from './alertActions';
 
 export const supplierActions = {
-    getCustomers,
+    getSuppliers,
     getSupplier,
     getExcelCustomers
 };
 
-function getCustomers(filter) {
+function getSuppliers(filter) {
     return dispatch => {
         dispatch(request());
 
-        supplierService.getCustomers(filter)
+        supplierService.getSuppliers(filter)
             .then(
                 res => {
-                    console.log("got the customers")
+                    console.log("got the Suppliers")
 
                     if (res === undefined)
                         dispatch(alertActions.error('ارتباط با سرور برقرار نیست'));
                     else if (res.success) {
-                        console.log("user into customerAction");
+                        console.log("user into SupplierAction");
                         dispatch(success(res.data));
                     }
 
