@@ -80,7 +80,7 @@ function AppMobile() {
         <Route exact path="/order/notes" component={Notes}></Route>
         <PrivateRoute path="/factor/add" component={AddFactor} ></PrivateRoute>
         <PrivateRoute path="/factors" component={Factors} ></PrivateRoute>
-        <PrivateRoute path="/supplier" component={Suppliers} ></PrivateRoute>
+        <PrivateRoute path="/suppliers" component={Suppliers} ></PrivateRoute>
 
 
         <Redirect from="*" to="/" />

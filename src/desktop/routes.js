@@ -46,7 +46,7 @@ const dashboardRoutes = [
                 layout: "/",
             },
             {
-                path: "/factor/add",
+                path: "/suppliers",
                 name: "تامین کننده ها",
                 layout: "/",
             },
@@ -93,7 +93,6 @@ const dashboardRoutes = [
                 layout: "/employees",
             }]
     },
-
 
     // {
     //     path: "/employee/add",
