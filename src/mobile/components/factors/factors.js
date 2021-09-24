@@ -18,7 +18,7 @@ export const Factors = () => {
 
     const [modalShow, setModalShow] = useState(false)
     const [cancelFactorShow, setCancelFactorShow] = useState(false)
-    const [activeFactor, setActiveOrder] = useState({})
+    const [activeFactor, setActiveFactor] = useState({})
 
 
     let { receipts, loading } = useSelector(state => state.getReceipts)
@@ -58,7 +58,7 @@ export const Factors = () => {
 
                 {(receipts.length > 0) ?
                     (receipts.map((factores, index) =>
-                        <Factor key={index} factor={factores} setCancelFactorShow={setCancelFactorShow} setActiveFactor={setActiveOrder} />
+                        <Factor key={index} factor={factores} setCancelFactorShow={setCancelFactorShow} setActiveFactor={setActiveFactor} />
                     ))
                     : null}
 

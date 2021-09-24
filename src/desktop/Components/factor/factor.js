@@ -60,9 +60,8 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export const Factor = ({ factor, deliveryShow, setDeliveryShow, cancelOrderShow, setCancelOrderShow, recordOrderShow = '', setRecordOrderShow = {}, setActiveOrder, setOrder, status }) => {
+export const Factor = ({ factor, setCancelFactorShow, setDeliveryShow, cancelOrderShow, setCancelOrderShow, recordOrderShow = '', setRecordOrderShow = {}, setActiveFactor, setOrder, status }) => {
 
-    // debugger;
     const classes = useStyles();
     const dispatch = useDispatch()
     let [print, setPrint] = useState(false)
@@ -137,7 +136,6 @@ export const Factor = ({ factor, deliveryShow, setDeliveryShow, cancelOrderShow,
         const day = moment.from(date, 'DD').locale('fa').format('DD')
         const year = moment.from(date, 'YYYY').locale('fa').format('YYYY')
 
-
         return `${persianJs(day).englishNumber().toString()}  ${month}  ${persianJs(year).englishNumber().toString()}`
     }
     return (
@@ -160,7 +158,7 @@ export const Factor = ({ factor, deliveryShow, setDeliveryShow, cancelOrderShow,
                     </Button>
                 </Col>
                 <Col className="d-flex justify-content-end col-2">
-                    <Button className="w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setCancelOrderShow(true); setActiveOrder(factor) }}>
+                    <Button className="w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setCancelFactorShow(true); setActiveFactor(factor) }}>
                         <img src={cancelIcon} height="25px" alt="print-icon" className="col-3" />
                         <span className="noPrint">لغو فاکتور</span>
                     </Button>
