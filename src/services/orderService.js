@@ -313,12 +313,12 @@ function orderDetails(params) {
 }
 
 
-function getShareLinkOrder(orderId) {
+function getShareLinkOrder(params) {
     console.log('into orderService (getShareLinkOrder)')
 
     const requestOptions = {
         headers: authHeader(),
-        body: { orderId: orderId }
+        body: { ...params }
     }
 
     return axios

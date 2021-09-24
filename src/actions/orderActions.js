@@ -402,10 +402,10 @@ function orderDetails(params) {
 }
 
 
-function getShareLinkOrder(orderId) {
+function getShareLinkOrder(params) {
     return dispatch => {
         dispatch(request(orderConstants.GET_ORDER_SHARE_LINK_REQUEST))
-        orderService.getShareLinkOrder(orderId)
+        orderService.getShareLinkOrder(params)
             .then(
                 res => {
                     if (res === undefined) {
