@@ -21,7 +21,7 @@ import pishFactorIcon from '../../assets/images/order/pish-factor.svg'
 
 
 // Actions
-import { notesActions, orderActions } from '../../../actions';
+import { notesActions } from '../../../actions';
 
 //components
 import { AddNotesModal } from './addNotesModal'
@@ -133,7 +133,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
         <Card className={`m-auto mt-3 bg-light productCard border-0 lh-lg ${!print ? 'noPrint' : ''} mx-1 ${classes.productCard}`} >
             <Row className="mt-3 noPrint">
                 <Col className="d-flex justify-content-center ">
-                    <Button className={`${order.status == 2 ? "w-50" : "w-75"} btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2`} type="button" onClick={() => { dispatch(orderActions.getShareLinkOrder(order.id)); setIsShareLinkOrder(true) }}>
+                    <Button className={`${order.status == 2 ? "w-50" : "w-75"} btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2`} type="button" onClick={() => { setIsShareLinkOrder(true) }}>
                         <img src={pishFactorIcon} height="25px" alt="edit-order-icon" className="col-3 py-1" />
                         <span>پیش فاکتور</span>
                     </Button>
@@ -366,8 +366,8 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
             <Dialog onClose={handleClose} className="notes-round" aria-labelledby="notes-dialog" open={open} classes={{ paper: classes.paper }} >
                 <Notes order={order} open={open} setOpen={setOpen} setShowNotesModal={setShowNotesModal} setActiveOrder={() => setActiveOrder(order)} />
             </Dialog>
-            <Dialog classes={{ paper: classes.paper }} onClose={() => setIsShareLinkOrder(false)} aria-labelledby="shareLink-dialog" open={isShareLinkOrder}>
-                <ShareLinkOrder isShareLinkOrder={isShareLinkOrder} setIsShareLinkOrder={setIsShareLinkOrder} customerMobile={order.customer.mobile} />
+            <Dialog classes={{ paper: classes.paper }} aria-labelledby="shareLink-dialog" open={isShareLinkOrder}>
+                <ShareLinkOrder isShareLinkOrder={isShareLinkOrder} setIsShareLinkOrder={setIsShareLinkOrder} order={isShareLinkOrder ? order : null} />
             </Dialog>
 
         </Card >
