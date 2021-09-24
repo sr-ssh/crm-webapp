@@ -5,24 +5,24 @@ import { Modal, Button, Row, Col, Form } from 'react-bootstrap'
 import DatePicker from "react-multi-date-picker";
 import moment from 'jalali-moment';
 // Actions
-import { orderActions } from '../../../actions';
+import { receiptActions } from '../../../actions';
 // Icons
 import closeIcon from '../../assets/images/close.svg'
 
-export const OrderSearch = (props) => {
+export const FactorSearch = (props) => {
 
-    const [filters, setFilters] = useState({ status: props.status || " " })
+    const [filters, setFilters] = useState({})
+
     const dispatch = useDispatch()
 
     const handleChange = (e) => {
         e.preventDefault()
-
         setFilters({ ...filters, [e.target.name]: e.target.value })
     }
 
     const formHandler = (e) => {
         e.preventDefault();
-        dispatch(orderActions.getOrders(filters))
+        dispatch(receiptActions.getReceipts(filters))
         props.onHide(false)
     }
 
@@ -46,8 +46,8 @@ export const OrderSearch = (props) => {
                     <Row>
                         <Col className="col-6 order-filter-input">
                             <Form.Group>
-                                <Form.Label className="pe-2">نام مشتری</Form.Label>
-                                <Form.Control style={{ "width": "94%" }} className="order-input" type="text" name="customerName" value={filters.customerName} onChange={handleChange} />
+                                <Form.Label className="pe-2">نام تامین کننده</Form.Label>
+                                <Form.Control style={{ "width": "94%" }} className="order-input" type="text" name="supplierName" value={filters.supplierName} onChange={handleChange} />
                             </Form.Group>
                         </Col>
                     </Row>
@@ -55,14 +55,14 @@ export const OrderSearch = (props) => {
                         <Col className="col-6  order-filter-input">
                             <Form.Group>
                                 <Form.Label className="pe-2">موبایل</Form.Label>
-                                <Form.Control style={{ "width": "94%" }} className="order-input" type="number" name="customerMobile" value={filters.customerMobile} onChange={handleChange} />
+                                <Form.Control style={{ "width": "94%" }} className="order-input" type="number" name="supplierMobile" value={filters.supplierMobile} onChange={handleChange} />
                             </Form.Group>
                         </Col>
                     </Row>
                     <Row className="my-3 justify-content-between">
                         <Col className="col-6 order-filter-input">
                             <Form.Group className="ms-2">
-                                <Form.Label className="pe-2">تاریخ سفارش از</Form.Label>
+                                <Form.Label className="pe-2">تاریخ فاکتور از</Form.Label>
                                 <DatePicker
                                     inputClass="search-input"
                                     className="rmdp-mobile"

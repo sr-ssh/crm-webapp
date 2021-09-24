@@ -10,7 +10,7 @@ import SearchIcon from '@material-ui/icons/Search';
 // Actions
 import { receiptActions } from '../../../actions';
 // Components
-import { OrderSearch } from './search'
+import { FactorSearch } from './search'
 import { Factor } from './factor';
 import { Delivery } from './delivery'
 import { CancelFactor } from './cancelFactor'
@@ -79,9 +79,7 @@ export const Factors = () => {
                         ))
                         : null}
 
-                    {/* <OrderSearch show={modalShow} onHide={() => { setModalShow(false) }} /> */}
-                    {/* <Delivery show={deliveryShow} onHide={() => setDeliveryShow(false)} order={order} /> */}
-                    {/* <CancelOrder status="2" show={cancelOrderShow} onHide={() => setCancelOrderShow(false)} order={activeOrder} /> */}
+                    <FactorSearch show={modalShow} onHide={() => { setModalShow(false) }} />
                     <CancelFactor status="1" show={cancelFactorShow} onHide={() => setCancelFactorShow(false)} factor={activeFactor} />
 
                 </Container>
