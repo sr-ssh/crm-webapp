@@ -28,7 +28,7 @@ import { AddNotesModal } from './addNotesModal'
 import { EditField } from './editField'
 import { history } from '../../../helpers/history'
 import { CancelProductOrder } from './cancelProductOrder'
-import { EditeProductOrder } from './editProductOrder'
+import { EditFactor } from './editFactor'
 import { Notes } from './notes'
 import { ShareLinkOrder } from "./shareLinkOrder"
 import { Note } from './note'
@@ -67,7 +67,7 @@ export const Factor = ({ factor, setCancelFactorShow, setDeliveryShow, cancelOrd
     let [print, setPrint] = useState(false)
     const [editModalShow, setEditModalShow] = useState(false)
     const [cancelModalShow, setCancelModalShow] = useState(false);
-    const [editOrder, setEditOrder] = useState(false)
+    const [editFactorModalShow, setEditFactorModalShow] = useState(false)
     const [showNotesModal, setShowNotesModal] = useState(false)
     const [open, setOpen] = useState(false);
     const [isShareLinkOrder, setIsShareLinkOrder] = useState(false)
@@ -79,7 +79,9 @@ export const Factor = ({ factor, setCancelFactorShow, setDeliveryShow, cancelOrd
     const [name, setName] = useState('')
     const [factorId, setFactorId] = useState("")
     const [productId, setProductId] = useState("")
-    const [editProductOrder, setEditProductOrder] = useState("");
+    const [editFactor, setEditFactor] = useState("");
+
+
 
     const edit = (value, name, factorId, productId) => {
         setInput(value)
@@ -145,7 +147,7 @@ export const Factor = ({ factor, setCancelFactorShow, setDeliveryShow, cancelOrd
 
 
                 <Col className="d-flex justify-content-start col-2">
-                    <Button className="w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setEditOrder(true); setEditProductOrder(factor) }}>
+                    <Button className="w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setEditFactorModalShow(true); setEditFactor(factor) }}>
                         <img src={editeOrderIcon} height="25px" alt="edit-order-icon" className="col-3 py-1" />
                         <span className="noPrint">ویرایش</span>
                     </Button>
@@ -320,9 +322,9 @@ export const Factor = ({ factor, setCancelFactorShow, setDeliveryShow, cancelOrd
                 </Row>
             </Card.Body>
             {/* <EditField show={editModalShow} onHide={() => { setEditModalShow(false); setInput(''); }} input={input} name={name} productId={productId} factorId={factorId} setInput={setInput} />
-            <CancelProductOrder show={cancelModalShow} onHide={() => { setCancelModalShow(false) }} productId={productId} factorId={factorId} />
-            <EditeProductOrder show={editOrder} onHide={() => { setEditOrder(false) }} order={editProductOrder} status={status} />
-            <AddNotesModal show={showNotesModal} onHide={() => { setShowNotesModal(false) }} permission={true} factorId={factor.id} status={status} />
+            <CancelProductOrder show={cancelModalShow} onHide={() => { setCancelModalShow(false) }} productId={productId} factorId={factorId} /> */}
+            <EditFactor show={editFactorModalShow} onHide={() => { setEditFactorModalShow(false) }} factor={editFactor} />
+            {/* <AddNotesModal show={showNotesModal} onHide={() => { setShowNotesModal(false) }} permission={true} factorId={factor.id} status={status} />
             <Dialog onClose={handleClose} className="notes-round" aria-labelledby="notes-dialog" open={open} classes={{ paper: classes.paper }} >
                 <Notes order={order} open={open} setOpen={setOpen} setShowNotesModal={setShowNotesModal} setActiveOrder={() => setActiveOrder(order)} />
             </Dialog>

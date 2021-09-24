@@ -14,16 +14,16 @@ import deleteIcon from '../../assets/images/discounts/deletee.svg'
 
 
 //Actions
-import { orderActions, productActions, alertActions } from '../../../actions'
+import { receiptActions, stockActions, alertActions } from '../../../actions'
 
-export const EditeProductOrder = (props) => {
+export const EditFactor = (props) => {
+
 
     const [dimStatus, setDimStatus] = useState(false)
     const [selectedItem, setItem] = useState("")
     const [quantity, setQuantity] = useState(1)
-    const [quantityOrder, setQuantityOrder] = useState(false)
-    const [order, insertOrder] = useState([])
-    const [oldProduct, setOldProduct] = useState([])
+    const [quantityFactor, setQuantityFactor] = useState(false)
+    const [factor, setFactor] = useState([])
     const [validated, setValidated] = useState(false)
     const [inputProductValidation, setInputProductValidation] = useState(false)
     const [addressUser, setAddressUser] = useState('')
@@ -32,16 +32,31 @@ export const EditeProductOrder = (props) => {
     const [deleteCurrentProduct, setDeleteCurrentProduct] = useState(false)
     const [inputCurrentPriceProduct, setInputCurrentPriceProduct] = useState(false)
     const [inputCurrentPriceProductValidation, setInputCurrentPriceProductValidation] = useState(false)
+    const [getTotalPriceLoading, setGetTotalPriceLoading] = useState(false)
 
 
     const dispatch = useDispatch()
 
-    const products = useSelector(state => state.getProducts.product)
-    const loader = useSelector(state => state.editProducOrder.loading)
+    const stocks = useSelector(state => state.getStock.stock)
+    const loader = useSelector(state => state.editReceipt.loading)
 
-    let productHandler = (e) => {
+
+    useEffect(async () => {
+        await setFactor(props.factor.stock)
+
+        await setAddressUser(props.factor.address)
+        let total = 0
+        props.factor.stock?.map(item => {
+            total += item.price * item.quantity;
+            return total
+        })
+    }, [props.show])
+
+
+    let stockHandler = (e) => {
         e.preventDefault()
-        dispatch(productActions.getProducts())
+        dispatch(stockActions.getStock())
+
     }
     let newOrder = (e) => {
         e.preventDefault();
@@ -50,77 +65,81 @@ export const EditeProductOrder = (props) => {
         else
             setInputProductValidation(false)
 
-        let product = products.find(item => item.name === selectedItem)
-        let oldProduct = order.find(item => item.name === selectedItem);
+        let stock = stocks.find(item => item.name === selectedItem)
+        let oldFactor = factor.find(item => item.name === selectedItem);
 
 
-        if (oldProduct == undefined) {
-            let newOrder = {
-                _id: product._id,
-                name: product.name,
+
+        if (oldFactor == undefined) {
+            let newFactor = {
+                _id: stock._id,
+                name: stock.name,
                 quantity: parseInt(quantity),
-                sellingPrice: product.sellingPrice
+                price: stock.price
             };
-            insertOrder((prevOrderState) => [...prevOrderState, newOrder]);
+            setFactor((prevFactorState) => [...prevFactorState, newFactor]);
+            setGetTotalPriceLoading(true)
+
         } else {
-            const updatedOrder = order.map((item) => {
-                if (item._id === product._id) {
+            const updatedFactor = factor.map((item) => {
+                if (item._id === stock._id) {
                     return { ...item, quantity: parseInt(item.quantity) + parseInt(quantity) };
                 }
                 return item;
             });
-            insertOrder(updatedOrder);
+            setFactor(updatedFactor);
         }
     };
-    let editPriceProduct = (e, product) => {
+    let editPriceStock = (e, stock) => {
         e.preventDefault();
-        if (inputCurrentPriceProduct == "" || inputCurrentPriceProduct == "0")
-            return setInputCurrentPriceProductValidation(true)
-        else
+        if (inputCurrentPriceProduct == "" || inputCurrentPriceProduct == "0") {
+            setInputCurrentPriceProductValidation(true)
+        } else {
             setInputCurrentPriceProductValidation(false)
 
-        let updatedOrder = order.map((item) => {
-            if (item._id === product._id) {
-                return { ...item, sellingPrice: inputCurrentPriceProduct };
-            }
-            return item;
-        });
-        insertOrder(updatedOrder);
-        setEditPriceCurrentProduct(false)
-    }
-    let removeOrder = (e, product) => {
+            let updatedFactor = factor.map((item) => {
+                if (item._id === stock._id) {
+                    return { ...item, price: inputCurrentPriceProduct };
+                }
+                return item;
+            });
+            setFactor(updatedFactor);
+            setEditPriceCurrentProduct(false)
+            setGetTotalPriceLoading(false)
 
-        e.preventDefault();
-        if (order.length == 1)
-            return dispatch(alertActions.error("کمتر از یک کالا در سبد خرید مجاز نیست"))
-        let updatedOrder = order.filter(item => item._id !== product._id);
-        insertOrder(updatedOrder)
-        setActiveProduct("")
-        setDeleteCurrentProduct(false)
+        }
+    }
+    let removeFactor = (e, stock) => {
+
+        if (factor.length == 1) {
+            dispatch(alertActions.error("کمتر از یک کالا در سبد خرید مجاز نیست"))
+            setTimeout(() => {
+                dispatch(alertActions.clear())
+            }, 1500);
+        } else {
+
+
+            let updateFactor = factor.filter(item => item._id !== stock._id);
+
+            setFactor(updateFactor)
+            setActiveProduct("")
+            setDeleteCurrentProduct(false)
+        }
     }
 
-    const getTotalPrice = (order) => {
+    const getTotalPrice = (factor) => {
         let total = 0
-        order?.map(item => {
-            total += item.sellingPrice * item.quantity
+        factor?.map(item => {
+            total += parseInt(item.price) * item.quantity
         })
         return total
     }
 
-    useEffect(async () => {
-        await insertOrder(props.order.products)
-        await setOldProduct(props.order.products)
-        await setAddressUser(props.order.address)
-        let total = 0
-        props.order.products?.map(item => {
-            total += item.sellingPrice * item.quantity;
-            return total
-        })
-    }, [props.show])
+
 
     let closeHandler = e => {
         props.onHide(false);
-        insertOrder([])
+        setFactor([])
         setQuantity(1)
         setItem("")
     }
@@ -129,27 +148,28 @@ export const EditeProductOrder = (props) => {
     }
     const formHandler = (e) => {
         e.preventDefault();
-        if (order.length > 0) {
-            let orders = order.map(item => { return { _id: item._id, quantity: item.quantity, sellingPrice: item.sellingPrice } })
+        if (factor.length > 0) {
+            let stocks = factor.map(item => { return { _id: item._id, quantity: item.quantity, price: item.price } })
+
             let params = {
-                orderId: props.order.id,
-                products: orders,
+                receiptId: props.factor.id,
+                stocks: stocks,
                 address: addressUser || ""
             };
 
-            dispatch(orderActions.editProductOrder(params))
+            dispatch(receiptActions.editReceipt(params))
 
             setTimeout(() => {
-                dispatch(orderActions.getOrders({ status: props.status || " " }))
+                dispatch(receiptActions.getReceipts())
                 props.onHide(false)
             }, 1000);
         }
     }
-    let quantityOrderHandler = (e) => {
+    let quantityFactorHandler = (e) => {
         if (e.target.value == "0") {
-            setQuantityOrder(true)
+            setQuantityFactor(true)
         } else {
-            setQuantityOrder(false);
+            setQuantityFactor(false);
             setQuantity(e.target.value || 1);
         }
     }
@@ -169,7 +189,7 @@ export const EditeProductOrder = (props) => {
             <Container className="m-0 p-0 " style={{ top: "0", zIndex: "2" }} >
                 <Row className="m-0 p-0 header--notes--desktop header--edit--order--desktop">
                     <Col className="m-0 p-0 d-flex justify-content-center  ">
-                        <span className="text-light">تغییر</span>
+                        <span className="text-light">ویرایش فاکتور</span>
                     </Col>
                 </Row>
             </Container>
@@ -183,7 +203,7 @@ export const EditeProductOrder = (props) => {
                                 <Card className="border-0 bg-transparent text-light">
                                     <Form.Label className="pe-3">آدرس</Form.Label>
                                     <Form.Control className="order-input address-input py-2" type="text"
-                                        defaultValue={props.order.address}
+                                        defaultValue={props.factor?.address}
                                         onChange={addressInputHandler}
                                     />
                                 </Card>
@@ -195,22 +215,22 @@ export const EditeProductOrder = (props) => {
                                 <Card.Body className="p-0 basket-flex">
                                     <Row className="m-0 p-0 mt-2 justify-content-evenly">
                                         <Col className="col-7 p-0 m-0">
-                                            <Dropdown onToggle={(e) => setDimStatus(!dimStatus)} onClick={(e) => productHandler(e)}>
+                                            <Dropdown onToggle={(e) => setDimStatus(!dimStatus)} onClick={(e) => stockHandler(e)}>
                                                 <Dropdown.Toggle className={`px-1 d-flex align-items-center ${inputProductValidation ? 'border border-danger' : null}`} >
-                                                    {selectedItem.length ? <span className="me-2">{selectedItem}</span > : <span className="me-2 fw-bold">محصولات</span>}
+                                                    {selectedItem.length ? <span className="me-2">{selectedItem}</span > : <span className="me-2 fw-bold">مواد خام</span>}
                                                     <img className="me-auto" src={spinnerIcon} height="20px" alt="spinner-icon" style={{ transform: dimStatus ? "rotate(180deg)" : null }} />
                                                 </Dropdown.Toggle>
                                                 <Dropdown.Menu className={`${dimStatus ? "dim" : ""} dropdownProductMenu`}>
-                                                    {products
-                                                        ? products.map((item, index) => {
+                                                    {stocks
+                                                        ? stocks.map((item, index) => {
                                                             return (
                                                                 item.active && (
                                                                     <Col key={index}>
                                                                         {index ? <Dropdown.Divider /> : null}
                                                                         <Dropdown.Item onClick={() => { setItem(item.name); setQuantity(1) }}>
                                                                             <Row>
-                                                                                <Col className="text-end basket-dropdown-border-left pe-1">{item.name}</Col>
-                                                                                <Col>{item.sellingPrice && persianJs(item.sellingPrice).englishNumber().toString()} </Col>
+                                                                                <Col className="text-end pe-1">{item.name}</Col>
+                                                                                {/* <Col>{item.sellingPrice && persianJs(item.sellingPrice).englishNumber().toString()} </Col> */}
                                                                             </Row>
                                                                         </Dropdown.Item>
                                                                     </Col>
@@ -227,8 +247,8 @@ export const EditeProductOrder = (props) => {
                                             <Form.Control
                                                 placeholder="تعداد"
                                                 value={Number.isInteger(quantity) ? "" : quantity}
-                                                onChange={(e) => quantityOrderHandler(e)}
-                                                className={` order-input--desktop text-center ${quantityOrder ? 'border border-danger' : null}`}
+                                                onChange={(e) => quantityFactorHandler(e)}
+                                                className={` order-input--desktop text-center ${quantityFactor ? 'border border-danger' : null}`}
                                                 type="number"
                                                 min="1"
                                                 name="duration"
@@ -256,25 +276,25 @@ export const EditeProductOrder = (props) => {
                                                 </thead>
                                                 <tbody>
                                                     {
-                                                        order?.length
-                                                            ? order.map(item => {
+                                                        factor?.length
+                                                            ? factor.map(item => {
 
                                                                 return (
                                                                     <tr key={item.name}>
                                                                         <td  >{item.name && persianJs(item.name).englishNumber().toString()}</td>
-                                                                        {(editPriceCurrentProduct && activeProduct._id == item._id) ?
+                                                                        {(editPriceCurrentProduct && activeProduct._id == item._id) || (item.price == undefined) ?
                                                                             <>
-                                                                                <td className={`m-0 px-0 ${editPriceCurrentProduct ? "d-flex" : null} `} style={{ width: "155px" }}>
-                                                                                    <img src={tickIcon} onClick={(e) => editPriceProduct(e, item)} className="ms-2" alt="tick-icon" style={{ width: "20px" }} />
-                                                                                    <img src={deleteeIcon} onClick={(e) => { setEditPriceCurrentProduct(false); }} className="ms-2" alt="delete-icon" style={{ width: "20px" }} />
-                                                                                    <Form.Control className={`notes-round ${inputCurrentPriceProductValidation ? 'border border-danger' : null}`} min="1" type="number" defaultValue={activeProduct.sellingPrice} onChange={e => setInputCurrentPriceProduct(e.target.value)} />
+                                                                                <td className={`m-0 px-0 ${(editPriceCurrentProduct || item.price == undefined) ? "d-flex" : null} `} style={{ width: "155px" }}>
+                                                                                    <img src={tickIcon} onClick={(e) => editPriceStock(e, item)} className="ms-2" alt="tick-icon" style={{ width: "20px" }} />
+                                                                                    <img src={deleteeIcon} onClick={(e) => { if (item.price != undefined) { setEditPriceCurrentProduct(false); setGetTotalPriceLoading(false) } setInputCurrentPriceProductValidation(false) }} className="ms-2" alt="delete-icon" style={{ width: "20px" }} />
+                                                                                    <Form.Control className={`notes-round ${inputCurrentPriceProductValidation ? 'border border-danger' : null}`} min="1" type="number" defaultValue={item.price} onChange={e => setInputCurrentPriceProduct(e.target.value)} />
                                                                                 </td>
                                                                             </>
                                                                             :
                                                                             <>
                                                                                 <td className="px-0">
-                                                                                    <img src={editIcon} onClick={(e) => { setEditPriceCurrentProduct(true); setActiveProduct(item) }} className="ms-3 " alt="edit-icon" style={{ width: "33px" }} />
-                                                                                    {(item.quantity * item.sellingPrice) && persianJs(item.quantity * item.sellingPrice).englishNumber().toString()}
+                                                                                    <img src={editIcon} onClick={(e) => { setEditPriceCurrentProduct(true); setActiveProduct(item); setGetTotalPriceLoading(true) }} className="ms-3 " alt="edit-icon" style={{ width: "33px" }} />
+                                                                                    {(item.quantity * item.price) && persianJs(item.quantity * item.price).englishNumber().toString()}
                                                                                 </td>
                                                                             </>
                                                                         }
@@ -283,7 +303,7 @@ export const EditeProductOrder = (props) => {
 
                                                                             (deleteCurrentProduct && activeProduct._id == item._id) ?
                                                                                 <td className="text-start " style={{ width: "155px" }}>
-                                                                                    <img src={tickIcon} onClick={(e) => removeOrder(e, item)} className="ms-2" alt="tick-icon" style={{ width: "20px" }} />
+                                                                                    <img src={tickIcon} onClick={(e) => removeFactor(e, item)} className="ms-2" alt="tick-icon" style={{ width: "20px" }} />
                                                                                     <img src={deleteeIcon} onClick={(e) => { setDeleteCurrentProduct(false) }} className="ms-2" alt="delete-icon" style={{ width: "20px" }} />
                                                                                     <span>آیا حذف شود؟</span>
                                                                                 </td>
@@ -303,7 +323,13 @@ export const EditeProductOrder = (props) => {
                                                 <span className="">جمع کل :</span>
                                             </Col>
                                             <Col className="px-1 fs-5">
-                                                {getTotalPrice(order) && persianJs(getTotalPrice(order)).englishNumber().toString()}
+                                                {getTotalPriceLoading ?
+                                                    <Spinner className="" animation="border" />
+                                                    :
+                                                    <>
+                                                        {getTotalPrice(factor) && persianJs(getTotalPrice(factor)).englishNumber().toString()}
+                                                    </>
+                                                }
                                             </Col>
                                         </Row>
                                     </Row>
