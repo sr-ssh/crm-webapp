@@ -32,6 +32,7 @@ export const EditeProductOrder = (props) => {
     const [deleteCurrentProduct, setDeleteCurrentProduct] = useState(false)
     const [inputCurrentPriceProduct, setInputCurrentPriceProduct] = useState(false)
     const [inputCurrentPriceProductValidation, setInputCurrentPriceProductValidation] = useState(false)
+    const [companyName, setCompanyName] = useState('')
 
 
     const dispatch = useDispatch()
@@ -127,6 +128,9 @@ export const EditeProductOrder = (props) => {
     let addressInputHandler = e => {
         setAddressUser(e.target.value)
     }
+    let companyNameInputHandler = e => {
+        setCompanyName(e.target.value)
+    }
     const formHandler = (e) => {
         e.preventDefault();
         if (order.length > 0) {
@@ -134,7 +138,8 @@ export const EditeProductOrder = (props) => {
             let params = {
                 orderId: props.order.id,
                 products: orders,
-                address: addressUser || ""
+                address: addressUser || "",
+                companyName: companyName || ""
             };
 
             dispatch(orderActions.editProductOrder(params))
@@ -185,6 +190,17 @@ export const EditeProductOrder = (props) => {
                                     <Form.Control className="order-input address-input py-2" type="text"
                                         defaultValue={props.order.address}
                                         onChange={addressInputHandler}
+                                    />
+                                </Card>
+                            </Col>
+                        </Row>
+                        <Row className="m-0 p-0 mt-2" >
+                            <Col className="p-0 ">
+                                <Card className="border-0 bg-transparent text-light">
+                                    <Form.Label className="pe-3">نام شرکت</Form.Label>
+                                    <Form.Control className="order-input company-input" type="text"
+                                        defaultValue={props.order.customer?.company}
+                                        onChange={companyNameInputHandler}
                                     />
                                 </Card>
                             </Col>
