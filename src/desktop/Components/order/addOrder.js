@@ -85,7 +85,6 @@ export const AddOrder = () => {
     let formHandler = (e) => {
         e.preventDefault()
 
-        debugger;
         if (order.length && customer.family && customer.mobile) {
             if (e.target.id === 'saleOpprotunity')
                 dispatch(orderActions.addOrder(order, customer, notes, 3))
