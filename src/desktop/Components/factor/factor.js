@@ -170,8 +170,8 @@ export const Factor = ({ factor, setCancelFactorShow, setDeliveryShow, cancelOrd
             <Card.Body className="pb-0 ps-1 rounded-3 text-gray">
                 <Row className="p-0 ps-2 m-0 ">
                     <Card className="background-blue border-0 customer-round">
-                        <Card.Body className="pe-0 ps-0 ">
-                            <Row className="mx-2 d-flex justify-content-around">
+                        <Card.Body className="p-0 my-2 ">
+                            <Row className="mx-2 mb-3 d-flex justify-content-around">
 
 
                                 <Col className="p-0 d-flex justify-content-start">
@@ -218,20 +218,25 @@ export const Factor = ({ factor, setCancelFactorShow, setDeliveryShow, cancelOrd
                                     <span className="me-2">{factor.address && persianJs(factor.address).englishNumber().toString()}</span>
 
                                 </Col>
+                                <Col className="p-0 d-flex flex-flex-grow-1"></Col>
+                                <Col className="p-0 d-flex flex-flex-grow-1"></Col>
+                                <Col className="p-0 d-flex justify-content-center" >
+                                    ثبت شده توسط : :
+                                    <span className="me-2">{factor.employee.family}</span>
+                                </Col>
                             </Row>
                         </Card.Body>
                     </Card>
                 </Row>
 
                 <Row className="m-0 mt-3 p-0 ps-2">
-                    <Col className="ms-xl-5 col-12 col-md-6">
+                    <Col className="ms-xl-5 col-12 col-md-5">
                         <Table borderless size="sm">
                             <thead>
                                 <tr>
-                                    <th>سفارش</th>
+                                    <th colspan="2">سفارش</th>
                                     <th>قیمت(تومان)</th>
                                     <th>تعداد</th>
-                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -241,24 +246,20 @@ export const Factor = ({ factor, setCancelFactorShow, setDeliveryShow, cancelOrd
                                         ? factor.stock.map(item => {
                                             return (
 
-                                                <tr key={item.name}>
-                                                    <td>{item.name && persianJs(item.name).englishNumber().toString()}</td>
-                                                    <td>
+                                                <tr key={item.name} >
+                                                    <td colspan="2" className="pb-3">{item.name && persianJs(item.name).englishNumber().toString()}</td>
+                                                    <td className="pb-3">
                                                         <Row>
                                                             <Col className="ps-0">
                                                                 {(item.quantity * item.price) && persianJs(item.quantity * item.price).englishNumber().toString()}
                                                             </Col>
                                                         </Row>
                                                     </td>
-                                                    <td>
+                                                    <td className="pb-3">
                                                         <Row>
                                                             <Col className="ps-0">
                                                                 {item.quantity && persianJs(item.quantity).englishNumber().toString()}
                                                             </Col>
-                                                        </Row>
-                                                    </td>
-                                                    <td className="d-flex justify-content-center align-content-center">
-                                                        <Row>
                                                         </Row>
                                                     </td>
                                                 </tr>
@@ -270,16 +271,15 @@ export const Factor = ({ factor, setCancelFactorShow, setDeliveryShow, cancelOrd
                                         : null
                                 }
                                 <tr className="border-top-blue">
-                                    <td>جمع کل:</td>
-                                    <td className="fs-6">{getTotalPrice(factor.stock) && persianJs(getTotalPrice(factor.stock)).englishNumber().toString()} </td>
-                                    <td></td>
+                                    <td colspan="2" className="pt-4">جمع کل:</td>
+                                    <td className="fs-6 pt-4">{getTotalPrice(factor.stock) && persianJs(getTotalPrice(factor.stock)).englishNumber().toString()} <span>تومان</span></td>
                                     <td></td>
                                 </tr>
 
                             </tbody>
                         </Table>
                     </Col>
-                    <Col className="mb-3 noPrint">
+                    <Col className="mb-3 me-xl-5 noPrint">
                         <div className="notes--factor--page--dektop">
                             <Container fluid className="m-0 p-0" style={{ position: "sticky", top: "0", zIndex: "2" }} >
                                 <Row className="m-0 p-0 header--notes--desktop d-flex flex-row justify-content-between ">
