@@ -115,3 +115,6 @@ body {
 .margin--top--header {
   margin-top: 65px !important;
 }
+.text--dark--blue {
+  color: var(--dark--blue);
+}
