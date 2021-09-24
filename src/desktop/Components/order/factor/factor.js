@@ -55,7 +55,7 @@ export const Factor = (props) => {
                             <Card className="card--factor--desktop">
                                 <Card.Header className="card--header--factor--desktop mx-2 py-3 d-flex justify-content-center align-items-center">
                                     <span className="fw-bold fs-6">فروشنده :</span>
-                                    <span className="text--gray--factor--desktop me-3">{factor.data.employee.family}</span>
+                                    <span className="text--gray--factor--desktop me-3">{factor.data.provider.family}</span>
                                 </Card.Header>
                                 <Card.Body>
                                     <Row className="d-flex mx-3 my-2">
@@ -71,7 +71,7 @@ export const Factor = (props) => {
                                     <Row className="d-flex mx-3 my-3">
                                         <Col className="d-flex align-items-center">
                                             <span className="fw-bold fs-7">نشانی شرکت:</span>
-                                            <span className="text--gray--factor--desktop me-3">{factor.data.employee.address}</span>
+                                            <span className="text--gray--factor--desktop me-3">{factor.data.provider.address}</span>
                                         </Col>
                                     </Row>
                                 </Card.Body>
