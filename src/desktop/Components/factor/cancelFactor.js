@@ -31,22 +31,16 @@ export const CancelFactor = (props) => {
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
+            backdrop="static"
             className="mx-3 order-serach-modal"
         >
             <Modal.Body className="add-product px-4">
-                <Button className="border-0 customer-modal-close--desktop" type="button" onClick={e => props.onHide(false)}>
-                    <img className="d-flex m-auto customer-modal-close-svg--desktop" src={closeIcon} alt="close-btn" />
-                </Button>
-
                 <Row>
                     <Col className="text-center">
                         <span className="">آیا مطمئنید؟</span>
                     </Col>
                 </Row>
                 <Form onSubmit={formHandler} className="d-flex justify-content-around">
-                    <Button className="fw-bold order-submit border-0 w-25 mt-4 text-light bg-danger" onClick={e => props.onHide(false)} size="lg" block disabled={editLoading ? true : false}>
-                        خیر
-                    </Button>
                     {
                         editLoading ? (
                             <Button className="fw-bold order-submit border-0 w-50 mt-4 " onClick={e => editHandler(e)} size="lg" type="submit" disabled>
@@ -65,6 +59,10 @@ export const CancelFactor = (props) => {
                             </Button>
                         )
                     }
+                    <Button className="fw-bold order-submit border-0 w-25 mt-4 text-light bg-danger" onClick={e => props.onHide(false)} size="lg" block disabled={editLoading ? true : false}>
+                        خیر
+                    </Button>
+
                 </Form>
 
             </Modal.Body>

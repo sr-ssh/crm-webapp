@@ -59,7 +59,6 @@ export const NoteFactor = (props) => {
     }
 
     useEffect(() => {
-        debugger
         if (props.location.state === undefined)
             return history.goBack()
         if (props.location.state.factor.note) {
