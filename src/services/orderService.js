@@ -137,12 +137,11 @@ function editOrderQuantity(orderId, productId, quantity) {
 
 }
 
-function editProductOrder(orderId, products, address) {
+function editProductOrder(params) {
     console.log("into orderService")
-
     const requestOptions = {
         headers: authHeader(),
-        body: { orderId, products, address }
+        body: { ...params }
     };
 
     return axios

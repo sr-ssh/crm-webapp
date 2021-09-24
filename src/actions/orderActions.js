@@ -144,10 +144,10 @@ function editOrderQuantity(orderId, productId, status) {
     }
 }
 
-function editProductOrder({ orderId, products, address }) {
+function editProductOrder(params) {
     return dispatch => {
         dispatch(request(orderConstants.EDIT_PRODUCT_ORDER_REQUEST))
-        orderService.editProductOrder(orderId, products, address)
+        orderService.editProductOrder(params)
             .then(
                 res => {
                     if (res === undefined) {
