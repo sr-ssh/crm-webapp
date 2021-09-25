@@ -14,6 +14,7 @@ import { Header } from '../base/headerExcel'
 
 // Icons
 import editIcon from '../../assets/images/Products/edit.svg'
+import { StockCard } from './stockCard';
 
 export const Stock = () => {
 
@@ -53,30 +54,7 @@ export const Stock = () => {
                     {products ?
                         (products.map((item, index) =>
                         <Col key={index} xs={3}>
-                            <Card className="m-auto mt-3 bg-light productCard mx-2 border-0" >
-                                <Card.Body className="pb-0 ps-1 rounded-3">
-                                    <Card.Title>
-                                        {item.active
-                                            ? <div className="activeStatus"><span></span> فعال</div>
-                                            : <div className="deActiveStatus"><span></span> غیرفعال</div>}
-                                    </Card.Title>
-                                    <Card.Text className="pt-1">
-                                        <span style={{ "color": "var(--text-color-one)" }}>نام : </span>{item.name && persianJs(item.name).englishNumber().toString()}
-                                    </Card.Text>
-                                    <Card.Text className="pt-1">
-                                        <span style={{ "color": "var(--text-color-one)" }}>تاریخ ویرایش : </span>{item.updatedAt && persianJs(moment.from(item.updatedAt, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD')).englishNumber().toString()}
-                                    </Card.Text>
-                                    <Card.Text className="pt-1 ps-1 description--height">
-                                        <span style={{ "color": "var(--text-color-one)" }}>توضیحات :   </span>{item.description && persianJs(item.description).englishNumber().toString()}
-                                        <Card.Link className="editLogo w-100 d-block m-auto" onClick={() => { setEditModalShow(true); setProduct(item) }}>
-                                        بیشتر
-                                        </Card.Link>
-                                    </Card.Text>
-                                    <Card.Link className="editLogo w-100 d-block m-auto" onClick={() => { setEditModalShow(true); setProduct(item) }}>
-                                        <img className="d-block me-auto" src={editIcon} height="42px" alt="back-icon" />
-                                    </Card.Link>
-                                </Card.Body>
-                            </Card>
+                            <StockCard item={item} setEditModalShow={setEditModalShow} setProduct={setProduct} />
                         </Col>
                         ))
 
