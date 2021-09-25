@@ -11,6 +11,8 @@ import { productActions, employeeActions } from '../../../actions'
 import { AddProduct } from './addProduct'
 import { EditProduct } from './editProduct'
 import { Header } from '../base/headerExcel'
+import { XlsxModal } from './xlsxModal';
+
 
 // Icons
 import editIcon from '../../assets/images/Products/edit.svg'
@@ -20,6 +22,7 @@ export const Products = () => {
 
     const [addModalShow, setAddModalShow] = useState(false)
     const [editModalShow, setEditModalShow] = useState(false)
+    const [xlsxModalShow, setXlsxModalShow] = useState(false)
     const [product, setProduct] = useState({})
     const dispatch = useDispatch()
     const products = useSelector(state => state.getProducts.product)
@@ -27,9 +30,7 @@ export const Products = () => {
     const addProductLoading = useSelector(state => state.addProduct.loading)
     const userPermissions = useSelector(state => state.getPermissions.permissions)
 
-    const getExcel = () => {
-        dispatch(productActions.getExcelProducts())
-    }
+
 
 
     useEffect(() => {
@@ -40,7 +41,7 @@ export const Products = () => {
 
     return (
         <>
-            <Header isBTNSearch={true} userPermission={userPermissions.excelProduct} isGetExcel={true} getExcel={getExcel} isBtnAdd={"اضافه محصول"} btnAdd={() => setAddModalShow(true)} />
+            <Header isBTNSearch={true} userPermission={userPermissions.excelProduct} isGetExcel={true} getExcel={() => setXlsxModalShow(true)} isBtnAdd={"اضافه محصول"} btnAdd={() => setAddModalShow(true)} />
             <div className="product-page d-flex flex-column align-items-center margin--top--header ">
                 <Container className="m-0 w-100 d-flex justify-content-center flex-wrap ">
                     {
@@ -81,6 +82,8 @@ export const Products = () => {
 
                     <AddProduct show={addModalShow} onHide={() => setAddModalShow(false)} />
                     <EditProduct show={editModalShow} onHide={() => setEditModalShow(false)} product={product} />
+                    <XlsxModal show={xlsxModalShow} onHide={() => setXlsxModalShow(false)} />
+
                 </Container>
             </div>
         </>
