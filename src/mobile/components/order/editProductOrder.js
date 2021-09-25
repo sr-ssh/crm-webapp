@@ -31,6 +31,8 @@ export const EditeProductOrder = (props) => {
     const [order, insertOrder] = useState([])
     const [inputProductValidation, setInputProductValidation] = useState(false)
     const [addressUser, setAddressUser] = useState('')
+    const [companyName, setCompanyName] = useState('')
+
     const [validationInputPrice, setValidationInputPrice] = useState(false)
 
     const products = useSelector(state => state.getProducts.product)
@@ -126,14 +128,19 @@ export const EditeProductOrder = (props) => {
     let addressInputHandler = e => {
         setAddressUser(e.target.value)
     }
+    let companyNameInputHandler = e => {
+        setCompanyName(e.target.value)
+    }
     const formHandler = (e) => {
         e.preventDefault();
         if (order.length > 0) {
             let orders = order.map(item => { return { _id: item._id, quantity: item.quantity, sellingPrice: item.sellingPrice } })
+
             let params = {
                 orderId: props.order.id,
                 products: orders,
-                address: addressUser || ""
+                address: addressUser || "",
+                companyName: companyName || ""
             };
 
             dispatch(orderActions.editProductOrder(params))
@@ -193,9 +200,20 @@ export const EditeProductOrder = (props) => {
                                     </Card>
                                 </Col>
                             </Row>
+                            <Row className="m-0 p-0 mt-2" >
+                                <Col className="p-0 ">
+                                    <Card className="border-0 bg-transparent text-light">
+                                        <Form.Label className="pe-3">نام شرکت</Form.Label>
+                                        <Form.Control className="order-input company-input" type="text"
+                                            defaultValue={props.order.customer.company}
+                                            onChange={companyNameInputHandler}
+                                        />
+                                    </Card>
+                                </Col>
+                            </Row>
                             <Row className="m-0 p-0 mt-4">
-                                <Form.Label className="pe-3">سبد خرید</Form.Label>
                                 <Card className="border-0 p-3 pt-2  basket--edit--product--container">
+                                    <Form.Label className="pe-1">سبد خرید</Form.Label>
                                     <Card.Body className="p-0 basket-flex">
                                         <Row className="d-flex align-content-center justify-content-evenly">
                                             <Col className="col-6 pe-0 ps-1">

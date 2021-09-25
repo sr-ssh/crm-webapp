@@ -34,8 +34,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export const EditProduct = ({ item, order, removeOrder, validationInputPrice, editPriceProduct }) => {
-
+export const EditStock = ({ item, factor, removeFactor, validationInputPrice, editPriceStock, getTotalPriceLoading }) => {
 
     const classes = useStyles();
 
@@ -58,20 +57,21 @@ export const EditProduct = ({ item, order, removeOrder, validationInputPrice, ed
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
 
+
     return (
         <>
             <tr>
                 <td>{item.name && persianJs(item.name).englishNumber().toString()}</td>
-                {editPriceCurrentProduct ?
+                {(editPriceCurrentProduct || item.price == undefined) ?
                     <td className={`m-0 px-0 d-flex`} style={{ width: "135px" }} >
-                        <img src={tickGreenIcon} className="ms-2" alt="tick-icon" style={{ width: "20px" }} onClick={() => { editPriceProduct(item, inputCurrentPriceProduct); setEditPriceCurrentProduct(false) }} />
-                        <img src={deleteRedIcon} className="ms-2" alt="delete-icon" style={{ width: "20px" }} onClick={() => setEditPriceCurrentProduct(false)} />
-                        <Form.Control className={`notes-round ${validationInputPrice ? 'border border-danger' : null}`} min="1" type="number" defaultValue={item.sellingPrice} onChange={handlePrice} />
+                        <img src={tickGreenIcon} className="ms-2" alt="tick-icon" style={{ width: "20px" }} onClick={() => { editPriceStock(item, inputCurrentPriceProduct); setEditPriceCurrentProduct(false) }} />
+                        <img src={deleteRedIcon} className="ms-2" alt="delete-icon" style={{ width: "20px" }} onClick={() => { setEditPriceCurrentProduct(false); getTotalPriceLoading(false) }} />
+                        <Form.Control className={`notes-round ${validationInputPrice ? 'border border-danger' : null}`} min="1" type="number" defaultValue={item.price} onChange={handlePrice} />
                     </td>
                     :
                     <td className="px-0" >
-                        <img src={editIcon} className="ms-3 " alt="edit-icon" style={{ width: "33px" }} onClick={() => setEditPriceCurrentProduct(true)} />
-                        {(item.quantity * item.sellingPrice) && persianJs(item.quantity * item.sellingPrice).englishNumber().toString()}
+                        <img src={editIcon} className="ms-3 " alt="edit-icon" style={{ width: "33px" }} onClick={() => { setEditPriceCurrentProduct(true); getTotalPriceLoading(true) }} />
+                        {(item.quantity * item.price) && persianJs(item.quantity * item.price).englishNumber().toString()}
                     </td>
                 }
                 <td className="pe-3">{item.quantity && persianJs(item.quantity).englishNumber().toString()}</td>
@@ -96,7 +96,7 @@ export const EditProduct = ({ item, order, removeOrder, validationInputPrice, ed
                     >
 
                         <span className="me-2 fw-bold">حذف شود؟</span>
-                        <Button className="border-0 hire-application-btn p-0 mx-3" type="button" onClick={() => { setAnchorEl(null); removeOrder() }} >
+                        <Button className="border-0 hire-application-btn p-0 mx-3" type="button" onClick={() => { setAnchorEl(null); removeFactor() }} >
                             <img className="d-flex m-auto " src={tickIcon} alt="close-btn" height="40px" />
                         </Button>
                         <Button className="border-0 close-application-btn p-0 mx-2" type="button" onClick={() => { setAnchorEl(null) }} >

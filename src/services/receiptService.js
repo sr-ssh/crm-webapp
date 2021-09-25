@@ -8,14 +8,14 @@ let baseRoute = SERVER_URL + '/receipt';
 export const recieptService = {
     getReceipts,
     addReceipt,
-    editOrderStatus,
+    editReceiptStatus,
     getOrderSms,
     editOrderSms,
     sendDeliverySms,
     editOrderPrice,
     editOrderQuantity,
     cancelProductOrder,
-    editProductOrder,
+    editReceipt,
     orderDetails,
     getShareLinkOrder,
     confirmShop
@@ -58,16 +58,16 @@ function getReceipts(filter = {}) {
         });
 }
 
-function editOrderStatus(orderId, status) {
-    console.log("into orderService")
+function editReceiptStatus(receiptId, status) {
+    console.log("into receiptService")
 
     const requestOptions = {
         headers: authHeader(),
-        body: { orderId, status }
+        body: { receiptId, status }
     };
 
     return axios
-        .put(`${baseRoute}/order/status`, requestOptions.body, { headers: requestOptions.headers })
+        .put(`${baseRoute}/status`, requestOptions.body, { headers: requestOptions.headers })
         .then(res => {
             console.log("res.user >> ");
             console.log(res.data);
@@ -131,16 +131,16 @@ function editOrderQuantity(orderId, productId, quantity) {
 
 }
 
-function editProductOrder(orderId, products, address) {
-    console.log("into orderService")
+function editReceipt(receiptId, stocks, address) {
+    console.log("into receiptService")
 
     const requestOptions = {
         headers: authHeader(),
-        body: { orderId, products, address }
+        body: { receiptId, stocks, address }
     };
 
     return axios
-        .put(`${baseRoute}/order/product`, requestOptions.body, { headers: requestOptions.headers })
+        .put(`${baseRoute}/edit`, requestOptions.body, { headers: requestOptions.headers })
         .then(res => {
             console.log("res.user >> ");
             console.log(res.data);

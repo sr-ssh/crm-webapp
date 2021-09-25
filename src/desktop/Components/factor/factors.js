@@ -10,10 +10,10 @@ import SearchIcon from '@material-ui/icons/Search';
 // Actions
 import { receiptActions } from '../../../actions';
 // Components
-import { OrderSearch } from './search'
+import { FactorSearch } from './search'
 import { Factor } from './factor';
 import { Delivery } from './delivery'
-import { CancelOrder } from './cancelOrder'
+import { CancelFactor } from './cancelFactor'
 import { Header } from '../base/header'
 
 
@@ -29,8 +29,8 @@ export const Factors = () => {
     const [modalShow, setModalShow] = useState(false)
     const [deliveryShow, setDeliveryShow] = useState(false)
     const [cancelFactorShow, setCancelFactorShow] = useState(false)
+    const [activeFactor, setActiveFactor] = useState({})
 
-    const [activeOrder, setActiveOrder] = useState({})
     const [order, setOrder] = useState('')
     const dispatch = useDispatch()
 
@@ -75,13 +75,12 @@ export const Factors = () => {
 
                     {(receipts.length > 0) ?
                         (receipts.map((factores, index) =>
-                            <Factor key={index} factor={factores} />
+                            <Factor key={index} factor={factores} setCancelFactorShow={setCancelFactorShow} setActiveFactor={setActiveFactor} />
                         ))
                         : null}
 
-                    {/* <OrderSearch show={modalShow} onHide={() => { setModalShow(false) }} /> */}
-                    {/* <Delivery show={deliveryShow} onHide={() => setDeliveryShow(false)} order={order} /> */}
-                    {/* <CancelOrder status="2" show={cancelOrderShow} onHide={() => setCancelOrderShow(false)} order={activeOrder} /> */}
+                    <FactorSearch show={modalShow} onHide={() => { setModalShow(false) }} />
+                    <CancelFactor status="1" show={cancelFactorShow} onHide={() => setCancelFactorShow(false)} factor={activeFactor} />
 
                 </Container>
 

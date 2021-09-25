@@ -2,16 +2,18 @@ import React from 'react'
 import { Modal, Row, Col, Form, Button, Spinner, Alert } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 // Actions
-import { orderActions } from '../../../actions'
+import { receiptActions } from '../../../actions'
 
 // Icons
 import closeIcon from '../../assets/images/close.svg'
 
-export const CancelOrder = (props) => {
+export const CancelFactor = (props) => {
+
+
     const dispatch = useDispatch()
 
     let alert = useSelector(state => state.alert)
-    let editLoading = useSelector(state => state.editOrderStatus.loading)
+    let editLoading = useSelector(state => state.editReceiptStatus.loading)
 
     const editHandler = (e) => {
         setTimeout(() => {
@@ -21,7 +23,9 @@ export const CancelOrder = (props) => {
 
     const formHandler = (e) => {
         e.preventDefault()
-        dispatch(orderActions.editOrderStatus(props.order.id, props.status))
+        console.log(props.status)
+
+        dispatch(receiptActions.editReceiptStatus(props.factor.id, props.status))
     }
 
     return (
@@ -33,9 +37,18 @@ export const CancelOrder = (props) => {
             className="mx-3 order-serach-modal"
         >
             <Modal.Body className="add-product px-4">
-                <Button className="border-0 customer-modal-close--desktop" type="button" onClick={e => props.onHide(false)}>
-                    <img className="d-flex m-auto customer-modal-close-svg--desktop" src={closeIcon} alt="close-btn" />
-                </Button>
+
+                {
+                    alert.message &&
+                    <>
+                        <div className="modal-backdrop show"></div>
+                        <Row className="justify-content-center text-center ">
+                            <Alert variant={alert.type}>
+                                {alert.message}
+                            </Alert>
+                        </Row>
+                    </>
+                }
 
                 <Row>
                     <Col className="text-center">
@@ -43,9 +56,6 @@ export const CancelOrder = (props) => {
                     </Col>
                 </Row>
                 <Form onSubmit={formHandler} className="d-flex justify-content-around">
-                    <Button className="fw-bold order-submit border-0 w-25 mt-4 text-light" onClick={e => props.onHide(false)} size="lg" block>
-                        خیر
-                    </Button>
                     {
                         editLoading ? (
                             <Button className="fw-bold order-submit border-0 w-50 mt-4" onClick={e => editHandler(e)} size="lg" type="submit" disabled>
@@ -59,11 +69,15 @@ export const CancelOrder = (props) => {
                                 در حال حذف...
                             </Button>
                         ) : (
-                            <Button className="fw-bold order-submit border-0 bg-danger text-light w-25 mt-4" size="lg" onClick={e => editHandler(e)} type="submit" block>
+                            <Button className="fw-bold order-submit border-0 bg-success  text-light w-25 mt-4" size="lg" onClick={e => editHandler(e)} type="submit" block>
                                 بله
                             </Button>
                         )
                     }
+                    <Button className="fw-bold order-submit border-0 w-25 mt-4 text-light bg-danger" onClick={e => props.onHide(false)} size="lg" block>
+                        خیر
+                    </Button>
+
                 </Form>
 
             </Modal.Body>

@@ -16,7 +16,7 @@ export const Note = ({ note }) => {
     return (
         <>
             <Container>
-                <Card className="m-auto mt-3 dialog--notes--Card--dekstop border-0 lh-sm" >
+                <Card className="m-auto mt-3 mb-3 dialog--notes--Card--dekstop border-0 lh-sm" >
                     <Card.Body className="pb-4 pt-2 px-2  rounded-3 text-gray">
                         <Row className="p-0 m-0 text-dark ">
                             <Card className="background-blue border-0 py-0 header--notes-round">

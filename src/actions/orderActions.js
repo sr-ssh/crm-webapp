@@ -144,10 +144,10 @@ function editOrderQuantity(orderId, productId, status) {
     }
 }
 
-function editProductOrder({ orderId, products, address }) {
+function editProductOrder(params) {
     return dispatch => {
         dispatch(request(orderConstants.EDIT_PRODUCT_ORDER_REQUEST))
-        orderService.editProductOrder(orderId, products, address)
+        orderService.editProductOrder(params)
             .then(
                 res => {
                     if (res === undefined) {
@@ -402,10 +402,10 @@ function orderDetails(params) {
 }
 
 
-function getShareLinkOrder(orderId) {
+function getShareLinkOrder(params) {
     return dispatch => {
         dispatch(request(orderConstants.GET_ORDER_SHARE_LINK_REQUEST))
-        orderService.getShareLinkOrder(orderId)
+        orderService.getShareLinkOrder(params)
             .then(
                 res => {
                     if (res === undefined) {

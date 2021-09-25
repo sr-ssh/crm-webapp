@@ -365,6 +365,10 @@
 }
 .address-input {
   max-height: 10vh;
+  height: 50px;
+}
+.company-input {
+  height: 35px;
 }
 .btn--add--note {
   font-size: 14px;
@@ -431,7 +435,7 @@
     display: none;
   }
 }
-.spinner--download--btn--mobile{
+.spinner--download--btn--mobile {
   position: relative;
   top: -28px;
   right: 34vw;
@@ -443,11 +447,11 @@
   font-size: 13px;
   color: var(--text-color-one);
 }
-.quantity--input{
+.quantity--input {
   position: relative;
   top: -23px;
 }
-.basket--top{
+.basket--top {
   position: relative;
   top: -26px;
 }

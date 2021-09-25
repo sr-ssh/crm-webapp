@@ -313,7 +313,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                 </Row>
                 <Row className="p-0 m-0 pb-3 w-100">
                     <Col xs={12} className="p-0 px-1 pb-3">
-                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2" type="button" onClick={() => { setIsShareLinkOrder(true); setShareLinkOrder(order.id) }}>
+                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2" type="button" onClick={() => { setIsShareLinkOrder(true); setShareLinkOrder(order) }}>
                             <Col xs={4} className="text-start align-items-center">
                                 <img src={prevFactorIcon} height="20px" alt="prev-factor-icon" className="" />
                             </Col>
@@ -384,7 +384,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
             <CancelProductOrder show={cancelModalShow} onHide={() => { setCancelModalShow(false) }} productId={productId} orderId={orderId} />
             <EditeProductOrder show={editOrder} onHide={() => { setEditOrder(false) }} order={editProductOrder} />
             <AddNotesModal show={showNotesModal} onHide={() => { setShowNotesModal(false) }} permission={true} orderId={order.id} />
-            <ShareLinkModal show={isShareLinkOrder} onHide={() => setIsShareLinkOrder(false)} orderId={isShareLinkOrder ? shareLinkOrder : null} customerMobile={order.customer.mobil} />
+            <ShareLinkModal show={isShareLinkOrder} onHide={() => setIsShareLinkOrder(false)} order={isShareLinkOrder ? shareLinkOrder : null} />
         </Card >
     )
 }

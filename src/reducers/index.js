@@ -18,7 +18,7 @@ import { getNotes, addNotes, editStatusNotes } from './notesReducer'
 import { getShareLinkConfig, editShareLinkConfig } from './settingReducer'
 import { getStock, addStock, editStock } from './stockReducer';
 import { getSupplier, getSuppliers, getExcelSuppliers } from './supplierReducer';
-import { addReceipt, confirmShop, getReceipts } from './receiptReducer';
+import { addReceipt, confirmShop, getReceipts, editReceiptStatus, editReceipt } from './receiptReducer';
 
 export default combineReducers({
     authentication,
@@ -66,5 +66,5 @@ export default combineReducers({
     getStock, addStock, editStock,
     getSupplier, getSuppliers, getExcelSuppliers,
     addReceipt, confirmShop,
-    getReceipts
+    getReceipts, editReceiptStatus, editReceipt
 })
