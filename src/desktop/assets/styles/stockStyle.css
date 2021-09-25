@@ -1,9 +1,14 @@
 @media (min-width: 992px){
     
-.order-serach-modal--medium .modal-lg {
+  .order-serach-modal--medium .modal-lg {
     max-width: 33vw;
-}
+  }
 
+}
+@media (min-width: 992px){
+  .order-serach-modal--medium .modal-lg {
+    max-width: 525px;
+  }
 }
 
 .order-input--description{
@@ -11,4 +16,16 @@
   color: var(--text-color-two);
   font-size: 14px;
   border: none;
+}
+
+.description--height {
+  line-height: 1.5;
+  height: 4.5em;
+  overflow: hidden;
+}
+.product-checkbox--danger{
+  color: var(--dager-color);
+}
+.product-checkbox--success{
+  color: var(--button-color-two);
 }

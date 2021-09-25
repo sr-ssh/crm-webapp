@@ -4,7 +4,7 @@ import { Form, Button, Row, Col, Modal, Spinner, Alert } from 'react-bootstrap';
 import persianJs from 'persianjs/persian.min';
 
 // Actions
-import { productActions } from '../../../actions';
+import { productActions, stockActions } from '../../../actions';
 
 // Icons
 import closeIcon from '../../assets/images/close.svg'
@@ -15,8 +15,7 @@ export const AddStock = (props) => {
     const [product, setProduct] = useState({})
     const [validated, setValidated] = useState(false);
     const [productnameValidated, setProductNameValidated] = useState(false);
-    const [productpriceValidated, setProductPriceValidated] = useState(false);
-    const addProductLoading = useSelector(state => state.addProduct.loading)
+    const addProductLoading = useSelector(state => state.addStock.loading)
     const alert = useSelector(state => state.alert)
     const dispatch = useDispatch()
 
@@ -32,17 +31,6 @@ export const AddStock = (props) => {
             return undefined
         }
     }
-    let productpriceHandler = (value) => {
-        const pPrice = value;
-        const patt = /^[0-9]+$/m;
-        let res = patt.test(pPrice);
-        if (res) {
-            setProductPriceValidated(true)
-            return value
-        }
-        else
-            return undefined
-    }
 
 
 
@@ -53,25 +41,18 @@ export const AddStock = (props) => {
         if (name === "productname") {
             value = productnameHandler(value)
         }
-        if (name === "productprice") {
-            value = productpriceHandler(value)
-        }
-        if (e.target.id === 'sellingPrice' && value?.length)
-            value = persianJs(value).toEnglishNumber().toString();
         setProduct({ ...product, [e.target.id]: value })
     }
 
     let formHandler = (e) => {
         e.preventDefault()
-        if (product?.name && product?.sellingPrice) {
-            dispatch(productActions.addProduct(product))
-            setProduct({ name: "", sellingPrice: "", description: "" })
+        if (product?.name) {
+            dispatch(stockActions.addStock(product))
+            setProduct({ name: "", description: "" })
             setProductNameValidated(false)
-            setProductPriceValidated(false)
         }
         else {
             setProductNameValidated(true)
-            setProductPriceValidated(true)
         }
     }
 
@@ -87,7 +68,7 @@ export const AddStock = (props) => {
             className="mx-3 order-serach-modal--medium"
         >
             <Modal.Body className="add-product px-4">
-                <Button className="border-0 customer-modal-close--desktop" type="button" onClick={e => { props.onHide(false); setProductNameValidated(false); setProductPriceValidated(false) }}>
+                <Button className="border-0 customer-modal-close--desktop" type="button" onClick={e => { props.onHide(false); setProductNameValidated(false);}}>
                     <img className="d-flex m-auto customer-modal-close-svg--desktop" src={closeIcon} alt="close-btn" />
                 </Button>
                 {/* {

@@ -6,7 +6,7 @@ import persianJs from 'persianjs/persian.min';
 import { Button } from '@material-ui/core'
 
 // Actions
-import { productActions, employeeActions } from '../../../actions'
+import { productActions, employeeActions, stockActions } from '../../../actions'
 // Components
 import { AddStock } from './addStock'
 import { EditStock } from './editStock'
@@ -21,7 +21,7 @@ export const Stock = () => {
     const [editModalShow, setEditModalShow] = useState(false)
     const [product, setProduct] = useState({})
     const dispatch = useDispatch()
-    const products = useSelector(state => state.getProducts.product)
+    const products = useSelector(state => state.getStock.stock)
     const productLoading = useSelector(state => state.getProducts.loading)
     const addProductLoading = useSelector(state => state.addProduct.loading)
     const userPermissions = useSelector(state => state.getPermissions.permissions)
@@ -33,7 +33,7 @@ export const Stock = () => {
 
     useEffect(() => {
         if (!editModalShow && !addModalShow)
-            dispatch(productActions.getProducts())
+            dispatch(stockActions.getStock())
         dispatch(employeeActions.getPermissions())
     }, [dispatch, editModalShow, addModalShow])
 
@@ -48,9 +48,12 @@ export const Stock = () => {
                             <Spinner className="m-auto d-block" animation="border" />
                         </Col>
                     }
+                    <Row>
+                        
                     {products ?
                         (products.map((item, index) =>
-                            <Card key={index} className="m-auto mt-3 bg-light productCard col-3 mx-2" >
+                        <Col key={index} xs={3}>
+                            <Card className="m-auto mt-3 bg-light productCard mx-2 border-0" >
                                 <Card.Body className="pb-0 ps-1 rounded-3">
                                     <Card.Title>
                                         {item.active
@@ -63,18 +66,23 @@ export const Stock = () => {
                                     <Card.Text className="pt-1">
                                         <span style={{ "color": "var(--text-color-one)" }}>تاریخ ویرایش : </span>{item.updatedAt && persianJs(moment.from(item.updatedAt, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD')).englishNumber().toString()}
                                     </Card.Text>
-                                    <Card.Text className="pt-1 ps-1">
+                                    <Card.Text className="pt-1 ps-1 description--height">
                                         <span style={{ "color": "var(--text-color-one)" }}>توضیحات :   </span>{item.description && persianJs(item.description).englishNumber().toString()}
+                                        <Card.Link className="editLogo w-100 d-block m-auto" onClick={() => { setEditModalShow(true); setProduct(item) }}>
+                                        بیشتر
+                                        </Card.Link>
                                     </Card.Text>
                                     <Card.Link className="editLogo w-100 d-block m-auto" onClick={() => { setEditModalShow(true); setProduct(item) }}>
                                         <img className="d-block me-auto" src={editIcon} height="42px" alt="back-icon" />
                                     </Card.Link>
                                 </Card.Body>
                             </Card>
+                        </Col>
                         ))
 
                         : null}
 
+                    </Row>
                     <AddStock show={addModalShow} onHide={() => setAddModalShow(false)} />
                     <EditStock show={editModalShow} onHide={() => setEditModalShow(false)} product={product} />
                 </Container>

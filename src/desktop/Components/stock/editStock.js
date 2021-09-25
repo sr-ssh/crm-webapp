@@ -4,18 +4,17 @@ import { Form, Button, Row, Col, Modal, Spinner, Alert } from 'react-bootstrap';
 import persianJs from 'persianjs/persian.min';
 
 // Actions
-import { productActions } from '../../../actions';
+import { productActions, stockActions } from '../../../actions';
 // Icons
 import closeIcon from '../../assets/images/close.svg'
 
 export const EditStock = (props) => {
     const [newProduct, setnewProduct] = useState(props.product)
-    const editProductLoading = useSelector(state => state.editProduct.loading)
+    const editProductLoading = useSelector(state => state.editStock.loading)
     const alert = useSelector(state => state.alert)
     const dispatch = useDispatch()
     const [validated, setValidated] = useState(false);
     const [productnameValidated, setProductNameValidated] = useState(false);
-    const [productpriceValidated, setProductPriceValidated] = useState(false);
 
     let productnameHandler = (value) => {
         const pName = value;
@@ -30,18 +29,6 @@ export const EditStock = (props) => {
             return undefined
         }
     }
-    let productpriceHandler = (value) => {
-        const pPrice = value;
-        const patt = /^[0-9]+$/m;
-        let res = patt.test(pPrice);
-        if (res) {
-            setProductPriceValidated(false)
-            return value
-        }
-        else
-            return undefined
-    }
-
     let handleChange = (e) => {
         let { id, value } = e.target;
         console.log(id, value);
@@ -49,11 +36,6 @@ export const EditStock = (props) => {
         if (id === 'name')
             value = productnameHandler(value)
         // product sellingPrice validation  
-        if (id === 'sellingPrice' && value.length) {
-            value = productpriceHandler(value)
-            if (value != undefined)
-                value = persianJs(value).toEnglishNumber().toString();
-        }
         if (id === 'active1')
             setnewProduct({ ...newProduct, active: true })
         else if (id === 'active0')
@@ -65,8 +47,8 @@ export const EditStock = (props) => {
     let formHandler = (e) => {
         e.preventDefault()
         console.log(newProduct);
-        if (newProduct.name && newProduct.sellingPrice) {
-            dispatch(productActions.editProduct(newProduct))
+        if (newProduct.name) {
+            dispatch(stockActions.editStock(newProduct))
 
         }
         else
@@ -85,7 +67,7 @@ export const EditStock = (props) => {
             {...props}
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
-            centered className="mx-3 order-serach-modal"
+            centered className="mx-3 order-serach-modal--medium"
         >
             <Modal.Body className="add-product px-4">
                 <Button className="border-0 customer-modal-close--desktop" type="button" onClick={e => props.onHide(false)}>
@@ -106,14 +88,25 @@ export const EditStock = (props) => {
                     <Row className="my-3 mb-4 justify-content-center">
                         <Col className="ms-3">
                             <Form.Group className="fw-bold product-checkbox" onChange={handleChange}>
-                                <Form.Check.Input name="activity" id="active1" defaultChecked={props.product.active} inline type="radio" isValid />
-                                <Form.Check.Label htmlFor="active1" inline className="me-1">فعال</Form.Check.Label>
+                                <Row>
+                                    <Col className="fw-bold product-checkbox" xs={1}>
+                                        <Form.Check.Input name="activity" id="active1" defaultChecked={props.product.active} inline type="radio" isValid />
+                                    </Col>
+                                    <Col className="fw-bold product-checkbox">
+                                        <Form.Check.Label htmlFor="active1" inline className="me-1 product-checkbox--success">فعال</Form.Check.Label>
+                                    </Col>
+                                </Row>
                             </Form.Group>
                         </Col>
                         <Col>
                             <Form.Group className="fw-bold product-checkbox" onChange={handleChange}>
-                                <Form.Check.Input name="activity" id="active0" defaultChecked={!props.product.active} inline type="radio" isInvalid />
-                                <Form.Check.Label htmlFor="active0" inline className="me-1">غیر فعال</Form.Check.Label>
+                            <Row>
+                                    <Col className="fw-bold product-checkbox" xs={1}>
+                                <Form.Check.Input name="activity" id="active0" defaultChecked={!props.product.active} inline type="radio" isInvalid /></Col>
+                                    <Col className="fw-bold product-checkbox">
+                                <Form.Check.Label htmlFor="active0" inline className="me-1 product-checkbox--danger">غیر فعال</Form.Check.Label>
+                                </Col>
+                                </Row>
                             </Form.Group>
                         </Col>
                     </Row>

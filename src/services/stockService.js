@@ -8,7 +8,7 @@ let baseRoute = SERVER_URL + '/stock';
 
 export const stockService = {
     getStock,
-    addStockt,
+    addStock,
     editStock,
     getExcelProducts
 };
@@ -37,7 +37,7 @@ function getStock() {
 }
 
 
-function addStockt(product) {
+function addStock(product) {
     console.log("into productService");
 
     if (!product.description)
