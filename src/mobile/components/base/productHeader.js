@@ -7,7 +7,7 @@ import plusIcon from './../../assets/images/Products/pluss.svg'
 export const Header = ({title, modalShow, setModalShow}) => {
     return(
         <>
-        <Navbar variant="dark" sticky="top" className="py-2 my-nav" >
+        <Navbar variant="dark" sticky="top" className="py-1 my-nav" >
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="align-items-center w-100">

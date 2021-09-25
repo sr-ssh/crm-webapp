@@ -29,3 +29,10 @@
 .product-checkbox--success{
   color: var(--button-color-two);
 }
+.more--description{
+  text-decoration: none;
+  color: var(--bs-danger)
+}
+.more--description:hover{
+  color: var(--bs-danger)
+}

@@ -12,7 +12,6 @@ import { Factor } from './desktop/Components/order/factor/factor'
 
 
 
-
 import "react-notification-alert/dist/animate.css";
 import 'bootstrap/dist/css/bootstrap.css';
 import './desktop/assets/styles/baseStyle.css';
@@ -27,10 +26,6 @@ import './desktop/assets/styles/notesStyle.css'
 import './desktop/assets/styles/factorStyle.css'
 import './desktop/assets/styles/receiptStyle.css'
 import './desktop/assets/styles/stockStyle.css'
-
-
-
-
 
 
 

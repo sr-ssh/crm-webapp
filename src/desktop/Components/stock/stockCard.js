@@ -35,10 +35,9 @@ export const StockCard = ({item, setEditModalShow, setProduct}) => {
                 </Card.Text>
                 <Card.Text className="pt-1 ps-1 description--height">
                     <span style={{ "color": "var(--text-color-one)" }}>توضیحات :   </span>
-                    <Card.Link className="editLogo w-100 d-block m-auto" onClick={() => { handleToggle(); setProduct(item) }}>
-                    بیشتر
-                    </Card.Link>{item.description && persianJs(item.description).englishNumber().toString()}
-                    
+                    <span className="editLogo w-100 d-block m-auto more--description fs-7" onClick={() => { handleToggle(); setProduct(item) }}>
+                    بیشتر...
+                    </span>{item.description && persianJs(item.description).englishNumber().toString()}
                 </Card.Text>
                 <Card.Link className="editLogo w-100 d-block m-auto" onClick={() => { setEditModalShow(true); setProduct(item) }}>
                     <img className="d-block me-auto" src={editIcon} height="42px" alt="back-icon" />

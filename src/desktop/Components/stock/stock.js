@@ -10,7 +10,7 @@ import { productActions, employeeActions, stockActions } from '../../../actions'
 // Components
 import { AddStock } from './addStock'
 import { EditStock } from './editStock'
-import { Header } from '../base/headerExcel'
+import { Header } from '../base/headerNoSearch'
 
 // Icons
 import editIcon from '../../assets/images/Products/edit.svg'
