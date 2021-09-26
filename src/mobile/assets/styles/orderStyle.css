@@ -458,3 +458,8 @@
 .border-10 {
   border-radius: 10px;
 }
+.file--icon--mobile{
+  position: relative;
+  top: 43px;
+  right: 13px;
+}

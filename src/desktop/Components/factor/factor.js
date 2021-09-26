@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export const Factor = ({ factor, setCancelFactorShow, setDeliveryShow, cancelOrderShow, setCancelOrderShow, recordOrderShow = '', setRecordOrderShow = {}, setActiveFactor, setOrder, status, setUploadModalShow }) => {
+export const Factor = ({ factor, setCancelFactorShow, setDeliveryShow, cancelOrderShow, setCancelOrderShow, recordOrderShow = '', setRecordOrderShow = {}, setActiveFactor, setOrder, status }) => {
 
     const classes = useStyles();
     const dispatch = useDispatch()
@@ -163,12 +163,6 @@ export const Factor = ({ factor, setCancelFactorShow, setDeliveryShow, cancelOrd
                     <Button className="w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setCancelFactorShow(true); setActiveFactor(factor) }}>
                         <img src={cancelIcon} height="25px" alt="print-icon" className="col-3" />
                         <span className="noPrint">لغو فاکتور</span>
-                    </Button>
-                </Col>
-                <Col className="d-flex justify-content-end col-2">
-                    <Button className="w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setUploadModalShow(true); setActiveFactor(factor) }}>
-                        <img src={cancelIcon} height="25px" alt="print-icon" className="col-3" />
-                        <span className="noPrint">بارگذاری مدارک</span>
                     </Button>
                 </Col>
             </Row>

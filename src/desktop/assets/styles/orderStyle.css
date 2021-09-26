@@ -265,8 +265,7 @@
   color: var(--note-border);
 }
 .file--icon{
-position: relative;
-top: 66px;
-right: 13px;
-
+  position: relative;
+  top: 66px;
+  right: 13px;
 }
