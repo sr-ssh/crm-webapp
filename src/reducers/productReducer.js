@@ -99,3 +99,26 @@ export function getExcelProducts(state = initialState, action) {
     }
 
 }
+
+
+export function uploadExcelProducts(state = {}, action) {
+    switch (action.type) {
+        case productConstants.UPLOAD_EXCEL_PRODUCTS_REQUEST:
+            return {
+                loading: true,
+            }
+        case productConstants.UPLOAD_EXCEL_PRODUCTS_SUCCESS:
+            return {
+                loading: false,
+                data: action.data
+            }
+        case productConstants.UPLOAD_EXCEL_PRODUCTS_FAILURE:
+            return {
+                err: action.error,
+                loading: false,
+            }
+        default:
+            return state;
+    }
+
+}
