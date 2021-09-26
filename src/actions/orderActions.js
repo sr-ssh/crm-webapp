@@ -16,7 +16,8 @@ export const orderActions = {
     editProductOrder,
     orderDetails,
     getShareLinkOrder,
-    confirmFinancial
+    confirmFinancial,
+    uploadDoc
 }
 
 function getOrders(filter) {
@@ -458,6 +459,35 @@ function confirmFinancial(orderId) {
             );
     };
 
+}
+
+
+function uploadDoc(orderId) {
+    return dispatch => {
+        dispatch(request(orderConstants.UPLOAD_DOC_REQUEST))
+        orderService.uploadDoc(orderId)
+            .then(
+                res => {
+                    if (res === undefined) {
+                        dispatch(alertActions.error('ارتباط با سرور برقرار نیست'));
+                        dispatch(failure(orderConstants.UPLOAD_DOC_FAILURE, 'ارتباط با سرور برقرار نیست'))
+                    }
+                    else if (res.success) {
+                        console.log("order financial confirmed")
+                        dispatch(success(orderConstants.UPLOAD_DOC_SUCCESS, res.data));
+                    } else if (res.success == false) {
+                        dispatch(failure(orderConstants.UPLOAD_DOC_FAILURE, res.message))
+                        dispatch(alertActions.error(res.message));
+                    }
+                },
+                error => {
+                    dispatch(failure(orderConstants.UPLOAD_DOC_FAILURE, error.toString()));
+                    console.log("occure error");
+                    console.log(error.toString());
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+    };
 }
 function request(type) {
     return { type: type }

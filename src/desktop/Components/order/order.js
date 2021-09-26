@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, setCancelOrderShow, recordOrderShow = '', setRecordOrderShow = {}, setActiveOrder, setOrder, status }) => {
+export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, setCancelOrderShow, recordOrderShow = '', setRecordOrderShow = {}, setActiveOrder, setOrder, status, setUploadModalShow }) => {
 
 
     const classes = useStyles();
@@ -187,6 +187,13 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                         </Button>
                     </Col>
                 }
+                
+                <Col className="d-flex justify-content-end col-2">
+                    <Button className="w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setUploadModalShow(true); setActiveOrder(order) }}>
+                        <img src={cancelIcon} height="25px" alt="print-icon" className="col-3" />
+                        <span className="noPrint">بارگذاری مدارک</span>
+                    </Button>
+                </Col>
             </Row>
             <Card.Body className="pb-0 ps-1 rounded-3 text-gray">
                 <Row className="p-0 ps-2 m-0 ">

@@ -6,7 +6,7 @@ import { getProducts, addProduct, editProduct } from './productReducer'
 import { financeSummary, bill } from './financeReducer'
 import {
     addOrder, getOrders, setOrdersFilter, editOrderStatus, getOrderSms, deliverySms, editOrderSms, cancelProductOrder, editOrderQuantity,
-    editOrderPrice, editProducOrder, orderDetails, getShareLinkOrder
+    editOrderPrice, editProducOrder, orderDetails, getShareLinkOrder, uploadDoc
 } from './orderReducer'
 import { getReminders } from './reminderReducer'
 import { getDiscounts } from './discountReducer';
@@ -57,7 +57,7 @@ export default combineReducers({
     editProducOrder,
     getNotes,
     addNotes,
-    orderDetails,
+    orderDetails, uploadDoc,
     getExcelCustomers,
     getShareLinkConfig,
     editShareLinkConfig,

@@ -12,10 +12,9 @@ import { receiptActions } from '../../../actions';
 // Components
 import { FactorSearch } from './search'
 import { Factor } from './factor';
-import { Delivery } from './delivery'
 import { CancelFactor } from './cancelFactor'
 import { Header } from '../base/header'
-
+import { UploadDocuments } from './uploadDoc'
 
 
 
@@ -27,7 +26,7 @@ export const Factors = () => {
     let alertMessage = useSelector(state => state.alert.message)
     let alerType = useSelector(state => state.alert.type)
     const [modalShow, setModalShow] = useState(false)
-    const [deliveryShow, setDeliveryShow] = useState(false)
+    const [uploadModalShow, setUploadModalShow] = useState(false)
     const [cancelFactorShow, setCancelFactorShow] = useState(false)
     const [activeFactor, setActiveFactor] = useState({})
 
@@ -75,13 +74,13 @@ export const Factors = () => {
 
                     {(receipts.length > 0) ?
                         (receipts.map((factores, index) =>
-                            <Factor key={index} factor={factores} setCancelFactorShow={setCancelFactorShow} setActiveFactor={setActiveFactor} />
+                            <Factor key={index} factor={factores} setCancelFactorShow={setCancelFactorShow} setActiveFactor={setActiveFactor} setUploadModalShow={setUploadModalShow} />
                         ))
                         : null}
 
                     <FactorSearch show={modalShow} onHide={() => { setModalShow(false) }} />
                     <CancelFactor status="1" show={cancelFactorShow} onHide={() => setCancelFactorShow(false)} factor={activeFactor} />
-
+                    <UploadDocuments show={uploadModalShow} onHide={() => setUploadModalShow(false)} />
                 </Container>
 
             </div>
