@@ -131,7 +131,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
     return (
 
         <Card className={`m-auto mt-3 bg-light productCard border-0 lh-lg ${!print ? 'noPrint' : ''} mx-1 ${classes.productCard}`} >
-            <Row className="mt-3 noPrint">
+            <Row className="mt-3 noPrint ms-0">
                 <Col className="d-flex justify-content-center ">
                     <Button className={`${order.status == 2 ? "w-50" : "w-75"} btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2`} type="button" onClick={() => { setIsShareLinkOrder(true) }}>
                         <img src={pishFactorIcon} height="25px" alt="edit-order-icon" className="col-3 py-1" />
