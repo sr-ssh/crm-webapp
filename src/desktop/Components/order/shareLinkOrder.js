@@ -19,29 +19,64 @@ import emailIcon from '../../assets/images/order/sharelink/email.svg'
 
 export const ShareLinkOrder = ({ isShareLinkOrder, setIsShareLinkOrder, order }) => {
 
+
     const dispatch = useDispatch()
+    const [isOk, setIsOk] = useState(true)
     const [copied, setCopied] = useState(false)
-    const [isTypeSelected, setIsTypeSelected] = useState(false)
+
+    const [invoiceType, setInvoiceType] = useState(0)
 
     let shareLinkOrder = useSelector(state => state.getShareLinkOrder)
     let textLink = `پیش فاکتور شما ایجاد گردید. لینک پیش فاکتور http://crm-x.ir/order/factor/${shareLinkOrder?.data?.orderId}/${shareLinkOrder?.data?.keyLink}`;
 
 
-    let setTypefactorHandler = (e, type) => {
-        debugger;
+    let toggleHandler = (e) => {
+        let type = e.target.id == "formal" ? 0 : e.target.id == "inFormal" ? 1 : null
+        setInvoiceType(type)
         dispatch(orderActions.getShareLinkOrder({ orderId: order.id, type: type }))
-        setIsTypeSelected(true)
     }
+
+    useEffect(() => {
+        if (isOk === true && order != null) {
+            dispatch(orderActions.getShareLinkOrder({ orderId: order.id, type: invoiceType }))
+            setIsOk(false)
+        }
+    }, [dispatch, order])
+
 
 
 
     return (
         <>
-            <Button className="border-0 customer-modal-close--desktop" type="button" onClick={() => { setIsShareLinkOrder(false); setIsTypeSelected(false) }} >
+            <Button className="border-0 customer-modal-close--desktop" type="button" onClick={() => { setIsShareLinkOrder(false) }} >
                 <img className="d-flex m-auto customer-modal-close-svg--desktop" src={closeIcon} alt="close-btn" />
             </Button>
-            {isTypeSelected ? (
+            <Container className="mb-1 mt-3">
+                <Row className="pb-3 pt-1 px-1 order-inputs">
+                    <Col>
+                        پیش فاکتور
+                    </Col>
+                </Row>
+                <Row>
+                    <Row className="p-0 m-0 my-1">
+                        <Col className="col-6 ps-2 d-flex align-items-center">
+                            <input type="checkbox" id="formal" name="formal" className="btn-toggle-status-green" checked={invoiceType == 0} onChange={toggleHandler} />
+                            <span className="pe-2 text-success">
+                                رسمی
+                            </span>
 
+                        </Col>
+                        <Col className="col-6 pe-2 d-flex align-items-center">
+                            <input type="checkbox" id="inFormal" name="inFormal" className="btn-toggle-status-red" checked={invoiceType == 1} onChange={toggleHandler} />
+                            <span className="pe-2 text-danger">
+                                غیر رسمی
+                            </span>
+                        </Col>
+                    </Row>
+
+                </Row>
+            </Container>
+            {
                 shareLinkOrder.loading ?
                     <>
                         <Container fluid className="m-0 h-100 my-5  d-flex justify-content-center align-items-center flex-wrap" style={{ width: "350px" }}>
@@ -52,7 +87,7 @@ export const ShareLinkOrder = ({ isShareLinkOrder, setIsShareLinkOrder, order })
                     </>
                     :
                     <Container className="mb-3">
-                        <Row className="my-3  px-1">
+                        <Row className="my-3 px-1">
                             <Col>
                                 <Form.Label className="me-2">  اشتراک لینک از طریق</Form.Label>
                             </Col>
@@ -97,34 +132,6 @@ export const ShareLinkOrder = ({ isShareLinkOrder, setIsShareLinkOrder, order })
                             </Row>
                         </Row>
                     </Container>
-            ) :
-                <Container fluid className="m-0 h-100 my-3 " style={{ width: "350px" }}>
-
-                    <Row className="pb-3 pt-1 px-1 order-inputs">
-                        <Col>
-                            پیش فاکتور
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Row className="p-0 m-0 my-1">
-                            <Col className="col-6 ps-2">
-                                <Button className="w-100 h-100 btn--sale--opprotunity border-0" onClick={(e) => { setTypefactorHandler(e, 0) }}>
-                                    <img src={copyIcon} alt="copy-icon" height="25px" className="pe-1" />
-                                    <span className="pe-2">
-                                        رسمی
-                                    </span>
-                                </Button>
-                            </Col>
-                            <Col className="col-6 pe-2">
-                                <Button className="w-100 btn--sale--opprotunity border-0" onClick={(e) => { setTypefactorHandler(e, 1) }}>
-                                    <img src={smsIcon} alt="copy-icon" height="25px" className="pe-1" />
-                                    <span className="pe-2">غیر رسمی</span>
-                                </Button>
-                            </Col>
-                        </Row>
-
-                    </Row>
-                </Container>
             }
         </>
 

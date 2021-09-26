@@ -25,7 +25,7 @@ import { Applications } from './mobile/components/employee/applications';
 import { Account } from './mobile/components/acounts/account';
 import { SaleOpprotunity } from './mobile/components/order/saleOpprotunity';
 import { Notes } from './mobile/components/order/notes'
-import { OrderDetails } from './mobile/components/order/orderDetails';
+import { Factor } from './mobile/components/order/factor/factor';
 import { AddFactor } from './mobile/components/factors/addFactor';
 import { Factors } from './mobile/components/factors/factors';
 import { NoteFactor } from './mobile/components/factors/noteFactor'
@@ -73,7 +73,7 @@ function AppMobile() {
         <PrivateRoute path="/finance" component={Finance}></PrivateRoute>
         <PrivateRoute path="/bills" component={Bills}></PrivateRoute>
         <PrivateRoute path="/dashboard" component={Dashboard} ></PrivateRoute>
-        <Route path="/order/factor/:orderId/:keyLink" component={OrderDetails} />
+        <Route path="/order/factor/:orderId/:keyLink" component={Factor} />
         <PrivateRoute path="/order/add" component={AddOrder} ></PrivateRoute>
         <PrivateRoute path="/employees" component={Employees} ></PrivateRoute>
         <PrivateRoute path="/setting" component={Setting}></PrivateRoute>
