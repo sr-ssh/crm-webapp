@@ -126,7 +126,7 @@ function uploadExcelProducts(params) {
     };
 
     return axios
-        .post(`${baseRoute}/product/uploadExcel`, params, { headers: requestOptions.headers })
+        .post(`${baseRoute}/product/uploadExcel`, params, { headers: { ...requestOptions.headers, 'Content-Type': 'multipart/form-data' } })
         .then(res => {
             console.log("res.user >> ");
             console.log(res.data);

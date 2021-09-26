@@ -1,11 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Container, Button, Row, Col, Modal, Spinner, Alert } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { productActions } from '../../../actions'
-
-
-
 
 // Icons
 import closeIcon from '../../assets/images/close.svg'
@@ -13,25 +10,24 @@ import dowloadIcon from '../../assets/images/order/dowload.svg'
 import uploadIcon from '../../assets/images/order/upload.svg'
 
 
-
-
-
-
-
-
-
 export const XlsxModal = (props) => {
 
     const dispatch = useDispatch()
-
+    const uploadLoader = useSelector(state => state.uploadExcelProducts)
 
     let uploadHandler = (e) => {
-        console.log(e.target.files[0]);
+        e.preventDefault()
+        const formData = new FormData();
+        formData.append('excel', e.target.files[0])
+        dispatch(productActions.uploadExcelProducts(formData))
     }
 
     const getExcel = () => {
         dispatch(productActions.getExcelProducts())
     }
+    useEffect(() => {
+        return () => dispatch(productActions.getProducts())
+    }, [])
 
 
     return (

@@ -34,10 +34,10 @@ export const Products = () => {
 
 
     useEffect(() => {
-        if (!editModalShow && !addModalShow)
+        if (!editModalShow && !addModalShow && !xlsxModalShow)
             dispatch(productActions.getProducts())
         dispatch(employeeActions.getPermissions())
-    }, [dispatch, editModalShow, addModalShow])
+    }, [dispatch, editModalShow, addModalShow, xlsxModalShow])
 
     return (
         <>
