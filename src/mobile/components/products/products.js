@@ -9,6 +9,7 @@ import { productActions, employeeActions } from '../../../actions'
 import { Header } from '../base/productsExcelHeader';
 import { AddProduct } from './addProduct'
 import { EditProduct } from './editProduct'
+import { XlsxModal } from './xlsxModal';
 
 // Icons
 import editIcon from '../../assets/images/Products/edit.svg'
@@ -18,6 +19,8 @@ export const Products = () => {
 
     const [addModalShow, setAddModalShow] = useState(false)
     const [editModalShow, setEditModalShow] = useState(false)
+    const [xlsxModalShow, setXlsxModalShow] = useState(false)
+
     const [product, setProduct] = useState({})
     const dispatch = useDispatch()
     const products = useSelector(state => state.getProducts.product)
@@ -30,16 +33,15 @@ export const Products = () => {
     }
 
     useEffect(() => {
-        if (!editModalShow && !addModalShow)
+        if (!editModalShow && !addModalShow && !xlsxModalShow)
             dispatch(productActions.getProducts())
         dispatch(employeeActions.getPermissions())
-
-    }, [dispatch, editModalShow, addModalShow])
+    }, [dispatch, editModalShow, addModalShow, xlsxModalShow])
 
 
     return (
         <div className="product-page">
-            <Header title="محصولات" getExcel={getExcel} setModalShow={setAddModalShow} userPermission={userPermissions.excelProduct} />
+            <Header title="محصولات" getExcel={() => setXlsxModalShow(true)} setModalShow={setAddModalShow} userPermission={userPermissions.excelProduct} />
             <Container className="m-auto">
                 {
                     (productLoading) &&
@@ -81,6 +83,8 @@ export const Products = () => {
 
                 <AddProduct show={addModalShow} onHide={() => setAddModalShow(false)} />
                 <EditProduct show={editModalShow} onHide={() => setEditModalShow(false)} product={product} />
+                <XlsxModal show={xlsxModalShow} onHide={() => setXlsxModalShow(false)} />
+
             </Container>
         </div>
     )
