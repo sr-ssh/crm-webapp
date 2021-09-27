@@ -18,6 +18,7 @@ export const Setting = () => {
     const [state, setState] = useState('تنظیمات')
     let alertMessage = useSelector(state => state.alert.message)
     let alerType = useSelector(state => state.alert.type)
+    const sideBar = useSelector(state => state.sideBar)
 
 
     const [value, setValue] = React.useState(0);
@@ -29,7 +30,7 @@ export const Setting = () => {
     return (
         <>
             <Header isBTNSearch={false} isBTNRequest={false} />
-            <Container fluid className="m-0 w-100 d-flex justify-content-start flex-wrap margin--top--header ">
+            <Container fluid className="m-0 w-100 d-flex justify-content-start flex-wrap margin--top--header " style={{ paddingRight: sideBar.open ? "250px" : 0 }}>
                 <Tabs
                     value={value}
                     onChange={handleChange}

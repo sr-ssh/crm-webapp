@@ -27,6 +27,7 @@ export const Employees = () => {
     const [editModalShow, setEditModalShow] = useState(false)
     const [removeModalShow, setRemoveModalShow] = useState(false)
     const [employee, setEmployee] = useState({})
+    const sideBar = useSelector(state => state.sideBar)
 
     let employees = useSelector(state => state.getEmployees.employees)
     let getEmployeesLoading = useSelector(state => state.getEmployees.loading)
@@ -40,7 +41,7 @@ export const Employees = () => {
         <>
             <Header isBTNSearch={false} isBTNRequest={true} />
 
-            <div className="product-page margin--top--header">
+            <div className="product-page margin--top--header" style={{ paddingRight: sideBar.open ? "250px" : 0 }}>
 
                 <Container fluid className="m-0 w-100 d-flex justify-content-center flex-wrap ">
 

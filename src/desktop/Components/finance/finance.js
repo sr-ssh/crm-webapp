@@ -15,6 +15,8 @@ export const Finance = () => {
     let alerType = useSelector(state => state.alert.type)
     let loading = useSelector(state => state.financeSummary.loading)
     let summary = useSelector(state => state.financeSummary.data)
+    const sideBar = useSelector(state => state.sideBar)
+
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -25,7 +27,7 @@ export const Finance = () => {
         <>
             <Header isBTNSearch={false} isBTNRequest={false} />
 
-            <div className="finance-page orders margin--top--header">
+            <div className="finance-page orders margin--top--header" style={{ paddingRight: sideBar.open ? "250px" : 0 }}>
                 <Container fluid className="m-0 w-100 d-flex justify-content-center flex-wrap">
 
                     {

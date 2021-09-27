@@ -22,6 +22,7 @@ export const Customers = () => {
     let customers = useSelector(state => state.getCustomers.customers)
     let customerLoading = useSelector(state => state.getCustomers.loading)
     const userPermissions = useSelector(state => state.getPermissions.permissions)
+    const sideBar = useSelector(state => state.sideBar)
 
     const dispatch = useDispatch()
 
@@ -43,7 +44,7 @@ export const Customers = () => {
             <Header isBTNSearch={true} searchModalShow={() => setModalShow(true)} userPermission={userPermissions.excelCustomer} isGetExcel={true} getExcel={getExcel} isBtnAdd={" "} />
 
 
-            <div className="product-page orders margin--top--header">
+            <div className="product-page orders margin--top--header" style={{ paddingRight: sideBar.open ? "250px" : 0 }}>
                 <Container fluid className="m-0 p-0 w-100 d-flex flex-row flex-wrap mx-4 ">
                     {
                         customerLoading &&

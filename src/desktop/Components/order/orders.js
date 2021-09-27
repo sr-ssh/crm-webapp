@@ -28,6 +28,8 @@ export const Orders = () => {
     const dispatch = useDispatch()
     const orders = useSelector(state => state.getOrders.orders)
     let orderLoading = useSelector(state => state.getOrders.loading)
+    const sideBar = useSelector(state => state.sideBar)
+
     // let { err: cancelErr, loading: cancelLoading } = useSelector(state => state.cancelProductOrder)
 
 
@@ -39,7 +41,7 @@ export const Orders = () => {
     return (
         <>
             <Header isBTNSearch={true} searchModalShow={() => setModalShow(true)} isBTNRequest={false} />
-            <div className="product-page orders w-100 margin--top--header">
+            <div className="product-page orders w-100 margin--top--header" style={{ paddingRight: sideBar.open ? "250px" : 0 }}>
                 <Container fluid className="m-0  mt-5 w-100 d-flex justify-content-center flex-wrap mb-5 ">
                     {
                         orderLoading ?
@@ -66,7 +68,7 @@ export const Orders = () => {
 
                     <OrderSearch show={modalShow} onHide={() => { setModalShow(false) }} />
                     <Delivery show={deliveryShow} onHide={() => setDeliveryShow(false)} order={order} />
-                    <CancelOrder status="2"  show={cancelOrderShow} onHide={() => setCancelOrderShow(false)} order={activeOrder} />
+                    <CancelOrder status="2" show={cancelOrderShow} onHide={() => setCancelOrderShow(false)} order={activeOrder} />
                     <UploadDocuments show={uploadModalShow} onHide={() => setUploadModalShow(false)} order={activeOrder} />
                 </Container>
 

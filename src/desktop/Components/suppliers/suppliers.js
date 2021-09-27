@@ -22,6 +22,7 @@ export const Suppliers = () => {
     let suppliers = useSelector(state => state.getSuppliers.suppliers)
     let supplierLoading = useSelector(state => state.getSuppliers.loading)
     const userPermissions = useSelector(state => state.getPermissions.permissions)
+    const sideBar = useSelector(state => state.sideBar)
 
     const dispatch = useDispatch()
 
@@ -43,7 +44,7 @@ export const Suppliers = () => {
             <Header isBTNSearch={true} searchModalShow={() => setModalShow(true)} userPermission={userPermissions.excelCustomer} isGetExcel={true} getExcel={getExcel} isBtnAdd={" "} />
 
 
-            <div className="product-page orders margin--top--header">
+            <div className="product-page orders margin--top--header" style={{ paddingRight: sideBar.open ? "250px" : 0 }}>
                 <Container fluid className="m-0 w-100 d-flex justify-content-center flex-wrap ">
                     {
                         supplierLoading &&
@@ -73,12 +74,12 @@ export const Suppliers = () => {
                     } */}
                     <Row className="mx-1">
                         {
-                        suppliers
-                            ? (suppliers.map((supplier, index) => <Col key={index} xs={4} className="px-3"><Supplier supplier={supplier} /></Col>))
-                            : null
-                    }
+                            suppliers
+                                ? (suppliers.map((supplier, index) => <Col key={index} xs={4} className="px-3"><Supplier supplier={supplier} /></Col>))
+                                : null
+                        }
                     </Row>
-                    
+
                     <CustomerSearch show={modalShow} onHide={() => setModalShow(false)} filters={filters} setFilters={setFilters} />
                 </Container>
             </div>

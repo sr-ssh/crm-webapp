@@ -12,12 +12,12 @@ export const Customer = ({ customer }) => {
                     <Card className="bg--light--blue border-0">
                         <Card.Body className="py-3 px-0">
                             <Row>
-                                <Col className="col-4 ps-0 ms-0">
+                                <Col className="col-5 ps-0 ms-0">
                                     <Card.Text>
                                         <span>{customer.family}</span>
                                     </Card.Text>
                                 </Col>
-                                <Col dir="ltr" className="col-8">
+                                <Col dir="ltr" className="col-7">
                                     <Card.Text>
                                         عضویت : <span>{customer.createdAt && persianJs(moment.from(customer.createdAt, 'YYYY/MM/DD').locale('fa').format('DD MMMM YYYY')).englishNumber().toString()}</span>
                                     </Card.Text>

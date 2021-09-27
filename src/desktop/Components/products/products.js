@@ -29,6 +29,7 @@ export const Products = () => {
     const productLoading = useSelector(state => state.getProducts.loading)
     const addProductLoading = useSelector(state => state.addProduct.loading)
     const userPermissions = useSelector(state => state.getPermissions.permissions)
+    const sideBar = useSelector(state => state.sideBar)
 
 
 
@@ -42,7 +43,7 @@ export const Products = () => {
     return (
         <>
             <Header isBTNSearch={true} userPermission={userPermissions.excelProduct} isGetExcel={true} getExcel={() => setXlsxModalShow(true)} isBtnAdd={"اضافه محصول"} btnAdd={() => setAddModalShow(true)} />
-            <div className="product-page d-flex flex-column align-items-center margin--top--header ">
+            <div className="product-page d-flex flex-column align-items-center margin--top--header" style={{ paddingRight: sideBar.open ? "250px" : 0 }}>
                 <Container className="m-0 w-100 d-flex justify-content-center flex-wrap ">
                     {
                         (productLoading) &&

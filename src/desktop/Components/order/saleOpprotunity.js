@@ -45,6 +45,7 @@ export const SaleOpprotunity = () => {
 
     const orders = useSelector(state => state.getOrders.orders)
     let orderLoading = useSelector(state => state.getOrders.loading)
+    const sideBar = useSelector(state => state.sideBar)
 
 
     useEffect(() => {
@@ -58,7 +59,7 @@ export const SaleOpprotunity = () => {
         <>
             <Header isBTNSearch={true} searchModalShow={() => setModalShow(true)} isBTNRequest={false} />
 
-            <div className="product-page orders w-100 margin--top--header mb-5">
+            <div className="product-page orders w-100 margin--top--header mb-5" style={{ paddingRight: sideBar.open ? "250px" : 0 }}>
                 <Container fluid className="m-0 mt-5 w-100 d-flex justify-content-center flex-wrap " >
                     {
                         orderLoading &&

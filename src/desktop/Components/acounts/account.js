@@ -22,6 +22,7 @@ export const Account = () => {
     let application_status = JSON.parse(localStorage.getItem('applicationStatus'));
     const userInfo = useSelector(state => state.getUserInfo.user);
     const dispatch = useDispatch()
+    const sideBar = useSelector(state => state.sideBar)
 
     useEffect(() => {
         dispatch(userActions.getUserInfo())
@@ -30,7 +31,7 @@ export const Account = () => {
     return (
         <>
             <Header isBTNSearch={false} isBTNRequest={false} />
-            <div className="product-page margin--top--header">
+            <div className="product-page margin--top--header" style={{ paddingRight: sideBar.open ? "250px" : 0 }}>
                 <Container fluid className="m-0 w-100 d-flex justify-content-center flex-wrap emplyees-text-gray ">
                     <Card className="m-auto mt-3 productCard border-0 col-5" >
                         <Card.Body className="ps-1 rounded-3">
