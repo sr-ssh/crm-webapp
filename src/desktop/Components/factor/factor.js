@@ -165,7 +165,6 @@ export const Factor = ({ factor, setCancelFactorShow, setDeliveryShow, cancelOrd
                         <span className="noPrint">لغو فاکتور</span>
                     </Button>
                 </Col>
-
             </Row>
             <Card.Body className="pb-0 ps-1 rounded-3 text-gray">
                 <Row className="p-0 ps-2 m-0 ">

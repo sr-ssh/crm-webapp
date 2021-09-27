@@ -331,3 +331,25 @@ export function confirmFinancial(state = {}, action) {
             return state
     }
 }
+export function uploadDoc(state = {}, action) {
+    switch (action.type) {
+        case orderConstants.UPLOAD_DOC_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+        case orderConstants.UPLOAD_DOC_SUCCESS:
+            return {
+                ...state,
+                data: action.data,
+                loading: false,
+            }
+        case orderConstants.UPLOAD_DOC_FAILURE:
+            return {
+                error: action.error,
+                loading: false
+            }
+        default:
+            return state
+    }
+}

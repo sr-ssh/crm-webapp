@@ -9,6 +9,7 @@ import { OrderSearch } from './search'
 import { Order } from './order';
 import { Delivery } from './delivery'
 import { CancelOrder } from './cancelOrder'
+import { UploadDocuments } from './uploadDoc'
 
 
 export const Orders = () => {
@@ -23,6 +24,8 @@ export const Orders = () => {
     const dispatch = useDispatch()
     const orders = useSelector(state => state.getOrders.orders)
     let orderLoading = useSelector(state => state.getOrders.loading)
+    const [uploadModalShow, setUploadModalShow] = useState(false)
+
     // let { err: cancelErr, loading: cancelLoading } = useSelector(state => state.cancelProductOrder)
 
 
@@ -65,13 +68,15 @@ export const Orders = () => {
                     ) : null
                 }
                 {(orders.length > 0) ?
-                    (orders.map((orderr, index) => <Order key={index} order={orderr} deliveryShow={deliveryShow} setDeliveryShow={setDeliveryShow} cancelOrderShow={cancelOrderShow} setCancelOrderShow={setCancelOrderShow} setActiveOrder={setActiveOrder} setOrder={setOrder}/>))
+                    (orders.map((orderr, index) => <Order key={index} order={orderr} deliveryShow={deliveryShow} setDeliveryShow={setDeliveryShow} cancelOrderShow={cancelOrderShow} setCancelOrderShow={setCancelOrderShow} setActiveOrder={setActiveOrder} setOrder={setOrder} setUploadModalShow={setUploadModalShow}/>))
 
                     : null}
 
                 <OrderSearch show={modalShow} onHide={() => setModalShow(false)} />
                 <Delivery show={deliveryShow} onHide={() => setDeliveryShow(false)} order={order} />
                 <CancelOrder status="2" show={cancelOrderShow} onHide={() => setCancelOrderShow(false)} order={activeOrder} />
+                <UploadDocuments show={uploadModalShow} onHide={() => setUploadModalShow(false)} order={activeOrder} />
+
             </Container>
         </div>
     )

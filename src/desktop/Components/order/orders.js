@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col, Container, Alert, Spinner, Button } from 'react-bootstrap';
-import { Backdrop } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles';
-
-// Icons
-import SearchIcon from '@material-ui/icons/Search';
+import { Row, Col, Container, Spinner } from 'react-bootstrap';
 
 // Actions
 import { orderActions } from '../../../actions';
@@ -15,10 +10,7 @@ import { Order } from './order';
 import { Delivery } from './delivery'
 import { CancelOrder } from './cancelOrder'
 import { Header } from '../base/header'
-
-
-
-
+import { UploadDocuments } from './uploadDoc'
 
 
 export const Orders = () => {
@@ -31,20 +23,17 @@ export const Orders = () => {
     const [cancelOrderShow, setCancelOrderShow] = useState(false)
     const [activeOrder, setActiveOrder] = useState({})
     const [order, setOrder] = useState('')
+    const [uploadModalShow, setUploadModalShow] = useState(false)
+
     const dispatch = useDispatch()
     const orders = useSelector(state => state.getOrders.orders)
     let orderLoading = useSelector(state => state.getOrders.loading)
     // let { err: cancelErr, loading: cancelLoading } = useSelector(state => state.cancelProductOrder)
 
 
-
     useEffect(() => {
         !cancelOrderShow && dispatch(orderActions.getOrders({ status: " " }))
-        console.log('444444444444444444444444444444444444444444444444444')
     }, [dispatch, cancelOrderShow])
-
-
-
 
 
     return (
@@ -71,14 +60,14 @@ export const Orders = () => {
                     }
 
                     {(orders.length > 0) ?
-                        (orders.map((order, index) => <Order key={index} order={order} deliveryShow={deliveryShow} setDeliveryShow={setDeliveryShow} cancelOrderShow={cancelOrderShow} setCancelOrderShow={setCancelOrderShow} setActiveOrder={setActiveOrder} setOrder={setOrder} />))
+                        (orders.map((order, index) => <Order key={index} order={order} deliveryShow={deliveryShow} setDeliveryShow={setDeliveryShow} cancelOrderShow={cancelOrderShow} setCancelOrderShow={setCancelOrderShow} setActiveOrder={setActiveOrder} setOrder={setOrder} setUploadModalShow={setUploadModalShow} uploadModalShow={uploadModalShow} />))
 
                         : null}
 
                     <OrderSearch show={modalShow} onHide={() => { setModalShow(false) }} />
                     <Delivery show={deliveryShow} onHide={() => setDeliveryShow(false)} order={order} />
                     <CancelOrder status="2"  show={cancelOrderShow} onHide={() => setCancelOrderShow(false)} order={activeOrder} />
-
+                    <UploadDocuments show={uploadModalShow} onHide={() => setUploadModalShow(false)} order={activeOrder} />
                 </Container>
 
             </div>

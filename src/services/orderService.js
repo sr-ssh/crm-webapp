@@ -23,7 +23,8 @@ export const orderService = {
     editProductOrder,
     orderDetails,
     getShareLinkOrder,
-    confirmFinancial
+    confirmFinancial,
+    uploadDoc
 };
 
 function getOrders(filter = {}) {
@@ -349,6 +350,30 @@ function confirmFinancial(orderId) {
 
     return axios
         .put(`${baseRoute}/order/financial/confirm `, requestOptions.body, requestOptions.headers)
+        .then(res => {
+            console.log('res >>')
+            console.log(res)
+            return res.data
+        })
+        .catch(error => {
+            if (error.response) {
+                console.log(error.response.data)
+                handleError(error.response.status)
+            }
+        })
+}
+
+
+function uploadDoc(data) {
+    console.log('into orderService (uploadDoc)')
+
+    const requestOptions = {
+        headers: authHeader(),
+        body: data
+    }
+
+    return axios
+        .post(`${baseRoute}/order/upload/doc`, requestOptions.body, requestOptions.headers)
         .then(res => {
             console.log('res >>')
             console.log(res)

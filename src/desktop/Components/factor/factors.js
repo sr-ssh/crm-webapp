@@ -1,23 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col, Container, Alert, Spinner, Button } from 'react-bootstrap';
-import { Backdrop } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles';
+import { Row, Col, Container, Spinner } from 'react-bootstrap';
 
-// Icons
-import SearchIcon from '@material-ui/icons/Search';
 
 // Actions
 import { receiptActions } from '../../../actions';
 // Components
 import { FactorSearch } from './search'
 import { Factor } from './factor';
-import { Delivery } from './delivery'
 import { CancelFactor } from './cancelFactor'
 import { Header } from '../base/header'
-
-
-
 
 
 
@@ -27,7 +19,6 @@ export const Factors = () => {
     let alertMessage = useSelector(state => state.alert.message)
     let alerType = useSelector(state => state.alert.type)
     const [modalShow, setModalShow] = useState(false)
-    const [deliveryShow, setDeliveryShow] = useState(false)
     const [cancelFactorShow, setCancelFactorShow] = useState(false)
     const [activeFactor, setActiveFactor] = useState({})
 
@@ -75,13 +66,12 @@ export const Factors = () => {
 
                     {(receipts.length > 0) ?
                         (receipts.map((factores, index) =>
-                            <Factor key={index} factor={factores} setCancelFactorShow={setCancelFactorShow} setActiveFactor={setActiveFactor} />
+                            <Factor key={index} factor={factores} setCancelFactorShow={setCancelFactorShow} setActiveFactor={setActiveFactor}/>
                         ))
                         : null}
 
                     <FactorSearch show={modalShow} onHide={() => { setModalShow(false) }} />
                     <CancelFactor status="1" show={cancelFactorShow} onHide={() => setCancelFactorShow(false)} factor={activeFactor} />
-
                 </Container>
 
             </div>

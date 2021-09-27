@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, setCancelOrderShow, recordOrderShow = '', setRecordOrderShow = {}, setActiveOrder, setOrder, status }) => {
+export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, setCancelOrderShow, recordOrderShow = '', setRecordOrderShow = {}, setActiveOrder, setOrder, status, setUploadModalShow }) => {
 
 
     const classes = useStyles();
@@ -131,7 +131,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
     return (
 
         <Card className={`m-auto mt-3 bg-light productCard border-0 lh-lg ${!print ? 'noPrint' : ''} mx-1 ${classes.productCard}`} >
-            <Row className="mt-3 noPrint">
+            <Row className="mt-3 noPrint ms-0">
                 <Col className="d-flex justify-content-center ">
                     <Button className={`${order.status == 2 ? "w-50" : "w-75"} btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2`} type="button" onClick={() => { setIsShareLinkOrder(true) }}>
                         <img src={pishFactorIcon} height="25px" alt="edit-order-icon" className="col-3 py-1" />
@@ -187,6 +187,13 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                         </Button>
                     </Col>
                 }
+                
+                <Col className="d-flex justify-content-end col-2">
+                    <Button className="w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setUploadModalShow(true); setActiveOrder(order); }}>
+                        <img src={cancelIcon} height="25px" alt="print-icon" className="col-3" />
+                        <span className="noPrint">بارگذاری مدارک</span>
+                    </Button>
+                </Col>
             </Row>
             <Card.Body className="pb-0 ps-1 rounded-3 text-gray">
                 <Row className="p-0 ps-2 m-0 ">
