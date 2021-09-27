@@ -1,0 +1,12 @@
+.bg--light--blue {
+  background-color: var(--note-background) !important;
+  border-radius: 18px;
+}
+.productCard--dekstop {
+  width: 45%;
+}
+@media (min-width: 1000px) {
+  .productCard--dekstop {
+    width: 31%;
+  }
+}

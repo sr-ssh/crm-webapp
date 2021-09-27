@@ -44,7 +44,7 @@ export const Customers = () => {
 
 
             <div className="product-page orders margin--top--header">
-                <Container fluid className="m-0 w-100 d-flex justify-content-center flex-wrap ">
+                <Container fluid className="m-0 p-0 w-100 d-flex flex-row flex-wrap mx-4 ">
                     {
                         customerLoading &&
                         <Col className="col-3 mt-2 m-auto d-block align-self-center w-100 mb-4 ">
