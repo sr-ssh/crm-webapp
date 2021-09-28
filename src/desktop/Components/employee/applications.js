@@ -52,7 +52,7 @@ export const Applications = () => {
         <>
             <Header />
             <div className="finance-page orders margin--top--header" style={{ paddingRight: sideBar.open ? "250px" : 0 }} >
-                <Container fluid className="m-0 mx-4 w-100 d-flex justify-content-center align-items-center flex-wrap ">
+                <Container fluid className="m-0 px-4 w-100 d-flex justify-content-start align-items-center flex-wrap ">
                     {
                         applicationsLoading &&
                         <Col className="col-3 mt-2 m-auto d-block align-self-center w-100 mb-4 ">
@@ -63,56 +63,58 @@ export const Applications = () => {
                         !applicationsLoading &&
                             applications.length > 0
                             ? applications.map((item, index) =>
-                                <Card className="m-0 p-0 mt-3 productCard border-0 lh-lg mx-2 col-3 " >
-                                    <Card.Body className="pb-0 ps-0 applications-text-gray">
-                                        <Row className="pe-2">
-                                            <Row className="mt-2">
-                                                <Col xs={3} className="ps-0">
-                                                    <Card.Text>
-                                                        نام :
-                                                    </Card.Text>
+                                <Card className={`m-0 p-0 mt-3 productCard application--dekstop border-0 lh-lg ms-2 `} >
+                                    <Card.Body className="applications-text-gray--desktop">
+                                        <Row className="d-flex align-items-center  mb-3">
+                                            <Col className="d-flex justify-content-start align-items-center">
+                                                <Col xs={2} >
+                                                    نام:
                                                 </Col>
-                                                <Col className="pe-0">
-                                                    <Card.Text>
-                                                        <span>{item.employee?.family}</span>
-                                                    </Card.Text>
+                                                <Col className="me-2 ">
+                                                    <span>{item.employee?.family}</span>
                                                 </Col>
-                                            </Row>
-                                            <Row className="mt-2">
-                                                <Col xs={3} className="ps-0">
-                                                    <Card.Text>
-                                                        موبایل :
-                                                    </Card.Text>
+                                            </Col>
+                                            <Col className="d-flex justify-content-end">
+                                                <Col xs={3} className="ms-3">
+                                                    <Button className="border-0 hire-application-btn--desktop p-0" type="button" onClick={() => changeStatus(item.id, 2)}>
+                                                        <img className="d-flex m-auto " src={tickIcon} alt="close-btn" height="40px" />
+                                                    </Button>
                                                 </Col>
-                                                <Col className="pe-0">
-                                                    <Card.Text>
-                                                        <span>{item.employee.mobile && persianJs(item.employee.mobile).englishNumber().toString()}</span>
-                                                    </Card.Text>
+                                                <Col xs={3} >
+                                                    <Button className="border-0 close-application-btn--desktop p-0" type="button" onClick={() => changeStatus(item.id, 3)}>
+                                                        <img className="d-flex m-auto " src={cancelIcon} alt="close-btn" height="40px" />
+                                                    </Button>
                                                 </Col>
+                                            </Col>
+
+                                        </Row>
+                                        <Row className="mt-3">
+
+                                            <Col className="d-flex justify-content-start align-items-center">
+                                                <Col xs={3} className="ps-0 text-nowrap" >
+                                                    موبایل:
+                                                </Col>
+                                                <Col className="m-0 p-0 pe-3">
+                                                    <span>{item.employee.mobile && persianJs(item.employee.mobile).englishNumber().toString()}</span>
+
+                                                </Col>
+                                            </Col>
+
+                                            <Col className="d-flex">
                                                 <Col className="ps-0">
                                                     <Card.Text>
                                                         تاریخ :
                                                     </Card.Text>
                                                 </Col>
-                                                <Col className="px-0">
+                                                <Col className="px-0 text-start">
                                                     <Card.Text>
                                                         <span>{item.createdAt && persianJs(moment.from(item.createdAt, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD')).englishNumber().toString()}</span>
                                                     </Card.Text>
                                                 </Col>
-                                            </Row>
-                                        </Row>
-                                        <Row className="mt-4 mb-2 pe-2">
-                                            <Col xs={2}>
-                                                <Button className="border-0 hire-application-btn p-0" type="button" onClick={() => changeStatus(item.id, 2)}>
-                                                    <img className="d-flex m-auto " src={tickIcon} alt="close-btn" height="40px" />
-                                                </Button>
                                             </Col>
-                                            <Col xs={2}>
-                                                <Button className="border-0 close-application-btn p-0" type="button" onClick={() => changeStatus(item.id, 3)}>
-                                                    <img className="d-flex m-auto " src={cancelIcon} alt="close-btn" height="40px" />
-                                                </Button>
-                                            </Col>
+
                                         </Row>
+
                                     </Card.Body>
                                 </Card>
                             )

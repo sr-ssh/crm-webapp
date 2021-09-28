@@ -27,6 +27,8 @@ import './desktop/assets/styles/factorStyle.css'
 import './desktop/assets/styles/receiptStyle.css'
 import './desktop/assets/styles/stockStyle.css'
 import './desktop/assets/styles/productStyle.css'
+import './desktop/assets/styles/employeeStyle.css'
+
 
 
 
