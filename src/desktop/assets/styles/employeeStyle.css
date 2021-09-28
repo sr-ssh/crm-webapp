@@ -1,3 +1,9 @@
+.employees--card {
+  border: none;
+  border-radius: 15px;
+  width: 245px;
+}
+
 .hire-application-btn--desktop,
 .hire-application-btn--desktop:focus,
 .hire-application-btn--desktop:active,
@@ -44,4 +50,23 @@
   .application--dekstop {
     width: 32%;
   }
+}
+
+.employees-text-gray--desktop {
+  font-size: 12px;
+  white-space: nowrap;
+  color: var(--text-color-one);
+}
+
+.employees-text-gray--desktop span {
+  color: black;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.employees-text-permission--desktop {
+  color: black;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
 }
