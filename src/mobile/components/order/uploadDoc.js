@@ -66,7 +66,7 @@ export const UploadDocuments = (props) => {
                     <Row>
                         <Col style={{'marginTop': '-16px'}}>
                             <img className="file--icon--mobile" src={fileIcon} alt="file-icon" height="35px" />
-                            <input type="file" className={`d-flex flex-row w-100 h-50 align-items-center justify-content-center btn--add--note--desktop radius-16 receipt--add--note py-2 upload--file--input pe-0 mt-0`} onChange={e => {console.log(e.target.files[0]);setFile(e.target.files[0]);}} title="آدرس فایل را مشخص کنید"/>
+                            <input type="file" accept="image/png, image/gif, image/jpeg" className={`d-flex flex-row w-100 h-50 align-items-center justify-content-center btn--add--note--desktop radius-16 receipt--add--note py-2 upload--file--input pe-0 mt-0`} onChange={e => {console.log(e.target.files[0]);setFile(e.target.files[0]);}} title="آدرس فایل را مشخص کنید"/>
                         </Col>
                     </Row>
                     <Row>

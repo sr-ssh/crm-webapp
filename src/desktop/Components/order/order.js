@@ -18,6 +18,8 @@ import addNoteIcon from '../../assets/images/order/add-note-black.svg'
 import noteListIcon from '../../assets/images/order/note-list-white.svg'
 import cancelIcon from '../../assets/images/order/cancel.svg'
 import pishFactorIcon from '../../assets/images/order/pish-factor.svg'
+import viewDocumentsIcon from '../../assets/images/order/View-documents.svg'
+
 
 
 // Actions
@@ -32,9 +34,7 @@ import { EditeProductOrder } from './editProductOrder'
 import { Notes } from './notes'
 import { ShareLinkOrder } from "./shareLinkOrder"
 import { Note } from './note'
-
-
-
+import {ShowDocuments } from './showDoc'
 
 
 
@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, setCancelOrderShow, recordOrderShow = '', setRecordOrderShow = {}, setActiveOrder, setOrder, status, setUploadModalShow }) => {
+export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, setCancelOrderShow, recordOrderShow = '', setRecordOrderShow = {}, setActiveOrder, setOrder, status, setUploadModalShow, setShowDocModalShow }) => {
 
 
     const classes = useStyles();
@@ -73,7 +73,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
     const [open, setOpen] = useState(false);
     const [isShareLinkOrder, setIsShareLinkOrder] = useState(false)
     const [isPrivate, setIsPrivate] = useState(order.notes.isPrivate);
-
+    // const [showDocModalShow, setShowDocModalShow] = useState(false)
     let editStatusNotesLoading = useSelector(state => state.editStatusNotes)
 
     const [input, setInput] = useState('')
@@ -192,6 +192,12 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                     <Button className="w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setUploadModalShow(true); setActiveOrder(order); }}>
                         <img src={cancelIcon} height="25px" alt="print-icon" className="col-3" />
                         <span className="noPrint">بارگذاری مدارک</span>
+                    </Button>
+                </Col>
+                <Col className="d-flex justify-content-end col-2">
+                    <Button className="w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setShowDocModalShow(true); setActiveOrder(order); }}>
+                        <img src={viewDocumentsIcon} height="25px" alt="print-icon" className="col-3" />
+                        <span className="noPrint">مشاهده مدارک</span>
                     </Button>
                 </Col>
             </Row>
@@ -376,7 +382,8 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
             <Dialog classes={{ paper: classes.paper }} aria-labelledby="shareLink-dialog" open={isShareLinkOrder}>
                 <ShareLinkOrder isShareLinkOrder={isShareLinkOrder} setIsShareLinkOrder={setIsShareLinkOrder} order={isShareLinkOrder ? order : null} />
             </Dialog>
-
+                                        
+            {/* <ShowDocuments show={showDocModalShow} onHide={() => setShowDocModalShow(false)} order={activeOrder} /> */}
         </Card >
     )
 }

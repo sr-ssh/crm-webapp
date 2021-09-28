@@ -353,3 +353,26 @@ export function uploadDoc(state = {}, action) {
             return state
     }
 }
+
+export function showDoc(state = {}, action) {
+    switch (action.type) {
+        case orderConstants.SHOW_DOC_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+        case orderConstants.SHOW_DOC_SUCCESS:
+            return {
+                ...state,
+                data: action.data,
+                loading: false,
+            }
+        case orderConstants.SHOW_DOC_FAILURE:
+            return {
+                error: action.error,
+                loading: false
+            }
+        default:
+            return state
+    }
+}

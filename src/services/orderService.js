@@ -24,7 +24,8 @@ export const orderService = {
     orderDetails,
     getShareLinkOrder,
     confirmFinancial,
-    uploadDoc
+    uploadDoc,
+    showDoc
 };
 
 function getOrders(filter = {}) {
@@ -373,7 +374,29 @@ function uploadDoc(data) {
     }
 
     return axios
-        .post(`${baseRoute}/order/upload/doc`, requestOptions.body, requestOptions.headers)
+        .post(`${baseRoute}/order/doc`, requestOptions.body, requestOptions.headers)
+        .then(res => {
+            console.log('res >>')
+            console.log(res)
+            return res.data
+        })
+        .catch(error => {
+            if (error.response) {
+                console.log(error.response.data)
+                handleError(error.response.status)
+            }
+        })
+}
+
+function showDoc(data) {
+    console.log('into orderService (uploadDoc)')
+
+    const requestOptions = {
+        headers: authHeader()
+    }
+
+    return axios
+        .get(`${baseRoute}/order/doc/${data.orderId}`, data, requestOptions.headers)
         .then(res => {
             console.log('res >>')
             console.log(res)
