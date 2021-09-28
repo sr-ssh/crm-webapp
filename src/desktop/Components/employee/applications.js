@@ -52,17 +52,16 @@ export const Applications = () => {
         <>
             <Header />
             <div className="finance-page orders margin--top--header" style={{ paddingRight: sideBar.open ? "250px" : 0 }} >
-                <Container fluid className="m-0 px-4 w-100 d-flex justify-content-start align-items-center flex-wrap ">
-                    {
-                        applicationsLoading &&
-                        <Col className="col-3 mt-2 m-auto d-block align-self-center w-100 mb-4 ">
-                            <Spinner className="m-auto d-block" animation="border" />
-                        </Col>
-                    }
-                    {
-                        !applicationsLoading &&
-                            applications.length > 0
-                            ? applications.map((item, index) =>
+                {
+                    applicationsLoading &&
+                    <Col className="col-3 mt-2 m-auto d-block align-self-center w-100 mb-4 ">
+                        <Spinner className="m-auto d-block" animation="border" />
+                    </Col>
+                }
+                {applications.length > 0 ?
+                    <Container fluid className="m-0 px-4 w-100 d-flex justify-content-center align-items-center flex-wrap ">
+                        {
+                            !applicationsLoading && applications.map((item, index) =>
                                 <Card className={`m-0 p-0 mt-3 productCard application--dekstop border-0 lh-lg ms-2 `} >
                                     <Card.Body className="applications-text-gray--desktop">
                                         <Row className="d-flex align-items-center  mb-3">
@@ -118,9 +117,15 @@ export const Applications = () => {
                                     </Card.Body>
                                 </Card>
                             )
-                            : <p className="mt-3">درخواستی موجود نمی باشد</p>
-                    }
-                </Container>
+                        }
+                    </Container>
+                    :
+                    <Container fluid className="m-0 px-4 w-100 h-75 d-flex justify-content-center align-items-center flex-wrap ">
+
+                        <p className="mt-3">درخواستی موجود نمی باشد</p>
+                    </Container>
+
+                }
             </div>
         </>
     )
