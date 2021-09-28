@@ -20,7 +20,7 @@ export const ShareLinkModal = (props) => {
     const [invoiceType, setInvoiceType] = useState(0)
     let link = useSelector(state => state.getShareLinkOrder.data)
     let loadingLink = useSelector(state => state.getShareLinkOrder.loading)
-    let shareLink = `${SERVER_URL.substr(0, SERVER_URL.length - 16)}3001/order/factor/${link?.orderId}/${link?.keyLink}`
+    let shareLink = `http://crm-x.ir/order/factor/${link?.orderId}/${link?.keyLink}`
     const textLink = `پیش فاکتور شما ایجاد گردید. لینک پیش فاکتور
      \n ${shareLink}`
     const dispatch = useDispatch()

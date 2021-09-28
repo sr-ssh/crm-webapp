@@ -19,6 +19,7 @@ import noteListIcon from '../../assets/images/order/note-list-white.svg'
 import cancelIcon from '../../assets/images/order/cancel.svg'
 import pishFactorIcon from '../../assets/images/order/pish-factor.svg'
 import viewDocumentsIcon from '../../assets/images/order/View-documents.svg'
+import uploadDocumentsIcon from '../../assets/images/order/Upload-documents.svg'
 
 
 
@@ -132,27 +133,37 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
 
         <Card className={`m-auto mt-3 bg-light productCard border-0 lh-lg ${!print ? 'noPrint' : ''} mx-1 ${classes.productCard}`} >
             <Row className="mt-3 noPrint ms-0">
-                <Col className="d-flex justify-content-center ">
-                    <Button className={`${order.status == 2 ? "w-50" : "w-75"} btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2`} type="button" onClick={() => { setIsShareLinkOrder(true) }}>
-                        <img src={pishFactorIcon} height="25px" alt="edit-order-icon" className="col-3 py-1" />
-                        <span>پیش فاکتور</span>
-                    </Button>
-                </Col>
                 {
                     order.status !== 2 &&
                     <Col className="d-flex justify-content-center">
-
                         <Button className="w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setEditOrder(true); setEditProductOrder(order) }}>
                             <img src={editeOrderIcon} height="25px" alt="edit-order-icon" className="col-3 py-1" />
                             <span>ویرایش</span>
                         </Button>
                     </Col>
                 }
-
+                <Col className="d-flex justify-content-end col-2">
+                    <Button className="w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setUploadModalShow(true); setActiveOrder(order); }}>
+                        <img src={uploadDocumentsIcon} height="25px" alt="print-icon" className="col-3" />
+                        <span className="noPrint">بارگذاری مدارک</span>
+                    </Button>
+                </Col>
+                <Col className="d-flex justify-content-end col-2">
+                    <Button className="w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setShowDocModalShow(true); setActiveOrder(order); }}>
+                        <img src={viewDocumentsIcon} height="25px" alt="print-icon" className="col-3" />
+                        <span className="noPrint">مشاهده مدارک</span>
+                    </Button>
+                </Col>
+                <Col className="d-flex justify-content-center ">
+                    <Button className={`${order.status == 2 ? "w-50" : "w-75"} btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2`} type="button" onClick={() => { setIsShareLinkOrder(true) }}>
+                        <img src={pishFactorIcon} height="25px" alt="edit-order-icon" className="col-3 py-1" />
+                        <span>پیش فاکتور</span>
+                    </Button>
+                </Col>
                 <Col className="d-flex justify-content-center">
                     <Button className={`${order.status == 2 ? "w-50" : "w-75"} btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2`} type="button" onClick={() => printWindow()}>
                         <img src={printIcon} height="25px" alt="submit-icon" className="col-3 py-1" />
-                        <span>چاپ</span>
+                        <span>پیرینت</span>
                     </Button>
                 </Col>
                 <Col className="d-flex justify-content-center">
@@ -187,19 +198,6 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                         </Button>
                     </Col>
                 }
-                
-                <Col className="d-flex justify-content-end col-2">
-                    <Button className="w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setUploadModalShow(true); setActiveOrder(order); }}>
-                        <img src={cancelIcon} height="25px" alt="print-icon" className="col-3" />
-                        <span className="noPrint">بارگذاری مدارک</span>
-                    </Button>
-                </Col>
-                <Col className="d-flex justify-content-end col-2">
-                    <Button className="w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setShowDocModalShow(true); setActiveOrder(order); }}>
-                        <img src={viewDocumentsIcon} height="25px" alt="print-icon" className="col-3" />
-                        <span className="noPrint">مشاهده مدارک</span>
-                    </Button>
-                </Col>
             </Row>
             <Card.Body className="pb-0 ps-1 rounded-3 text-gray">
                 <Row className="p-0 ps-2 m-0 ">
