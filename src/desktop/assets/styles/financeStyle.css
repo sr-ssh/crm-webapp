@@ -1,0 +1,8 @@
+.bills--card--desktop {
+  border: none;
+  border-radius: 15px;
+  width: 420px;
+}
+.bills--card--desktop--open {
+  width: 335px;
+}
