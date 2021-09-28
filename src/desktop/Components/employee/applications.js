@@ -31,6 +31,8 @@ export const Applications = () => {
     const classes = useStyles();
     let applications = useSelector(state => state.getApplications.applications)
     let applicationsLoading = useSelector(state => state.getApplications.loading)
+    const sideBar = useSelector(state => state.sideBar)
+
     const dispatch = useDispatch()
 
     const changeStatus = (id, status) => {
@@ -49,7 +51,7 @@ export const Applications = () => {
     return (
         <>
             <Header />
-            <div className="finance-page orders margin--top--header">
+            <div className="finance-page orders margin--top--header" style={{ paddingRight: sideBar.open ? "250px" : 0 }} >
                 <Container fluid className="m-0 mx-4 w-100 d-flex justify-content-center align-items-center flex-wrap ">
                     {
                         applicationsLoading &&

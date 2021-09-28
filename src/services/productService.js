@@ -10,7 +10,8 @@ export const productService = {
     getProducts,
     addProduct,
     editProduct,
-    getExcelProducts
+    getExcelProducts,
+    uploadExcelProducts
 };
 
 
@@ -114,4 +115,27 @@ function getExcelProducts() {
             handleError(error.response.status)
         }
     });
+}
+
+function uploadExcelProducts(params) {
+    console.log("into productService");
+
+
+    const requestOptions = {
+        headers: authHeader()
+    };
+
+    return axios
+        .post(`${baseRoute}/product/uploadExcel`, params, { headers: { ...requestOptions.headers, 'Content-Type': 'multipart/form-data' } })
+        .then(res => {
+            console.log("res.user >> ");
+            console.log(res.data);
+            return handleResponse(res)
+        })
+        .catch(function (error) {
+            if (error.response) {
+                console.log(error.response.data);
+                handleError(error.response.status)
+            }
+        });
 }

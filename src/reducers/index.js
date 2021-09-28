@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import { authentication, register, verificationCode } from './authenticationReducer';
 import { alert } from './alertReducer';
 import { getCustomers, getCustomer, getExcelCustomers } from './customerReducer'
-import { getProducts, addProduct, editProduct } from './productReducer'
+import { getProducts, addProduct, editProduct, uploadExcelProducts } from './productReducer'
 import { financeSummary, bill } from './financeReducer'
 import {
     addOrder, getOrders, setOrdersFilter, editOrderStatus, getOrderSms, deliverySms, editOrderSms, cancelProductOrder, editOrderQuantity,
@@ -20,6 +20,7 @@ import { getShareLinkConfig, editShareLinkConfig } from './settingReducer'
 import { getStock, addStock, editStock } from './stockReducer';
 import { getSupplier, getSuppliers, getExcelSuppliers } from './supplierReducer';
 import { addReceipt, confirmShop, getReceipts, editReceiptStatus, editReceipt } from './receiptReducer';
+import { sideBar } from './sideBarReducer'
 
 export default combineReducers({
     authentication,
@@ -67,5 +68,7 @@ export default combineReducers({
     getStock, addStock, editStock,
     getSupplier, getSuppliers, getExcelSuppliers,
     addReceipt, confirmShop,
-    getReceipts, editReceiptStatus, editReceipt, showDoc
+    getReceipts, editReceiptStatus, editReceipt, showDoc,
+    uploadExcelProducts,
+    sideBar
 })

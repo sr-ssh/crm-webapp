@@ -19,6 +19,7 @@ export const Main = () => {
     let application_status = JSON.parse(localStorage.getItem('applicationStatus'));
     const permissions = useSelector(state => state.getPermissions.permissions);
     const products = useSelector(state => state.getProducts.product)
+    const sideBar = useSelector(state => state.sideBar)
     const dispatch = useDispatch()
 
 
@@ -30,7 +31,7 @@ export const Main = () => {
 
         <div>
             <Header isBTNSearch={false} isBTNRequest={false} />
-            <Container fluid className="m-0 w-100 d-flex justify-content-center align-items-center flex-column " style={{ height: "100vh" }}>
+            <Container fluid className="m-0 w-100 d-flex justify-content-center align-items-center flex-column " style={{ height: "100vh", paddingRight: sideBar.open ? "250px" : 0 }}>
                 {((user_type === 1 && products.length > 0) || (user_type === 2 && application_status === 2)) &&
                     <MainMenuOptions />
                 }

@@ -3,19 +3,20 @@ import { Row, Col, Card, Nav } from 'react-bootstrap';
 import { useLocation, NavLink } from "react-router-dom";
 import { SideBarItem } from './sideBarItem'
 import { List, Typography, Link } from '@material-ui/core';
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+
 
 
 
 // Actions
-import { userActions } from '../../../actions'
-
+import { userActions, sideBarActions } from '../../../actions'
 
 // Icons
 import logo from '../../assets/images/crm.svg'
 import exitIcon from '../../assets/images/drawer/exit.svg'
 import accountIcon from '../../assets/images/drawer/account.svg'
 import settingIcon from '../../assets/images/drawer/setting.svg'
+import closeSideBarIcon from '../../assets/images/close-menu.svg'
 
 
 
@@ -24,15 +25,19 @@ export const SideBar = ({ routes }) => {
 
     const location = useLocation();
     let user_type = JSON.parse(localStorage.getItem('type'));
+    const dispatch = useDispatch()
 
 
     return (
         <>
             <div className="sidebar">
 
-                <Row className="m-0 p-0 py-3 d-flex flex-column logo--sidebar--desktop">
+                <Row className="m-0 p-0 py-3 d-flex flex-row logo--sidebar--desktop">
                     <Col className="d-flex justify-content-center">
-                        <img className="" height="50px" src={logo} alt="" />
+                        <img className="" height="50px" src={logo} alt="crmx-logo" />
+                    </Col>
+                    <Col className=" ps-0 d-flex justify-content-end">
+                        <img height="50px" src={closeSideBarIcon} alt="icon-close-menu" onClick={() => dispatch(sideBarActions.sideBar(2))} />
                     </Col>
                 </Row>
                 <List

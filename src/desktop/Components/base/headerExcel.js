@@ -14,20 +14,20 @@ import { SideBar } from '../main/sideBar'
 import routes from "../../routes";
 
 // Actions
-import { userActions, employeeActions } from '../../../actions'
-import { SignalCellularConnectedNoInternet0BarTwoTone } from '@material-ui/icons';
-import { getPermissions } from '../../../reducers/employeeReducer';
+import { sideBarActions } from '../../../actions';
+
 
 
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1
     },
-    appBar: {
+    appBar: props => ({
         backgroundColor: "#ebebeb",
         boxShadow: "none",
+        paddingRight: props.open ? "250px" : 0
 
-    },
+    }),
     menuButton: {
         marginLeft: theme.spacing(2),
         backgroundColor: "#0a58ca",
@@ -43,9 +43,9 @@ const useStyles = makeStyles((theme) => ({
 
 export const Header = (props) => {
 
-    const classes = useStyles();
-
-    const [isSdieBarOpen, setIsSdieBarOpen] = useState(false)
+    const sideBar = useSelector(state => state.sideBar)
+    const classes = useStyles({ open: sideBar.open });
+    const dispatch = useDispatch()
     let userType = JSON.parse(localStorage.getItem('type'));
 
 
@@ -53,19 +53,27 @@ export const Header = (props) => {
         <>
             <AppBar className={classes.appBar}>
                 <Toolbar>
-                    <IconButton
-                        onClick={() => setIsSdieBarOpen(true)}
-                        edge="start"
-                        classes={{ root: classes.menuButton }}
-                        className={classes.menuButton}
-                        color="inherit"
-                        aria-label="open drawer"
-                    >
-                        <img src={menuIcon} className="" height="23px" alt="delete-icon" />
+                    {sideBar.open ?
+                        null
+                        :
+                        <IconButton
+                            onClick={() => dispatch(sideBarActions.sideBar(1))}
+                            edge="start"
+                            classes={{ root: classes.menuButton }}
+                            className={classes.menuButton}
+                            color="inherit"
+                            aria-label="open drawer"
+                        >
+                            <img src={menuIcon} className="" height="23px" alt="delete-icon" />
 
-                    </IconButton>
-                    <Drawer anchor={'right'} open={isSdieBarOpen}
-                        onClose={() => setIsSdieBarOpen(false)}
+                        </IconButton>
+                    }
+                    <Drawer
+                        anchor={'right'}
+                        open={sideBar.open}
+                        variant="persistent"
+
+                        onClose={() => dispatch(sideBarActions.sideBar(2))}
                     >
                         <SideBar routes={routes} />
 

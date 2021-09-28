@@ -118,3 +118,15 @@ body {
 .text--dark--blue {
   color: var(--dark--blue);
 }
+.btn--upload {
+  position: absolute;
+  right: 0;
+  left: 0;
+  width: inherit;
+  height: 100%;
+  opacity: 0;
+}
+.btn--upload::-webkit-file-upload-button {
+  /* display: none !important; */
+  visibility: hidden;
+}

@@ -25,7 +25,7 @@ export const Factors = () => {
     const [order, setOrder] = useState('')
     const dispatch = useDispatch()
 
-
+    const sideBar = useSelector(state => state.sideBar)
     let { receipts, loading } = useSelector(state => state.getReceipts)
 
 
@@ -44,7 +44,7 @@ export const Factors = () => {
     return (
         <>
             <Header isBTNSearch={true} searchModalShow={() => setModalShow(true)} isBTNRequest={false} />
-            <div className="product-page orders w-100 margin--top--header">
+            <div className="product-page orders w-100 margin--top--header" style={{ paddingRight: sideBar.open ? "250px" : 0 }}>
                 <Container fluid className="m-0  mt-5 w-100 d-flex justify-content-center flex-wrap mb-5 ">
                     {
                         loading ?
@@ -66,7 +66,7 @@ export const Factors = () => {
 
                     {(receipts.length > 0) ?
                         (receipts.map((factores, index) =>
-                            <Factor key={index} factor={factores} setCancelFactorShow={setCancelFactorShow} setActiveFactor={setActiveFactor}/>
+                            <Factor key={index} factor={factores} setCancelFactorShow={setCancelFactorShow} setActiveFactor={setActiveFactor} />
                         ))
                         : null}
 

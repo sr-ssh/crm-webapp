@@ -37,6 +37,8 @@ export const AddOrder = () => {
     let oldCustomer = useSelector(state => state.getCustomer.customer)
     let { loading } = useSelector(state => state.getCustomer)
     let addOrderLoading = useSelector(state => state.addOrder.loading)
+    const sideBar = useSelector(state => state.sideBar)
+
 
     let mobileHandler = (value) => {
         const number = value;
@@ -134,7 +136,7 @@ export const AddOrder = () => {
     return (
         <>
             <Header isBTNSearch={false} isBTNRequest={false} />
-            <div className="order-page--desktop margin--top--header ">
+            <div className="order-page--desktop margin--top--header " style={{ paddingRight: sideBar.open ? "250px" : 0 }}>
                 <Container fluid className="pt-3 px-3 m-0">
                     <Form onSubmit={formHandler} noValidate className="d-flex flex-column align-items-center" >
                         <Row className="d-flex flex-column" style={{ width: "65%", height: "100vh" }}>

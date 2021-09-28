@@ -15,6 +15,8 @@ export const Reminders = () => {
 
     let reminders = useSelector(state => state.getReminders.reminders)
     let reminderLoading = useSelector(state => state.getReminders.loading)
+    const sideBar = useSelector(state => state.sideBar)
+
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -27,7 +29,7 @@ export const Reminders = () => {
         <>
             <Header isBTNSearch={false} isBTNRequest={false} />
 
-            <div className="product-page orders margin--top--header">
+            <div className="product-page orders margin--top--header" style={{ paddingRight: sideBar.open ? "250px" : 0 }}>
                 <Container fluid className="m-0 w-100 d-flex justify-content-center flex-wrap ">
                     {
                         reminderLoading &&

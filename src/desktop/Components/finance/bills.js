@@ -19,6 +19,7 @@ const Bills = () => {
     const [addModalShow, setAddModalShow] = useState(false)
     let bills = useSelector(state => state.bill.items)
     const dispatch = useDispatch()
+    const sideBar = useSelector(state => state.sideBar)
 
     useEffect(() => {
         dispatch(financeActions.getBills())
@@ -26,11 +27,11 @@ const Bills = () => {
 
     return (
         <>
-            <Header isBTNSearch={true}
+            <Header isBTNSearch={false}
                 //  isGetExcel={true} getExcel={getExcel}
                 isBtnAdd={"اضافه هزینه"} btnAdd={() => setAddModalShow(true)} />
 
-            <div className="product-page orders margin--top--header">
+            <div className="product-page orders margin--top--header" style={{ paddingRight: sideBar.open ? "250px" : 0 }}>
                 <Container fluid className="m-0 w-100 d-flex justify-content-center flex-wrap ">
                     {
                         bills ?

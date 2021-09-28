@@ -7,7 +7,8 @@ export const productActions = {
     getProducts,
     addProduct,
     editProduct,
-    getExcelProducts
+    getExcelProducts,
+    uploadExcelProducts
 };
 
 function getProducts() {
@@ -138,6 +139,37 @@ function getExcelProducts() {
     function request() { console.log("into request"); return { type: productConstants.GET_EXCEL_PRODUCTS_REQUEST } }
     function success(product) { console.log("into success"); return { type: productConstants.GET_EXCEL_PRODUCTS_SUCCESS, product } }
     function failure(error) { return { type: productConstants.GET_EXCEL_PRODUCTS_FAILURE, error } }
+}
+
+function uploadExcelProducts(param) {
+    return dispatch => {
+        dispatch(request(productConstants.UPLOAD_EXCEL_PRODUCTS_REQUEST));
+        productService.uploadExcelProducts(param)
+            .then(
+                res => {
+                    if (res === undefined) {
+                        dispatch(alertActions.error('ارتباط با سرور برقرار نیست'));
+                        dispatch(failure(productConstants.UPLOAD_EXCEL_PRODUCTS_FAILURE));
+
+                    } else if (res.success) {
+                        console.log("Excel Products uploaded")
+                        dispatch(success(productConstants.UPLOAD_EXCEL_PRODUCTS_SUCCESS, res.message));
+                        dispatch(alertActions.success(res.message));
+                    } else if (res.success === false) {
+                        dispatch(alertActions.error(res.message));
+                        dispatch(failure(productConstants.UPLOAD_EXCEL_PRODUCTS_FAILURE, res.message));
+
+                    }
+                },
+                error => {
+                    dispatch(failure(productConstants.UPLOAD_EXCEL_PRODUCTS_FAILURE, error.toString()));
+                    console.log("occure error");
+                    console.log(error.toString());
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+    };
+
 }
 
 function request(type) {

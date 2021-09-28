@@ -12,6 +12,7 @@ export const OrderSetting = () => {
     let orderSms = useSelector(state => state.getOrderSms.sms)
     let editOrderSms = useSelector(state => state.editOrderSms)
     let shareLinkConfig = useSelector(state => state.getShareLinkConfig)
+    const sideBar = useSelector(state => state.sideBar)
 
     const [shareLink, setShareLink] = useState({ duration: "", unitTime: "" })
     const dispatch = useDispatch();
@@ -89,7 +90,7 @@ export const OrderSetting = () => {
 
 
     return (
-        <Container fluid className="m-0 p-0 mt-4 w-100 d-flex flex-column justify-content-center   ">
+        <Container fluid className="m-0 ps-4 mt-4 w-100 d-flex flex-column justify-content-center" style={{ paddingRight: sideBar.open ? "250px" : 0 }}>
             <Row className="d-flex flex-column">
                 <Col>
                     <h5 className="me-4">لینک اشتراک گذاری</h5>
