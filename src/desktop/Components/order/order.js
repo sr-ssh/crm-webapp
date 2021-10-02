@@ -170,7 +170,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                     </Col>
                 }
                 {
-                    order.status !== 2 &&
+                    order.status !== 2 && order.financialApproval.status === false &&
                     <Col className="d-flex justify-content-center">
 
                         <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setEditOrder(true); setEditProductOrder(order) }}>
