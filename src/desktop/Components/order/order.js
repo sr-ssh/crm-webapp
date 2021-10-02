@@ -39,7 +39,7 @@ import { ShareLinkOrder } from "./shareLinkOrder"
 import { Note } from './note'
 import { ShowDocuments } from './showDoc'
 import { FinancialCheckModal } from './financialCheckModal'
-
+import { ResultOrder } from './resultOrder'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -77,6 +77,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
     const [open, setOpen] = useState(false);
     const [isShareLinkOrder, setIsShareLinkOrder] = useState(false)
     const [financialCheckModal, setFinancialCheckModal] = useState(false)
+    const [resultOrderModal, setResultOrderModal] = useState(false)
 
     const [isPrivate, setIsPrivate] = useState(order.notes.isPrivate);
     // const [showDocModalShow, setShowDocModalShow] = useState(false)
@@ -188,9 +189,9 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                 {order.status === 3 &&
 
                     <Col className="d-flex justify-content-center">
-                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setRecordOrderShow(true); setActiveOrder(order) }}>
+                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setResultOrderModal(true); setActiveOrder(order) }}>
                             <img src={submitIcon} height="25px" alt="print-icon" className="col-3" />
-                            <span>ثبت</span>
+                            <span>نتیجه</span>
                         </Button>
                     </Col>
 
@@ -200,14 +201,6 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                         <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setCancelOrderShow(true); setActiveOrder(order) }}>
                             <img src={cancelIcon} height="25px" alt="print-icon" className="col-3" />
                             <span>لغو سفارش</span>
-                        </Button>
-                    </Col>
-                }
-                {order.status === 3 &&
-                    <Col className="d-flex justify-content-center">
-                        <Button className="w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setCancelOrderShow(true); setActiveOrder(order) }}>
-                            <img src={cancelIcon} height="25px" alt="print-icon" className="col-3" />
-                            <span>سفارش ناموفق</span>
                         </Button>
                     </Col>
                 }
@@ -431,7 +424,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                 <ShareLinkOrder isShareLinkOrder={isShareLinkOrder} setIsShareLinkOrder={setIsShareLinkOrder} order={isShareLinkOrder ? order : null} />
             </Dialog>
             <FinancialCheckModal show={financialCheckModal} onHide={() => setFinancialCheckModal(false)} order={financialCheckModal ? order : null} />
-
+            <ResultOrder show={resultOrderModal} onHide={() => setResultOrderModal(false)} order={resultOrderModal ? order : null} />
             {/* <ShowDocuments show={showDocModalShow} onHide={() => setShowDocModalShow(false)} order={activeOrder} /> */}
         </Card >
     )
