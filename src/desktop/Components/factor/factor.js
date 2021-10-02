@@ -152,27 +152,29 @@ export const Factor = ({ factor, setCancelFactorShow, setDeliveryShow, cancelOrd
 
 
                 <Col className="d-flex justify-content-start col-2">
-                    <Button className="w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 justify-content-center" type="button" onClick={() => { setEditFactorModalShow(true); setEditFactor(factor) }}>
+                    <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 justify-content-center" type="button" onClick={() => { setEditFactorModalShow(true); setEditFactor(factor) }}>
                         <img src={editeOrderIcon} height="30px" alt="edit-order-icon" className="ms-3 py-1" />
                         <span className="noPrint">ویرایش</span>
                     </Button>
                 </Col>
 
                 <Col className="d-flex justify-content-cent col-2">
-                    <Button className={`w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 justify-content-center`} type="button" onClick={() => printWindow()}>
+                    <Button className={`w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 justify-content-center`} type="button" onClick={() => printWindow()}>
                         <img src={printIcon} height="30px" alt="submit-icon" className="ms-3 py-1" />
                         <span className="noPrint">چاپ</span>
                     </Button>
                 </Col>
-                <Col className="d-flex justify-content-end col-2">
-                    <Button className="w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 justify-content-center" type="button" onClick={() => { setCancelFactorShow(true); setActiveFactor(factor) }}>
-                        <img src={cancelIcon} height="25px" alt="print-icon" className="ms-3" />
-                        <span className="noPrint">لغو فاکتور</span>
-                    </Button>
-                </Col>
-                {factor.shopApproval.status == false &&
+                {factor.shopApproval.status === false &&
                     <Col className="d-flex justify-content-end col-2">
-                        <Button className="w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 justify-content-center" type="button" onClick={() => { setFinancialCheckModal(true) }}>
+                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 justify-content-center" type="button" onClick={() => { setCancelFactorShow(true); setActiveFactor(factor) }}>
+                            <img src={cancelIcon} height="25px" alt="print-icon" className="ms-3" />
+                            <span className="noPrint">لغو فاکتور</span>
+                        </Button>
+                    </Col>
+                }
+                {factor.shopApproval.status === false &&
+                    <Col className="d-flex justify-content-end col-2">
+                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 justify-content-center" type="button" onClick={() => { setFinancialCheckModal(true) }}>
                             <img src={financialCheckIcon} height="25px" alt="print-icon" className="ms-3" />
                             <span className="noPrint">تایید خرید</span>
                         </Button>
