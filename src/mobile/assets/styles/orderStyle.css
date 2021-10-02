@@ -434,6 +434,12 @@
   .noPrint {
     display: none;
   }
+  .active--item--sidebar::before,
+  .active--item--sidebar,
+  .MuiSvgIcon-root,
+  .MuiToolbar-root {
+    display: none !important;
+  }
 }
 .spinner--download--btn--mobile {
   position: relative;

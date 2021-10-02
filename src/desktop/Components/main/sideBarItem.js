@@ -53,19 +53,19 @@ export const SideBarItem = ({ route }) => {
                 (route.path === "/setting" && user_type !== 1) ? null :
                     (route?.children?.length > 0 && isPermitted(route.layout)) ?
                         <>
-                            <ListItem ListItem button className={`px-2 py-2 item--sidebar ${location.pathname.includes(route.layout) ? 'active--item--sidebar' : null}`} onClick={handleClick} >
-                                <Typography color="textPrimary" className="w-100 d-flex flex-row align-items-center text-end text-dark fw-bold pe-4 py-2  ff-iranSans">
-                                    <span className="px-2  pe-3 ">{route.name}</span>
-                                    <div style={{ flexGrow: 1 }}></div>
-                                    {open ? <ExpandLess /> : <ExpandMore />}
+                            <ListItem ListItem button className={`px-2 py-2 item--sidebar noPrint ${location.pathname.includes(route.layout) ? 'active--item--sidebar' : null}`} onClick={handleClick} >
+                                <Typography color="textPrimary" className="w-100 d-flex flex-row align-items-center text-end text-dark fw-bold pe-4 py-2 noPrint  ff-iranSans">
+                                    <span className="px-2  pe-3 noPrint ">{route.name}</span>
+                                    <div className="noPrint" style={{ flexGrow: 1 }}></div>
+                                    {open ? <ExpandLess classes="noPrint" /> : <ExpandMore className="noPrint" />}
                                 </Typography>
                             </ListItem>
                             <Collapse in={open} timeout="auto" unmountOnExit>
                                 {route?.children.map((item, index) => {
                                     return (
-                                        <ListItem ListItem button className={`px-2 py-2 pe-3 item--sidebar`} >
-                                            <Typography color="textPrimary" variant="subtitle2" className="text-end text-dark fw-bold pe-4 ff-iranSans">
-                                                <NavLink to={item.path} className="nav-link fw-bold d-flex align-items-center" activeClassName="active">
+                                        <ListItem ListItem button className={`px-2 py-2 pe-3 item--sidebar noPrint`} >
+                                            <Typography color="textPrimary" variant="subtitle2" className="text-end text-dark fw-bold pe-4 ff-iranSans noPrint">
+                                                <NavLink to={item.path} className="nav-link fw-bold d-flex align-items-cente noPrintr" activeClassName="active">
 
                                                     {item.path === location.pathname ? <Brightness1Icon className={classes.muiListIconActive} /> : <Brightness1Icon className={classes.muiListIcon} />}
                                                     {item.name}
@@ -79,9 +79,9 @@ export const SideBarItem = ({ route }) => {
                             </Collapse>
                         </> : isPermitted(route.path) ? (
                             <>
-                                <ListItem ListItem button className={`px-2 py-2 item--sidebar  ${route.path == location.pathname ? 'active--item--sidebar' : null}`} >
-                                    <Typography color="textPrimary" className="text-end text-dark fw-bold pe-4 ff-iranSans">
-                                        <NavLink to={route.path} className="nav-link fw-bold" activeClassName="active">
+                                <ListItem ListItem button className={`px-2 py-2 item--sidebar noPrint  ${route.path == location.pathname ? 'active--item--sidebar' : null}`} >
+                                    <Typography color="textPrimary" className="text-end text-dark fw-bold pe-4 ff-iranSans noPrint">
+                                        <NavLink to={route.path} className="nav-link fw-bold noPrint" activeClassName="active">
                                             {route.name}
                                         </NavLink>
                                     </Typography>
