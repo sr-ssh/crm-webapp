@@ -65,7 +65,7 @@ export const SideBarItem = ({ route }) => {
                                     return (
                                         <ListItem ListItem button className={`px-2 py-2 pe-3 item--sidebar noPrint`} >
                                             <Typography color="textPrimary" variant="subtitle2" className="text-end text-dark fw-bold pe-4 ff-iranSans noPrint">
-                                                <NavLink to={item.path} className="nav-link fw-bold d-flex align-items-cente noPrintr" activeClassName="active">
+                                                <NavLink to={item.path} className="nav-link fw-bold d-flex align-items-center noPrintr" activeClassName="active">
 
                                                     {item.path === location.pathname ? <Brightness1Icon className={classes.muiListIconActive} /> : <Brightness1Icon className={classes.muiListIcon} />}
                                                     {item.name}
