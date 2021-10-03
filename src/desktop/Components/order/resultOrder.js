@@ -6,6 +6,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { orderActions } from '../../../actions'
 // Icons
 import closeIcon from '../../assets/images/close.svg'
+import cancelIcon from '../../assets/images/order/cancel.svg'
+import submitIcon from './../../assets/images/order/submit.svg'
 
 
 export const ResultOrder = (props) => {
@@ -45,15 +47,17 @@ export const ResultOrder = (props) => {
                 </Button>
                 <Row className="d-flex flex-column justify-content-center align-items-center">
                     <Col className="d-flex justify-content-center">
-                        <Button className="fw-bold order-submit border-0 w-75 mt-4 text-light fs-6 bg-success" onClick={e => { successful() }} size="lg" block>
-                            موفق بود
+                        <Button className="fw-bold order-submit border-0 w-75 mt-4 text-light fs-6 bg-success d-flex align-items-center " onClick={e => { successful() }} size="lg" block>
+                            <img src={submitIcon} height="30px" alt="edit-order-icon" className="mx-2" />
+                            <span>   موفق بود</span>
                         </Button>
                     </Col>
                     <Col className="d-flex justify-content-center">
-                        <Button className="fw-bold order-submit border-0 bg-danger text-light w-75 mt-4 fs-6 bg-danger" size="lg"
+                        <Button className="fw-bold order-submit border-0 bg-danger text-light w-75 mt-4 fs-6 bg-danger d-flex align-items-center" size="lg"
                             onClick={e => { failure() }}
                             type="submit" block>
-                            نا موفق بود
+                            <img src={cancelIcon} height="28px" alt="edit-order-icon" className="mx-2" />
+                            <span>نا موفق بود</span>
                         </Button>
 
 
