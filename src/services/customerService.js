@@ -39,14 +39,14 @@ function getCustomers(filter = {}) {
     if (filter.orderStatus !== 0 && filter.orderStatus !== 1 && filter.orderStatus !== 2)
         filter.orderStatus = 2
 
-        console.log(filter)
+    console.log(filter)
 
     const requestOptions = {
         headers: authHeader()
     };
 
     return axios
-        .get(`${baseRoute}/customer/${encodeURI(filter.family)}/${encodeURI(filter.mobile)}/${encodeURI(filter.createdAtFrom)}/${encodeURI(filter.createdAtTo)}/${encodeURI(filter.lastBuyFrom)}/${encodeURI(filter.lastBuyTo)}/${encodeURI(filter.orderFrom)}/${encodeURI(filter.orderTo)}/${encodeURI(filter.totalFrom)}/${encodeURI(filter.totalTo)}/${encodeURI(filter.orderStatus)}`, requestOptions)
+        .get(`${baseRoute}/customer/list/${encodeURI(filter.family)}/${encodeURI(filter.mobile)}/${encodeURI(filter.createdAtFrom)}/${encodeURI(filter.createdAtTo)}/${encodeURI(filter.lastBuyFrom)}/${encodeURI(filter.lastBuyTo)}/${encodeURI(filter.orderFrom)}/${encodeURI(filter.orderTo)}/${encodeURI(filter.totalFrom)}/${encodeURI(filter.totalTo)}/${encodeURI(filter.orderStatus)}`, requestOptions)
         .then(res => {
             console.log("res.customers >> "); console.log(res.data.data);
             return res.data

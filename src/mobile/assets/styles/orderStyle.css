@@ -434,6 +434,12 @@
   .noPrint {
     display: none;
   }
+  .active--item--sidebar::before,
+  .active--item--sidebar,
+  .MuiSvgIcon-root,
+  .MuiToolbar-root {
+    display: none !important;
+  }
 }
 .spinner--download--btn--mobile {
   position: relative;
@@ -465,10 +471,7 @@
 }
 .btn-toggle-status-green {
   position: relative !important;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  margin: 8px;
+  margin: 8;
   box-sizing: content-box;
   overflow: hidden;
 }
@@ -513,6 +516,7 @@
 }
 .btn-toggle-status-green[type="checkbox"]:checked:after {
   -webkit-animation: toggleOnRadio 0.2s ease forwards;
+  -apple-animation: toggleOnRadio 0.2s ease forwards;
   animation: toggleOnRadio 0.2s ease forwards;
 }
 @-webkit-keyframes toggleOnRadio {
@@ -544,10 +548,7 @@
 
 .btn-toggle-status-red {
   position: relative !important;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  margin: 8px;
+  margin: 8;
   box-sizing: content-box;
   overflow: hidden;
 }

@@ -52,11 +52,7 @@ export const ShareLinkOrder = ({ isShareLinkOrder, setIsShareLinkOrder, order })
                 <img className="d-flex m-auto customer-modal-close-svg--desktop" src={closeIcon} alt="close-btn" />
             </Button>
             <Container className="mb-1 mt-3">
-                <Row className="pb-3 pt-1 px-1 order-inputs">
-                    <Col>
-                        پیش فاکتور
-                    </Col>
-                </Row>
+
                 <Row>
                     <Row className="p-0 m-0 my-1">
                         <Col className="col-6 ps-2 d-flex align-items-center">
@@ -98,16 +94,16 @@ export const ShareLinkOrder = ({ isShareLinkOrder, setIsShareLinkOrder, order })
                                     <CopyToClipboard text={textLink} >
                                         <Button className="w-100 btn-outline-dark btn--sale--opprotunity border-0">
                                             <img src={copyIcon} height="25px" alt="edit-order-icon" />
-                                            <span>کپی در کلیپبورد</span>
+                                            <span className="me-2">کپی در کلیپبورد</span>
                                         </Button>
                                     </CopyToClipboard>
 
                                 </Col>
                                 <Col className="col-6">
                                     <Button className="w-100 btn-outline-dark btn--sale--opprotunity border-0">
-                                        <a className="text-light text-decoration-none" href={`sms:${order?.customer?.mobile};?&body=${textLink}`}>
+                                        <a className="text-light text-decoration-none d-flex align-items-center" href={`sms:${order?.customer?.mobile};?&body=${textLink}`}>
                                             <img src={smsIcon} height="25px" alt="edit-order-icon" />
-                                            <span>پیامک</span>
+                                            <span className="me-2 ">پیامک</span>
                                         </a>
                                     </Button>
                                 </Col>
@@ -115,17 +111,17 @@ export const ShareLinkOrder = ({ isShareLinkOrder, setIsShareLinkOrder, order })
                             <Row className="p-0 m-0 my-1">
                                 <Col className="col-6">
                                     <Button className="w-100 btn-outline-dark btn--sale--opprotunity border-0">
-                                        <a className="text-light text-decoration-none" href={`https://web.whatsapp.com/send?text=${textLink}`}>
+                                        <a className="text-light text-decoration-none d-flex align-items-center" href={`https://web.whatsapp.com/send?text=${textLink}`}>
                                             <WhatsAppIcon />
-                                            <span>واتساپ</span>
+                                            <span className="me-2">واتساپ</span>
                                         </a>
                                     </Button>
                                 </Col>
                                 <Col className="col-6">
                                     <Button className="w-100 btn-outline-dark btn--sale--opprotunity border-0">
-                                        <a className="text-light text-decoration-none" href={`mailto:?body=${textLink}`}>
-                                            <img src={emailIcon} height="25px" alt="edit-order-icon" />
-                                            <span>ایمیل</span>
+                                        <a className="text-light text-decoration-none d-flex align-items-center" href={`mailto:?body=${textLink}`}>
+                                            <img src={emailIcon} height="25px" alt="edit-order-icon" className="me-2" />
+                                            <span className="me-2">ایمیل</span>
                                         </a>
                                     </Button>
                                 </Col>

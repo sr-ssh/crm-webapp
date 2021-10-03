@@ -326,16 +326,16 @@ function getShareLinkOrder(orderId) {
 
 
 
-function confirmShop(orderId) {
+function confirmShop(receiptId) {
     console.log('into receiptService (confirmShop)')
 
     const requestOptions = {
         headers: authHeader(),
-        body: { orderId: orderId }
+        body: { receiptId: receiptId }
     }
 
     return axios
-        .put(`${baseRoute}/confirm/shop `, requestOptions.body, requestOptions.headers)
+        .post(`${baseRoute}/confirm/shop `, requestOptions.body, requestOptions.headers)
         .then(res => {
             console.log('res >>')
             console.log(res)

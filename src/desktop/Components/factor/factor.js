@@ -8,6 +8,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux'
 
 //icons
+import tickIcon from './../../assets/images/order/tick.svg'
+import closeIcon from './../../assets/images/order/close.svg'
 import deliveryIcon from './../../assets/images/order/delivery1.svg'
 import printIcon from './../../assets/images/order/print.svg'
 import submitIcon from './../../assets/images/order/submit.svg'
@@ -18,6 +20,7 @@ import addNoteIcon from '../../assets/images/order/add-note-black.svg'
 import noteListIcon from '../../assets/images/order/note-list-white.svg'
 import cancelIcon from '../../assets/images/order/cancel.svg'
 import pishFactorIcon from '../../assets/images/order/pish-factor.svg'
+import financialCheckIcon from './../../assets/images/order/financial-check.svg'
 
 
 // Actions
@@ -32,6 +35,7 @@ import { EditFactor } from './editFactor'
 import { Notes } from './notes'
 import { ShareLinkOrder } from "./shareLinkOrder"
 import { Note } from './note'
+import { FinancialCheckModal } from './financialCheckModal'
 
 
 
@@ -72,6 +76,7 @@ export const Factor = ({ factor, setCancelFactorShow, setDeliveryShow, cancelOrd
     const [open, setOpen] = useState(false);
     const [isShareLinkOrder, setIsShareLinkOrder] = useState(false)
     const [isPrivate, setIsPrivate] = useState(factor?.note?.isPrivate);
+    const [financialCheckModal, setFinancialCheckModal] = useState(false)
 
     let editStatusNotesLoading = useSelector(state => state.editStatusNotes)
     console.log(isPrivate)
@@ -147,24 +152,34 @@ export const Factor = ({ factor, setCancelFactorShow, setDeliveryShow, cancelOrd
 
 
                 <Col className="d-flex justify-content-start col-2">
-                    <Button className="w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setEditFactorModalShow(true); setEditFactor(factor) }}>
-                        <img src={editeOrderIcon} height="25px" alt="edit-order-icon" className="col-3 py-1" />
+                    <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 justify-content-center" type="button" onClick={() => { setEditFactorModalShow(true); setEditFactor(factor) }}>
+                        <img src={editeOrderIcon} height="30px" alt="edit-order-icon" className="ms-3 py-1" />
                         <span className="noPrint">ویرایش</span>
                     </Button>
                 </Col>
 
                 <Col className="d-flex justify-content-cent col-2">
-                    <Button className={`w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2`} type="button" onClick={() => printWindow()}>
-                        <img src={printIcon} height="25px" alt="submit-icon" className="col-3 py-1" />
+                    <Button className={`w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 justify-content-center`} type="button" onClick={() => printWindow()}>
+                        <img src={printIcon} height="30px" alt="submit-icon" className="ms-3 py-1" />
                         <span className="noPrint">چاپ</span>
                     </Button>
                 </Col>
-                <Col className="d-flex justify-content-end col-2">
-                    <Button className="w-75 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setCancelFactorShow(true); setActiveFactor(factor) }}>
-                        <img src={cancelIcon} height="25px" alt="print-icon" className="col-3" />
-                        <span className="noPrint">لغو فاکتور</span>
-                    </Button>
-                </Col>
+                {factor.shopApproval.status === false &&
+                    <Col className="d-flex justify-content-end col-2">
+                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 justify-content-center" type="button" onClick={() => { setCancelFactorShow(true); setActiveFactor(factor) }}>
+                            <img src={cancelIcon} height="25px" alt="print-icon" className="ms-3" />
+                            <span className="noPrint">لغو فاکتور</span>
+                        </Button>
+                    </Col>
+                }
+                {factor.shopApproval.status === false &&
+                    <Col className="d-flex justify-content-end col-2">
+                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 justify-content-center" type="button" onClick={() => { setFinancialCheckModal(true) }}>
+                            <img src={financialCheckIcon} height="25px" alt="print-icon" className="ms-3" />
+                            <span className="noPrint">تایید خرید</span>
+                        </Button>
+                    </Col>
+                }
             </Row>
             <Card.Body className="pb-0 ps-1 rounded-3 text-gray">
                 <Row className="p-0 ps-2 m-0 ">
@@ -172,11 +187,24 @@ export const Factor = ({ factor, setCancelFactorShow, setDeliveryShow, cancelOrd
                         <Card.Body className="p-0 my-2 ">
                             <Row className="mx-2 mb-3 d-flex justify-content-around">
 
-
-                                <Col className="p-0 d-flex justify-content-start">
-                                    تایید خرید :
-                                    {/* <span className="me-2">{order.createdAt && persianJs(moment.from(order.createdAt, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD')).englishNumber().toString()}</span> */}
-                                </Col>
+                                {
+                                    <Col className="p-0 d-flex justify-content-start">
+                                        <Card.Text>
+                                            تایید خرید :
+                                            {factor.shopApproval.status ?
+                                                <>
+                                                    <img src={tickIcon} alt="tick-icon" className="m-0 p-0 ms-1 p-1 icon--tick--confirm " />
+                                                    <span>{factor.shopApproval.acceptedBy}</span>
+                                                </>
+                                                :
+                                                <>
+                                                    <img src={closeIcon} alt="tick-icon" className="m-0 p-0 ms-1 p-1 icon--tick--confirm " />
+                                                    <span>تایید نشده است</span>
+                                                </>
+                                            }
+                                        </Card.Text>
+                                    </Col>
+                                }
                                 <Col className="p-0 d-flex justify-content-start">
 
                                     تاریخ و ساعت
@@ -323,6 +351,8 @@ export const Factor = ({ factor, setCancelFactorShow, setDeliveryShow, cancelOrd
             {/* <EditField show={editModalShow} onHide={() => { setEditModalShow(false); setInput(''); }} input={input} name={name} productId={productId} factorId={factorId} setInput={setInput} />
             <CancelProductOrder show={cancelModalShow} onHide={() => { setCancelModalShow(false) }} productId={productId} factorId={factorId} /> */}
             <EditFactor show={editFactorModalShow} onHide={() => { setEditFactorModalShow(false) }} factor={editFactor} />
+            <FinancialCheckModal show={financialCheckModal} onHide={() => setFinancialCheckModal(false)} factor={financialCheckModal ? factor : null} />
+
             {/* <AddNotesModal show={showNotesModal} onHide={() => { setShowNotesModal(false) }} permission={true} factorId={factor.id} status={status} />
             <Dialog onClose={handleClose} className="notes-round" aria-labelledby="notes-dialog" open={open} classes={{ paper: classes.paper }} >
                 <Notes order={order} open={open} setOpen={setOpen} setShowNotesModal={setShowNotesModal} setActiveOrder={() => setActiveOrder(order)} />

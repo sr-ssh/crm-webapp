@@ -106,7 +106,7 @@ export const Basket = ({ order, insertOrder, totalPrice, insertPrice, selectedIt
                                 <FormControl value={Number.isInteger(quantity) ? "" : quantity} onChange={(e) => quantityOrderHandler(e)} className={`order-input text-center ${quantityOrder ? 'border border-danger' : null}`} type="number" min="1" name="duration" style={{ 'maxHeight': '32px' }} />
                             </Col>
                             <Col className="col-2 p-0 text-center products-add-btn">
-                                <Button className="products-add border-0 py-1" onClick={(e) => newOrder(e)} type="button">
+                                <Button className="products-add border-0 btn-dark-blue py-1" onClick={(e) => newOrder(e)} type="button">
                                     <img className="d-flex m-auto " src={plusIcon} alt="add-button" />
                                 </Button>
                             </Col>

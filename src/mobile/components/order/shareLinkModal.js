@@ -53,11 +53,7 @@ export const ShareLinkModal = (props) => {
                     <img className="d-flex m-auto customer-modal-close-svg" src={closeIcon} alt="close-btn" />
                 </Button>
                 <Container className="mb-2">
-                    <Row className="pb-3 pt-1 px-1 order-inputs">
-                        <Col>
-                            پیش فاکتور
-                        </Col>
-                    </Row>
+
                     <Row>
                         <Row className="p-0 m-0 my-1">
                             <Col className="col-6 ps-2 d-flex align-items-center">

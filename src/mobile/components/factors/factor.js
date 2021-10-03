@@ -15,6 +15,7 @@ import deleteIcon from '../../assets/images/delete.svg'
 import editeOrderIcon from '../../assets/images/order/edit-order-list.svg'
 import noteListIcon from '../../assets/images/order/note-list-white.svg'
 import cancelIcon from '../../assets/images/order/cancel.svg'
+import closeIcon from '../../assets/images/order/close.svg'
 
 //components
 import { AddNotesModal } from './addNotesModal'
@@ -115,8 +116,17 @@ export const Factor = ({ factor, setActiveFactor, setCancelFactorShow, cancelOrd
                                     تایید خرید:
                                 </Col>
                                 <Col className="d-flex justify-content-end align-items-center text--factor p-0 ">
-                                    <img src={tickIcon} alt="tick-icon" className="m-0 p-0 ms-1 p-1 icon--tick--confirm " />
-                                    {/* <span>{factor.customer.family}</span> */}
+                                    {factor.shopApproval.status ?
+                                        <>
+                                            <img src={tickIcon} alt="tick-icon" className="m-0 p-0 ms-1 p-1 icon--tick--confirm " />
+                                            <span>{factor.shopApproval.acceptedBy}</span>
+                                        </>
+                                        :
+                                        <>
+                                            <img src={closeIcon} alt="tick-icon" className="m-0 p-0 ms-1 p-1 icon--tick--confirm " />
+                                            <span>تایید نشده است</span>
+                                        </>
+                                    }
                                 </Col>
 
                             </Row>
