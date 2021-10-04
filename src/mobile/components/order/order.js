@@ -4,6 +4,7 @@ import { Card, Table, Row, Col, Spinner, Button } from 'react-bootstrap';
 import persianJs from 'persianjs/persian.min';
 import { Dialog } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
+import commaNumber from 'comma-number'
 
 //icons
 import tickIcon from './../../assets/images/factor/tick.svg'
@@ -282,7 +283,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                                                 <td>
                                                     <Row>
                                                         <Col className="ps-0">
-                                                            {(item.quantity * item.sellingPrice) && persianJs(item.quantity * item.sellingPrice).englishNumber().toString()}
+                                                            {(item.quantity * item.sellingPrice) && persianJs(commaNumber(item.quantity * item.sellingPrice)).englishNumber().toString()}
                                                         </Col>
                                                     </Row>
                                                 </td>
@@ -307,7 +308,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                             }
                             <tr className="border-top-blue">
                                 <td>جمع کل:</td>
-                                <td className="fs-6">{getTotalPrice(order.products) && persianJs(getTotalPrice(order.products)).englishNumber().toString()} </td>
+                                <td className="fs-6">{getTotalPrice(order.products) && persianJs(commaNumber(getTotalPrice(order.products))).englishNumber().toString()} </td>
                                 <td></td>
                                 <td></td>
                             </tr>

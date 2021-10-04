@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Container, Dropdown, Modal, Row, Col, Form, Button, Table, Spinner, Alert, Card } from 'react-bootstrap'
 import persianJs from 'persianjs/persian.min';
+import commaNumber from 'comma-number'
 //Assets
 import closeIcon from '../../assets/images/close.svg'
 // import deleteIcon from './../../assets/images/delete.svg'
@@ -287,7 +288,7 @@ export const EditFactor = (props) => {
                                                         <Spinner className="" animation="border" />
                                                         :
                                                         <>
-                                                            {getTotalPrice(factor) && persianJs(getTotalPrice(factor)).englishNumber().toString()}
+                                                            {getTotalPrice(factor) && persianJs(commaNumber(getTotalPrice(factor))).englishNumber().toString()}
                                                         </>
                                                     }
                                                 </Col>

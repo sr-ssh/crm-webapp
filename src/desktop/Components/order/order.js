@@ -6,6 +6,7 @@ import { Dialog, CircularProgress } from '@material-ui/core'
 import ShareIcon from '@material-ui/icons/Share';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux'
+import commaNumber from 'comma-number'
 
 //icons
 import tickIcon from './../../assets/images/order/tick.svg'
@@ -328,7 +329,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                                                     <td>
                                                         <Row>
                                                             <Col className="ps-0">
-                                                                {(item.quantity * item.sellingPrice) && persianJs(item.quantity * item.sellingPrice).englishNumber().toString()}
+                                                                {(item.quantity * item.sellingPrice) && persianJs(commaNumber(item.quantity * item.sellingPrice)).englishNumber().toString()}
                                                             </Col>
                                                         </Row>
                                                     </td>
@@ -353,7 +354,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                                 }
                                 <tr className="border-top-blue">
                                     <td>جمع کل:</td>
-                                    <td className="fs-6">{getTotalPrice(order.products) && persianJs(getTotalPrice(order.products)).englishNumber().toString()} </td>
+                                    <td className="fs-6">{getTotalPrice(order.products) && persianJs(commaNumber(getTotalPrice(order.products))).englishNumber().toString()} </td>
                                     <td></td>
                                     <td></td>
                                 </tr>

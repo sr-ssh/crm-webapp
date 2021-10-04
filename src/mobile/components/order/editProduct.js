@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Popover, Backdrop } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-
+import commaNumber from 'comma-number'
 import { Form, Button } from 'react-bootstrap'
 import persianJs from 'persianjs/persian.min';
 
@@ -71,7 +71,7 @@ export const EditProduct = ({ item, order, removeOrder, validationInputPrice, ed
                     :
                     <td className="px-0" >
                         <img src={editIcon} className="ms-3 " alt="edit-icon" style={{ width: "33px" }} onClick={() => setEditPriceCurrentProduct(true)} />
-                        {(item.quantity * item.sellingPrice) && persianJs(item.quantity * item.sellingPrice).englishNumber().toString()}
+                        {(item.quantity * item.sellingPrice) && persianJs(commaNumber(item.quantity * item.sellingPrice)).englishNumber().toString()}
                     </td>
                 }
                 <td className="pe-3">{item.quantity && persianJs(item.quantity).englishNumber().toString()}</td>

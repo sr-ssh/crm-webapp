@@ -4,6 +4,7 @@ import { Card, Table, Row, Col, Spinner, Button } from 'react-bootstrap';
 import persianJs from 'persianjs/persian.min';
 import { Dialog } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
+import commaNumber from 'comma-number'
 
 //icons
 import tickIcon from './../../assets/images/factor/tick.svg'
@@ -213,7 +214,7 @@ export const Factor = ({ factor, setActiveFactor, setCancelFactorShow, cancelOrd
                                                     item.name && persianJs(item.name).englishNumber().toString()}
                                                 </td>
                                                 <td className="td--body--table--factor ">
-                                                    {(item.quantity * item.price) && persianJs(item.quantity * item.price).englishNumber().toString()}
+                                                    {(item.quantity * item.price) && persianJs(commaNumber(item.quantity * item.price)).englishNumber().toString()}
                                                 </td>
                                                 <td className="td--body--table--factor  text-start ps-4">
                                                     {item.quantity && persianJs(item.quantity).englishNumber().toString()}
@@ -233,7 +234,7 @@ export const Factor = ({ factor, setActiveFactor, setCancelFactorShow, cancelOrd
                             <span className="">جمع کل :</span>
                         </Col>
                         <Col className="px-1 fs-md-5 fs-6">
-                            {getTotalPrice(factor.stock) && persianJs(getTotalPrice(factor.stock)).englishNumber().toString()} تومان
+                            {getTotalPrice(factor.stock) && persianJs(commaNumber(getTotalPrice(factor.stock))).englishNumber().toString()} تومان
 
                         </Col>
                     </Row>

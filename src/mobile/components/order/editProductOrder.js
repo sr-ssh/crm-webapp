@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Container, Dropdown, Modal, Row, Col, Form, Button, Table, Spinner, Alert, Card } from 'react-bootstrap'
 import persianJs from 'persianjs/persian.min';
+import commaNumber from 'comma-number'
+
 //Assets
 import closeIcon from '../../assets/images/close.svg'
 // import deleteIcon from './../../assets/images/delete.svg'
@@ -295,7 +297,7 @@ export const EditeProductOrder = (props) => {
                                                     <span className="">جمع کل :</span>
                                                 </Col>
                                                 <Col className="px-1">
-                                                    {getTotalPrice(order) && persianJs(getTotalPrice(order)).englishNumber().toString()}
+                                                    {getTotalPrice(order) && persianJs(commaNumber(getTotalPrice(order))).englishNumber().toString()}
 
                                                 </Col>
                                             </Row>
