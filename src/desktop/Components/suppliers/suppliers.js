@@ -72,13 +72,13 @@ export const Suppliers = () => {
                             </Row>
                         </>
                     } */}
-                    <Row className="mx-1">
+                    {/* <Row className="mx-1"> */}
                         {
                             suppliers
                                 ? (suppliers.map((supplier, index) => <Col key={index} xs={4} className="px-3"><Supplier supplier={supplier} /></Col>))
                                 : null
                         }
-                    </Row>
+                    {/* </Row> */}
 
                     <CustomerSearch show={modalShow} onHide={() => setModalShow(false)} filters={filters} setFilters={setFilters} />
                 </Container>
