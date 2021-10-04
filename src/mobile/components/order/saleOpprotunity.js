@@ -39,14 +39,13 @@ export const SaleOpprotunity = () => {
 
     useEffect(() => {
         !recordOrderShow && dispatch(orderActions.getOrders({ status: 3 }))
-        console.log('444444444444444444444444444444444444444444444444444')
     }, [dispatch, recordOrderShow])
 
 
 
     return (
         <div className="product-page orders ">
-            <Header className="noPrint" title="فرصت سفارشات" backLink="/" />
+            <Header className="noPrint" title="فرصت فروش" backLink="/" />
             <Container className="m-auto">
                 {
                     orderLoading &&
