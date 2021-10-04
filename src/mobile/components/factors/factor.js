@@ -23,7 +23,7 @@ import { EditField } from './editField'
 import { history } from '../../../helpers/history'
 import { CancelProductOrder } from './cancelProductOrder'
 import { EditFactor } from './editFactor'
-
+import { FinancialCheckModal } from './financialCheckModal'
 
 
 
@@ -45,6 +45,7 @@ export const Factor = ({ factor, setActiveFactor, setCancelFactorShow, cancelOrd
     const [cancelModalShow, setCancelModalShow] = useState(false);
     const [editFactorModalShow, setEditFactorModalShow] = useState(false)
     const [showNotesModal, setShowNotesModal] = useState(false)
+    const [financialCheckModal, setFinancialCheckModal] = useState(false)
 
 
     const [input, setInput] = useState('')
@@ -264,11 +265,21 @@ export const Factor = ({ factor, setActiveFactor, setCancelFactorShow, cancelOrd
                             <span className="pe-1 noPrint">چاپ</span>
                         </Button>
                     </Col>
+                    {factor.shopApproval.status === false &&
+                        <Col xs={6} className="p-0 px-1 pb-3 pe-2">
+                            <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => setFinancialCheckModal(true)}>
+                                <img src={printIcon} height="25px" alt="submit-icon" className="col-3 py-1" />
+                                <span className="pe-1 noPrint">تایید خرید</span>
+                            </Button>
+                        </Col>
+                    }
                 </Row>
             </Card.Body>
             <EditField show={editModalShow} onHide={() => { setEditModalShow(false); setInput(''); }} input={input} name={name} productId={productId} orderId={orderId} setInput={setInput} />
             <CancelProductOrder show={cancelModalShow} onHide={() => { setCancelModalShow(false) }} productId={productId} orderId={orderId} />
             <EditFactor show={editFactorModalShow} onHide={() => { setEditFactorModalShow(false) }} factor={editFactor} />
+            <FinancialCheckModal show={financialCheckModal} onHide={() => setFinancialCheckModal(false)} factor={financialCheckModal ? factor : null} />
+
         </Card >
     )
 }
