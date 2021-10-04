@@ -1,5 +1,5 @@
 .order-page--desktop {
-  height: 100vh;
+  /* height: 100vh; */
   min-height: 100vh;
   background: var(--pages-background);
   z-index: -1;
@@ -238,11 +238,11 @@
   font-size: 13px;
   font-weight: 600;
 }
-.upload--file--input::-webkit-file-upload-button{
+.upload--file--input::-webkit-file-upload-button {
   visibility: hidden;
 }
 .upload--file--input::before {
-  content: 'آدرس فایل را مشخص کنید';
+  content: "آدرس فایل را مشخص کنید";
   color: var(--note-border);
   display: inline-block;
   border-radius: 3px;
@@ -254,8 +254,8 @@
   font-size: 10pt;
   padding-right: 90px;
 }
-.upload--file--input::after{
-  content: '';
+.upload--file--input::after {
+  content: "";
 }
 .upload--file--input {
   /* color: transparent; */
@@ -264,7 +264,7 @@
 .upload--file--input:hover {
   color: var(--note-border);
 }
-.file--icon{
+.file--icon {
   position: relative;
   top: 66px;
   right: 13px;

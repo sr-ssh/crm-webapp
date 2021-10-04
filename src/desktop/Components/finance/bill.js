@@ -2,19 +2,20 @@ import React from 'react'
 import { Card, Row, Col } from 'react-bootstrap';
 import moment from 'jalali-moment';
 import persianJs from 'persianjs/persian.min';
+import commaNumber from 'comma-number'
 
-export const Bill = ({ bill }) => {
+export const Bill = ({ bill, sideBar }) => {
     return (
-        <Card className="mx-2 mb-auto mt-3 bg-light productCard border-0 lh-lg pb-2 col-3" >
+        <Card className={`mt-3 bg-light productCard bills--card--desktop border-0 lh-lg pb-2 ${sideBar ? 'bills--card--desktop--open' : null}`} >
             <Card.Body className="pb-0 ps-0 text-gray">
                 <Row className="pe-2">
                     <Row>
                         <Col>
-                            <Card.Text>
+                            <Card.Text className="text--dark--blue fw-bold">
                                 نام هزینه:
                             </Card.Text>
                         </Col>
-                        <Col dir="ltr">
+                        <Col dir="ltr" >
                             <Card.Text>
                                 <span>{bill.name && persianJs(bill.name).englishNumber().toString()}</span>
                             </Card.Text>
@@ -22,7 +23,7 @@ export const Bill = ({ bill }) => {
                     </Row>
                     <Row className="mt-2">
                         <Col>
-                            <Card.Text>
+                            <Card.Text className=" fw-bold">
                                 تاریخ:
                             </Card.Text>
                         </Col>
@@ -34,13 +35,13 @@ export const Bill = ({ bill }) => {
                     </Row>
                     <Row className="mt-2">
                         <Col>
-                            <Card.Text>
+                            <Card.Text className=" fw-bold">
                                 میزان هزینه:
                             </Card.Text>
                         </Col>
-                        <Col dir="ltr">
+                        <Col className="text-start">
                             <Card.Text>
-                                <span>{bill.cost && persianJs(bill.cost).englishNumber().toString()}</span>
+                                <span>{commaNumber(bill.cost) && persianJs(commaNumber(bill.cost)).englishNumber().toString()}</span>    <span>تومان</span>
                             </Card.Text>
                         </Col>
                     </Row>

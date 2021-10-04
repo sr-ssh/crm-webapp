@@ -6,7 +6,7 @@ import { getProducts, addProduct, editProduct, uploadExcelProducts } from './pro
 import { financeSummary, bill } from './financeReducer'
 import {
     addOrder, getOrders, setOrdersFilter, editOrderStatus, getOrderSms, deliverySms, editOrderSms, cancelProductOrder, editOrderQuantity,
-    editOrderPrice, editProducOrder, orderDetails, getShareLinkOrder, uploadDoc,
+    editOrderPrice, editProducOrder, orderDetails, getShareLinkOrder, uploadDoc, confirmFinancial,
     showDoc
 } from './orderReducer'
 import { getReminders } from './reminderReducer'
@@ -70,5 +70,5 @@ export default combineReducers({
     addReceipt, confirmShop,
     getReceipts, editReceiptStatus, editReceipt, showDoc,
     uploadExcelProducts,
-    sideBar
+    sideBar, confirmFinancial
 })

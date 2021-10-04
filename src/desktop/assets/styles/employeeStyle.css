@@ -1,0 +1,72 @@
+.employees--card {
+  border: none;
+  border-radius: 15px;
+  width: 245px;
+}
+
+.hire-application-btn--desktop,
+.hire-application-btn--desktop:focus,
+.hire-application-btn--desktop:active,
+.hire-application-btn--desktop:hover,
+.hire-application-btn--desktop:focus:active,
+.hire-application-btn--desktop:active:focus {
+  background-color: var(--button-color-two);
+  box-shadow: none;
+}
+.close-application-btn--desktop,
+.close-application-btn--desktop:focus,
+.close-application-btn--desktop:active,
+.close-application-btn--desktop:hover,
+.close-application-btn--desktop:focus:active,
+.close-application-btn--desktop:active:focus {
+  background-color: var(--dager-color);
+  box-shadow: none;
+}
+
+.applications-text-gray--desktop {
+  font-size: 13px;
+  color: var(--text-color-one);
+}
+
+.applications-text-gray--desktop span {
+  color: black;
+  font-size: 14px;
+  white-space: nowrap;
+}
+.application--dekstop {
+  width: 32%;
+}
+@media (min-width: 0) {
+  .application--dekstop {
+    width: 100%;
+  }
+}
+@media (min-width: 800px) {
+  .application--dekstop {
+    width: 48%;
+  }
+}
+@media (min-width: 1200px) {
+  .application--dekstop {
+    width: 32%;
+  }
+}
+
+.employees-text-gray--desktop {
+  font-size: 12px;
+  white-space: nowrap;
+  color: var(--text-color-one);
+}
+
+.employees-text-gray--desktop span {
+  color: black;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.employees-text-permission--desktop {
+  color: black;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}

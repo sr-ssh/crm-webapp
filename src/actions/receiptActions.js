@@ -445,10 +445,10 @@ function getShareLinkOrder(orderId) {
 
 }
 
-function confirmShop(orderId) {
+function confirmShop(receiptId) {
     return dispatch => {
         dispatch(request(receiptConstants.CONFIRM_FINANCIAL_RECEIPT_REQUEST))
-        recieptService.confirmShop(orderId)
+        recieptService.confirmShop(receiptId)
             .then(
                 res => {
                     if (res === undefined) {

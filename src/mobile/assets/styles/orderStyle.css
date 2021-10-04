@@ -434,6 +434,12 @@
   .noPrint {
     display: none;
   }
+  .active--item--sidebar::before,
+  .active--item--sidebar,
+  .MuiSvgIcon-root,
+  .MuiToolbar-root {
+    display: none !important;
+  }
 }
 .spinner--download--btn--mobile {
   position: relative;
@@ -458,17 +464,14 @@
 .border-10 {
   border-radius: 10px;
 }
-.file--icon--mobile{
+.file--icon--mobile {
   position: relative;
   top: 43px;
   right: 13px;
 }
 .btn-toggle-status-green {
   position: relative !important;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  margin: 8px;
+  margin: 8;
   box-sizing: content-box;
   overflow: hidden;
 }
@@ -480,6 +483,9 @@
   height: 18px;
   border: 2px solid #ccc;
   transition: 0.2s border-color ease;
+}
+.btn-toggle-status-green--checked:before {
+  border-color: var(--button-color-two);
 }
 .btn-toggle-status-green:checked:before {
   border-color: var(--button-color-two);
@@ -510,6 +516,7 @@
 }
 .btn-toggle-status-green[type="checkbox"]:checked:after {
   -webkit-animation: toggleOnRadio 0.2s ease forwards;
+  -apple-animation: toggleOnRadio 0.2s ease forwards;
   animation: toggleOnRadio 0.2s ease forwards;
 }
 @-webkit-keyframes toggleOnRadio {
@@ -541,10 +548,7 @@
 
 .btn-toggle-status-red {
   position: relative !important;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  margin: 8px;
+  margin: 8;
   box-sizing: content-box;
   overflow: hidden;
 }

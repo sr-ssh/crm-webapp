@@ -5,8 +5,31 @@
 .productCard--dekstop {
   width: 45%;
 }
+.product--card--desktop {
+  width: 23%;
+  border: none;
+  border-radius: 15px;
+  /* overflow: hidden; */
+}
+.product--card--popover--desktop {
+  border-radius: 15px;
+}
+.product--card--desktop--sideBar--open {
+  width: 23%;
+}
 @media (min-width: 1000px) {
   .productCard--dekstop {
     width: 31%;
   }
+}
+.text--description--product {
+  white-space: nowrap;
+}
+.text--breake--dscription {
+  white-space: nowrap;
+  width: 150px;
+  overflow: hidden;
+}
+.text--more--product--desktop {
+  cursor: pointer !important;
 }

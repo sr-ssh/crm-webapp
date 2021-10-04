@@ -32,10 +32,11 @@ const Bills = () => {
                 isBtnAdd={"اضافه هزینه"} btnAdd={() => setAddModalShow(true)} />
 
             <div className="product-page orders margin--top--header" style={{ paddingRight: sideBar.open ? "250px" : 0 }}>
-                <Container fluid className="m-0 w-100 d-flex justify-content-center flex-wrap ">
+                <Container fluid className="m-0 w-100 d-flex justify-content-evenly flex-wrap px-4">
+
                     {
                         bills ?
-                            bills.map((bill, index) => <Bill key={index} bill={bill} />)
+                            bills.map((bill, index) => <Bill key={index} bill={bill} sideBar={sideBar.open} />)
                             : null
                     }
                     <AddBill show={addModalShow} onHide={() => setAddModalShow(false)} />

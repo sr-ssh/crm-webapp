@@ -118,3 +118,11 @@ body {
 .header-title {
   position: absolute;
 }
+.btn-dark-blue:active,
+.btn-dark-blue:hover,
+.btn-dark-blue:focus,
+.btn-dark-blue:active:focus,
+.btn-dark-blue:focus:active {
+  background-color: var(--dark--blue);
+  color: #fff;
+}

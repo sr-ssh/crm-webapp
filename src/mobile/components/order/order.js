@@ -19,6 +19,7 @@ import addNoteIcon from '../../assets/images/order/add-note-white.svg'
 import noteListIcon from '../../assets/images/order/note-list-white.svg'
 import cancelIcon from '../../assets/images/order/cancel.svg'
 import prevFactorIcon from './../../assets/images/order/pish-factor.svg'
+import financialCheckIcon from './../../assets/images/order/financial-check.svg'
 
 //components
 import { AddNotesModal } from './addNotesModal'
@@ -27,7 +28,7 @@ import { history } from '../../../helpers/history'
 import { CancelProductOrder } from './cancelProductOrder'
 import { EditeProductOrder } from './editProductOrder'
 import { ShareLinkModal } from './shareLinkModal';
-
+import { FinancialCheckModal } from './financialCheckModal'
 
 
 
@@ -50,6 +51,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
     const [editOrder, setEditOrder] = useState(false)
     const [showNotesModal, setShowNotesModal] = useState(false)
     const [isShareLinkOrder, setIsShareLinkOrder] = useState(false)
+    const [financialCheckModal, setFinancialCheckModal] = useState(false)
 
 
     const [input, setInput] = useState('')
@@ -111,7 +113,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
 
         <Card className={`m-auto mt-3 bg-light productCard border-0 lh-lg ${!print ? 'noPrint' : ''}`} >
             <Card.Body className="pb-0 ps-1 rounded-3 text-gray">
-            <img src={cancelIcon} height="25px" alt="print-icon" className="col-3" />
+                <img src={cancelIcon} height="25px" alt="print-icon" className="col-3" />
                 <Row className="p-0 ps-2 m-0 ">
                     <Card className="factor--blue--section border-0">
                         <Card.Body className="m-0 p-0 py-2 mx-3 ">
@@ -313,6 +315,21 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                     </Table>
                 </Row>
                 <Row className="p-0 m-0 pb-3 w-100">
+                    {order.financialApproval.status != true &&
+                        <Col xs={6} className="p-0 px-1 pb-3 ps-2">
+                            <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setFinancialCheckModal(true); setActiveOrder(order) }}>
+                                <img src={financialCheckIcon} height="25px" alt="add-note-icon" className="col-3" />
+                                <span className="pe-1">تایید مالی</span>
+                            </Button>
+                        </Col>
+                    }
+                    <Col xs={6} className="p-0 px-1 pb-3 ps-2">
+                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setIsShareLinkOrder(true); setShareLinkOrder(order) }}>
+                            <img src={prevFactorIcon} height="26px" alt="prev-factor-icon" className="col-3 py-1 me-1" />
+
+                            <span className="me-2">پیش فاکتور</span>
+                        </Button>
+                    </Col>
                     <Col xs={6} className="p-0 px-1 pb-3 ps-2">
                         <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setShowNotesModal(true); setActiveOrder(order) }}>
                             <img src={addNoteIcon} height="25px" alt="add-note-icon" className="col-3" />
@@ -391,6 +408,12 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                             </Button>
                         </Col>
                     }
+                    {/* <Col xs={6} className="p-0 px-1 pb-3 ps-2">
+                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setUploadModalShow(true); setActiveOrder(order) }}>
+                            <img src={cancelIcon} height="25px" alt="print-icon" className="col-3" />
+                            <span className="noPrint">بارگذاری مدارک</span>
+                        </Button>
+                    </Col> */}
                 </Row>
             </Card.Body>
             <EditField show={editModalShow} onHide={() => { setEditModalShow(false); setInput(''); }} input={input} name={name} productId={productId} orderId={orderId} setInput={setInput} />
@@ -398,6 +421,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
             <EditeProductOrder show={editOrder} onHide={() => { setEditOrder(false) }} order={editProductOrder} />
             <AddNotesModal show={showNotesModal} onHide={() => { setShowNotesModal(false) }} permission={true} orderId={order.id} />
             <ShareLinkModal show={isShareLinkOrder} onHide={() => setIsShareLinkOrder(false)} order={isShareLinkOrder ? shareLinkOrder : null} />
+            <FinancialCheckModal show={financialCheckModal} onHide={() => setFinancialCheckModal(false)} order={financialCheckModal ? order : null} />
         </Card >
     )
 }

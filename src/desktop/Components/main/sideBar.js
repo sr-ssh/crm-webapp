@@ -30,14 +30,14 @@ export const SideBar = ({ routes }) => {
 
     return (
         <>
-            <div className="sidebar">
+            <div className="sidebar noPrint">
 
                 <Row className="m-0 p-0 py-3 d-flex flex-row logo--sidebar--desktop">
                     <Col className="d-flex justify-content-center">
-                        <img className="" height="50px" src={logo} alt="crmx-logo" />
+                        <img className=" noPrint" height="50px" src={logo} alt="crmx-logo" />
                     </Col>
                     <Col className=" ps-0 d-flex justify-content-end">
-                        <img height="50px" src={closeSideBarIcon} alt="icon-close-menu" onClick={() => dispatch(sideBarActions.sideBar(2))} />
+                        <img height="50px" className="noPrint" src={closeSideBarIcon} alt="icon-close-menu" onClick={() => dispatch(sideBarActions.sideBar(2))} />
                     </Col>
                 </Row>
                 <List
@@ -53,20 +53,20 @@ export const SideBar = ({ routes }) => {
                     })}
 
                 </List>
-                <Row className="m-0 p-0 d-flex justify-content-center align-items-center mt-auto dashboardIcons--desktop">
+                <Row className="m-0 p-0 d-flex justify-content-center align-items-center mt-auto dashboardIcons--desktop noPrint">
                     <Col className=" col-4">
                         <Col onClick={e => userActions.logout()}>
-                            <img className="m-auto d-block exit--icon--desktop" src={exitIcon} height="40px" alt="exit-icon" />
+                            <img className="m-auto d-block exit--icon--desktop noPrint" src={exitIcon} height="40px" alt="exit-icon" />
                         </Col>
                     </Col>
                     {
                         user_type === 1 &&
                         <Col className=" col-4">
-                            <NavLink to="/setting"><img className="m-auto d-block" src={settingIcon} height="40px" alt="setting-icon" /></NavLink>
+                            <NavLink to="/setting"><img className="m-auto d-block noPrint" src={settingIcon} height="40px" alt="setting-icon" /></NavLink>
                         </Col>
                     }
                     <Col xs={4} sm={4} md={4} lg={4} className=" col-4">
-                        <NavLink to="/account"><img className="m-auto d-block" src={accountIcon} height="40px" alt="acount-icon" /></NavLink>
+                        <NavLink to="/account"><img className="m-auto d-block noPrint" src={accountIcon} height="40px" alt="acount-icon" /></NavLink>
                     </Col>
                 </Row>
 

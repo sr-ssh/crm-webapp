@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Row, Container, Card, Col, Spinner } from 'react-bootstrap'
 import persianJs from 'persianjs/persian.min';
 import { Button } from '@material-ui/core'
-
+import { makeStyles } from '@material-ui/core/styles';
 
 // Actions
 import { employeeActions } from '../../../actions/employeeActions'
@@ -21,8 +21,19 @@ import { Header } from '../base/header'
 import editIcon from '../../assets/images/Products/edit.svg'
 import deleteIcon from '../../assets/images/discounts/deletee.svg'
 import checkIcon from '../../assets/images/tick.svg'
+import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
+
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        fontSize: "0.5rem",
+        color: "#4caf50"
+    }
+}));
 
 export const Employees = () => {
+
+    const classes = useStyles();
     const [addModalShow, setAddModalShow] = useState(false)
     const [editModalShow, setEditModalShow] = useState(false)
     const [removeModalShow, setRemoveModalShow] = useState(false)
@@ -43,7 +54,7 @@ export const Employees = () => {
 
             <div className="product-page margin--top--header" style={{ paddingRight: sideBar.open ? "250px" : 0 }}>
 
-                <Container fluid className="m-0 w-100 d-flex justify-content-center flex-wrap ">
+                <Container fluid className="m-0 w-100 d-flex justify-content-around flex-wrap ">
 
                     {
                         getEmployeesLoading &&
@@ -53,53 +64,53 @@ export const Employees = () => {
                     }
                     {employees ?
                         (employees.map((item, index) =>
-                            <Card key={index} className="m-auto mt-3 productCard col-3 mx-1" >
-                                <Card.Body className="pb-0 ps-1 rounded-3 ">
-                                    <Card.Text className="pt-1">
-                                        نام : <span>{item.family && persianJs(item.family).englishNumber().toString()}</span>
-                                    </Card.Text>
-                                    <Card.Text className="pt-1">
-                                        موبایل : <span>{item.mobile && persianJs(item.mobile).englishNumber().toString()}</span>
-                                    </Card.Text>
-                                    <Row>
-                                        <Col xs={4} className="ps-0">
-                                            <Card.Text className="pt-1">
-                                                سطح دسترسی:
-                                            </Card.Text>
-                                        </Col>
-                                        <Col className="pe-0">
-                                            <Card.Text className="pt-1">
-                                                {
-                                                    Object.keys(item.permission).map(per =>
-                                                        per === "getDiscounts" ? null :
-                                                            item.permission[per]
-                                                                ? <Col><img src={checkIcon} height="27px" alt="tick-icon" className="application-check-icon" /> <span>{translate(per)}</span></Col>
-                                                                : null
-                                                    )
-                                                }
-                                            </Card.Text>
-                                        </Col>
+                            <Card key={index} className="m-0 p-0 mt-3 employees--card pt-3 px-3 mx-1" >
+                                <Card.Body className="p-0 rounded-3 d-flex flex-column justify-content-between">
+                                    <Row className="m-0 p-0 ">
+                                        <Card.Text className="p-0  employees-text-gray--desktop">
+                                            نام : <span>{item.family && persianJs(item.family).englishNumber().toString()}</span>
+                                        </Card.Text>
+                                        <Card.Text className="p-0 employees-text-gray--desktop">
+                                            موبایل : <span>{item.mobile && persianJs(item.mobile).englishNumber().toString()}</span>
+                                        </Card.Text>
+                                        <Row className="m-0 p-0 d-flex align-items-center">
+                                            <Col xs={6} className="p-0 ">
+                                                <Card.Text className="employees-text-gray--desktop">
+                                                    سطح دسترسی:
+                                                </Card.Text>
+                                            </Col>
+                                            {
+                                                Object.keys(item.permission).map((per, index) =>
+                                                    per === "getDiscounts" ? null :
+                                                        item.permission[per]
+                                                            ? <Col xs={6} className="p-0 mt-2 employees-text-permission--desktop d-flex  align-items-center "><FiberManualRecordIcon classes={{ root: classes.root }} /><span className="me-1">{translate(per)}</span></Col>
+                                                            : null
+                                                )
+                                            }
+                                        </Row>
+                                    </Row>
+                                    <Row className="p-0 m-0 mt-4 d-flex justify-content-end" >
+                                        <Row className="justify-content-end">
+                                            <Card.Link className="d-flex justify-content-center editLogo m-0" onClick={() => { setRemoveModalShow(true); setEmployee(item) }}>
+                                                <img className="" src={deleteIcon} height="29px" alt="delete-icon" />
+                                            </Card.Link>
+                                            <Card.Link className="d-flex justify-content-center editLogo m-0" onClick={() => { setEditModalShow(true); setEmployee(item) }}>
+                                                <img className="" src={editIcon} height="39px" alt="edit-icon" />
+                                            </Card.Link>
+                                        </Row>
                                     </Row>
 
-
-                                    <Row className="justify-content-end">
-                                        <Card.Link className="d-flex justify-content-center editLogo" onClick={() => { setRemoveModalShow(true); setEmployee(item) }}>
-                                            <img className="" src={deleteIcon} height="29px" alt="delete-icon" />
-                                        </Card.Link>
-                                        <Card.Link className="d-flex justify-content-center editLogo" onClick={() => { setEditModalShow(true); setEmployee(item) }}>
-                                            <img className="" src={editIcon} height="39px" alt="edit-icon" />
-                                        </Card.Link>
-                                    </Row>
                                 </Card.Body>
                             </Card>
                         ))
 
-                        : null}
+                        : null
+                    }
                 </Container>
                 <AddEmployee show={addModalShow} onHide={() => setAddModalShow(false)} />
                 <EditEmployee show={editModalShow} onHide={() => setEditModalShow(false)} employee={employee} />
                 <RemoveEmployee show={removeModalShow} onHide={() => setRemoveModalShow(false)} employee={employee} />
-            </div>
+            </div >
         </>
     )
 }
