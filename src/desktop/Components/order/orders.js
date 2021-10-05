@@ -11,7 +11,7 @@ import { Delivery } from './delivery'
 import { CancelOrder } from './cancelOrder'
 import { Header } from '../base/header'
 import { UploadDocuments } from './uploadDoc'
-import {ShowDocuments } from './showDoc'
+import { ShowDocuments } from './showDoc'
 
 export const Orders = () => {
 
@@ -71,7 +71,7 @@ export const Orders = () => {
                     <Delivery show={deliveryShow} onHide={() => setDeliveryShow(false)} order={order} />
                     <CancelOrder status="2" show={cancelOrderShow} onHide={() => setCancelOrderShow(false)} order={activeOrder} />
                     <UploadDocuments show={uploadModalShow} onHide={() => setUploadModalShow(false)} order={activeOrder} />
-                    {activeOrder.id && <ShowDocuments show={showDocModalShow} onHide={() => setShowDocModalShow(false)} order={activeOrder.id} />}
+                    {activeOrder.id && <ShowDocuments show={showDocModalShow} onHide={() => setShowDocModalShow(false)} order={activeOrder.id} UploadModalShow={() => setUploadModalShow(true)} />}
 
                 </Container>
 
