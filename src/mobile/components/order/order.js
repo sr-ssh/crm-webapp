@@ -21,7 +21,7 @@ import noteListIcon from '../../assets/images/order/note-list-white.svg'
 import cancelIcon from '../../assets/images/order/cancel.svg'
 import prevFactorIcon from './../../assets/images/order/pish-factor.svg'
 import financialCheckIcon from './../../assets/images/order/financial-check.svg'
-
+import uploadIcon from './../../assets/images/order/Upload-documents.svg'
 //components
 import { AddNotesModal } from './addNotesModal'
 import { EditField } from './editField'
@@ -385,7 +385,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                     }
                     <Col xs={6} className="p-0 px-1 pb-3 ps-2">
                         <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setUploadModalShow(true); setActiveOrder(order) }}>
-                            <img src={cancelIcon} height="25px" alt="print-icon" className="col-3" />
+                            <img src={uploadIcon} height="25px" alt="print-icon" className="col-3" />
                             <span className="noPrint">بارگذاری مدارک</span>
                         </Button>
                     </Col>

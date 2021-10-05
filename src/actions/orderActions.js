@@ -1,4 +1,5 @@
 import { orderConstants } from '../constants'
+import { history } from '../helpers';
 import { orderService } from '../services'
 import { alertActions } from './alertActions';
 
@@ -469,6 +470,7 @@ function uploadDoc(orderId) {
         orderService.uploadDoc(orderId)
             .then(
                 res => {
+                    console.log(res)
                     if (res === undefined) {
                         dispatch(alertActions.error('ارتباط با سرور برقرار نیست'));
                         dispatch(failure(orderConstants.UPLOAD_DOC_FAILURE, 'ارتباط با سرور برقرار نیست'))
@@ -476,10 +478,17 @@ function uploadDoc(orderId) {
                     else if (res.success) {
                         console.log("order financial confirmed")
                         dispatch(success(orderConstants.UPLOAD_DOC_SUCCESS, res.data));
+                        dispatch(alertActions.success(res.message));
+                        setTimeout(() => {
+                            dispatch(alertActions.clear());
+                            history.go(0)
+                        }, 1500);
                     } else if (res.success == false) {
                         dispatch(failure(orderConstants.UPLOAD_DOC_FAILURE, res.message))
                         dispatch(alertActions.error(res.message));
                     }
+                    
+                    
                 },
                 error => {
                     dispatch(failure(orderConstants.UPLOAD_DOC_FAILURE, error.toString()));

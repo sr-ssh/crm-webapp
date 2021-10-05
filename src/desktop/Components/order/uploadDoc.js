@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Form, Button, Row, Col, Modal, Spinner, Alert } from 'react-bootstrap';
-import persianJs from 'persianjs/persian.min';
+import { Form, Button, Row, Col, Modal, Spinner } from 'react-bootstrap';
 
 // Actions
-import { orderActions, productActions, stockActions } from '../../../actions';
+import { orderActions } from '../../../actions';
 
 // Icons
 import closeIcon from '../../assets/images/close.svg'
@@ -19,7 +18,6 @@ export const UploadDocuments = (props) => {
     const [validated, setValidated] = useState(false);
     const [productnameValidated, setProductNameValidated] = useState(false);
     const addProductLoading = useSelector(state => state.addStock.loading)
-    const alert = useSelector(state => state.alert)
     const dispatch = useDispatch()
     
     const data = new FormData() 
@@ -28,7 +26,7 @@ export const UploadDocuments = (props) => {
         e.preventDefault()
        
         console.log(product)
-        if (file) {
+        if (file && fileName) {
             data.append('file', file)
             data.append('fileName', fileName)
             data.append('orderId', props.order.id)
@@ -73,17 +71,18 @@ export const UploadDocuments = (props) => {
                             </Form.Group>
                         </Col>
                     </Row>
-                    <Row>
+                    <Row className="top-16">
                         <Col>
                             <img className="file--icon" src={fileIcon} alt="file-icon" height="40px" />
-                            <input type="file" accept="image/png, image/gif, image/jpeg" className={`d-flex flex-row w-100 align-items-center justify-content-center btn--add--note--desktop radius-16 receipt--add--note  py-4 upload--file--input pe-0`} onChange={e => {console.log(e.target.files[0]);setFile(e.target.files[0]);}} title="آدرس فایل را مشخص کنید"/>
+                            <span className="pe-4 fs-6-sm file--icon fw-bold">{!file ? "آدرس فایل را مشخص کنید" : file.name}</span>
+                            <input type="file" accept="image/png, image/gif, image/jpeg" className={`d-flex flex-row w-100 align-items-center justify-content-center btn--add--note--desktop radius-16 receipt--add--note  py-4 upload--file--input pe-0 h-75`} onChange={e => {console.log(e.target.files[0]);setFile(e.target.files[0]);}} title="آدرس فایل را مشخص کنید"/>
                         </Col>
                     </Row>
                     <Row>
                         <Col>
                             {
                                 addProductLoading ? (
-                                    <Button className="fw-bold order-submit border-0 w-100 mt-4" size="lg" type="submit" disabled>
+                                    <Button className="fw-bold order-submit border-0 w-100 mt-3" size="lg" type="submit" disabled>
                                         <Spinner
                                             as="span"
                                             animation="grow"
@@ -94,7 +93,7 @@ export const UploadDocuments = (props) => {
                                         در حال انجام عملیات...
                                     </Button>
                                 ) : (
-                                    <Button className="fw-bold receipt--btn--mobile border-0 w-100 mt-4" size="lg" type="submit" block>
+                                    <Button className="fw-bold receipt--btn--mobile border-0 w-100 mt-3" size="lg" type="submit" block>
                                         ثبت
                                     </Button>
                                 )

@@ -25,7 +25,7 @@ export const Orders = () => {
     const [order, setOrder] = useState('')
     const [uploadModalShow, setUploadModalShow] = useState(false)
     const [showDocModalShow, setShowDocModalShow] = useState(false)
-
+    const [refresh, setRefresh] = useState(false)
     const dispatch = useDispatch()
     const orders = useSelector(state => state.getOrders.orders)
     let orderLoading = useSelector(state => state.getOrders.loading)
@@ -70,7 +70,7 @@ export const Orders = () => {
                     <OrderSearch show={modalShow} onHide={() => { setModalShow(false) }} />
                     <Delivery show={deliveryShow} onHide={() => setDeliveryShow(false)} order={order} />
                     <CancelOrder status="2" show={cancelOrderShow} onHide={() => setCancelOrderShow(false)} order={activeOrder} />
-                    <UploadDocuments show={uploadModalShow} onHide={() => setUploadModalShow(false)} order={activeOrder} />
+                    <UploadDocuments show={uploadModalShow} onHide={() => {setUploadModalShow(false);}} order={activeOrder} />
                     {activeOrder.id && <ShowDocuments show={showDocModalShow} onHide={() => setShowDocModalShow(false)} order={activeOrder.id} />}
 
                 </Container>

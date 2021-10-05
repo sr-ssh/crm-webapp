@@ -242,7 +242,7 @@
   visibility: hidden;
 }
 .upload--file--input::before {
-  content: "آدرس فایل را مشخص کنید";
+  content: "";
   color: var(--note-border);
   display: inline-block;
   border-radius: 3px;
@@ -256,22 +256,36 @@
 }
 .upload--file--input::after {
   content: "";
+  color: transparent;
 }
 .upload--file--input {
-  /* color: transparent; */
-  color: var(--note-border);
+  color: transparent;
 }
 .upload--file--input:hover {
-  color: var(--note-border);
+  color: transparent;
+}
+.upload--file--input:hover, .upload--file--input:active, .upload--file--input:focus, .upload--file--input:focus:active, .upload--file--input:active:focus {
+  color: transparent;
 }
 .file--icon {
   position: relative;
   top: 66px;
-  right: 13px;
+  right: 21px;
+  color: var(--note-border);
+}
+.file--icon--mobile {
+  position: relative;
+  top: 30px;
+  right: 21px;
+  color: var(--note-border);
 }
 .border--blue{
   border: 1px solid var(--dark--blue);
 }
 .doc--img{
   width: -webkit-fill-available;
+}
+.top-16{
+  position: relative;
+  top: -16px;
 }
