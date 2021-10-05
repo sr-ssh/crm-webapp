@@ -21,7 +21,7 @@ import noteListIcon from '../../assets/images/order/note-list-white.svg'
 import cancelIcon from '../../assets/images/order/cancel.svg'
 import prevFactorIcon from './../../assets/images/order/pish-factor.svg'
 import financialCheckIcon from './../../assets/images/order/financial-check.svg'
-
+import resultIcon from './../../assets/images/order/Result.svg'
 import uploadIcon from './../../assets/images/order/Upload-documents.svg'
 import viewDocumentsIcon from '../../assets/images/order/View-documents.svg'
 
@@ -410,7 +410,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                         order.status === 3 &&
                         <Col xs={6} className="p-0 px-1 pb-3 ps-2">
                             <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setResultOrderModal(true); setActiveOrder(order) }}>
-                                <img src={submitIcon} height="25px" alt="print-icon" className="col-3" />
+                                <img src={resultIcon} height="25px" alt="print-icon" className="col-3" />
                                 <span className="pe-1">نتیجه</span>
                             </Button>
                         </Col>
