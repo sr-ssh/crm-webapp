@@ -127,15 +127,19 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                                     <Col className="lable--factor p-0">
                                         تایید مالی:
                                     </Col>
-                                    {order.financialApproval.status ?
+                                    {order.financialApproval.status === 1 ?
                                         <Col className="d-flex justify-content-end align-items-center text--factor p-0 ">
                                             <img src={tickIcon} alt="tick-icon" className="m-0 p-0 ms-1 p-1 icon--tick--confirm " />
                                             <span>{order.financialApproval.acceptedBy}</span>
                                         </Col>
-                                        :
+                                        : order.financialApproval.status === 2 ?
                                         <Col className="d-flex justify-content-end align-items-center text--factor p-0 ">
                                             <img src={closeIcon} alt="tick-icon" className="m-0 p-0 ms-1 p-1 icon--tick--confirm " />
-                                            <span>تایید نشده است</span>
+                                            <span>{order.financialApproval.acceptedBy}</span>
+                                        </Col>
+                                        : 
+                                        <Col className="d-flex justify-content-end align-items-center text--factor p-0 ">
+                                            <span>در انتظار تعیین وضعیت مالی</span>
                                         </Col>
                                     }
 
@@ -320,7 +324,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                     </Table>
                 </Row>
                 <Row className="p-0 m-0 pb-3 w-100">
-                    {order.financialApproval.status != true &&
+                    {order.status === 0 &&
                         <Col xs={6} className="p-0 px-1 pb-3 ps-2">
                             <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setFinancialCheckModal(true); setActiveOrder(order) }}>
                                 <img src={financialCheckIcon} height="25px" alt="add-note-icon" className="col-3" />

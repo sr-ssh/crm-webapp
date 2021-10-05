@@ -346,7 +346,7 @@ function confirmFinancial(orderId) {
 
     const requestOptions = {
         headers: authHeader(),
-        body: { orderId: orderId }
+        body: orderId
     }
 
     return axios

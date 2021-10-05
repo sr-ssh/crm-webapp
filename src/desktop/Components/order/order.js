@@ -191,7 +191,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                     </Button>
                 </Col>
                 {
-                    order.status == 0 && order.financialApproval.status !== true &&
+                    order.status === 0 && 
                     <Col className="d-flex justify-content-center">
                         <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setFinancialCheckModal(true) }}>
                             <img src={financialCheckIcon} height="25px" alt="edit-order-icon" className="col-3 py-1" />
@@ -237,14 +237,18 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                                     <Col className="p-0 d-flex justify-content-start">
                                         <Card.Text>
                                             تایید مالی :
-                                            {order.financialApproval.status ?
+                                            {order.financialApproval.status === 1 ?
                                                 <>
                                                     <img src={tickIcon} alt="tick-icon" className="m-0 p-0 ms-1 p-1 icon--tick--confirm " />
                                                     <span>{order.financialApproval.acceptedBy}</span>
                                                 </>
-                                                :
+                                                :order.financialApproval.status === 2 ?
                                                 <>
                                                     <img src={closeIcon} alt="tick-icon" className="m-0 p-0 ms-1 p-1 icon--tick--confirm " />
+                                                    <span>{order.financialApproval.acceptedBy}</span>
+                                                </>
+                                                :
+                                                <>
                                                     <span>تایید نشده است</span>
                                                 </>
                                             }
