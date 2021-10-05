@@ -209,7 +209,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                 }
 
 
-                {/* <Col className="d-flex justify-content-end">
+                 <Col className="d-flex justify-content-end">
                     <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setUploadModalShow(true); setActiveOrder(order); }}>
                         <img src={cancelIcon} height="25px" alt="print-icon" className="col-3" />
                         <span className="noPrint">بارگذاری مدارک</span>
@@ -220,7 +220,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                         <img src={viewDocumentsIcon} height="25px" alt="print-icon" className="col-3" />
                         <span className="noPrint">مشاهده مدارک</span>
                     </Button>
-                </Col> */}
+                </Col>
             </Row>
             <Card.Body className="pb-0 ps-1 rounded-3 text-gray">
                 <Row className="p-0 ps-2 m-0 ">

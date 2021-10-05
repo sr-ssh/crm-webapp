@@ -9,6 +9,9 @@
   .order-serach-modal--medium .modal-lg {
     max-width: 525px;
   }
+  .order-serach-modal--large .modal-lg {
+    max-width: 739px;
+  }
 }
 
 .order-input--description{

@@ -269,3 +269,9 @@
   top: 66px;
   right: 13px;
 }
+.border--blue{
+  border: 1px solid var(--dark--blue);
+}
+.doc--img{
+  width: -webkit-fill-available;
+}

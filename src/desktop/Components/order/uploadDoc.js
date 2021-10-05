@@ -24,31 +24,6 @@ export const UploadDocuments = (props) => {
     
     const data = new FormData() 
 
-    let productnameHandler = (value) => {
-        const pName = value;
-        const patt = /^[آ-یa-zA-Z0-9 ]+$/;
-        let res = patt.test(pName.trim());
-        if (res) {
-            setProductNameValidated(true)
-            return value
-        }
-        else {
-            return undefined
-        }
-    }
-
-    let handleChange = (e) => {
-        // e.preventDefault()
-        let value = e.target.value
-        let name = e.target.name
-        // if (name === "productname") {
-        //     value = productnameHandler(value)
-        // }
-        // setProduct({ ...product, [e.target.id]: value })
-        console.log(value)
-        data.append('fileName', value)
-    }
-
     let formHandler = (e) => {
         e.preventDefault()
        
@@ -58,7 +33,8 @@ export const UploadDocuments = (props) => {
             data.append('fileName', fileName)
             data.append('orderId', props.order.id)
             dispatch(orderActions.uploadDoc(data))
-            setProduct({ name: ""})
+            setFileName("")
+            setFile("")
             setFile(null)
             setProductNameValidated(false)
         }
@@ -68,7 +44,8 @@ export const UploadDocuments = (props) => {
     }
 
     useEffect(() => {
-        setProduct()
+        setFileName("")
+        setFile("")
     }, [])
     return (
         <Modal
@@ -82,17 +59,6 @@ export const UploadDocuments = (props) => {
                 <Button className="border-0 customer-modal-close--desktop" type="button" onClick={e => { props.onHide(false); setProductNameValidated(false);}}>
                     <img className="d-flex m-auto customer-modal-close-svg--desktop" src={closeIcon} alt="close-btn" />
                 </Button>
-                {/* {
-                    alert.message &&
-                    <>
-                        <div className="modal-backdrop show"></div>
-                        <Row className="justify-content-center text-center ">
-                            <Alert variant={alert.type}>
-                                {alert.message}
-                            </Alert>
-                        </Row>
-                    </>
-                } */}
                 <Form onSubmit={formHandler} >
                     <Row className="mt-3">
                         <Col className="col-12 order-filter-input">

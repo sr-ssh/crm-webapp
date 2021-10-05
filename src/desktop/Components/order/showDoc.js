@@ -35,21 +35,28 @@ export const ShowDocuments = (props) => {
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
-            className="mx-3 order-serach-modal--medium"
+            className="mx-3 order-serach-modal--large"
         >
             <Modal.Body className="add-product px-4">
                 <Button className="border-0 customer-modal-close--desktop" type="button" onClick={e => { props.onHide(false); setProductNameValidated(false);}}>
                     <img className="d-flex m-auto customer-modal-close-svg--desktop" src={closeIcon} alt="close-btn" />
                 </Button>
                 <Card className="m-auto mt-2 mb-2 bg-light productCard lh-lg " >
-                    <Card.Body className="pb-0 ps-1 rounded-3 text-gray">
+                    <Card.Body className="p-3 px-4 mx-2 rounded-3 fs-6-sm">
                         <Row>
                         {
                             props.show  ?
                             documents?.map((doc, index) => 
-                            <Col key={index} xs={4}>
-                                {doc.name} <br/>
-                                <span>{doc.location && <img src={doc.location}/>}</span>
+                            <Col key={index} xs={4} className="mb-3 px-4">
+                                <Col>{doc.name}</Col>
+                                <Col>
+                                <Card className="productCard bg-light lh-lg border--blue" style={{'height': '106px'}}>
+                                    <Card.Body className="rounded-3 px-2">
+                                        {doc.location && <img src={doc.location} alt="document-picc" className="doc--img"/>}
+                                    
+                                    </Card.Body>
+                                </Card>
+                                </Col>
                             </Col>
                             )
                             : null
