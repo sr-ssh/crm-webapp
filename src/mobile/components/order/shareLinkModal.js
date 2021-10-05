@@ -30,8 +30,15 @@ export const ShareLinkModal = (props) => {
     let customerInfo = props.order?.customer
     let toggleHandler = (e) => {
         let type = e.target.id == "formal" ? 0 : e.target.id == "inFormal" ? 1 : null
-        setInvoiceType(type)
-        dispatch(orderActions.getShareLinkOrder({ orderId: props.order.id, type: type }))
+        if ((type == 1) || (type == 0 && customerInfo.registerNo && customerInfo.financialCode && customerInfo.nationalCard && customerInfo.postalCode)) {
+            setCustomerInfoRequire(false);
+            setInvoiceType(type)
+            dispatch(orderActions.getShareLinkOrder({ orderId: props.order.id, type: type }))
+
+        } else {
+            setCustomerInfoRequire(true)
+            setInvoiceType(type)
+        }
     }
 
     useEffect(() => {
@@ -46,7 +53,6 @@ export const ShareLinkModal = (props) => {
         }
     }, [dispatch, props.order])
 
-    console.log(props.order?.customer)
 
     return (
         <Modal
@@ -95,7 +101,7 @@ export const ShareLinkModal = (props) => {
                     :
                     loadingLink ?
                         <>
-                            <Container fluid className="my-4 h-100  d-flex justify-content-center align-items-center flex-wrap" style={{ width: "350px" }}>
+                            <Container fluid className="my-4 h-100  d-flex justify-content-center align-items-center flex-wrap" >
                                 <Col className="col-3 mt-2 m-auto d-block align-self-center w-100 mb-4 ">
                                     <Spinner className="m-auto d-block" animation="border" />
                                 </Col>
