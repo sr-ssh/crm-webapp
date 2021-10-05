@@ -17,7 +17,7 @@ export const UploadDocuments = (props) => {
     const [fileName, setFileName] = useState("")
     const [validated, setValidated] = useState(false);
     const [productnameValidated, setProductNameValidated] = useState(false);
-    const addProductLoading = useSelector(state => state.addStock.loading)
+    const addProductLoading = useSelector(state => state.uploadDoc.loading)
     const dispatch = useDispatch()
     
     const data = new FormData() 
