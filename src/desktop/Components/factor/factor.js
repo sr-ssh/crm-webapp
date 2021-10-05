@@ -173,14 +173,12 @@ export const Factor = ({ factor, setCancelFactorShow, setDeliveryShow, cancelOrd
                         </Button>
                     </Col>
                 }
-                {factor.shopApproval.status === false &&
-                    <Col className="d-flex justify-content-end col-2">
-                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 justify-content-center" type="button" onClick={() => { setFinancialCheckModal(true) }}>
-                            <img src={financialCheckIcon} height="25px" alt="print-icon" className="ms-3" />
-                            <span className="noPrint">تایید خرید</span>
-                        </Button>
-                    </Col>
-                }
+                <Col className="d-flex justify-content-end col-2">
+                    <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 justify-content-center" type="button" onClick={() => { setFinancialCheckModal(true) }}>
+                        <img src={financialCheckIcon} height="25px" alt="print-icon" className="ms-3" />
+                        <span className="noPrint">تایید خرید</span>
+                    </Button>
+                </Col>
             </Row>
             <Card.Body className="pb-0 ps-1 rounded-3 text-gray">
                 <Row className="p-0 ps-2 m-0 ">
@@ -192,15 +190,20 @@ export const Factor = ({ factor, setCancelFactorShow, setDeliveryShow, cancelOrd
                                     <Col className="p-0 d-flex justify-content-start">
                                         <Card.Text>
                                             تایید خرید :
-                                            {factor.shopApproval.status ?
+                                            {
+                                                factor.shopApproval.status === 1 ?
                                                 <>
                                                     <img src={tickIcon} alt="tick-icon" className="m-0 p-0 ms-1 p-1 icon--tick--confirm " />
                                                     <span>{factor.shopApproval.acceptedBy}</span>
                                                 </>
-                                                :
+                                                : factor.shopApproval.status === 2 ?
                                                 <>
                                                     <img src={closeIcon} alt="tick-icon" className="m-0 p-0 ms-1 p-1 icon--tick--confirm " />
-                                                    <span>تایید نشده است</span>
+                                                    <span>{factor.shopApproval.acceptedBy}</span>
+                                                </>
+                                                : 
+                                                <>
+                                                    <span>منتظر تعیین وضعیت خرید</span>
                                                 </>
                                             }
                                         </Card.Text>

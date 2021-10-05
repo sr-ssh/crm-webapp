@@ -331,7 +331,7 @@ function confirmShop(receiptId) {
 
     const requestOptions = {
         headers: authHeader(),
-        body: { receiptId: receiptId }
+        body: receiptId
     }
 
     return axios

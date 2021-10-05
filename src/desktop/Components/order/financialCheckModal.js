@@ -17,7 +17,6 @@ export const FinancialCheckModal = (props) => {
     let toggleHandler = (e) => {
         let type = e.target.id === "pass" ? 1 : e.target.id === "fail" ? 2 : null
         setInvoiceType(type)
-        // dispatch(orderActions.getShareLinkOrder({ orderId: props.order.id, status: type }))
     }
     let handleClick = () => {
 
