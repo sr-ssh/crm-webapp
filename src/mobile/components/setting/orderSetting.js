@@ -191,6 +191,16 @@ export const OrderSetting = () => {
                                         </Form.Group>
                                     </Col>
                                 </Row>
+                                <Row className="mt-3 mx-0">
+                                    <Col className="col-7 order-setting-field-label align-self-center">
+                                        تمام شدن وقت اشتراک گذاری بعد از
+                                    </Col>
+                                    <Col className="col-5">
+                                        <Form.Group>
+                                            <Form.Control name="" type="number" className="order-setting-field m-auto" placeholder="دقیقه" />
+                                        </Form.Group>
+                                    </Col>
+                                </Row>
                             </Form.Group>
 
 
