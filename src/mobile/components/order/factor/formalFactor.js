@@ -23,7 +23,7 @@ export const FormalFactor = ({ order }) => {
 
             <Row className="align-items-center p-3">
                 <Col className='text-bold '>
-                    پیش فاکتور
+                    {order.status == 3 ? "پیش فاکتور" : "فاکتور"}
                 </Col>
                 <Col className="text-start">
                     <Image src={logo} alt="crm-icon" height="37px" />

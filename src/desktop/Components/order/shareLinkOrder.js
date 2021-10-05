@@ -17,29 +17,43 @@ import emailIcon from '../../assets/images/order/sharelink/email.svg'
 
 
 
-export const ShareLinkOrder = ({ isShareLinkOrder, setIsShareLinkOrder, order }) => {
+export const ShareLinkOrder = ({ isShareLinkOrder, setIsShareLinkOrder, order, ...props }) => {
 
 
     const dispatch = useDispatch()
     const [isOk, setIsOk] = useState(true)
     const [copied, setCopied] = useState(false)
+    const [customerInfoRequire, setCustomerInfoRequire] = useState("")
 
     const [invoiceType, setInvoiceType] = useState(0)
 
     let shareLinkOrder = useSelector(state => state.getShareLinkOrder)
     let textLink = `پیش فاکتور شما ایجاد گردید. لینک پیش فاکتور http://crm-x.ir/order/factor/${shareLinkOrder?.data?.orderId}/${shareLinkOrder?.data?.keyLink}`;
 
-
+    let customerInfo = order?.customer
     let toggleHandler = (e) => {
         let type = e.target.id == "formal" ? 0 : e.target.id == "inFormal" ? 1 : null
-        setInvoiceType(type)
-        dispatch(orderActions.getShareLinkOrder({ orderId: order.id, type: type }))
+        if ((type == 1) || (type == 0 && order?.customer.registerNo && order?.customer.financialCode && order?.customer.nationalCard && order?.customer.postalCode)) {
+            setCustomerInfoRequire(false);
+            setInvoiceType(type)
+            dispatch(orderActions.getShareLinkOrder({ orderId: order.id, type: type }))
+        } else {
+            setCustomerInfoRequire(true)
+            setInvoiceType(type)
+        }
     }
+
+    console.log(customerInfoRequire)
 
     useEffect(() => {
         if (isOk === true && order != null) {
-            dispatch(orderActions.getShareLinkOrder({ orderId: order.id, type: invoiceType }))
-            setIsOk(false)
+            if (invoiceType == 0 && customerInfo.registerNo && customerInfo.financialCode && customerInfo.nationalCard && customerInfo.postalCode) {
+                dispatch(orderActions.getShareLinkOrder({ orderId: order.id, type: invoiceType }))
+                setIsOk(false)
+            } else {
+
+                setCustomerInfoRequire(true)
+            }
         }
     }, [dispatch, order])
 
@@ -72,7 +86,17 @@ export const ShareLinkOrder = ({ isShareLinkOrder, setIsShareLinkOrder, order })
 
                 </Row>
             </Container>
-            {
+            {customerInfoRequire ?
+                <>
+                    <Container className="my-1 h-100  d-flex justify-content-center align-items-center flex-wrap" >
+                        <Col className="col-3 mt-2 m-auto d-block align-self-center w-100 mb-4 ">
+                            <h6 className="mt-2 text-center lh-lg ">ابتدا اطلاعات مشتری را وارد کنید </h6>
+                            <br />
+                            <h6 className="mb-2 text-center text--dark--blue" style={{ cursor: "pointer" }} onClick={() => { setIsShareLinkOrder(false); props.customerInfoModal() }} >اطلاعات مشتری</h6>
+                        </Col>
+                    </Container>
+                </>
+                :
                 shareLinkOrder.loading ?
                     <>
                         <Container fluid className="m-0 h-100 my-5  d-flex justify-content-center align-items-center flex-wrap" style={{ width: "350px" }}>
