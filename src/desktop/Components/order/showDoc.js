@@ -42,17 +42,17 @@ export const ShowDocuments = (props) => {
             centered
             className="mx-3 order-serach-modal--large"
         >
-            <Modal.Body className="add-product px-4">
+            <Modal.Body className="add-product px-4" style={{ height: documents?.length == 0 ? null : "80vh" }}>
                 <Button className="border-0 customer-modal-close--desktop" type="button" onClick={e => { props.onHide(false); setProductNameValidated(false); }}>
                     <img className="d-flex m-auto customer-modal-close-svg--desktop" src={closeIcon} alt="close-btn" />
                 </Button>
-                <Card className="m-auto mt-2 mb-2 bg-light productCard lh-lg " >
-                    <Card.Body className={`p-3 px-4 mx-2 rounded-3 fs-6-sm ${documentsLoading && 'd-flex justify-content-center'} `}>
+                <Card className="m-auto mt-2 mb-2 bg-light productCard lh-lg " style={{ height: "100%" }} >
+                    <Card.Body className={`card--body--show--doc--mobile p-3 px-4 mx-2 rounded-3 fs-6-sm ${documentsLoading && 'd-flex justify-content-center'} `}>
                         {props.show && !documentsLoading && documents?.length == 0 && <><h6 className="mt-5 text-center">هنوز مدرکی برای این سفارش اضافه نشده است</h6><br /> <h6 className="mb-5 text-center text--dark--blue" style={{ cursor: "pointer" }} onClick={() => { props.onHide(false); setProductNameValidated(false); props.UploadModalShow() }}>بارگذاری مدرک</h6>  </>}
                         {documentsLoading ? <CircularProgress className="my-5 text-center" /> : null}
 
 
-                        <Row>
+                        <Row style={{ height: "100%" }}>
                             {
                                 props.show ?
                                     documents?.length > 0 && documents?.map((doc, index) =>
