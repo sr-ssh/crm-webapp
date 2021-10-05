@@ -618,3 +618,8 @@
     transform: translate(-50%, -50%) scale(0.8);
   }
 }
+.card--body--show--doc--mobile {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}

@@ -40,15 +40,16 @@ export const ShowDocuments = (props) => {
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
-            className="mx-3 order-serach-modal--large"
+            backdrop="static"
+            className="px-3"
         >
             <Modal.Body className="add-product px-4" style={{ height: documents?.length == 0 ? null : "80vh" }}>
                 <Button className="border-0 customer-modal-close--desktop" type="button" onClick={e => { props.onHide(false); setProductNameValidated(false); }}>
                     <img className="d-flex m-auto customer-modal-close-svg--desktop" src={closeIcon} alt="close-btn" />
                 </Button>
                 <Card className="m-auto mt-2 mb-2 bg-light productCard lh-lg " style={{ height: "100%" }} >
-                    <Card.Body className={`card--body--show--doc--mobile p-3 px-4 mx-2 rounded-3 fs-6-sm ${documentsLoading && 'd-flex justify-content-center'} `}>
-                        {props.show && !documentsLoading && documents?.length == 0 && <><h6 className="mt-5 text-center">هنوز مدرکی برای این سفارش اضافه نشده است</h6><br /> <h6 className="mb-5 text-center text--dark--blue" style={{ cursor: "pointer" }} onClick={() => { props.onHide(false); setProductNameValidated(false); props.UploadModalShow() }}>بارگذاری مدرک</h6>  </>}
+                    <Card.Body className={`card--body--show--doc--mobile p-3 px-0 mx-2 rounded-3 fs-6-sm ${documentsLoading && 'd-flex justify-content-center'} `}>
+                        {props.show && !documentsLoading && documents?.length == 0 && <><h6 className="mt-5 text-center lh-lg ">هنوز مدرکی برای این سفارش اضافه نشده است</h6><br /> <h6 className="mb-5 text-center text--dark--blue" style={{ cursor: "pointer" }} onClick={() => { props.onHide(false); setProductNameValidated(false); props.UploadModalShow() }}>بارگذاری مدرک</h6>  </>}
                         {documentsLoading ? <CircularProgress className="my-5 text-center" /> : null}
 
 
@@ -56,7 +57,7 @@ export const ShowDocuments = (props) => {
                             {
                                 props.show ?
                                     documents?.length > 0 && documents?.map((doc, index) =>
-                                        <Col key={index} xs={4} className="mb-3 px-4">
+                                        <Col key={index} xs={6} className="mb-3 px-4">
                                             <Col>{doc.name}</Col>
                                             <Col>
                                                 <Card className="productCard bg-light lh-lg border--blue" style={{ 'height': '106px' }}>
