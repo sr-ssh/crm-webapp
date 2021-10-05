@@ -12,6 +12,7 @@ import { CancelOrder } from './cancelOrder'
 import { Header } from '../base/header'
 import { UploadDocuments } from './uploadDoc'
 import {ShowDocuments } from './showDoc'
+import { CustomerInfo } from './customerInfo';
 
 export const Orders = () => {
 
@@ -25,6 +26,7 @@ export const Orders = () => {
     const [order, setOrder] = useState('')
     const [uploadModalShow, setUploadModalShow] = useState(false)
     const [showDocModalShow, setShowDocModalShow] = useState(false)
+    const [customerInfoShow, setCustomerInfoShow] = useState(false)
     const [refresh, setRefresh] = useState(false)
     const dispatch = useDispatch()
     const orders = useSelector(state => state.getOrders.orders)
@@ -63,7 +65,7 @@ export const Orders = () => {
                     }
 
                     {(orders.length > 0) ?
-                        (orders.map((order, index) => <Order key={index} order={order} deliveryShow={deliveryShow} setDeliveryShow={setDeliveryShow} cancelOrderShow={cancelOrderShow} setCancelOrderShow={setCancelOrderShow} setActiveOrder={setActiveOrder} setOrder={setOrder} setUploadModalShow={setUploadModalShow} uploadModalShow={uploadModalShow} setShowDocModalShow={setShowDocModalShow} />))
+                        (orders.map((order, index) => <Order key={index} order={order} deliveryShow={deliveryShow} setDeliveryShow={setDeliveryShow} cancelOrderShow={cancelOrderShow} setCancelOrderShow={setCancelOrderShow} setActiveOrder={setActiveOrder} setOrder={setOrder} setUploadModalShow={setUploadModalShow} uploadModalShow={uploadModalShow} setShowDocModalShow={setShowDocModalShow} setCustomerInfoShow={setCustomerInfoShow} />))
 
                         : null}
 
@@ -72,7 +74,7 @@ export const Orders = () => {
                     <CancelOrder status="2" show={cancelOrderShow} onHide={() => setCancelOrderShow(false)} order={activeOrder} />
                     <UploadDocuments show={uploadModalShow} onHide={() => {setUploadModalShow(false);}} order={activeOrder} />
                     {activeOrder.id && <ShowDocuments show={showDocModalShow} onHide={() => setShowDocModalShow(false)} order={activeOrder.id} />}
-
+                    <CustomerInfo show={customerInfoShow} onHide={() => setCustomerInfoShow(false)} customer={order} />
                 </Container>
 
             </div>

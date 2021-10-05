@@ -10,6 +10,7 @@ import { Order } from './order';
 import { Delivery } from './delivery'
 import { CancelOrder } from './cancelOrder'
 import { UploadDocuments } from './uploadDoc'
+import { CustomerInfo } from './customerInfo';
 
 
 export const Orders = () => {
@@ -21,6 +22,7 @@ export const Orders = () => {
     const [cancelOrderShow, setCancelOrderShow] = useState(false)
     const [activeOrder, setActiveOrder] = useState({})
     const [order, setOrder] = useState('')
+    const [customerInfoShow, setCustomerInfoShow] = useState(false)
     const dispatch = useDispatch()
     const orders = useSelector(state => state.getOrders.orders)
     let orderLoading = useSelector(state => state.getOrders.loading)
@@ -68,7 +70,7 @@ export const Orders = () => {
                     ) : null
                 }
                 {(orders.length > 0) ?
-                    (orders.map((orderr, index) => <Order key={index} order={orderr} deliveryShow={deliveryShow} setDeliveryShow={setDeliveryShow} cancelOrderShow={cancelOrderShow} setCancelOrderShow={setCancelOrderShow} setActiveOrder={setActiveOrder} setOrder={setOrder} setUploadModalShow={setUploadModalShow}/>))
+                    (orders.map((orderr, index) => <Order key={index} order={orderr} deliveryShow={deliveryShow} setDeliveryShow={setDeliveryShow} cancelOrderShow={cancelOrderShow} setCancelOrderShow={setCancelOrderShow} setActiveOrder={setActiveOrder} setOrder={setOrder} setUploadModalShow={setUploadModalShow} setCustomerInfoShow={setCustomerInfoShow} />))
 
                     : null}
 
@@ -76,7 +78,7 @@ export const Orders = () => {
                 <Delivery show={deliveryShow} onHide={() => setDeliveryShow(false)} order={order} />
                 <CancelOrder status="2" show={cancelOrderShow} onHide={() => setCancelOrderShow(false)} order={activeOrder} />
                 <UploadDocuments show={uploadModalShow} onHide={() => setUploadModalShow(false)} order={activeOrder} />
-
+                <CustomerInfo show={customerInfoShow} onHide={() => setCustomerInfoShow(false)} customer={order} />
             </Container>
         </div>
     )

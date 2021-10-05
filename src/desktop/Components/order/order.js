@@ -66,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, setCancelOrderShow, recordOrderShow = '', setRecordOrderShow = {}, setActiveOrder, setOrder, status, setUploadModalShow, setShowDocModalShow }) => {
+export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, setCancelOrderShow, recordOrderShow = '', setRecordOrderShow = {}, setActiveOrder, setOrder, status, setUploadModalShow, setShowDocModalShow, setCustomerInfoShow  }) => {
 
 
     const classes = useStyles();
@@ -218,6 +218,12 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                     <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setShowDocModalShow(true); setActiveOrder(order); }}>
                         <img src={viewDocumentsIcon} height="25px" alt="print-icon" className="col-3" />
                         <span className="noPrint">مشاهده مدارک</span>
+                    </Button>
+                </Col>
+                <Col className="d-flex justify-content-center">
+                    <Button className={`${order.status == 2 ? "w-50" : "w-100"} btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2`} type="button" onClick={() => { setCustomerInfoShow(true); setOrder(order.customer._id); }}>
+                        <img src={deliveryIcon} height="25px" alt="delivery-icon" className="col-3" />
+                        <span>اطلاعات مشتری</span>
                     </Button>
                 </Col>
             </Row>

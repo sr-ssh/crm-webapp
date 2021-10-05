@@ -2,13 +2,15 @@
 import axios from 'axios';
 import { SERVER_URL } from '../config';
 import { authHeader } from '../helpers';
+import { handleResponse, handleError } from '../helpers'
 
 let baseRoute = SERVER_URL;
 
 export const customerService = {
     getCustomers,
     getCustomer,
-    getExcelCustomers
+    getExcelCustomers,
+    addCustomerformalInfo
 };
 
 
@@ -130,4 +132,28 @@ function getExcelCustomers(filter = {}) {
             console.log(error.response.status);
         }
     });
+}
+
+
+function addCustomerformalInfo(data) {
+    console.log('into orderService (addCustomerformalInfo)')
+
+    const requestOptions = {
+        headers: authHeader(),
+        body: data
+    }
+
+    return axios
+        .post(`${baseRoute}/customer/formalinfo`, requestOptions.body, requestOptions.headers)
+        .then(res => {
+            console.log('res >>')
+            console.log(res)
+            return res.data
+        })
+        .catch(error => {
+            if (error.response) {
+                console.log(error.response.data)
+                handleError(error.response.status)
+            }
+        })
 }

@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { authentication, register, verificationCode } from './authenticationReducer';
 import { alert } from './alertReducer';
-import { getCustomers, getCustomer, getExcelCustomers } from './customerReducer'
+import { getCustomers, getCustomer, getExcelCustomers, addCustomerformalInfo } from './customerReducer'
 import { getProducts, addProduct, editProduct, uploadExcelProducts } from './productReducer'
 import { financeSummary, bill } from './financeReducer'
 import {
@@ -70,5 +70,6 @@ export default combineReducers({
     addReceipt, confirmShop,
     getReceipts, editReceiptStatus, editReceipt, showDoc,
     uploadExcelProducts,
-    sideBar, confirmFinancial
+    sideBar, confirmFinancial,
+    addCustomerformalInfo
 })

@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, setCancelOrderShow, recordOrderShow = '', setRecordOrderShow = {}, setActiveOrder, setOrder, setUploadModalShow }) => {
+export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, setCancelOrderShow, recordOrderShow = '', setRecordOrderShow = {}, setActiveOrder, setOrder, setUploadModalShow, setCustomerInfoShow }) => {
 
     const classes = useStyles();
     let [print, setPrint] = useState(false)
@@ -395,12 +395,6 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                             <span className="pe-1">پیک</span>
                         </Button>
                     </Col>
-                    {/* <Col xs={6} className="p-0 px-1 pb-3 ps-2">
-                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setUploadModalShow(true); setActiveOrder(order) }}>
-                            <img src={cancelIcon} height="25px" alt="print-icon" className="col-3" />
-                            <span className="noPrint">بارگذاری مدارک</span>
-                        </Button>
-                    </Col> */}
                     {order.status === 3 &&
                         <Col xs={6} className="p-0 px-1 pb-3 ps-2">
                             <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setResultOrderModal(true); setActiveOrder(order) }}>
@@ -409,6 +403,12 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                             </Button>
                         </Col>
                     }
+                    <Col xs={6} className="p-0 px-1 pb-3 ps-2">
+                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setCustomerInfoShow(true); setOrder(order.customer._id); }}>
+                            <img src={submitIcon} height="25px" alt="print-icon" className="col-3" />
+                            <span className="pe-1">اطلاعات مشتری</span>
+                        </Button>
+                    </Col>
                 </Row>
             </Card.Body>
             <EditField show={editModalShow} onHide={() => { setEditModalShow(false); setInput(''); }} input={input} name={name} productId={productId} orderId={orderId} setInput={setInput} />

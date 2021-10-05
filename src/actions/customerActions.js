@@ -5,7 +5,8 @@ import { alertActions } from './alertActions';
 export const customerActions = {
     getCustomers,
     getCustomer,
-    getExcelCustomers
+    getExcelCustomers,
+    addCustomerformalInfo
 };
 
 function getCustomers(filter) {
@@ -103,4 +104,44 @@ function getExcelCustomers(filter) {
     function request() { console.log("into request"); return { type: customerConstants.GET_EXCEL_CUSTOMERS_REQUEST } }
     function success(data) { console.log("into success"); return { type: customerConstants.GET_EXCEL_CUSTOMERS_SUCCESS, data } }
     function failure(error) { return { type: customerConstants.GET_EXCEL_CUSTOMERS_FAILURE, error } }
+}
+
+
+function addCustomerformalInfo(orderId) {
+    return dispatch => {
+        dispatch(request(customerConstants.ADD_CUSTOMER_INFO_REQUEST))
+        customerService.addCustomerformalInfo(orderId)
+            .then(
+                res => {
+                    if (res === undefined) {
+                        dispatch(alertActions.error('ارتباط با سرور برقرار نیست'));
+                        dispatch(failure(customerConstants.ADD_CUSTOMER_INFO_FAILURE, 'ارتباط با سرور برقرار نیست'))
+                    }
+                    else if (res.success) {
+                        console.log("order financial confirmed")
+                        dispatch(success(customerConstants.ADD_CUSTOMER_INFO_SUCCESS, res.data));
+                    } else if (res.success == false) {
+                        dispatch(failure(customerConstants.ADD_CUSTOMER_INFO_FAILURE, res.message))
+                        dispatch(alertActions.error(res.message));
+                    }
+                },
+                error => {
+                    dispatch(failure(customerConstants.ADD_CUSTOMER_INFO_FAILURE, error.toString()));
+                    console.log("occure error");
+                    console.log(error.toString());
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+    };
+}
+function request(type) {
+    return { type: type }
+}
+
+function success(type, data) {
+    return { type: type, data }
+}
+
+function failure(type, error) {
+    return { type: type, error }
 }

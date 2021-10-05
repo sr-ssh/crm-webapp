@@ -76,3 +76,28 @@ export function getExcelCustomers(state = initialState, action) {
             return state;
     }
 }
+
+export function addCustomerformalInfo(state = initialState, action) {
+
+    switch (action.type) {
+        case customerConstants.ADD_CUSTOMER_INFO_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+        case customerConstants.ADD_CUSTOMER_INFO_SUCCESS:
+            return {
+                ...state,
+                data: action.data,
+                loading: false
+            }
+        case customerConstants.ADD_CUSTOMER_INFO_FAILURE:
+            return {
+                ...state,
+                error: action.error,
+                loading: false
+            }
+        default:
+            return state;
+    }
+}
