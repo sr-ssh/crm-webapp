@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Container, Row, Col, Spinner } from 'react-bootstrap';
 import { Header } from '../base/header2';
 import { CancelOrder } from './cancelOrder'
+import { CustomerInfo } from './customerInfo';
 
 
 // Actions
@@ -22,12 +23,12 @@ export const SaleOpprotunity = () => {
 
 
     const [recordOrderShow, setRecordOrderShow] = useState(false)
-    const [modalShow, setModalShow] = useState(false)
     const [deliveryShow, setDeliveryShow] = useState(false)
     const [activeOrder, setActiveOrder] = useState({})
     const [order, setOrder] = useState('')
     const [cancelOrderShow, setCancelOrderShow] = useState(false)
     const [uploadModalShow, setUploadModalShow] = useState(false)
+    const [customerInfoShow, setCustomerInfoShow] = useState(false)
 
 
     const dispatch = useDispatch()
@@ -68,7 +69,7 @@ export const SaleOpprotunity = () => {
 
 
                 {(orders.length > 0) ?
-                    (orders.map((order, index) => <Order key={index} order={order} deliveryShow={deliveryShow} setDeliveryShow={setDeliveryShow} recordOrderShow={recordOrderShow} setRecordOrderShow={setRecordOrderShow} setActiveOrder={setActiveOrder} setOrder={setOrder} cancelOrderShow={cancelOrderShow} setCancelOrderShow={setCancelOrderShow} setUploadModalShow={setUploadModalShow} />))
+                    (orders.map((order, index) => <Order key={index} order={order} deliveryShow={deliveryShow} setDeliveryShow={setDeliveryShow} recordOrderShow={recordOrderShow} setRecordOrderShow={setRecordOrderShow} setActiveOrder={setActiveOrder} setOrder={setOrder} cancelOrderShow={cancelOrderShow} setCancelOrderShow={setCancelOrderShow} setUploadModalShow={setUploadModalShow} setCustomerInfoShow={setCustomerInfoShow}  />))
 
                     : null}
 
@@ -77,7 +78,7 @@ export const SaleOpprotunity = () => {
                 <RecordOrder show={recordOrderShow} onHide={() => setRecordOrderShow(false)} order={activeOrder} />
                 <CancelOrder status="4" show={cancelOrderShow} onHide={() => setCancelOrderShow(false)} order={activeOrder} />
                 <UploadDocuments show={uploadModalShow} onHide={() => setUploadModalShow(false)} order={activeOrder} />
-
+                <CustomerInfo show={customerInfoShow} onHide={() => setCustomerInfoShow(false)} customer={order} />
             </Container>
         </div>
     )
