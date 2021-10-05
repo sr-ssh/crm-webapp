@@ -31,4 +31,8 @@ export function translate(key) {
         return "اکسل محصول ها"
     else if (key === "excelCustomer")
         return "اکسل مشتریان"
+    else if (key === "financialCode")
+        return "کد اقتصادی و فکس"
+    else if (key === "nationalIDCode")
+        return "کدملی"
 }

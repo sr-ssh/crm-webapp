@@ -88,7 +88,32 @@ export const EmployerAccount = ({ user }) => {
                     </Col>
                 </Row>
             </Card.Text>
-
+            <Card.Text className="pt-1">
+                <Row className="ms-0 align-items-center">
+                    <Col xs={4}>
+                        کدملی :
+                    </Col>
+                    <Col xs={6} className="pe-0">
+                        <span className="fw-bold">{user.nationalIDCode && persianJs(user.nationalIDCode).englishNumber().toString()}</span>
+                    </Col>
+                    <Col className="text-start my-0" onClick={() => { edit(user.nationalIDCode, 'nationalIDCode') }}>
+                        <img className="" src={editIcon} height="34px" alt="edit-icon" />
+                    </Col>
+                </Row>
+            </Card.Text>
+            <Card.Text className="pt-1">
+                <Row className="ms-0 align-items-center">
+                    <Col xs={4}>
+                        کداقتصادی و فکس :
+                    </Col>
+                    <Col xs={6} className="pe-0">
+                        <span className="fw-bold">{user.financialCode && persianJs(user.financialCode).englishNumber().toString()}</span>
+                    </Col>
+                    <Col className="text-start my-0" onClick={() => { edit(user.financialCode, 'financialCode') }}>
+                        <img className="" src={editIcon} height="34px" alt="edit-icon" />
+                    </Col>
+                </Row>
+            </Card.Text>
             <Card.Text className="pt-1">
                 <Row className="ms-0 align-items-center">
                     <Col xs={2}>

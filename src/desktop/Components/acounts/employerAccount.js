@@ -27,7 +27,7 @@ export const EmployerAccount = ({ user }) => {
         <>
             <Card.Text className="pt-1">
                 <Row className="ms-0 d-flex align-items-center justify-content-start">
-                    <Col xs={2}>
+                    <Col xs={3}>
                         نام :
                     </Col>
                     <Col className="pe-0">
@@ -41,7 +41,7 @@ export const EmployerAccount = ({ user }) => {
 
             <Card.Text className="pt-1">
                 <Row className="ms-0 align-items-center">
-                    <Col xs={2}>
+                    <Col xs={3}>
                         موبایل :
                     </Col>
                     <Col className="pe-0">
@@ -52,7 +52,7 @@ export const EmployerAccount = ({ user }) => {
 
             <Card.Text className="pt-1">
                 <Row className="ms-0 align-items-center">
-                    <Col xs={2}>
+                    <Col xs={3}>
                         ایمیل :
                     </Col>
                     <Col className="pe-0">
@@ -63,7 +63,7 @@ export const EmployerAccount = ({ user }) => {
 
             <Card.Text className="pt-1">
                 <Row className="ms-0 align-items-center">
-                    <Col xs={2}>
+                    <Col xs={3}>
                         نام شرکت :
                     </Col>
                     <Col className="pe-0">
@@ -77,7 +77,7 @@ export const EmployerAccount = ({ user }) => {
 
             <Card.Text className="pt-1">
                 <Row className="ms-0 align-items-center">
-                    <Col xs={2}>
+                    <Col xs={3}>
                         آدرس شرکت:
                     </Col>
                     <Col xs={6} className="pe-0">
@@ -88,10 +88,36 @@ export const EmployerAccount = ({ user }) => {
                     </Col>
                 </Row>
             </Card.Text>
+            <Card.Text className="pt-1">
+                <Row className="ms-0 align-items-center">
+                    <Col xs={3}>
+                        کدملی :
+                    </Col>
+                    <Col xs={6} className="pe-0">
+                        <span className="fw-bold">{user.nationalIDCode && persianJs(user.nationalIDCode).englishNumber().toString()}</span>
+                    </Col>
+                    <Col className="text-start my-0" onClick={() => { edit(user.nationalIDCode, 'nationalIDCode') }}>
+                        <img className="" src={editIcon} height="34px" alt="edit-icon" />
+                    </Col>
+                </Row>
+            </Card.Text>
+            <Card.Text className="pt-1">
+                <Row className="ms-0 align-items-center">
+                    <Col xs={3}>
+                        کداقتصادی و فکس:
+                    </Col>
+                    <Col xs={6} className="pe-0">
+                        <span className="fw-bold">{user.financialCode && persianJs(user.financialCode).englishNumber().toString()}</span>
+                    </Col>
+                    <Col className="text-start my-0" onClick={() => { edit(user.financialCode, 'financialCode') }}>
+                        <img className="" src={editIcon} height="34px" alt="edit-icon" />
+                    </Col>
+                </Row>
+            </Card.Text>
 
             <Card.Text className="pt-1">
                 <Row className="ms-0 align-items-center">
-                    <Col xs={2}>
+                    <Col xs={3}>
                         نوع :
                     </Col>
                     <Col className="pe-0">
