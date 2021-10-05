@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, setCancelOrderShow, recordOrderShow = '', setRecordOrderShow = {}, setActiveOrder, setOrder, setUploadModalShow, setShowDocModalShow, setCustomerInfoShow  }) => {
+export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, setCancelOrderShow, recordOrderShow = '', setRecordOrderShow = {}, setActiveOrder, setOrder, setUploadModalShow, setShowDocModalShow, setCustomerInfoShow }) => {
 
     const classes = useStyles();
     let [print, setPrint] = useState(false)
@@ -336,7 +336,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                         <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setIsShareLinkOrder(true); setShareLinkOrder(order) }}>
                             <img src={prevFactorIcon} height="26px" alt="prev-factor-icon" className="col-3 py-1 me-1" />
 
-                            <span className="me-2">پیش فاکتور</span>
+                            <span className="me-2">{order.status == 3 ? "پیش فاکتور" : "فاکتور"}</span>
                         </Button>
                     </Col>
                     <Col xs={6} className="p-0 px-1 pb-3 ps-2">
@@ -431,7 +431,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
             <CancelProductOrder show={cancelModalShow} onHide={() => { setCancelModalShow(false) }} productId={productId} orderId={orderId} />
             <EditeProductOrder show={editOrder} onHide={() => { setEditOrder(false) }} order={editProductOrder} />
             <AddNotesModal show={showNotesModal} onHide={() => { setShowNotesModal(false) }} permission={true} orderId={order.id} />
-            <ShareLinkModal show={isShareLinkOrder} onHide={() => setIsShareLinkOrder(false)} order={isShareLinkOrder ? shareLinkOrder : null} />
+            <ShareLinkModal show={isShareLinkOrder} onHide={() => setIsShareLinkOrder(false)} order={isShareLinkOrder ? shareLinkOrder : null} customerInfoModal={() => { setCustomerInfoShow(true); setOrder(order.customer._id) }} />
             <FinancialCheckModal show={financialCheckModal} onHide={() => setFinancialCheckModal(false)} order={financialCheckModal ? order : null} />
             <ResultOrder show={resultOrderModal} onHide={() => setResultOrderModal(false)} order={resultOrderModal ? order : null} />
         </Card >

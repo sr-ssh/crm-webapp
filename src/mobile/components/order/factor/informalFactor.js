@@ -23,7 +23,7 @@ export const InformalFactor = ({ order }) => {
 
             <Row className="align-items-center p-3">
                 <Col className='text-bold '>
-                    پیش فاکتور
+                    {order.status == 3 ? "پیش فاکتور" : "فاکتور"}
                     <span className="me-2 fw-bold fs-7 text--dark--blue">غیر رسمی</span>
 
                 </Col>

@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, setCancelOrderShow, recordOrderShow = '', setRecordOrderShow = {}, setActiveOrder, setOrder, status, setUploadModalShow, setShowDocModalShow, setCustomerInfoShow  }) => {
+export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, setCancelOrderShow, recordOrderShow = '', setRecordOrderShow = {}, setActiveOrder, setOrder, status, setUploadModalShow, setShowDocModalShow, setCustomerInfoShow }) => {
 
 
     const classes = useStyles();
@@ -155,7 +155,8 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                 <Col className="d-flex justify-content-center ">
                     <Button className={`${order.status == 2 ? "w-50" : "w-100"} btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2`} type="button" onClick={() => { setIsShareLinkOrder(true) }}>
                         <img src={pishFactorIcon} height="25px" alt="edit-order-icon" className="col-3 py-1" />
-                        <span>پیش فاکتور</span>
+                        <span className="me-2">{order.status == 3 ? "پیش فاکتور" : "فاکتور"}</span>
+
                     </Button>
                 </Col>
                 <Col className="d-flex justify-content-center">
@@ -435,7 +436,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                 <Notes order={order} open={open} setOpen={setOpen} setShowNotesModal={setShowNotesModal} setActiveOrder={() => setActiveOrder(order)} />
             </Dialog>
             <Dialog classes={{ paper: classes.paper }} aria-labelledby="shareLink-dialog" open={isShareLinkOrder}>
-                <ShareLinkOrder isShareLinkOrder={isShareLinkOrder} setIsShareLinkOrder={setIsShareLinkOrder} order={isShareLinkOrder ? order : null} />
+                <ShareLinkOrder isShareLinkOrder={isShareLinkOrder} setIsShareLinkOrder={setIsShareLinkOrder} order={isShareLinkOrder ? order : null} customerInfoModal={() => { setCustomerInfoShow(true); setOrder(order.customer._id); }} />
             </Dialog>
             <FinancialCheckModal show={financialCheckModal} onHide={() => setFinancialCheckModal(false)} order={financialCheckModal ? order : null} />
             <ResultOrder show={resultOrderModal} onHide={() => setResultOrderModal(false)} order={resultOrderModal ? order : null} />

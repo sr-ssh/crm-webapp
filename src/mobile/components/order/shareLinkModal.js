@@ -16,6 +16,7 @@ export const ShareLinkModal = (props) => {
 
     const [isOk, setIsOk] = useState(true)
     const [copied, setCopied] = useState(false)
+    const [customerInfoRequire, setCustomerInfoRequire] = useState("")
 
     const [invoiceType, setInvoiceType] = useState(0)
     let link = useSelector(state => state.getShareLinkOrder.data)
@@ -25,16 +26,30 @@ export const ShareLinkModal = (props) => {
      \n ${shareLink}`
     const dispatch = useDispatch()
 
+
+    let customerInfo = props.order?.customer
     let toggleHandler = (e) => {
         let type = e.target.id == "formal" ? 0 : e.target.id == "inFormal" ? 1 : null
-        setInvoiceType(type)
-        dispatch(orderActions.getShareLinkOrder({ orderId: props.order.id, type: type }))
+        if ((type == 1) || (type == 0 && customerInfo.registerNo && customerInfo.financialCode && customerInfo.nationalCard && customerInfo.postalCode)) {
+            setCustomerInfoRequire(false);
+            setInvoiceType(type)
+            dispatch(orderActions.getShareLinkOrder({ orderId: props.order.id, type: type }))
+
+        } else {
+            setCustomerInfoRequire(true)
+            setInvoiceType(type)
+        }
     }
 
     useEffect(() => {
         if (isOk === true && props.order != null) {
-            dispatch(orderActions.getShareLinkOrder({ orderId: props.order.id, type: invoiceType }))
-            setIsOk(false)
+            if (invoiceType == 0 && customerInfo.registerNo !== undefined && customerInfo.financialCode !== undefined && customerInfo.nationalCard !== undefined && customerInfo.postalCode !== undefined) {
+                dispatch(orderActions.getShareLinkOrder({ orderId: props.order.id, type: invoiceType }))
+                setIsOk(false)
+            } else {
+
+                setCustomerInfoRequire(true)
+            }
         }
     }, [dispatch, props.order])
 
@@ -73,63 +88,74 @@ export const ShareLinkModal = (props) => {
 
                     </Row>
                 </Container>
-                {loadingLink ?
+                {customerInfoRequire ?
                     <>
-                        <Container fluid className="my-4 h-100  d-flex justify-content-center align-items-center flex-wrap" style={{ width: "350px" }}>
+                        <Container className="my-1 h-100  d-flex justify-content-center align-items-center flex-wrap" >
                             <Col className="col-3 mt-2 m-auto d-block align-self-center w-100 mb-4 ">
-                                <Spinner className="m-auto d-block" animation="border" />
+                                <h6 className="mt-2 text-center lh-lg ">ابتدا اطلاعات مشتری را وارد کنید </h6>
+                                <br />
+                                <h6 className="mb-2 text-center text--dark--blue" style={{ cursor: "pointer" }} onClick={() => { props.onHide(false); props.customerInfoModal() }} >اطلاعات مشتری</h6>
                             </Col>
                         </Container>
                     </>
                     :
+                    loadingLink ?
+                        <>
+                            <Container fluid className="my-4 h-100  d-flex justify-content-center align-items-center flex-wrap" >
+                                <Col className="col-3 mt-2 m-auto d-block align-self-center w-100 mb-4 ">
+                                    <Spinner className="m-auto d-block" animation="border" />
+                                </Col>
+                            </Container>
+                        </>
+                        :
 
-                    <Container>
-                        <Row className="pb-3 pt-1 px-1 order-inputs">
-                            <Col>
-                                اشتراک لینک از طریق
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Row className="p-0 m-0 my-1">
-                                <Col className="col-6 ps-2">
-                                    <CopyToClipboard text={shareLink} onCopy={() => setCopied(true)}>
-                                        <Button className="w-100 h-100 btn--sale--opprotunity border-0">
-                                            <img src={copyIcon} alt="copy-icon" height="25px" className="pe-1" />
-                                            <span className="pe-2">
-                                                <span className="fs-6">copy</span> کردن
-                                            </span>
+                        <Container>
+                            <Row className="pb-3 pt-1 px-1 order-inputs">
+                                <Col>
+                                    اشتراک لینک از طریق
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Row className="p-0 m-0 my-1">
+                                    <Col className="col-6 ps-2">
+                                        <CopyToClipboard text={shareLink} onCopy={() => setCopied(true)}>
+                                            <Button className="w-100 h-100 btn--sale--opprotunity border-0">
+                                                <img src={copyIcon} alt="copy-icon" height="25px" className="pe-1" />
+                                                <span className="pe-2">
+                                                    <span className="fs-6">copy</span> کردن
+                                                </span>
+                                            </Button>
+                                        </CopyToClipboard>
+                                    </Col>
+                                    <Col className="col-6 pe-2">
+                                        <Button className="w-100 btn--sale--opprotunity border-0">
+                                            <a className="text-light text-decoration-none" href={`sms:${props.customerMobile};?&body=${textLink}`}>
+                                                <img src={smsIcon} alt="copy-icon" height="25px" className="pe-1" />
+                                                <span className="pe-2 fs-6">sms</span>
+                                            </a>
                                         </Button>
-                                    </CopyToClipboard>
-                                </Col>
-                                <Col className="col-6 pe-2">
-                                    <Button className="w-100 btn--sale--opprotunity border-0">
-                                        <a className="text-light text-decoration-none" href={`sms:${props.customerMobile};?&body=${textLink}`}>
-                                            <img src={smsIcon} alt="copy-icon" height="25px" className="pe-1" />
-                                            <span className="pe-2 fs-6">sms</span>
-                                        </a>
-                                    </Button>
-                                </Col>
+                                    </Col>
+                                </Row>
+                                <Row className="p-0 m-0 my-1">
+                                    <Col className="col-6 ps-2">
+                                        <Button className="w-100 btn--sale--opprotunity border-0">
+                                            <a className="text-light text-decoration-none" href={`whatsapp://send?text=${textLink}`}>
+                                                <img src={whatsAppIcon} alt="copy-icon" height="25px" className="pe-1" />
+                                                <span className="pe-2">واتساپ</span>
+                                            </a>
+                                        </Button>
+                                    </Col>
+                                    <Col className="pe-2">
+                                        <Button className="w-100 btn--sale--opprotunity border-0">
+                                            <a className="text-light text-decoration-none" href={`mailto:?body=${textLink}`}>
+                                                <img src={emailIcon} alt="copy-icon" height="25px" className="pe-1" />
+                                                <span className="pe-2">ایمیل</span>
+                                            </a>
+                                        </Button>
+                                    </Col>
+                                </Row>
                             </Row>
-                            <Row className="p-0 m-0 my-1">
-                                <Col className="col-6 ps-2">
-                                    <Button className="w-100 btn--sale--opprotunity border-0">
-                                        <a className="text-light text-decoration-none" href={`whatsapp://send?text=${textLink}`}>
-                                            <img src={whatsAppIcon} alt="copy-icon" height="25px" className="pe-1" />
-                                            <span className="pe-2">واتساپ</span>
-                                        </a>
-                                    </Button>
-                                </Col>
-                                <Col className="pe-2">
-                                    <Button className="w-100 btn--sale--opprotunity border-0">
-                                        <a className="text-light text-decoration-none" href={`mailto:?body=${textLink}`}>
-                                            <img src={emailIcon} alt="copy-icon" height="25px" className="pe-1" />
-                                            <span className="pe-2">ایمیل</span>
-                                        </a>
-                                    </Button>
-                                </Col>
-                            </Row>
-                        </Row>
-                    </Container>
+                        </Container>
 
                 }
                 <Snackbar
@@ -146,6 +172,6 @@ export const ShareLinkModal = (props) => {
 
             </Modal.Body>
 
-        </Modal>
+        </Modal >
     )
 }
