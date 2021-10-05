@@ -21,6 +21,8 @@ import noteListIcon from '../../assets/images/order/note-list-white.svg'
 import cancelIcon from '../../assets/images/order/cancel.svg'
 import prevFactorIcon from './../../assets/images/order/pish-factor.svg'
 import financialCheckIcon from './../../assets/images/order/financial-check.svg'
+import uploadDcumentsIcon from './../../assets/images/order/Upload-documents.svg'
+import viewDocumentsIcon from '../../assets/images/order/View-documents.svg'
 
 //components
 import { AddNotesModal } from './addNotesModal'
@@ -44,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, setCancelOrderShow, recordOrderShow = '', setRecordOrderShow = {}, setActiveOrder, setOrder, setUploadModalShow }) => {
+export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, setCancelOrderShow, recordOrderShow = '', setRecordOrderShow = {}, setActiveOrder, setOrder, setUploadModalShow, setShowDocModalShow }) => {
 
     const classes = useStyles();
     let [print, setPrint] = useState(false)
@@ -338,18 +340,18 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                             <span className="pe-1">اضافه یادداشت</span>
                         </Button>
                     </Col>
-                    <Col xs={6} className="px-1 pb-3 pe-2">
+                    <Col xs={6} className="p-0 px-1 pb-3 ps-2">
                         <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={notesHandler} >
                             <img src={noteListIcon} height="25px" alt="note-list-icon" className="col-3" />
                             <span className="pe-1">یادداشت ها</span>
                         </Button>
                     </Col>
-                    <Col xs={6} className="px-1 pb-3 pe-2">
-                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={ () => {setIsShareLinkOrder(true); setShareLinkOrder(order)} } >
-                        <img src={prevFactorIcon} height="20px" alt="prev-factor-icon" className="" />
+                    {/* <Col xs={6} className="px-1 pb-3 pe-2">
+                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setIsShareLinkOrder(true); setShareLinkOrder(order) }} >
+                            <img src={prevFactorIcon} height="20px" alt="prev-factor-icon" className="" />
                             <span className="pe-1">پیش فاکتور</span>
                         </Button>
-                    </Col>
+                    </Col> */}
                     {/* <Col xs={12} className="p-0 px-1 pb-3">
                         <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2" type="button" onClick={() => { setIsShareLinkOrder(true); setShareLinkOrder(order) }}>
                             <Col xs={4} className="text-start align-items-center">
@@ -360,7 +362,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                             </Col>
                         </Button>
                     </Col> */}
-                    <Col xs={6} className="p-0 px-1 pb-3 pe-2">
+                    <Col xs={6} className="p-0 px-1 pb-3 ps-2">
                         <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => printWindow()}>
                             <img src={printIcon} height="25px" alt="submit-icon" className="col-3 py-1" />
                             <span className="pe-1">پرینت</span>
@@ -385,22 +387,23 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                     }
                     <Col xs={6} className="p-0 px-1 pb-3 ps-2">
                         <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setUploadModalShow(true); setActiveOrder(order) }}>
-                            <img src={cancelIcon} height="25px" alt="print-icon" className="col-3" />
+                            <img src={uploadDcumentsIcon} height="25px" alt="print-icon" className="col-3" />
                             <span className="noPrint">بارگذاری مدارک</span>
                         </Button>
                     </Col>
-                    <Col xs={6} className="p-0 px-1 pb-3 pe-2">
+                    <Col xs={6} className="p-0 px-1 pb-3 ps-2">
+                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setShowDocModalShow(true); setActiveOrder(order); }}>
+                            <img src={viewDocumentsIcon} height="25px" alt="print-icon" className="col-3" />
+                            <span className="noPrint">مشاهده مدارک</span>
+                        </Button>
+                    </Col>
+                    <Col xs={6} className="p-0 px-1 pb-3 ps-2">
                         <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setDeliveryShow(true); setOrder(order.id); }}>
                             <img src={deliveryIcon} height="25px" alt="delivery-icon" className="col-3" />
                             <span className="pe-1">پیک</span>
                         </Button>
                     </Col>
-                    {/* <Col xs={6} className="p-0 px-1 pb-3 ps-2">
-                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setUploadModalShow(true); setActiveOrder(order) }}>
-                            <img src={cancelIcon} height="25px" alt="print-icon" className="col-3" />
-                            <span className="noPrint">بارگذاری مدارک</span>
-                        </Button>
-                    </Col> */}
+
                     {order.status === 3 &&
                         <Col xs={6} className="p-0 px-1 pb-3 ps-2">
                             <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setResultOrderModal(true); setActiveOrder(order) }}>
