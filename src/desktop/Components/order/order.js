@@ -24,6 +24,7 @@ import pishFactorIcon from '../../assets/images/order/pish-factor.svg'
 import viewDocumentsIcon from '../../assets/images/order/View-documents.svg'
 import financialCheckIcon from './../../assets/images/order/financial-check.svg'
 import uploadIcon from './../../assets/images/order/Upload-documents.svg'
+import resultIcon from './../../assets/images/order/Result.svg'
 
 
 
@@ -202,13 +203,13 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
 
                     <Col className="d-flex justify-content-center">
                         <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setResultOrderModal(true); setActiveOrder(order) }}>
-                            <img src={submitIcon} height="25px" alt="print-icon" className="col-3" />
+                            <img src={resultIcon} height="25px" alt="print-icon" className="col-3" />
                             <span>نتیجه</span>
                         </Button>
                     </Col>
 
                 }
-                 <Col className="d-flex justify-content-end">
+                <Col className="d-flex justify-content-end">
                     <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setUploadModalShow(true); setActiveOrder(order); }}>
                         <img src={uploadIcon} height="25px" alt="print-icon" className="col-3" />
                         <span className="noPrint">بارگذاری مدارک</span>
