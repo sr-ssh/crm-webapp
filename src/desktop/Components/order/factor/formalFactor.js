@@ -2,6 +2,7 @@ import React from 'react'
 import persianJs from 'persianjs/persian.min';
 import moment from 'jalali-moment';
 import { Col, Container, Row, Card, Table } from 'react-bootstrap'
+import commaNumber from 'comma-number'
 
 
 // Icons
@@ -109,8 +110,8 @@ export const FormalFactor = ({ factor }) => {
                                                 <td className="py-3 text-center">{persianJs(item.quantity).englishNumber().toString()}</td>
                                                 <td className="py-3 text-center">{persianJs(item.sellingPrice).englishNumber().toString()}</td>
                                                 <td className="py-3 text-center">0</td>
-                                                <td className="py-3 text-center">0</td>
-                                                <td className="py-3 text-center">{persianJs(item.quantity * item.sellingPrice).englishNumber().toString()}</td>
+                                                <td className="py-3 text-center">{item.sellingPrice && persianJs(commaNumber(item.sellingPrice * 0.09)).englishNumber().toString()}</td>
+                                                <td className="py-3 text-center">{(item.quantity * item.sellingPrice) && persianJs(commaNumber(item.quantity * item.sellingPrice + item.quantity * item.sellingPrice * 0.09)).englishNumber().toString()}</td>
                                             </tr>
                                             {((index + 1) < factor.products.length) ?
                                                 <tr className="m-0 p-0 divider--table--factor--desktop">

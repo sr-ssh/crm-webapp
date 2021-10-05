@@ -112,8 +112,8 @@ export const FormalFactor = ({ order }) => {
                                             <td>{product.quantity && persianJs(commaNumber(product.quantity)).englishNumber().toString()}</td>
                                             <td>{product.sellingPrice && persianJs(commaNumber(product.sellingPrice)).englishNumber().toString()}</td>
                                             <td>{persianJs(commaNumber(0)).englishNumber().toString()}</td>
-                                            <td>{persianJs(commaNumber(0)).englishNumber().toString()}</td>
-                                            <td>{(product.quantity * product.sellingPrice) && persianJs(commaNumber(product.quantity * product.sellingPrice)).englishNumber().toString()}</td>
+                                            <td>{product.sellingPrice && persianJs(commaNumber(product.sellingPrice * 0.09)).englishNumber().toString()}</td>
+                                            <td>{(product.quantity * product.sellingPrice) && persianJs(commaNumber(product.quantity * product.sellingPrice + product.quantity * product.sellingPrice * 0.09)).englishNumber().toString()}</td>
                                         </tr>
                                     )
                                 }
