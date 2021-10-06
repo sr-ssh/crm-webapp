@@ -16,6 +16,8 @@ export const AddProduct = (props) => {
     const [validated, setValidated] = useState(false);
     const [productnameValidated, setProductNameValidated] = useState(false);
     const [productpriceValidated, setProductPriceValidated] = useState(false);
+    const [checkWareHouse, setCheckWareHouse] = useState(0)
+    const [direct, setDirect] = useState(0)
     const addProductLoading = useSelector(state => state.addProduct.loading)
     const alert = useSelector(state => state.alert)
     const dispatch = useDispatch()
@@ -64,8 +66,10 @@ export const AddProduct = (props) => {
     let formHandler = (e) => {
         e.preventDefault()
         if (product?.name && product?.sellingPrice) {
-            dispatch(productActions.addProduct(product))
+            dispatch(productActions.addProduct({...product, checkWareHouse, direct}))
             setProduct({ name: "", sellingPrice: "", description: "" })
+            setCheckWareHouse(0)
+            setDirect(0)
             setProductNameValidated(false)
             setProductPriceValidated(false)
         }
@@ -77,7 +81,10 @@ export const AddProduct = (props) => {
 
     useEffect(() => {
         setProduct()
-    }, [])
+        setCheckWareHouse(0)
+        setDirect(0)
+    }, [props.show])
+
     return (
         <Modal
             {...props}
@@ -139,6 +146,16 @@ export const AddProduct = (props) => {
                         </Col>
                     </Row>
                     <Row>
+                    <Row className="p-0 m-0 my-1 mt-3">
+                        <Col className="col-6 ps-2 d-flex align-items-center">
+                            <input type="checkbox" id="pass" name="pass" className="btn-toggle-status-green" checked={checkWareHouse} onChange={() => setCheckWareHouse(!checkWareHouse)} />
+                            <span className="fw-bold pe-3">انبار</span>
+                        </Col>
+                        <Col className="col-6 pe-2 d-flex align-items-center">
+                            <input type="checkbox" id="fail" name="fail" className="btn-toggle-status-green" checked={direct} onChange={() => setDirect(!direct)} />
+                            <span className="fw-bold pe-3">مستقیم</span>
+                        </Col>
+                    </Row>
                         <Col>
                             {
                                 addProductLoading ? (
