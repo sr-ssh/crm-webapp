@@ -189,8 +189,9 @@ export const EditeProductOrder = (props) => {
 
                 <Form onSubmit={formHandler}>
                     <Container className="m-0 p-0 mx-auto d-flex flex-column justify-content-between">
+                       
                         <Row className="m-0 p-0 mt-2" >
-                            <Col className="p-0 ">
+                            <Col className="p-0 ps-3">
                                 <Card className="border-0 bg-transparent text-light">
                                     <Form.Label className="pe-3">نام شرکت</Form.Label>
                                     <Form.Control className="order-input company-input" type="text"
@@ -199,8 +200,6 @@ export const EditeProductOrder = (props) => {
                                     />
                                 </Card>
                             </Col>
-                        </Row>
-                        <Row className="m-0 p-0 mt-2" >
                                 <Col className="p-0 ps-3">
                                     <Card className="border-0 bg-transparent text-light">
                                         <Form.Label className="pe-3">شناسه ملی شرکت</Form.Label>
