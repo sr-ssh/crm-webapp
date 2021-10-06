@@ -11,7 +11,7 @@ export const userService = {
     register,
     appInfo,
     userInfo,
-    editUserInfo,
+    editEmployerAccount,
     verificationCode
 };
 
@@ -107,7 +107,7 @@ function userInfo() {
         });
 }
 
-function editUserInfo(user) {
+function editEmployerAccount(user) {
     console.log("into userService");
 
     const requestOptions = {

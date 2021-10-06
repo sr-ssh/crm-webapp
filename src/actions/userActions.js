@@ -10,7 +10,7 @@ export const userActions = {
     logout,
     verificationCode,
     getUserInfo,
-    editUserInfo
+    editEmployerAccount
 };
 
 
@@ -209,10 +209,10 @@ function getUserInfo() {
 }
 
 
-function editUserInfo(user) {
+function editEmployerAccount(user) {
     return dispatch => {
         dispatch(request())
-        userService.editUserInfo(user)
+        userService.editEmployerAccount(user)
             .then(
                 res => {
                     console.log('user into userActions')
