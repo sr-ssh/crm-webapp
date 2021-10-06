@@ -1,20 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import moment from 'jalali-moment';
-import { Card, Table, Row, Col, Spinner, Button } from 'react-bootstrap';
+import { Card, Table, Row, Col, Button } from 'react-bootstrap';
 import persianJs from 'persianjs/persian.min';
-import { Dialog } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import commaNumber from 'comma-number'
 
 //icons
 import tickIcon from './../../assets/images/factor/tick.svg'
 import closeIcon from './../../assets/images/order/close.svg'
-import ShareIcon from '@material-ui/icons/Share';
 import deliveryIcon from './../../assets/images/order/delivery1.svg'
 import printIcon from './../../assets/images/order/print.svg'
-import submitIcon from './../../assets/images/order/submit.svg'
-import editIcon from '../../assets/images/Products/edit.svg'
-import deleteIcon from '../../assets/images/delete.svg'
 import editeOrderIcon from '../../assets/images/order/edit-order-list.svg'
 import addNoteIcon from '../../assets/images/order/add-note-white.svg'
 import noteListIcon from '../../assets/images/order/note-list-white.svg'
@@ -47,9 +42,8 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, setCancelOrderShow, recordOrderShow = '', setRecordOrderShow = {}, setActiveOrder, setOrder, setUploadModalShow, setShowDocModalShow, setCustomerInfoShow }) => {
+export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, setCancelOrderShow, recordOrderShow = '', setRecordOrderShow = {}, setActiveOrder, setOrder, setUploadModalShow, setShowDocModalShow }) => {
 
-    const classes = useStyles();
     let [print, setPrint] = useState(false)
     const [editModalShow, setEditModalShow] = useState(false)
     const [cancelModalShow, setCancelModalShow] = useState(false);
@@ -199,75 +193,6 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                         </Card.Body>
                     </Card>
                 </Row>
-                {/* <Row className="p-0 ps-2 m-0 ">
-                    <Card className="background-blue border-0 customer-round">
-                        <Card.Body className="pe-0 ps-0 ">
-                            <Row>
-                                <Col>
-                                    <Card.Text>
-                                        تاریخ : <span>{order.createdAt && persianJs(moment.from(order.createdAt, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD')).englishNumber().toString()}</span>
-                                    </Card.Text>
-                                </Col>
-                                <Col className="col-5">
-                                    <Card.Text className="text-center">
-                                        ساعت : <span>{order.createdAt && persianJs(moment.from(order.createdAt, 'HH:mm').locale('fa').format('HH:mm')).englishNumber().toString()}</span>
-                                    </Card.Text>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col>
-                                    <Card.Text>
-                                        نام مشتری: <span>{order.customer.family}</span>
-                                    </Card.Text>
-                                </Col>
-                                <Col className="col-5">
-                                    <Card.Text className="text-center">
-                                        وضعیت: {(() => {
-                                            switch (order.status) {
-                                                case 0:
-                                                    return <span>فعال</span>;
-                                                case 1:
-                                                    return <span>پایان یافته</span>;;
-                                                case 2:
-                                                    return <span>لغو شده</span>;;
-                                                default:
-                                                    return;
-                                            }
-                                        })()}
-                                    </Card.Text>
-                                </Col>
-                            </Row>
-                            <Row className="flex-nowrap mt-2">
-                                <Col>
-                                    <Card.Text>
-                                        موبایل: <span>{order.customer.mobile && persianJs(order.customer.mobile).englishNumber().toString()}</span>
-                                    </Card.Text>
-                                </Col>
-                            </Row>
-                            <Row className="flex-nowrap mt-2">
-                                <Col>
-                                    <Card.Text>
-                                        آدرس: <span>{order.address && persianJs(order.address).englishNumber().toString()}</span>
-                                    </Card.Text>
-                                </Col>
-                            </Row>
-                            <Row className="flex-nowrap mt-2">
-                                <Col>
-                                    <Card.Text>
-                                        اتمام آماده سازی: <span>{order.readyTime && persianJs(moment.from(order.readyTime, 'YYYY/MM/DD HH:mm').locale('fa').format('HH:mm DD MMMM YYYY')).englishNumber().toString()}</span>
-                                    </Card.Text>
-                                </Col>
-                            </Row>
-                            <Row className="flex-nowrap mt-2">
-                                <Col>
-                                    <Card.Text>
-                                        ثبت شده توسط: <span>{order.employee ? order.employee.family : null}</span>
-                                    </Card.Text>
-                                </Col>
-                            </Row>
-                        </Card.Body>
-                    </Card>
-                </Row> */}
                 <Row className="m-0 p-0 ps-2">
                     <Table borderless size="sm">
                         <thead>
@@ -419,19 +344,13 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                             </Button>
                         </Col>
                     }
-                    <Col xs={6} className="p-0 px-1 pb-3 ps-2">
-                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setCustomerInfoShow(true); setOrder(order.customer._id); }}>
-                            <img src={submitIcon} height="25px" alt="print-icon" className="col-3" />
-                            <span className="pe-1">اطلاعات مشتری</span>
-                        </Button>
-                    </Col>
                 </Row>
             </Card.Body>
             <EditField show={editModalShow} onHide={() => { setEditModalShow(false); setInput(''); }} input={input} name={name} productId={productId} orderId={orderId} setInput={setInput} />
             <CancelProductOrder show={cancelModalShow} onHide={() => { setCancelModalShow(false) }} productId={productId} orderId={orderId} />
             <EditeProductOrder show={editOrder} onHide={() => { setEditOrder(false) }} order={editProductOrder} />
             <AddNotesModal show={showNotesModal} onHide={() => { setShowNotesModal(false) }} permission={true} orderId={order.id} />
-            <ShareLinkModal show={isShareLinkOrder} onHide={() => setIsShareLinkOrder(false)} order={isShareLinkOrder ? shareLinkOrder : null} customerInfoModal={() => { setCustomerInfoShow(true); setOrder(order.customer._id) }} />
+            <ShareLinkModal show={isShareLinkOrder} onHide={() => setIsShareLinkOrder(false)} order={isShareLinkOrder ? shareLinkOrder : null}  />
             <FinancialCheckModal show={financialCheckModal} onHide={() => setFinancialCheckModal(false)} order={financialCheckModal ? order : null} />
             <ResultOrder show={resultOrderModal} onHide={() => setResultOrderModal(false)} order={resultOrderModal ? order : null} />
         </Card >

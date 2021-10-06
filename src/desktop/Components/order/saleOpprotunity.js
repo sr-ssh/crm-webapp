@@ -26,7 +26,6 @@ import { OrderSearch } from './search'
 import { Header } from '../base/header'
 import { CancelOrder } from './cancelOrder'
 import { UploadDocuments } from './uploadDoc'
-import { CustomerInfo } from './customerInfo';
 
 
 export const SaleOpprotunity = () => {
@@ -90,7 +89,6 @@ export const SaleOpprotunity = () => {
                     <RecordOrder show={recordOrderShow} onHide={() => setRecordOrderShow(false)} order={activeOrder} />
                     <CancelOrder status="4" show={cancelOrderShow} onHide={() => setCancelOrderShow(false)} order={activeOrder} />
                     <UploadDocuments show={uploadModalShow} onHide={() => setUploadModalShow(false)} order={activeOrder} />
-                    <CustomerInfo show={customerInfoShow} onHide={() => setCustomerInfoShow(false)} customer={order} />
                 </Container>
             </div >
         </>

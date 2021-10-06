@@ -3,7 +3,6 @@ import moment from 'jalali-moment';
 import { Container, Form, Card, Table, Row, Col, Spinner, Button } from 'react-bootstrap';
 import persianJs from 'persianjs/persian.min';
 import { Dialog, CircularProgress } from '@material-ui/core'
-import ShareIcon from '@material-ui/icons/Share';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux'
 import commaNumber from 'comma-number'
@@ -13,12 +12,8 @@ import tickIcon from './../../assets/images/order/tick.svg'
 import closeIcon from './../../assets/images/order/close.svg'
 import deliveryIcon from './../../assets/images/order/delivery1.svg'
 import printIcon from './../../assets/images/order/print.svg'
-import submitIcon from './../../assets/images/order/submit.svg'
-import editIcon from '../../assets/images/Products/edit.svg'
-import deleteIcon from '../../assets/images/delete.svg'
 import editeOrderIcon from '../../assets/images/order/edit-order-list.svg'
 import addNoteIcon from '../../assets/images/order/add-note-black.svg'
-import noteListIcon from '../../assets/images/order/note-list-white.svg'
 import cancelIcon from '../../assets/images/order/cancel.svg'
 import pishFactorIcon from '../../assets/images/order/pish-factor.svg'
 import viewDocumentsIcon from '../../assets/images/order/View-documents.svg'
@@ -34,13 +29,11 @@ import { notesActions } from '../../../actions';
 //components
 import { AddNotesModal } from './addNotesModal'
 import { EditField } from './editField'
-import { history } from '../../../helpers/history'
 import { CancelProductOrder } from './cancelProductOrder'
 import { EditeProductOrder } from './editProductOrder'
 import { Notes } from './notes'
 import { ShareLinkOrder } from "./shareLinkOrder"
 import { Note } from './note'
-import { ShowDocuments } from './showDoc'
 import { FinancialCheckModal } from './financialCheckModal'
 import { ResultOrder } from './resultOrder'
 
@@ -220,12 +213,6 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                     <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setShowDocModalShow(true); setActiveOrder(order); }}>
                         <img src={viewDocumentsIcon} height="25px" alt="print-icon" className="col-3" />
                         <span className="noPrint">مشاهده مدارک</span>
-                    </Button>
-                </Col>
-                <Col className="d-flex justify-content-center">
-                    <Button className={`${order.status == 2 ? "w-50" : "w-100"} btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2`} type="button" onClick={() => { setCustomerInfoShow(true); setOrder(order.customer._id); }}>
-                        <img src={deliveryIcon} height="25px" alt="delivery-icon" className="col-3" />
-                        <span>اطلاعات مشتری</span>
                     </Button>
                 </Col>
             </Row>

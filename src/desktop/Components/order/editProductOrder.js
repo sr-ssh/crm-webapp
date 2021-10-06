@@ -112,6 +112,13 @@ export const EditeProductOrder = (props) => {
         await insertOrder(props.order.products)
         await setOldProduct(props.order.products)
         await setAddressUser(props.order.address)
+        props.order.customer && await setCompanyName({
+            company: props.order.customer.company, 
+            nationalCard: props.order.customer.nationalCard,
+            financialCode: props.order.customer.financialCode,
+            registerNo: props.order.customer.registerNo,
+            postalCode:  props.order.customer.postalCode
+         })
         let total = 0
         props.order.products?.map(item => {
             total += item.sellingPrice * item.quantity;
@@ -129,7 +136,7 @@ export const EditeProductOrder = (props) => {
         setAddressUser(e.target.value)
     }
     let companyNameInputHandler = e => {
-        setCompanyName(e.target.value)
+        setCompanyName({...companyName, [e.target.name]: e.target.value })
     }
     const formHandler = (e) => {
         e.preventDefault();
@@ -138,11 +145,10 @@ export const EditeProductOrder = (props) => {
             let params = {
                 orderId: props.order.id,
                 products: orders,
-                address: addressUser || "",
-                companyName: companyName || ""
+                address: addressUser || ""
             };
 
-            dispatch(orderActions.editProductOrder(params))
+            dispatch(orderActions.editProductOrder({...params, ...companyName}))
 
             setTimeout(() => {
                 dispatch(orderActions.getOrders({ status: props.status || " " }))
@@ -183,6 +189,38 @@ export const EditeProductOrder = (props) => {
 
                 <Form onSubmit={formHandler}>
                     <Container className="m-0 p-0 mx-auto d-flex flex-column justify-content-between">
+                        <Row className="m-0 p-0 mt-2" >
+                            <Col className="p-0 ">
+                                <Card className="border-0 bg-transparent text-light">
+                                    <Form.Label className="pe-3">نام شرکت</Form.Label>
+                                    <Form.Control className="order-input company-input" type="text"
+                                        defaultValue={props.order.customer?.company}
+                                        onChange={companyNameInputHandler}
+                                    />
+                                </Card>
+                            </Col>
+                        </Row>
+                        <Row className="m-0 p-0 mt-2" >
+                                <Col className="p-0 ps-3">
+                                    <Card className="border-0 bg-transparent text-light">
+                                        <Form.Label className="pe-3">شناسه ملی شرکت</Form.Label>
+                                        <Form.Control className="order-input company-input" type="text"
+                                            defaultValue={props.order.customer?.nationalCard}
+                                            onChange={companyNameInputHandler} name="nationalCard"
+                                        />
+                                    </Card>
+                                </Col>
+                                <Col className="p-0 ">
+                                    <Card className="border-0 bg-transparent text-light">
+                                        <Form.Label className="pe-3">کداقتصادی</Form.Label>
+                                        <Form.Control className="order-input company-input" type="text"
+                                            defaultValue={props.order.customer?.financialCode}
+                                            onChange={companyNameInputHandler} name="financialCode"
+                                        />
+                                    </Card>
+                                </Col>
+                            </Row>
+
                         <Row className="m-0 p-0 mt-1" >
                             <Col className="m-0 p-0 ">
                                 <Card className="border-0 bg-transparent text-light">
@@ -195,16 +233,26 @@ export const EditeProductOrder = (props) => {
                             </Col>
                         </Row>
                         <Row className="m-0 p-0 mt-2" >
-                            <Col className="p-0 ">
-                                <Card className="border-0 bg-transparent text-light">
-                                    <Form.Label className="pe-3">نام شرکت</Form.Label>
-                                    <Form.Control className="order-input company-input" type="text"
-                                        defaultValue={props.order.customer?.company}
-                                        onChange={companyNameInputHandler}
-                                    />
-                                </Card>
-                            </Col>
-                        </Row>
+                                <Col className="p-0 ps-3">
+                                    <Card className="border-0 bg-transparent text-light">
+                                        <Form.Label className="pe-3">شماره ثبت</Form.Label>
+                                        <Form.Control className="order-input company-input" type="text"
+                                            defaultValue={props.order.customer?.registerNo}
+                                            onChange={companyNameInputHandler} name="registerNo"
+                                        />
+                                    </Card>
+                                </Col>
+                                <Col className="p-0 ">
+                                    <Card className="border-0 bg-transparent text-light">
+                                        <Form.Label className="pe-3">کدپستی</Form.Label>
+                                        <Form.Control className="order-input company-input" type="text"
+                                            defaultValue={props.order.customer?.postalCode}
+                                            onChange={companyNameInputHandler} name="postalCode"
+                                        />
+                                    </Card>
+                                </Col>
+                            </Row>
+                        
                         <Row className="m-0 p-0 mt-3">
                             <Form.Label className="pe-3">سبد خرید</Form.Label>
                             <Card className="border-0 p-3 pt-2 basket--Product--Container basket--edit--product--container">
