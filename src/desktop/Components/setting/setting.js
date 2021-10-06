@@ -23,15 +23,16 @@ export const Setting = () => {
 
     const [value, setValue] = React.useState(0);
 
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
-    console.log(value);
+    // const handleChange = (event, newValue) => {
+    //     setValue(newValue);
+    // };
     return (
         <>
             <Header isBTNSearch={false} isBTNRequest={false} />
-            <Container fluid className="m-0 w-100 d-flex justify-content-start flex-wrap margin--top--header " style={{ paddingRight: sideBar.open ? "250px" : 0 }}>
-                <Tabs
+            <Container fluid className="product-page d-flex flex-column align-items-center margin--top--header" style={{ paddingRight: sideBar.open ? "250px" : 0 }}>
+                {value === 0 && <OrderSetting state={state} setState={setState} />}
+
+                {/* <Tabs
                     value={value}
                     onChange={handleChange}
                     indicatorColor="primary"
@@ -46,15 +47,14 @@ export const Setting = () => {
                     } />
                     <Tab label={
                         <ButtonBase disabled className="d-flex flex-row">
-                            {/* <img src={orderLogo} height="25px" /> */}
+                            <img src={orderLogo} height="25px" />
                             <ReceiptIcon />
                             <span className="me-2 ff-iranSans fw-bold fs-6">فاکتور</span>
                         </ButtonBase>
                     } />
-                </Tabs>
+                </Tabs> */}
             </Container>
             {/* {state === 'تنظیمات' && <SettingMenu state={state} setState={setState} />} */}
-            {value === 0 && <OrderSetting state={state} setState={setState} />}
         </>
     )
 }
