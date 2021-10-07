@@ -24,3 +24,27 @@ export function getSettingOrder(state = initialState, action) {
             return state
     }
 }
+
+
+export function editSettingOrder(state = {}, action) {
+    switch (action.type) {
+        case settingConstants.EDIT_SETTING_ORDER_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+        case settingConstants.EDIT_SETTING_ORDER_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                data: action.data
+            }
+        case settingConstants.EDIT_SETTING_ORDER_FAILURE:
+            return {
+                error: action.error,
+                loading: false,
+            }
+        default:
+            return state
+    }
+}

@@ -16,7 +16,7 @@ import { getEmployees, editEmployee, addEmployee, deleteEmployee, getApplication
 import { getPermissions } from './employeeReducer';
 import { getUserInfo, editUserInfo } from './userReducer';
 import { getNotes, addNotes, editStatusNotes } from './notesReducer'
-import { getSettingOrder } from './settingReducer'
+import { getSettingOrder, editSettingOrder } from './settingReducer'
 import { getStock, addStock, editStock } from './stockReducer';
 import { getSupplier, getSuppliers, getExcelSuppliers } from './supplierReducer';
 import { addReceipt, confirmShop, getReceipts, editReceiptStatus, editReceipt } from './receiptReducer';
@@ -61,7 +61,7 @@ export default combineReducers({
     addNotes,
     orderDetails, uploadDoc,
     getExcelCustomers,
-    getSettingOrder,
+    getSettingOrder, editSettingOrder,
     getShareLinkOrder,
     editStatusNotes,
     getStock, addStock, editStock,
