@@ -57,7 +57,10 @@ export const StockCard = ({ item, sideBar, setEditModalShow, setProduct, ...prop
                     <Card.Text >
                         <span className="text-gray fw-bold" >نام : </span>
                         <span className="fs-7 me-2 fw-bold">{item.name && persianJs(item.name).englishNumber().toString()}</span>
-
+                    </Card.Text>
+                    <Card.Text >
+                        <span className="text-gray fw-bold" >تعداد : </span>
+                        <span className="fs-7 me-2 fw-bold">{(item.amount && persianJs(item.amount).englishNumber().toString()) || persianJs('0').englishNumber().toString()}</span>
                     </Card.Text>
                     <Card.Text className="pt-1">
                         <span className="text-gray fw-bold">تاریخ ویرایش : </span>

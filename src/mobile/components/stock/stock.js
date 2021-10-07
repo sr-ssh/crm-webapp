@@ -61,6 +61,10 @@ export const Stock = () => {
                                 <Card.Text className="pt-1">
                                     <span style={{ "color": "var(--text-color-one)" }}>نام : </span>{item.name && persianJs(item.name).englishNumber().toString()}
                                 </Card.Text>
+                                <Card.Text >
+                                    <span style={{ "color": "var(--text-color-one)" }}>تعداد : </span>
+                                    {(item.amount && persianJs(item.amount).englishNumber().toString()) || persianJs('0').englishNumber().toString()}
+                                </Card.Text>
                                 <Card.Text className="pt-1">
                                     <span style={{ "color": "var(--text-color-one)" }}>تاریخ ویرایش : </span>{item.updatedAt && persianJs(moment.from(item.updatedAt, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD')).englishNumber().toString()}
                                 </Card.Text>
