@@ -4,23 +4,23 @@ import { settingService } from '../services'
 import { alertActions } from './alertActions';
 
 export const settingActions = {
-    getShareLinkConfig,
-    editShareLinkConfig
+    getSettingOrder,
+    editSettingOrder
 }
 
-function getShareLinkConfig() {
+function getSettingOrder() {
     return dispatch => {
-        dispatch(request(settingConstants.GET_SHARE_LINK_SETTING_REQUEST))
-        settingService.getShareLink()
+        dispatch(request(settingConstants.GET_SETTING_ORDER_REQUEST))
+        settingService.getSettingOrder()
             .then(
                 res => {
                     if (res === undefined) {
                         dispatch(alertActions.error('ارتباط با سرور برقرار نیست'));
-                        dispatch(failure(settingConstants.GET_SHARE_LINK_SETTING_FAILURE, 'ارتباط با سرور برقرار نیست'))
+                        dispatch(failure(settingConstants.GET_SETTING_ORDER_FAILURE, 'ارتباط با سرور برقرار نیست'))
                     }
                     else if (res.success) {
-                        console.log("share Link Config received")
-                        dispatch(success(settingConstants.GET_SHARE_LINK_SETTING_SUCCESS, res.data.share));
+                        console.log("setting order received")
+                        dispatch(success(settingConstants.GET_SETTING_ORDER_SUCCESS, res.data));
                     }
 
                     setTimeout(() => {
@@ -28,7 +28,7 @@ function getShareLinkConfig() {
                     }, 1500);
                 },
                 error => {
-                    dispatch(failure(settingConstants.GET_SHARE_LINK_SETTING_FAILURE, error.toString()))
+                    dispatch(failure(settingConstants.GET_SETTING_ORDER_FAILURE, error.toString()))
                     console.log("occure error");
                     console.log(error.toString());
                     dispatch(alertActions.error(error.toString()));
@@ -38,20 +38,22 @@ function getShareLinkConfig() {
 
 }
 
-function editShareLinkConfig(params) {
+
+
+function editSettingOrder(params) {
     return dispatch => {
-        dispatch(request(settingConstants.EDIT_SHARE_LINK_SETTING_REQUEST))
-        settingService.editShareLink(params)
+        dispatch(request(settingConstants.EDIT_SETTING_ORDER_REQUEST))
+        settingService.editSettingOrder(params)
             .then(
                 res => {
                     if (res === undefined) {
                         dispatch(alertActions.error('ارتباط با سرور برقرار نیست'));
-                        dispatch(failure(settingConstants.EDIT_SHARE_LINK_SETTING_FAILURE, 'ارتباط با سرور برقرار نیست'))
+                        dispatch(failure(settingConstants.EDIT_SETTING_ORDER_FAILURE, 'ارتباط با سرور برقرار نیست'))
                     }
                     else if (res.success) {
-                        console.log("share Link Config received")
+                        console.log("setting order received")
                         dispatch(alertActions.success(res.message));
-                        dispatch(success(settingConstants.EDIT_SHARE_LINK_SETTING_SUCCESS, res.message));
+                        dispatch(success(settingConstants.EDIT_SETTING_ORDER_SUCCESS, res.data));
                     }
 
                     setTimeout(() => {
@@ -59,7 +61,7 @@ function editShareLinkConfig(params) {
                     }, 1500);
                 },
                 error => {
-                    dispatch(failure(settingConstants.EDIT_SHARE_LINK_SETTING_FAILURE, error.toString()))
+                    dispatch(failure(settingConstants.EDIT_SETTING_ORDER_FAILURE, error.toString()))
                     console.log("occure error");
                     console.log(error.toString());
                     dispatch(alertActions.error(error.toString()));
