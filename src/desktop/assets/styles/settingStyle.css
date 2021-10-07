@@ -113,7 +113,9 @@
   display: none;
   opacity: 0;
 }
-
+.inactive--textarea--setting--desktop {
+  color: #5e5e5e;
+}
 .textarea--setting--desktop {
   border: none;
 }
