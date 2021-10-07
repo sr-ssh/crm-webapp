@@ -166,7 +166,7 @@ export const OrderSetting = () => {
                             </Col>
                             <Col className="p-0 col-4 d-flex align-items-center justify-content-start">
                                 <Form.Group controlId="defaultReminder" className=" form-grp--setting--desktop">
-                                    <Form.Control type="number" className="order-setting-field--desktop m-auto" />
+                                    <Form.Control type="number" className="order-setting-field--desktop m-auto" disabled={true} />
                                     <span className="ms-3">دقیقه</span>
                                 </Form.Group>
                             </Col>
@@ -190,7 +190,7 @@ export const OrderSetting = () => {
                             </Col>
                             <Col className="p-0 col-4 d-flex align-items-center justify-content-start">
                                 <Form.Group controlId="defaultReminder" className=" form-grp--setting--desktop">
-                                    <Form.Control type="number" className="order-setting-field--desktop m-auto" />
+                                    <Form.Control type="number" className="order-setting-field--desktop m-auto" disabled={true} />
                                     <span className="ms-3">دقیقه</span>
                                 </Form.Group>
                             </Col>

@@ -109,6 +109,9 @@
   background-color: white;
   font-size: 0.9rem;
 }
+.order-setting-field--desktop:disabled {
+  background-color: white;
+}
 .order-setting-field--desktop::-webkit-inner-spin-button {
   display: none;
   opacity: 0;
