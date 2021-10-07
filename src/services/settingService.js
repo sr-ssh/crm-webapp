@@ -8,12 +8,11 @@ import { handleResponse, handleError } from '../helpers'
 let baseRoute = SERVER_URL;
 
 export const settingService = {
-    getShareLink,
-    editShareLink
+    getSettingOrder,
 };
 
 
-function getShareLink() {
+function getSettingOrder() {
     console.log("into settingService");
 
     const requestOptions = {
@@ -21,30 +20,7 @@ function getShareLink() {
     };
 
     return axios
-        .get(`${baseRoute}/settings/order/share`, requestOptions)
-        .then(res => {
-            console.log("res.user >> ");
-            console.log(res.data);
-            return handleResponse(res)
-        })
-        .catch(function (error) {
-            if (error.response) {
-                console.log(error.response.data);
-                handleError(error.response.status);
-            }
-        });
-}
-
-
-function editShareLink(params) {
-    console.log("into settingService (editShareLink)");
-    const requestOptions = {
-        headers: authHeader(),
-        body: params
-    };
-
-    return axios
-        .put(`${baseRoute}/settings/order/share`, requestOptions.body, requestOptions.headers)
+        .get(`${baseRoute}/settings/order`, requestOptions)
         .then(res => {
             console.log("res.user >> ");
             console.log(res.data);

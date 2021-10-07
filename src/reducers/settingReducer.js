@@ -1,44 +1,21 @@
 import { settingConstants } from '../constants'
 
-const initialState = { loading: false }
+const initialState = { loading: true }
 
-export function getShareLinkConfig(state = initialState, action) {
+export function getSettingOrder(state = initialState, action) {
     switch (action.type) {
-        case settingConstants.GET_SHARE_LINK_SETTING_REQUEST:
+        case settingConstants.GET_SETTING_ORDER_REQUEST:
             return {
                 ...state,
                 loading: true
             }
-        case settingConstants.GET_SHARE_LINK_SETTING_SUCCESS:
+        case settingConstants.GET_SETTING_ORDER_SUCCESS:
             return {
                 ...state,
                 loading: false,
                 data: action.data
             }
-        case settingConstants.GET_SHARE_LINK_SETTING_FAILURE:
-            return {
-                error: action.error,
-                loading: false,
-            }
-        default:
-            return state
-    }
-}
-
-export function editShareLinkConfig(state = initialState, action) {
-    switch (action.type) {
-        case settingConstants.EDIT_SHARE_LINK_SETTING_REQUEST:
-            return {
-                ...state,
-                loading: true
-            }
-        case settingConstants.EDIT_SHARE_LINK_SETTING_SUCCESS:
-            return {
-                ...state,
-                loading: false,
-                data: action.data
-            }
-        case settingConstants.EDIT_SHARE_LINK_SETTING_FAILURE:
+        case settingConstants.GET_SETTING_ORDER_FAILURE:
             return {
                 error: action.error,
                 loading: false,

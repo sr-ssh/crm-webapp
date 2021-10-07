@@ -13,6 +13,7 @@ import spinnerIcon from './../../assets/images/sppiner-blue.svg'
 export const OrderSetting = () => {
 
 
+    const [configSettingOrder, setConfigSettingOrder] = useState({ share: {}, preSms: {}, postDeliverySms: {}, postCustomerSms: {} })
 
 
     let orderSms = useSelector(state => state.getOrderSms.sms)
@@ -108,11 +109,9 @@ export const OrderSetting = () => {
         //  
         <Container fluid className="w-100 d-flex flex-column px-4 " >
             <Row className="m-0 my-3 p-0 w-100" >
-                <div></div>
                 <Card className="sms-text-container border-0 notes-round">
                     <Card.Body className="d-flex flex-nowrap ">
                         <Col className="col-3 d-flex align-items-center justify-content-start text--input--sms--desktop inactive--text--input--sms--desktop">
-                            {/* checked={invoiceType == 0} onChange={toggleHandler} */}
                             <input type="checkbox" id="preSms" name="preSms" className="btn-toggle-status-setting--sms" onChange={toggleHandler} />
                             <span>پیامک ثبت سفارش</span>
                         </Col>
@@ -129,11 +128,8 @@ export const OrderSetting = () => {
                 <Card className="sms-text-container border-0 notes-round">
                     <Card.Body className="d-flex flex-nowrap ">
                         <Col className="col-3 d-flex align-items-center justify-content-start text--input--sms--desktop">
-
-                            {/* checked={invoiceType == 0} onChange={toggleHandler} */}
                             <input type="checkbox" id="postDeliverySms" name="postDeliverySms" className="btn-toggle-status-setting--sms" onChange={toggleHandler} />
                             <span>پیامک پیک</span>
-
                         </Col>
                         <Col className="col-8 pe-2">
                             <Form.Control as="textarea" name="postDeliverySms" className="textarea--setting--desktop" onChange={toggleHandler} />
@@ -148,11 +144,8 @@ export const OrderSetting = () => {
                 <Card className="sms-text-container border-0 notes-round">
                     <Card.Body className="d-flex flex-nowrap ">
                         <Col className="col-3 d-flex align-items-center justify-content-start text--input--sms--desktop">
-
-                            {/* checked={invoiceType == 0} onChange={toggleHandler} */}
                             <input type="checkbox" id="postCustomerSms" name="postCustomerSms" className="btn-toggle-status-setting--sms" onChange={toggleHandler} />
                             <span>پیامک ارسال محصول</span>
-
                         </Col>
                         <Col className="col-8 pe-2">
                             <Form.Control as="textarea" name="postCustomerSms" className="textarea--setting--desktop" onChange={toggleHandler} />
@@ -192,7 +185,7 @@ export const OrderSetting = () => {
                 </Row>
                 <Row className="mx-0 my-3">
                     <Col className="col-3 order-setting-field-label align-self-center">
-                        واحد زمان
+                        مقدار پیش فرض یادآوری
                     </Col>
                     <Col className="p-0 col-2" style={{ width: "15%" }}>
                         <Dropdown className="text-center w-100">
@@ -218,7 +211,7 @@ export const OrderSetting = () => {
                 </Row>
                 <Row className="mx-0 my-3">
                     <Col className="col-3 order-setting-field-label align-self-center">
-                        واحد زمان
+                        مقدار پیش فرض آماده سازی
                     </Col>
                     <Col className="p-0 col-2" style={{ width: "15%" }}>
                         <Dropdown className="text-center w-100">
