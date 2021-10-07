@@ -12,7 +12,8 @@ export const userService = {
     appInfo,
     userInfo,
     editEmployerAccount,
-    verificationCode
+    verificationCode,
+    editAccount
 };
 
 
@@ -108,6 +109,30 @@ function userInfo() {
 }
 
 function editEmployerAccount(user) {
+    console.log("into userService");
+
+    const requestOptions = {
+        headers: authHeader(),
+        body: user
+    };
+
+    console.log(requestOptions)
+    return axios
+        .put(`${baseRoute}/account/employer`, requestOptions.body, { headers: requestOptions.headers })
+        .then(res => {
+            console.log("res.user >> ");
+            console.log(res.data);
+            return res.data
+        })
+        .catch(function (error) {
+            if (error.response) {
+                console.log(error.response.data);
+                console.log(error.response.status);
+            }
+        });
+}
+
+function editAccount(user) {
     console.log("into userService");
 
     const requestOptions = {

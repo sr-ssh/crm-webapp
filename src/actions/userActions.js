@@ -10,7 +10,8 @@ export const userActions = {
     logout,
     verificationCode,
     getUserInfo,
-    editEmployerAccount
+    editEmployerAccount,
+    editAccount
 };
 
 
@@ -213,6 +214,48 @@ function editEmployerAccount(user) {
     return dispatch => {
         dispatch(request())
         userService.editEmployerAccount(user)
+            .then(
+                res => {
+                    console.log('user into userActions')
+                    console.log(res)
+                    if (res === undefined) {
+                        dispatch(alertActions.error('ارتباط با سرور برقرار نیست'));
+                        dispatch(failure('ارتباط با سرور برقرار نیست'))
+                    }
+                    else if (res.success) {
+                        console.log("user info received")
+                        dispatch(success(res.data));
+                        dispatch(alertActions.success(res.message));
+                    } else if (res.success === false) {
+                        dispatch(failure(res.message))
+                    } else {
+                        dispatch(failure("مشکلی وجود دارد"))
+                    }
+
+                    setTimeout(() => {
+                        dispatch(alertActions.clear());
+                    }, 1500);
+
+                },
+                error => {
+                    dispatch(failure(error.toString()));
+                    console.log("occure error");
+                    console.log(error.toString());
+                    dispatch(alertActions.error(error.toString()));
+                }
+            )
+    }
+
+    function request() { console.log("into request"); return { type: userConstants.EDIT_USER_INFO_REQUEST } }
+    function success(user) { console.log("into success"); return { type: userConstants.EDIT_USER_INFO_SUCCESS, user } }
+    function failure(error) { console.log("into failure"); return { type: userConstants.EDIT_USER_INFO_FAILURE, error } }
+}
+
+
+function editAccount(user) {
+    return dispatch => {
+        dispatch(request())
+        userService.editAccount(user)
             .then(
                 res => {
                     console.log('user into userActions')

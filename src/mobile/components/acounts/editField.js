@@ -30,7 +30,7 @@ export const EditField = (props) => {
         if (form.checkValidity() === false) {
             e.stopPropagation()
         } else {
-            dispatch(userActions.editUserInfo({ [name]: input }))
+            dispatch(userActions.editAccount({ [name]: input }))
             history.go(0)
         }
         setValidated(true)
