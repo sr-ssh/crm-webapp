@@ -5,11 +5,16 @@ import { Container, Card, Form, Col, Row, Button, Dropdown, Spinner } from 'reac
 // Actions
 import { orderActions, settingActions } from '../../../actions'
 // Icons
-import editIcon from '../../assets/images/Products/edit.svg'
+import editIcon from '../../assets/images/setting/edit-blue.svg'
+import inactiveEditIcon from '../../assets/images/setting/inactive-edit.svg'
 import tickIcon from '../../assets/images/tick.svg'
 import spinnerIcon from './../../assets/images/sppiner-blue.svg'
 
 export const OrderSetting = () => {
+
+
+
+
     let orderSms = useSelector(state => state.getOrderSms.sms)
     let editOrderSms = useSelector(state => state.editOrderSms)
     let shareLinkConfig = useSelector(state => state.getShareLinkConfig)
@@ -17,6 +22,15 @@ export const OrderSetting = () => {
 
     const [shareLink, setShareLink] = useState({ duration: "", unitTime: "" })
     const dispatch = useDispatch();
+
+
+    let toggleHandler = (e) => {
+
+        let { id, name, value, type, checked } = e.target
+        console.log(id, name, value, type, checked)
+
+
+    }
     const handleChange = (e) => {
         console.log('_____________________handleChange_____________________')
         if (e.target.type === "checkbox") {
@@ -94,20 +108,19 @@ export const OrderSetting = () => {
         //  
         <Container fluid className="w-100 d-flex flex-column px-4 " >
             <Row className="m-0 my-3 p-0 w-100" >
+                <div></div>
                 <Card className="sms-text-container border-0 notes-round">
                     <Card.Body className="d-flex flex-nowrap ">
-                        <Col className="col-3 d-flex align-items-center justify-content-start text--input--sms--desktop">
-
+                        <Col className="col-3 d-flex align-items-center justify-content-start text--input--sms--desktop inactive--text--input--sms--desktop">
                             {/* checked={invoiceType == 0} onChange={toggleHandler} */}
-                            <input type="checkbox" id="r1" name="r-group" className="btn-toggle-status-setting--sms" />
+                            <input type="checkbox" id="preSms" name="preSms" className="btn-toggle-status-setting--sms" onChange={toggleHandler} />
                             <span>پیامک ثبت سفارش</span>
-
                         </Col>
                         <Col className="col-8 pe-2">
-                            <Form.Control as="textarea" name="preSms" />
+                            <Form.Control as="textarea" name="preSms" className="textarea--setting--desktop" onChange={toggleHandler} />
                         </Col>
-                        <Col className="col-1 d-flex align-items-center justify-content-center pe-5">
-                            <img className="edit-sms-icon " src={editIcon} height="35px" alt="edit-icon" />
+                        <Col className="col-1 d-flex align-items-center justify-content-center pe-5 me-1">
+                            <img src={inactiveEditIcon} height="35px" alt="edit-icon" style={{ cursor: "pointer" }} />
                         </Col>
                     </Card.Body>
                 </Card>
@@ -118,15 +131,15 @@ export const OrderSetting = () => {
                         <Col className="col-3 d-flex align-items-center justify-content-start text--input--sms--desktop">
 
                             {/* checked={invoiceType == 0} onChange={toggleHandler} */}
-                            <input type="checkbox" id="r1" name="r-group" className="btn-toggle-status-setting--sms" />
+                            <input type="checkbox" id="postDeliverySms" name="postDeliverySms" className="btn-toggle-status-setting--sms" onChange={toggleHandler} />
                             <span>پیامک پیک</span>
 
                         </Col>
                         <Col className="col-8 pe-2">
-                            <Form.Control as="textarea" name="preSms" />
+                            <Form.Control as="textarea" name="postDeliverySms" className="textarea--setting--desktop" onChange={toggleHandler} />
                         </Col>
-                        <Col className="col-1 d-flex align-items-center justify-content-center pe-5">
-                            <img className="edit-sms-icon " src={editIcon} height="35px" alt="edit-icon" />
+                        <Col className="col-1 d-flex align-items-center justify-content-center pe-5 me-1">
+                            <img src={editIcon} height="35px" alt="edit-icon" style={{ cursor: "pointer" }} />
                         </Col>
                     </Card.Body>
                 </Card>
@@ -137,15 +150,15 @@ export const OrderSetting = () => {
                         <Col className="col-3 d-flex align-items-center justify-content-start text--input--sms--desktop">
 
                             {/* checked={invoiceType == 0} onChange={toggleHandler} */}
-                            <input type="checkbox" id="r1" name="r-group" className="btn-toggle-status-setting--sms" />
+                            <input type="checkbox" id="postCustomerSms" name="postCustomerSms" className="btn-toggle-status-setting--sms" onChange={toggleHandler} />
                             <span>پیامک ارسال محصول</span>
 
                         </Col>
                         <Col className="col-8 pe-2">
-                            <Form.Control as="textarea" name="preSms" />
+                            <Form.Control as="textarea" name="postCustomerSms" className="textarea--setting--desktop" onChange={toggleHandler} />
                         </Col>
-                        <Col className="col-1 d-flex align-items-center justify-content-center pe-5">
-                            <img className="edit-sms-icon " src={editIcon} height="35px" alt="edit-icon" />
+                        <Col className="col-1 d-flex align-items-center justify-content-center pe-5 me-1">
+                            <img src={editIcon} height="35px" alt="edit-icon" style={{ cursor: "pointer" }} />
                         </Col>
                     </Card.Body>
                 </Card>
@@ -170,9 +183,10 @@ export const OrderSetting = () => {
                             </Dropdown.Menu>
                         </Dropdown>
                     </Col>
-                    <Col className="p-0 col-3 d-flex align-items-center justify-content-start">
-                        <Form.Group controlId="defaultReminder">
-                            <Form.Control type="number" className="order-setting-field--desktop m-auto" placeholder="دقیقه" />
+                    <Col className="p-0 col-4 d-flex align-items-center justify-content-start">
+                        <Form.Group controlId="defaultReminder" className=" form-grp--setting--desktop">
+                            <Form.Control type="number" className="order-setting-field--desktop m-auto" />
+                            <span className="ms-3">دقیقه</span>
                         </Form.Group>
                     </Col>
                 </Row>
@@ -195,9 +209,10 @@ export const OrderSetting = () => {
                             </Dropdown.Menu>
                         </Dropdown>
                     </Col>
-                    <Col className="p-0 col-3 d-flex align-items-center justify-content-start">
-                        <Form.Group controlId="defaultReminder">
-                            <Form.Control type="number" className="order-setting-field--desktop m-auto" placeholder="دقیقه" />
+                    <Col className="p-0 col-4 d-flex align-items-center justify-content-start">
+                        <Form.Group controlId="defaultReminder" className=" form-grp--setting--desktop">
+                            <Form.Control type="number" className="order-setting-field--desktop m-auto" />
+                            <span className="ms-3">دقیقه</span>
                         </Form.Group>
                     </Col>
                 </Row>
@@ -220,9 +235,10 @@ export const OrderSetting = () => {
                             </Dropdown.Menu>
                         </Dropdown>
                     </Col>
-                    <Col className="p-0 col-3 d-flex align-items-center justify-content-start">
-                        <Form.Group controlId="defaultReminder">
-                            <Form.Control type="number" className="order-setting-field--desktop m-auto" placeholder="دقیقه" />
+                    <Col className="p-0 col-4 d-flex align-items-center justify-content-start">
+                        <Form.Group controlId="defaultReminder" className=" form-grp--setting--desktop">
+                            <Form.Control type="number" className="order-setting-field--desktop m-auto" />
+                            <span className="ms-3">دقیقه</span>
                         </Form.Group>
                     </Col>
                 </Row>
@@ -252,6 +268,26 @@ export const OrderSetting = () => {
                     </Col>
                 </Row> */}
             </Form.Group>
+            <Row className="m-0 p-0 w-100 mb-3">
+                <Col className="m-0 p-0 col-12">
+                    <Button variant="primary" type="submit" className="w-100 m-0 p-0 py-2 mt-5 btn-dark-blue notes-round">
+                        {
+                            editOrderSms.loading ?
+                                <Spinner
+                                    as="span"
+                                    animation="grow"
+                                    size="sm"
+                                    role="status"
+                                    variant="light"
+                                    aria-hidden="true"
+                                />
+                                :
+                                <> ثبت </>
+                        }
+
+                    </Button>
+                </Col>
+            </Row>
             {/* <Row className="d-flex flex-column">
                 <Col>
                     <h5 className="me-4">لینک اشتراک گذاری</h5>
