@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Form, Button, Row, Col, Modal, Spinner, Alert } from 'react-bootstrap';
+import { Form, Button, Row, Col, Modal, Spinner } from 'react-bootstrap';
 import persianJs from 'persianjs/persian.min';
 
 // Actions
@@ -9,6 +9,9 @@ import { productActions } from '../../../actions';
 // Icons
 import closeIcon from '../../assets/images/close.svg'
 
+//components
+import { AddProductCheck } from './addProductCheck';
+
 
 export const AddProduct = (props) => {
 
@@ -16,7 +19,7 @@ export const AddProduct = (props) => {
     const [validated, setValidated] = useState(false);
     const [productnameValidated, setProductNameValidated] = useState(false);
     const [productpriceValidated, setProductPriceValidated] = useState(false);
-    const [checkWareHouse, setCheckWareHouse] = useState(0)
+    const [checkWareHouse, setCheckWareHouse] = useState(false)
     const [direct, setDirect] = useState(0)
     const addProductLoading = useSelector(state => state.addProduct.loading)
     const dispatch = useDispatch()
@@ -79,10 +82,12 @@ export const AddProduct = (props) => {
     }
 
     useEffect(() => {
-        setProduct()
-        setCheckWareHouse(0)
-        setDirect(0)
+        setDirect(false)
+        setCheckWareHouse(false)
     }, [props.show])
+
+    useEffect(() => {
+    }, [checkWareHouse])
 
     return (
         <Modal
@@ -90,23 +95,12 @@ export const AddProduct = (props) => {
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
-            className="mx-3 order-serach-modal"
+            className="mx-3 order-serach-modal--medium"
         >
             <Modal.Body className="add-product px-4">
                 <Button className="border-0 customer-modal-close--desktop" type="button" onClick={e => { props.onHide(false); setProductNameValidated(false); setProductPriceValidated(false) }}>
                     <img className="d-flex m-auto customer-modal-close-svg--desktop" src={closeIcon} alt="close-btn" />
                 </Button>
-                {/* {
-                    alert.message &&
-                    <>
-                        <div className="modal-backdrop show"></div>
-                        <Row className="justify-content-center text-center ">
-                            <Alert variant={alert.type}>
-                                {alert.message}
-                            </Alert>
-                        </Row>
-                    </>
-                } */}
                 <Form onSubmit={formHandler} >
                     <Row className="mt-3">
                         <Col className="col-12 order-filter-input">
@@ -144,16 +138,9 @@ export const AddProduct = (props) => {
                             </Form.Group>
                         </Col>
                     </Row>
-                    <Row className="p-0 m-0 my-1 mt-3">
-                        <Col className="col-6 ps-2 d-flex align-items-center">
-                            <input type="checkbox" id="pass" name="pass" className="btn-toggle-status-green" checked={checkWareHouse} onChange={() => setCheckWareHouse(!checkWareHouse)} />
-                            <span className="fw-bold pe-3">انبار</span>
-                        </Col>
-                        <Col className="col-6 pe-2 d-flex align-items-center">
-                            <input type="checkbox" id="fail" name="fail" className="btn-toggle-status-green" checked={direct} onChange={() => setDirect(!direct)} />
-                            <span className="fw-bold pe-3">مستقیم</span>
-                        </Col>
-                    </Row>
+
+                    <AddProductCheck checkWareHouse={checkWareHouse} setCheckWareHouse={setCheckWareHouse} direct={direct} setDirect={setDirect} />
+
                     <Row>
                         <Col>
                             {
@@ -169,7 +156,7 @@ export const AddProduct = (props) => {
                                         در حال انجام عملیات...
                                     </Button>
                                 ) : (
-                                    <Button className="fw-bold order-submit border-0 w-100 mt-4" size="lg" type="submit" block>
+                                    <Button className="radius-10 fs-6 py-2 fw-bold backgound--dark--blue border-0 w-100 mt-4" size="lg" type="submit" block>
                                         ثبت
                                     </Button>
                                 )

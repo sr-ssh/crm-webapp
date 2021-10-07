@@ -67,3 +67,54 @@
 .form-check-input:checked[type=radio] {
     background-image: none;
 }
+
+.btn-toggle-status-blue {
+    position: relative !important;
+    margin: 8;
+    box-sizing: content-box;
+    overflow: hidden;
+  }
+  .btn-toggle-status-blue:before {
+    content: "";
+    display: block;
+    box-sizing: content-box;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #ccc;
+    transition: 0.2s border-color ease;
+  }
+  .btn-toggle-status-blue--checked:before {
+    border-color: var(--dark--blue);
+  }
+  .btn-toggle-status-blue:checked:before {
+    border-color: var(--dark--blue);
+    transition: 0.5s border-color ease;
+  }
+  .btn-toggle-status-blue:after {
+    content: "";
+    display: block;
+    position: absolute;
+    box-sizing: content-box;
+    top: 50%;
+    left: 50%;
+    transform-origin: 50% 50%;
+    background-color: var(--dark--blue);
+    width: 16px;
+    height: 16px;
+    border-radius: 100vh;
+    transform: translate(-50%, -50%) scale(0);
+  }
+  .btn-toggle-status-blue[type="checkbox"]:before {
+    border-radius: 100vh;
+  }
+  .btn-toggle-status-blue[type="checkbox"]:after {
+    width: 16px;
+    height: 16px;
+    border-radius: 100vh;
+    transform: translate(-50%, -50%) scale(0);
+  }
+  .btn-toggle-status-blue[type="checkbox"]:checked:after {
+    -webkit-animation: toggleOnRadio 0.2s ease forwards;
+    -apple-animation: toggleOnRadio 0.2s ease forwards;
+    animation: toggleOnRadio 0.2s ease forwards;
+  }

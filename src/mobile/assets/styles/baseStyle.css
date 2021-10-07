@@ -127,3 +127,6 @@ body {
   background-color: var(--dark--blue);
   color: #fff;
 }
+.text--color--disabled {
+  color: var(--text-color-three);
+}

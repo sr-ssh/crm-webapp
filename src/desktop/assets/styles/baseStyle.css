@@ -146,6 +146,12 @@ body {
 .backgound--light--blue{
   background-color: var(--light-blue);
 }
+.backgound--dark--blue{
+  background-color: var(--dark-blue);
+}
 .radius-10{
   border-radius: 10px;
+}
+.text--color--disabled {
+  color: var(--text-color-four);
 }

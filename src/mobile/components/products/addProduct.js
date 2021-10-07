@@ -9,6 +9,8 @@ import { productActions } from '../../../actions';
 // Icons
 import closeIcon from '../../assets/images/close.svg'
 
+//components
+import { AddProductCheck } from './addProductCheck';
 
 export const AddProduct = (props) => {
 
@@ -80,10 +82,12 @@ export const AddProduct = (props) => {
     }
 
     useEffect(() => {
-        setProduct()
-        setCheckWareHouse(0)
-        setDirect(0)
+        setDirect(false)
+        setCheckWareHouse(false)
     }, [props.show])
+
+    useEffect(() => {
+    }, [checkWareHouse])
 
     return (
         <Modal
@@ -141,25 +145,16 @@ export const AddProduct = (props) => {
                         <Col>
                             <Form.Group controlId="description" className="order-filter-input mt-3">
                                 <Form.Label className="pe-3">توضیحات</Form.Label>
-                                <Form.Control name="productdescription" className="order-input border-0 h-100" as="textarea" rows={6} value={addProductLoading ? "" : null} onChange={handleChange} />
+                                <Form.Control name="productdescription" className="radius-10 border-0 h-100" as="textarea" rows="3" value={addProductLoading ? "" : null} onChange={handleChange} />
                             </Form.Group>
                         </Col>
                     </Row>
                     <Row>
-                    <Row className="p-0 m-0 my-1 mt-3">
-                        <Col className="col-6 ps-2 d-flex align-items-center">
-                            <input type="checkbox" id="pass" name="pass" className="btn-toggle-status-green" checked={checkWareHouse} onChange={() => setCheckWareHouse(!checkWareHouse)} />
-                            <span className="fw-bold pe-3">انبار</span>
-                        </Col>
-                        <Col className="col-6 pe-2 d-flex align-items-center">
-                            <input type="checkbox" id="fail" name="fail" className="btn-toggle-status-green" checked={direct} onChange={() => setDirect(!direct)} />
-                            <span className="fw-bold pe-3">مستقیم</span>
-                        </Col>
-                    </Row>
+                    <AddProductCheck checkWareHouse={checkWareHouse} setCheckWareHouse={setCheckWareHouse} direct={direct} setDirect={setDirect} />
                         <Col>
                             {
                                 addProductLoading ? (
-                                    <Button className="fw-bold order-submit border-0 w-100 mt-4" size="lg" type="submit" disabled>
+                                    <Button className="radius-10 fs-6 py-2 fw-bold backgound--dark--blue border-0 w-100 mt-4" size="lg" type="submit" disabled>
                                         <Spinner
                                             as="span"
                                             animation="grow"
@@ -170,7 +165,7 @@ export const AddProduct = (props) => {
                                         در حال انجام عملیات...
                                     </Button>
                                 ) : (
-                                    <Button className="fw-bold order-submit border-0 w-100 mt-4" size="lg" type="submit" block>
+                                    <Button className="radius-10 fs-6 py-2 fw-bold backgound--dark--blue border-0 w-100 mt-4" size="lg" type="submit" block>
                                         ثبت
                                     </Button>
                                 )
