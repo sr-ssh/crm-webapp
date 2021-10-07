@@ -19,6 +19,8 @@ export const OrderSetting = () => {
     const dispatch = useDispatch();
     const [configSettingOrder, setConfigSettingOrder] = useState({ share: {}, preSms: {}, postDeliverySms: {}, postCustomerSms: {} })
     let settingOrder = useSelector(state => state.getSettingOrder)
+    let editsettingOrder = useSelector(state => state.editSettingOrder)
+
     const sideBar = useSelector(state => state.sideBar)
 
     let toggleHandler = (e) => {
@@ -140,7 +142,7 @@ export const OrderSetting = () => {
                             </Col>
                             <Col className="p-0 col-4 d-flex align-items-center justify-content-start">
                                 <Form.Group controlId="defaultReminder" className=" form-grp--setting--desktop">
-                                    <Form.Control type="number" name="shareText" id="share" className="order-setting-field--desktop m-auto" onChange={toggleHandler} />
+                                    <Form.Control type="number" name="shareText" id="share" className="order-setting-field--desktop m-auto" onChange={toggleHandler} min="1" defaultValue={configSettingOrder.share.time} />
                                     <span className="ms-3">{getUnitTimeText(configSettingOrder.share.unitTime)}</span>
                                 </Form.Group>
                             </Col>
@@ -197,9 +199,9 @@ export const OrderSetting = () => {
                     </Form.Group>
                     <Row className="m-0 p-0 w-100 mb-3">
                         <Col className="m-0 p-0 col-12">
-                            <Button variant="primary" type="submit" className="w-100 m-0 p-0 py-2 mt-5 btn-dark-blue notes-round" onClick={HandleSubmit}>
-                                {/* {
-                                    editOrderSms.loading ?
+                            <Button variant="primary" type="submit" className="w-100 m-0 p-0 py-2 mt-5 btn-dark-blue notes-round" onClick={HandleSubmit} disabled={editsettingOrder.loading}>
+                                {
+                                    editsettingOrder.loading ?
                                         <Spinner
                                             as="span"
                                             animation="grow"
@@ -210,8 +212,7 @@ export const OrderSetting = () => {
                                         />
                                         :
                                         <> ثبت </>
-                                } */}
-                                <> ثبت </>
+                                }
 
                             </Button>
                         </Col>
