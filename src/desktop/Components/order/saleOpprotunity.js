@@ -61,12 +61,12 @@ export const SaleOpprotunity = () => {
 
             <div className="product-page orders w-100 margin--top--header mb-5" style={{ paddingRight: sideBar.open ? "250px" : 0 }}>
                 <Container fluid className="m-0 mt-5 w-100 d-flex justify-content-center flex-wrap " >
-                    {
+                    {/* {
                         orderLoading &&
                         <Col className="col-3 mt-5 m-auto d-block align-self-center w-100 mb-4 ">
                             <Spinner className="m-auto d-block" animation="border" />
                         </Col>
-                    }
+                    } */}
                     {
                         (orders.length === 0 && !orderLoading) ? (
                             <Row className="justify-content-center align-items-center no-result-filter">

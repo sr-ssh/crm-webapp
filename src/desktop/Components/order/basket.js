@@ -30,6 +30,8 @@ export const Basket = ({ order, insertOrder, totalPrice, insertPrice, selectedIt
             name: product.name,
             quantity: parseInt(quantity),
             sellingPrice: product.sellingPrice,
+            ingredients: product.ingredients,
+            checkWareHouse: product.checkWareHouse
         };
         console.log(newOrder.quantity, order)
         const isOrderPresent = order.some((item) => item._id === product._id);
