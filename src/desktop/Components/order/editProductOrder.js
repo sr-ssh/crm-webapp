@@ -157,7 +157,7 @@ export const EditeProductOrder = (props) => {
         }
     }
     let quantityOrderHandler = (e) => {
-        let value = persianJs(e.target.value).toEnglishNumber().toString()
+        let value = e.target.value ? persianJs(e.target.value).toEnglishNumber().toString() : null
         if (value == "0") {
             setQuantityOrder(true)
         } else {
