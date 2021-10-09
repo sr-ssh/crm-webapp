@@ -94,7 +94,7 @@ export const AddOrder = () => {
                 dispatch(orderActions.addOrder(order, customer, notes, 3))
             else
                 dispatch(orderActions.addOrder(order, customer, notes))
-            setCustomer({ mobile: "", address: "", family: "", reminder: "", duration: "", company: "" })
+            setCustomer({ mobile: "", address: "", family: "", reminder: "", duration: "", company: "", lastAddress: "" })
             insertOrder([])
             setNotes([])
             insertPrice("0")
@@ -128,7 +128,7 @@ export const AddOrder = () => {
     // }
     useEffect(() => {
         if (oldCustomer?.mobile)
-            setCustomer({ ...customer, ...oldCustomer })
+            setCustomer({ ...customer, ...oldCustomer, address: oldCustomer.lastAddress })
     }, [oldCustomer])
     useEffect(() => {
         if (addOrderLoading)
