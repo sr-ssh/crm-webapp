@@ -52,6 +52,7 @@ export const EditProduct = ({ item, order, removeOrder, validationInputPrice, ed
     };
 
     const handlePrice = (e) => {
+        editPriceProduct(item, e.target.value)
         setInputCurrentPriceProduct(e.target.value)
     }
 
@@ -64,8 +65,11 @@ export const EditProduct = ({ item, order, removeOrder, validationInputPrice, ed
                 <td>{item.name && persianJs(item.name).englishNumber().toString()}</td>
                 {editPriceCurrentProduct ?
                     <td className={`m-0 px-0 d-flex`} style={{ width: "135px" }} >
-                        <img src={tickGreenIcon} className="ms-2" alt="tick-icon" style={{ width: "20px" }} onClick={() => { editPriceProduct(item, inputCurrentPriceProduct); setEditPriceCurrentProduct(false) }} />
-                        <img src={deleteRedIcon} className="ms-2" alt="delete-icon" style={{ width: "20px" }} onClick={() => setEditPriceCurrentProduct(false)} />
+                        <img src={editIcon} className="ms-1 " alt="edit-icon" style={{ width: "33px" }}
+                        //  onClick={() => setEditPriceCurrentProduct(true)}
+                        />
+                        {/* <img src={tickGreenIcon} className="ms-2" alt="tick-icon" style={{ width: "20px" }} onClick={() => { editPriceProduct(item, inputCurrentPriceProduct); setEditPriceCurrentProduct(false) }} /> */}
+                        {/* <img src={deleteRedIcon} className="ms-2" alt="delete-icon" style={{ width: "20px" }} onClick={() => setEditPriceCurrentProduct(false)} /> */}
                         <Form.Control className={`notes-round ${validationInputPrice ? 'border border-danger' : null}`} min="1" type="number" defaultValue={item.sellingPrice} onChange={handlePrice} />
                     </td>
                     :
