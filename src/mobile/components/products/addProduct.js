@@ -136,7 +136,7 @@ export const AddProduct = (props) => {
                                 <Form.Control name="productprice" className="order-input"
                                     type="tel"
                                     inputMode="tel"
-                                    pattern="[0-9]*"
+                                    pattern="[0-9 ۰-۹]*"
                                     value={addProductLoading ? "" : null}
                                     onChange={handleChange}
                                     isInvalid={(!product?.sellingPrice && productpriceValidated)}
