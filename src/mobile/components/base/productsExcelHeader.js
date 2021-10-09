@@ -1,5 +1,6 @@
 import React from 'react';
 import { Navbar, Nav, Col } from 'react-bootstrap';
+import { history } from '../../../helpers/history'
 
 import backIcon from './../../assets/images/back.svg'
 import plusIcon from './../../assets/images/Products/pluss-dark-blue.svg'
@@ -23,7 +24,7 @@ export const Header = ({ title, getExcel, setModalShow, userPermission }) => {
                             }
                         </Col>
                         <Navbar.Text className="fs-6 fw-normal text-light noPrint">{title}</Navbar.Text>
-                        <Nav.Link href="/dashboard" className="ps-4"><img src={backIcon} height="28px" alt="back-icon" /></Nav.Link>
+                        <Nav.Link onClick={() => history.push('/dashboard')} className="ps-4"><img src={backIcon} height="28px" alt="back-icon" /></Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
