@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import { Modal, Button, Row, Col, Form } from 'react-bootstrap'
 import moment from 'jalali-moment';
 import DatePicker from "react-multi-date-picker";
+import persianJs from 'persianjs/persian.min';
 
 // Actions
 import { customerActions } from '../../../actions/customerActions';
@@ -11,7 +12,7 @@ import closeIcon from '../../assets/images/close.svg'
 
 export const CustomerSearch = (props) => {
 
-    const {filters, setFilters} = props
+    const { filters, setFilters } = props
     let [check1, setCheck1] = useState(false)
     let [check0, setCheck0] = useState(false)
     let [check2, setCheck2] = useState(true)
@@ -19,30 +20,34 @@ export const CustomerSearch = (props) => {
 
     const handleChange = (e) => {
         console.log("handlechange", e.target)
-        
-        if (e.target.id === 'active1'){
+
+        if (e.target.id === 'active1') {
             setFilters({ ...filters, orderStatus: 1 })
             setCheck0(false)
             setCheck1(true)
             setCheck2(false)
         }
-        else if (e.target.id === 'active0'){
+        else if (e.target.id === 'active0') {
             setFilters({ ...filters, orderStatus: 0 })
             setCheck0(true)
             setCheck1(false)
             setCheck2(false)
         }
-        else if (e.target.id === 'active2'){
+        else if (e.target.id === 'active2') {
             setFilters({ ...filters, orderStatus: 2 })
             setCheck0(false)
             setCheck1(false)
             setCheck2(true)
         }
-        else{
+        else if (e.target.name === 'mobile') {
+            setFilters({ ...filters, [e.target.name]: e.target.value ? persianJs(e.target.value).toEnglishNumber().toString() : null })
+
+        }
+        else {
             setFilters({ ...filters, [e.target.name]: e.target.value })
         }
-           
-            console.log(filters)
+
+        console.log(filters)
     }
 
     const formHandler = (e) => {
@@ -81,7 +86,9 @@ export const CustomerSearch = (props) => {
                         <Col className="col-6  order-filter-input">
                             <Form.Group>
                                 <Form.Label className="pe-2">موبایل</Form.Label>
-                                <Form.Control style={{ "width": "94%" }} className="order-input h-100" type="number" name="mobile" value={filters.mobile} onChange={handleChange} />
+                                <Form.Control style={{ "width": "94%" }} className="order-input h-100" type="tel"
+                                    inputMode="tel"
+                                    pattern="[0-9]*" name="mobile" value={filters.mobile} onChange={handleChange} />
                             </Form.Group>
                         </Col>
                     </Row>

@@ -50,9 +50,7 @@ export const EditProduct = (props) => {
             value = productnameHandler(value)
         // product sellingPrice validation  
         if (id === 'sellingPrice' && value.length) {
-            value = productpriceHandler(value)
-            if (value != undefined)
-                value = persianJs(value).toEnglishNumber().toString();
+            value = persianJs(value).toEnglishNumber().toString();
         }
         if (id === 'active1')
             setnewProduct({ ...newProduct, active: true })
@@ -131,7 +129,11 @@ export const EditProduct = (props) => {
                         <Col className="col-6 order-filter-input">
                             <Form.Group controlId="sellingPrice">
                                 <Form.Label className="pe-3">قیمت</Form.Label>
-                                <Form.Control className="order-input" type="number" min="0" defaultValue={props.product.sellingPrice}
+                                <Form.Control className="order-input"
+                                    type="tel"
+                                    inputMode="tel"
+                                    pattern="[0-9]*"
+                                    defaultValue={props.product.sellingPrice}
                                     onChange={handleChange}
                                     isInvalid={((!newProduct.sellingPrice && validated) || (productpriceValidated) && true)}
                                     isValid={((newProduct.sellingPrice && validated) || (productpriceValidated && newProduct.sellingPrice) && true)}

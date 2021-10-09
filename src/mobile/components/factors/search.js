@@ -4,6 +4,8 @@ import { Modal, Button, Row, Col, Form } from 'react-bootstrap'
 //import { DatePicker } from "jalali-react-datepicker";
 import DatePicker from "react-multi-date-picker";
 import moment from 'jalali-moment';
+import persianJs from 'persianjs/persian.min';
+
 // Actions
 import { receiptActions } from '../../../actions';
 // Icons
@@ -17,6 +19,8 @@ export const FactorSearch = (props) => {
 
     const handleChange = (e) => {
         e.preventDefault()
+        if (e.target.name == "supplierMobile")
+            e.target.value = persianJs(e.target.value).toEnglishNumber().toString()
         setFilters({ ...filters, [e.target.name]: e.target.value })
     }
 
@@ -55,7 +59,10 @@ export const FactorSearch = (props) => {
                         <Col className="col-6  order-filter-input">
                             <Form.Group>
                                 <Form.Label className="pe-2">موبایل</Form.Label>
-                                <Form.Control style={{ "width": "94%" }} className="order-input" type="number" name="supplierMobile" value={filters.supplierMobile} onChange={handleChange} />
+                                <Form.Control style={{ "width": "94%" }} className="order-input"
+                                    type="tel"
+                                    inputMode="tel"
+                                    pattern="[0-9]*" name="supplierMobile" value={filters.supplierMobile} onChange={handleChange} />
                             </Form.Group>
                         </Col>
                     </Row>

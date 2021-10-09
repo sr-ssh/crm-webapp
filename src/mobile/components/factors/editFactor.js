@@ -153,11 +153,13 @@ export const EditFactor = (props) => {
         }
     }
     let quantityFactorHandler = (e) => {
-        if (e.target.value == "0") {
+        let value = persianJs(e.target.value).toEnglishNumber().toString()
+
+        if (value == "0") {
             setQuantityFactor(true)
         } else {
             setQuantityFactor(false);
-            setQuantity(e.target.value || 1);
+            setQuantity(value || 1);
         }
     }
 
@@ -238,10 +240,11 @@ export const EditFactor = (props) => {
                                                 <Form.Control
                                                     placeholder="تعداد"
                                                     value={Number.isInteger(quantity) ? "" : quantity}
-                                                    onChange={(e) => quantityFactorHandler(e)}
+                                                    onChange={quantityFactorHandler}
                                                     className={` order-input--desktop text-center ${quantityFactor ? 'border border-danger' : null}`}
-                                                    type="number"
-                                                    min="1"
+                                                    type="tel"
+                                                    inputMode="tel"
+                                                    pattern="[0-9]*"
                                                     name="duration"
                                                     style={{ 'maxHeight': '35px' }} >
                                                 </Form.Control>

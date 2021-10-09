@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Container, Form, Button, Row, Col, Alert, Spinner } from 'react-bootstrap';
 import "react-multi-date-picker/styles/layouts/mobile.css";
+import persianJs from 'persianjs/persian.min';
 
 // Actions
 import { alertActions } from '../../../actions/alertActions';
@@ -37,8 +38,9 @@ export const AddFactor = () => {
 
     let mobileHandler = (value) => {
         const number = value;
-        const patt = /^(09)(\d{9})/m;
-        let res = patt.test(number) && number.length === 11;
+        // const patt = /^(09)(\d{9})/m;
+        // patt.test(number) &&
+        let res = number.length === 11;
         if (res) {
 
             setMobileValidated(false)
@@ -71,7 +73,7 @@ export const AddFactor = () => {
         let value = e.target.value
         let name = e.target.name
         if (name === "mobile") {
-            value = mobileHandler(value)
+            value = value ? mobileHandler(persianJs(value).toEnglishNumber().toString()) : undefined
         }
         if (name === "family") {
             value = nameHandler(value)
@@ -133,7 +135,11 @@ export const AddFactor = () => {
                         <Col className="p-0 col-5 add-order-input">
                             <Form.Group>
                                 <Form.Label className="pe-2">موبایل</Form.Label>
-                                <Form.Control className="order-input" type="number" name="mobile"
+                                <Form.Control className="order-input"
+                                    type="tel"
+                                    inputMode="tel"
+                                    pattern="[0-9]*"
+                                    name="mobile"
                                     isInvalid={((!customer.mobile && validated) || (mobileValidated) && true)}
                                     isValid={((customer.mobile && validated) || (mobileValidated && customer.mobile) && true)}
                                     onChange={handleChange}
@@ -162,7 +168,7 @@ export const AddFactor = () => {
                             </Form.Group>
                         </Col>
                     </Row>
-                    <Row className="m-0 p-0 mt-0 order-inputs" style={{'position': 'relative', 'top': '-2vh'}}>
+                    <Row className="m-0 p-0 mt-0 order-inputs" style={{ 'position': 'relative', 'top': '-2vh' }}>
                         <Col className="p-0 add-order-input">
                             <Form.Group controlId="address">
                                 <Form.Label className="pe-2">آدرس</Form.Label>
@@ -213,7 +219,7 @@ export const AddFactor = () => {
                                         }
                                     </span>
                                 </Col>
-                               
+
                             </Button>
                         </Col>
                     </Row>

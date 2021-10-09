@@ -115,12 +115,12 @@ export const EditeProductOrder = (props) => {
         await insertOrder(props.order.products)
         await setAddressUser(props.order.address)
         props.order.customer && await setCompanyName({
-            company: props.order.customer.company, 
+            company: props.order.customer.company,
             nationalCard: props.order.customer.nationalCard,
             financialCode: props.order.customer.financialCode,
             registerNo: props.order.customer.registerNo,
-            postalCode:  props.order.customer.postalCode
-         })
+            postalCode: props.order.customer.postalCode
+        })
         let total = 0
         props.order.products?.map(item => {
             total += item.sellingPrice * item.quantity;
@@ -138,7 +138,7 @@ export const EditeProductOrder = (props) => {
         setAddressUser(e.target.value)
     }
     let companyNameInputHandler = e => {
-        setCompanyName({...companyName, [e.target.name]: e.target.value })
+        setCompanyName({ ...companyName, [e.target.name]: e.target.value })
     }
     const formHandler = (e) => {
         e.preventDefault();
@@ -151,7 +151,7 @@ export const EditeProductOrder = (props) => {
                 address: addressUser || ""
             };
 
-            dispatch(orderActions.editProductOrder({...params, ...companyName}))
+            dispatch(orderActions.editProductOrder({ ...params, ...companyName }))
 
             setTimeout(() => {
                 dispatch(orderActions.getOrders({ status: props.status || " " }))
@@ -160,11 +160,12 @@ export const EditeProductOrder = (props) => {
         }
     }
     let quantityOrderHandler = (e) => {
-        if (e.target.value == "0") {
+        let value = persianJs(e.target.value).toEnglishNumber().toString()
+        if (value == "0") {
             setQuantityOrder(true)
         } else {
             setQuantityOrder(false);
-            setQuantity(e.target.value || 1);
+            setQuantity(value || 1);
         }
     }
 
@@ -197,7 +198,7 @@ export const EditeProductOrder = (props) => {
                     props.show &&
                     <Form onSubmit={formHandler}>
                         <Container className="m-0 p-0 mx-auto d-flex flex-column justify-content-between">
-                            
+
                             <Row className="m-0 p-0 mt-2" >
                                 <Col className="p-0 ">
                                     <Card className="border-0 bg-transparent text-light">
@@ -238,7 +239,7 @@ export const EditeProductOrder = (props) => {
                                         <Form.Label className="pe-3">آدرس</Form.Label>
                                         <Form.Control className="order-input address-input" type="text"
                                             defaultValue={props.order.address}
-                                            onChange={addressInputHandler} 
+                                            onChange={addressInputHandler}
                                         />
                                     </Card>
                                 </Col>
@@ -305,10 +306,11 @@ export const EditeProductOrder = (props) => {
                                                 <Form.Control
                                                     placeholder="تعداد"
                                                     value={Number.isInteger(quantity) ? "" : quantity}
-                                                    onChange={(e) => quantityOrderHandler(e)}
+                                                    onChange={quantityOrderHandler}
                                                     className={` order-input--desktop text-center ${quantityOrder ? 'border border-danger' : null}`}
-                                                    type="number"
-                                                    min="1"
+                                                    type="tel"
+                                                    inputMode="tel"
+                                                    pattern="[0-9]*"
                                                     name="duration"
                                                     style={{ 'maxHeight': '35px' }} >
                                                 </Form.Control>
