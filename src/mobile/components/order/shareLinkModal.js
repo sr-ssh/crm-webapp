@@ -92,9 +92,7 @@ export const ShareLinkModal = (props) => {
                     <>
                         <Container className="my-1 h-100  d-flex justify-content-center align-items-center flex-wrap" >
                             <Col className="col-3 mt-2 m-auto d-block align-self-center w-100 mb-4 ">
-                                <h6 className="mt-2 text-center lh-lg ">ابتدا اطلاعات مشتری را وارد کنید </h6>
-                                <br />
-                                <h6 className="mb-2 text-center text--dark--blue" style={{ cursor: "pointer" }} onClick={() => { props.onHide(false); props.customerInfoModal() }} >اطلاعات مشتری</h6>
+                                <h6 className="mt-2 text-center lh-lg ">ابتدا اطلاعات مشتری را از ویرایش سفارش وارد کنید </h6>
                             </Col>
                         </Container>
                     </>
