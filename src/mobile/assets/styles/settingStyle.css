@@ -151,3 +151,98 @@ input::-webkit-input-placeholder {
   transition-delay: 0.2s !important;
   transition: all 0.25s cubic-bezier(0, 1.05, 0.72, 1.07);
 }
+.btn-toggle-status-setting--sms--mobile {
+  position: relative !important;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 8px;
+  box-sizing: content-box;
+  overflow: hidden;
+}
+.btn-toggle-status-setting--sms--mobile:before {
+  content: "";
+  display: block;
+  box-sizing: content-box;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #ccc;
+  transition: 0.2s border-color ease;
+}
+.btn-toggle-status-setting--sms--mobile:checked:before {
+  border-color: var(--dark--blue);
+  transition: 0.5s border-color ease;
+}
+.btn-toggle-status-setting--sms--mobile:after {
+  content: "";
+  display: block;
+  position: absolute;
+  box-sizing: content-box;
+  top: 50%;
+  left: 50%;
+  transform-origin: 50% 50%;
+  background-color: var(--dark--blue);
+  width: 16px;
+  height: 16px;
+  border-radius: 100vh;
+  transform: translate(-50%, -50%) scale(0);
+}
+.btn-toggle-status-setting--sms--mobile[type="checkbox"]:before {
+  border-radius: 100vh;
+}
+.btn-toggle-status-setting--sms--mobile[type="checkbox"]:after {
+  width: 16px;
+  height: 16px;
+  border-radius: 100vh;
+  transform: translate(-50%, -50%) scale(0);
+}
+.btn-toggle-status-setting--sms--mobile[type="checkbox"]:checked:after {
+  -webkit-animation: toggleOnRadio 0.2s ease forwards;
+  animation: toggleOnRadio 0.2s ease forwards;
+}
+@-webkit-keyframes toggleOnRadio {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+  }
+  70% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+}
+@keyframes toggleOnRadio {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+  }
+  70% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+}
+.inactive--text--input--sms--mobile {
+  color: #5e5e5e;
+}
+.form-grp--setting--mobile {
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 15px;
+}
+.form-grp--setting--mobile input[type="number"] {
+  color: #000;
+}
+.form-grp--setting--mobile span {
+  color: var(--text-color-three);
+  font-size: 14px;
+}
+.fs-15px {
+  font-size: 15px;
+}

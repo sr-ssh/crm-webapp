@@ -54,12 +54,14 @@ export const AddProduct = (props) => {
         e.preventDefault()
         let value = e.target.value
         let name = e.target.name
-        if (name === "productname") {
-            value = productnameHandler(value)
-        }
-        if (name === "productprice") {
-            value = productpriceHandler(value)
-        }
+        // if (name === "productname") {
+        //     // value = productnameHandler(value)
+        //     value =value
+
+        // }
+        // if (name === "productprice") {
+        //     value = productpriceHandler(value)
+        // }
         if (e.target.id === 'sellingPrice' && value?.length)
             value = persianJs(value).toEnglishNumber().toString();
         setProduct({ ...product, [e.target.id]: value })
@@ -68,7 +70,7 @@ export const AddProduct = (props) => {
     let formHandler = (e) => {
         e.preventDefault()
         if (product?.name && product?.sellingPrice) {
-            dispatch(productActions.addProduct({...product, checkWareHouse, direct}))
+            dispatch(productActions.addProduct({ ...product, checkWareHouse, direct }))
             setProduct({ name: "", sellingPrice: "", description: "" })
             setCheckWareHouse(0)
             setDirect(0)
@@ -150,7 +152,7 @@ export const AddProduct = (props) => {
                         </Col>
                     </Row>
                     <Row>
-                    <AddProductCheck checkWareHouse={checkWareHouse} setCheckWareHouse={setCheckWareHouse} direct={direct} setDirect={setDirect} />
+                        <AddProductCheck checkWareHouse={checkWareHouse} setCheckWareHouse={setCheckWareHouse} direct={direct} setDirect={setDirect} />
                         <Col>
                             {
                                 addProductLoading ? (
