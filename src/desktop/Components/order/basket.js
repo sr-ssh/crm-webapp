@@ -19,12 +19,12 @@ export const Basket = ({ order, insertOrder, totalPrice, insertPrice, selectedIt
     const dispatch = useDispatch()
 
     let checkProductSupply = (product, prevQuantity) => {
-        if(product.checkWareHouse){
+        if (product.checkWareHouse) {
             let check = !product.ingredients.some(stock => stock.stock.amount < stock.amount * (parseInt(quantity) + prevQuantity))
-            if(!check)
+            if (!check)
                 dispatch(alertActions.error('موجودی محصول کافی نیست'))
             return check
-        } 
+        }
         else return true
     }
 
@@ -48,18 +48,18 @@ export const Basket = ({ order, insertOrder, totalPrice, insertPrice, selectedIt
         if (isOrderPresent) {
             const updatedOrder = order.map((item) => {
                 if (item._id === product._id) {
-                    if (checkProductSupply(product, item.quantity)){
+                    if (checkProductSupply(product, item.quantity)) {
                         insertPrice(parseInt(totalPrice) + (parseInt(quantity) * parseInt(product.sellingPrice)))
                         return { ...item, quantity: item.quantity + parseInt(quantity) };
                     }
-                        
+
                     else return item
                 }
                 return item;
             });
             insertOrder(updatedOrder);
         } else {
-            if (checkProductSupply(newOrder, 0)){
+            if (checkProductSupply(newOrder, 0)) {
                 insertPrice(parseInt(totalPrice) + (parseInt(quantity) * parseInt(product.sellingPrice)))
                 insertOrder((prevOrderState) => [...prevOrderState, newOrder]);
             }
@@ -78,12 +78,14 @@ export const Basket = ({ order, insertOrder, totalPrice, insertPrice, selectedIt
         dispatch(productActions.getProducts())
     }
     let quantityOrderHandler = (e) => {
-        if (e.target.value == "0") {
+        let value = persianJs(e.target.value).toEnglishNumber().toString()
+        if (value == "0") {
             setQuantityOrder(true)
         } else {
             setQuantityOrder(false);
-            setQuantity(e.target.value || 1);
+            setQuantity(value || 1);
         }
+
     }
     return (
         <>
@@ -124,10 +126,11 @@ export const Basket = ({ order, insertOrder, totalPrice, insertPrice, selectedIt
                                 <Form.Control
                                     placeholder="تعداد"
                                     value={Number.isInteger(quantity) ? "" : quantity}
-                                    onChange={(e) => quantityOrderHandler(e)}
+                                    onChange={quantityOrderHandler}
                                     className={` order-input--desktop text-center ${quantityOrder ? 'border border-danger' : null}`}
-                                    type="number"
-                                    min="1" 
+                                    type="tel"
+                                    inputMode="tel"
+                                    pattern="[0-9]*"
                                     name="duration"
                                     style={{ 'maxHeight': '40px' }} >
                                 </Form.Control>

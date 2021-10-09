@@ -58,19 +58,23 @@ export const Basket = ({ order, insertOrder, totalPrice, insertPrice, selectedIt
         dispatch(stockActions.getStock())
     }
     let quantityOrderHandler = (e) => {
-        if (e.target.value == "0") {
+        let value = persianJs(e.target.value).toEnglishNumber().toString()
+
+        if (value == "0") {
             setQuantityOrder(true)
         } else {
             setQuantityOrder(false);
-            setQuantity(e.target.value || 1);
+            setQuantity(value || 1);
         }
     }
     let priceOrderHandler = (e) => {
-        if (e.target.value == "") {
+        let value = persianJs(e.target.value).toEnglishNumber().toString()
+
+        if (value == "") {
             setPriceOrder(true)
         } else {
             setPriceOrder(false);
-            setPrice(e.target.value || 1);
+            setPrice(value || 1);
         }
     }
 
@@ -79,7 +83,7 @@ export const Basket = ({ order, insertOrder, totalPrice, insertPrice, selectedIt
             <Row>
                 <Card className="border-0 p-3 pt-2  basketContainer reciept--basket--card">
                     <Card.Body className="mt-2 mx-3 p-0 basket-flex--desktop">
-                    <Form.Label className="me-2">سبد خرید</Form.Label>
+                        <Form.Label className="me-2">سبد خرید</Form.Label>
                         <Row className="justify-content-evenly">
                             <Col className="col-5 p-0 m-0">
                                 <Dropdown onToggle={(e) => setDimStatus(!dimStatus)} onClick={(e) => productHandler(e)}>
@@ -114,8 +118,9 @@ export const Basket = ({ order, insertOrder, totalPrice, insertPrice, selectedIt
                                     value={Number.isInteger(price) ? "" : price}
                                     onChange={(e) => priceOrderHandler(e)}
                                     className={`order-input--desktop text-center ${priceOrder ? 'border border-danger' : null}`}
-                                    type="number"
-                                    min="0"
+                                    type="tel"
+                                    inputMode="tel"
+                                    pattern="[0-9]*"
                                     name="price"
                                     style={{ 'maxHeight': '40px' }} >
                                 </Form.Control>
@@ -125,10 +130,11 @@ export const Basket = ({ order, insertOrder, totalPrice, insertPrice, selectedIt
                                 <Form.Control
                                     placeholder="تعداد"
                                     value={Number.isInteger(quantity) ? "" : quantity}
-                                    onChange={(e) => quantityOrderHandler(e)}
+                                    onChange={quantityOrderHandler}
                                     className={` order-input--desktop text-center ${quantityOrder ? 'border border-danger' : null}`}
-                                    type="number"
-                                    min="1"
+                                    type="tel"
+                                    inputMode="tel"
+                                    pattern="[0-9]*"
                                     name="quantity"
                                     style={{ 'maxHeight': '40px' }} >
                                 </Form.Control>

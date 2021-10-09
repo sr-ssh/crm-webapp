@@ -166,11 +166,13 @@ export const EditFactor = (props) => {
         }
     }
     let quantityFactorHandler = (e) => {
-        if (e.target.value == "0") {
+        let value = persianJs(e.target.value).toEnglishNumber().toString()
+
+        if (value == "0") {
             setQuantityFactor(true)
         } else {
             setQuantityFactor(false);
-            setQuantity(e.target.value || 1);
+            setQuantity(value || 1);
         }
     }
 
@@ -249,8 +251,9 @@ export const EditFactor = (props) => {
                                                 value={Number.isInteger(quantity) ? "" : quantity}
                                                 onChange={(e) => quantityFactorHandler(e)}
                                                 className={` order-input--desktop text-center ${quantityFactor ? 'border border-danger' : null}`}
-                                                type="number"
-                                                min="1"
+                                                type="tel"
+                                                inputMode="tel"
+                                                pattern="[0-9]*"
                                                 name="duration"
                                                 style={{ 'maxHeight': '35px' }} >
                                             </Form.Control>
@@ -287,7 +290,9 @@ export const EditFactor = (props) => {
                                                                                 <td className={`m-0 px-0 ${(editPriceCurrentProduct || item.price == undefined) ? "d-flex" : null} `} style={{ width: "155px" }}>
                                                                                     <img src={tickIcon} onClick={(e) => editPriceStock(e, item)} className="ms-2" alt="tick-icon" style={{ width: "20px" }} />
                                                                                     <img src={deleteeIcon} onClick={(e) => { if (item.price != undefined) { setEditPriceCurrentProduct(false); setGetTotalPriceLoading(false) } setInputCurrentPriceProductValidation(false) }} className="ms-2" alt="delete-icon" style={{ width: "20px" }} />
-                                                                                    <Form.Control className={`notes-round ${inputCurrentPriceProductValidation ? 'border border-danger' : null}`} min="1" type="number" defaultValue={item.price} onChange={e => setInputCurrentPriceProduct(e.target.value)} />
+                                                                                    <Form.Control className={`notes-round ${inputCurrentPriceProductValidation ? 'border border-danger' : null}`} min="1" type="tel"
+                                                                                        inputMode="tel"
+                                                                                        pattern="[0-9]*" defaultValue={item.price} onChange={e => setInputCurrentPriceProduct(e.target.value && persianJs(e.target.value).toEnglishNumber().toString())} />
                                                                                 </td>
                                                                             </>
                                                                             :

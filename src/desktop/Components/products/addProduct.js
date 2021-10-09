@@ -120,10 +120,9 @@ export const AddProduct = (props) => {
                         <Col className="col-12 order-filter-input">
                             <Form.Group controlId="sellingPrice">
                                 <Form.Label className="pe-3">قیمت (تومان)</Form.Label>
-                                <Form.Control name="productprice" className="order-input" type="number" min="0"
+                                <Form.Control name="productprice" className="order-input" type="tel" min="0"
                                     value={addProductLoading ? "" : null}
                                     onChange={handleChange}
-
                                     isInvalid={(!product?.sellingPrice && productpriceValidated)}
                                     isValid={((product?.sellingPrice && validated) || (productpriceValidated && product?.sellingPrice) && true)}
                                 />
