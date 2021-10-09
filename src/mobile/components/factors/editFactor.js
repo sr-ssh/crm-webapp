@@ -153,7 +153,7 @@ export const EditFactor = (props) => {
         }
     }
     let quantityFactorHandler = (e) => {
-        let value = persianJs(e.target.value).toEnglishNumber().toString()
+        let value = e.target.value ? persianJs(e.target.value).toEnglishNumber().toString() : null
 
         if (value == "0") {
             setQuantityFactor(true)

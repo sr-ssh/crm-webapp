@@ -75,7 +75,7 @@ export const AddOrder = () => {
         let value = e.target.value
         let name = e.target.name
         if (name === "mobile") {
-            value = mobileHandler(persianJs(value).toEnglishNumber().toString())
+            value = value ? mobileHandler(persianJs(value).toEnglishNumber().toString()) : undefined
         }
         if (name === "family") {
             value = nameHandler(value)
