@@ -4,6 +4,7 @@ import { Container, Form, Button, Row, Col, Alert, Spinner } from 'react-bootstr
 import DatePicker from "react-multi-date-picker";
 import moment from 'jalali-moment';
 import "react-multi-date-picker/styles/layouts/mobile.css";
+import persianJs from 'persianjs/persian.min';
 
 // Actions
 import { alertActions } from '../../../actions/alertActions';
@@ -39,8 +40,9 @@ export const AddOrder = () => {
 
     let mobileHandler = (value) => {
         const number = value;
-        const patt = /^(09)(\d{9})/m;
-        let res = patt.test(number) && number.length === 11;
+        // const patt = /^(09)(\d{9})/m;
+        // patt.test(number) &&
+        let res = number.length === 11;
         if (res) {
 
             setMobileValidated(false)
@@ -73,7 +75,7 @@ export const AddOrder = () => {
         let value = e.target.value
         let name = e.target.name
         if (name === "mobile") {
-            value = mobileHandler(value)
+            value = mobileHandler(persianJs(value).toEnglishNumber().toString())
         }
         if (name === "family") {
             value = nameHandler(value)
@@ -138,7 +140,11 @@ export const AddOrder = () => {
                         <Col className="p-0 col-5 add-order-input">
                             <Form.Group>
                                 <Form.Label className="pe-2">موبایل</Form.Label>
-                                <Form.Control className="order-input" type="number" name="mobile"
+                                <Form.Control className="order-input"
+                                    type="tel"
+                                    inputMode="tel"
+                                    pattern="[0-9]*"
+                                    name="mobile"
                                     isInvalid={((!customer.mobile && validated) || (mobileValidated) && true)}
                                     isValid={((customer.mobile && validated) || (mobileValidated && customer.mobile) && true)}
                                     onChange={handleChange}
