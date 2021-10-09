@@ -41,34 +41,29 @@ export const FinancialCheckModal = (props) => {
             centered
             backdrop="static"
         >
-            <Modal.Body className="add-product px-4">
+            <Modal.Body className="add-product px-3">
                 <Button className="border-0 customer-modal-close" type="button" onClick={e => props.onHide(false)}>
                     <img className="d-flex m-auto customer-modal-close-svg" src={closeIcon} alt="close-btn" />
                 </Button>
                 <Card className="notes-round">
                     <Card.Body>
-                        {/* <Col className="col-12 ps-2 d-flex align-items-center justify-content-center">
-                            <input type="checkbox" id="formal" name="formal" className="btn-toggle-status-green  btn-toggle-status-green--checked" onChange={toggleHandler} />
-                            <span className="fw-bold">تایید</span>
-                            <span className="pe-2 text-success">
-                                مالی
-                            </span>
-                        </Col> */}
                         <Row>
                         <Row className="p-0 m-0 my-1">
                             <Col className="col-6 ps-2 d-flex align-items-center">
                                 <input type="checkbox" id="pass" name="pass" className="btn-toggle-status-green" checked={invoiceType === 1} onChange={toggleHandler} />
-                                <span className="fw-bold">تایید</span>
+                                <span className="pe-2 fw-bold">تایید</span>
                                 <span className="pe-2 text-success">
-                                    مالی
+                                    مالی شود
                                 </span>
+                                .
                             </Col>
                             <Col className="col-6 pe-2 d-flex align-items-center">
                                 <input type="checkbox" id="fail" name="fail" className="btn-toggle-status-red" checked={invoiceType === 2} onChange={toggleHandler} />
-                                <span className="fw-bold">رد</span>
+                                <span className="pe-2 fw-bold">تایید</span>
                                 <span className="pe-2 text-danger">
-                                    مالی
+                                    مالی نشود
                                 </span>
+                                .
                             </Col>
                         </Row>
 

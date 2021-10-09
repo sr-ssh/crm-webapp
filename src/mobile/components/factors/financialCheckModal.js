@@ -41,7 +41,7 @@ export const FinancialCheckModal = (props) => {
             backdrop="static"
             className="mx-3 order-serach-modal"
         >
-            <Modal.Body className="add-product px-4">
+            <Modal.Body className="add-product px-2">
                 <Button className="border-0 customer-modal-close" type="button" onClick={e => props.onHide(false)}>
                     <img className="d-flex m-auto customer-modal-close-svg" src={closeIcon} alt="close-btn" />
                 </Button>
@@ -51,17 +51,19 @@ export const FinancialCheckModal = (props) => {
                         <Row className="p-0 m-0 my-1">
                             <Col className="col-6 ps-2 d-flex align-items-center">
                                 <input type="checkbox" id="pass" name="pass" className="btn-toggle-status-green" checked={invoiceType === 1} onChange={toggleHandler} />
-                                <span className="fw-bold">تایید</span>
+                                <span className="pe-2 fw-bold">تایید</span>
                                 <span className="pe-2 text-success">
-                                    مالی
+                                    خرید شود
                                 </span>
+                                .
                             </Col>
-                            <Col className="col-6 pe-2 d-flex align-items-center">
+                            <Col className="col-6 pe-2 d-flex align-items-center ps-0">
                                 <input type="checkbox" id="fail" name="fail" className="btn-toggle-status-red" checked={invoiceType === 2} onChange={toggleHandler} />
-                                <span className="fw-bold">رد</span>
+                                <span className="pe-2 fw-bold">تایید</span>
                                 <span className="pe-2 text-danger">
-                                    مالی
+                                    خرید نشود
                                 </span>
+                                .
                             </Col>
                         </Row>
 
@@ -72,7 +74,7 @@ export const FinancialCheckModal = (props) => {
 
                 {
                     loading ? (
-                        <Button className="fw-bold order-submit btn-dark-blue border-0 w-100 mt-4" size="lg" type="submit" disabled>
+                        <Button className="order-submit btn-dark-blue border-0 w-100 mt-3 notes-round fs-6" size="lg" type="submit" disabled>
                             <Spinner
                                 as="span"
                                 animation="grow"
@@ -83,7 +85,7 @@ export const FinancialCheckModal = (props) => {
                             در حال انجام عملیات...
                         </Button>
                     ) : (
-                        <Button className="fw-bold order-submit btn-dark-blue border-0 w-100 mt-4 notes-round" size="lg" type="submit" block onClick={handleClick} >
+                        <Button className="order-submit btn-dark-blue border-0 w-100 mt-3 notes-round fs-6"  size="lg" type="submit" block onClick={handleClick} >
                             ثبت
                         </Button>
                     )

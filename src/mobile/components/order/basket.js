@@ -4,7 +4,7 @@ import { Card, Dropdown, Button, Table, Row, Col, FormControl } from 'react-boot
 import persianJs from 'persianjs/persian.min';
 
 // Actions
-import { productActions } from '../../../actions';
+import { productActions, alertActions } from '../../../actions';
 
 //icons
 import deleteIcon from './../../assets/images/delete.svg'
@@ -18,31 +18,51 @@ export const Basket = ({ order, insertOrder, totalPrice, insertPrice, selectedIt
     const products = useSelector(state => state.getProducts.product)
     const dispatch = useDispatch()
 
+    let checkProductSupply = (product, prevQuantity) => {
+        if(product.checkWareHouse){
+            let check = !product.ingredients.some(stock => stock.stock.amount < stock.amount * (parseInt(quantity) + prevQuantity))
+            if(!check)
+                dispatch(alertActions.error('موجودی محصول کافی نیست'))
+            return check
+        } 
+        else return true
+    }
+
     let newOrder = (e) => {
         e.preventDefault();
         let product = products.find(item => item.name === selectedItem)
         if (!product || quantityOrder)
             return
 
-        insertPrice(parseInt(totalPrice) + (parseInt(quantity) * parseInt(product.sellingPrice)))
         let newOrder = {
             _id: product._id,
             name: product.name,
             quantity: parseInt(quantity),
             sellingPrice: product.sellingPrice,
+            ingredients: product.ingredients,
+            checkWareHouse: product.checkWareHouse
         };
-        console.log(newOrder.quantity, order)
+
         const isOrderPresent = order.some((item) => item._id === product._id);
+
         if (isOrderPresent) {
             const updatedOrder = order.map((item) => {
                 if (item._id === product._id) {
-                    return { ...item, quantity: item.quantity + parseInt(quantity) };
+                    if (checkProductSupply(product, item.quantity)){
+                        insertPrice(parseInt(totalPrice) + (parseInt(quantity) * parseInt(product.sellingPrice)))
+                        return { ...item, quantity: item.quantity + parseInt(quantity) };
+                    }
+                        
+                    else return item
                 }
                 return item;
             });
             insertOrder(updatedOrder);
         } else {
-            insertOrder((prevOrderState) => [...prevOrderState, newOrder]);
+            if (checkProductSupply(newOrder, 0)){
+                insertPrice(parseInt(totalPrice) + (parseInt(quantity) * parseInt(product.sellingPrice)))
+                insertOrder((prevOrderState) => [...prevOrderState, newOrder]);
+            }
         }
     };
 

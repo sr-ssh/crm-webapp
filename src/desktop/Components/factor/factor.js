@@ -22,6 +22,7 @@ import noteListIcon from '../../assets/images/order/note-list-white.svg'
 import cancelIcon from '../../assets/images/order/cancel.svg'
 import pishFactorIcon from '../../assets/images/order/pish-factor.svg'
 import financialCheckIcon from './../../assets/images/order/financial-check.svg'
+import waitingIcon from '../../assets/images/main/Waiting.svg'
 
 
 // Actions
@@ -203,7 +204,8 @@ export const Factor = ({ factor, setCancelFactorShow, setDeliveryShow, cancelOrd
                                                 </>
                                                 : 
                                                 <>
-                                                    <span>منتظر تعیین وضعیت خرید</span>
+                                                    <img src={waitingIcon} alt="tick-icon" className="m-0 p-0 ms-1 p-1 icon--tick--confirm " />
+                                                    <span>درحال انتظار</span>
                                                 </>
                                             }
                                         </Card.Text>

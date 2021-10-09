@@ -19,6 +19,7 @@ import financialCheckIcon from './../../assets/images/order/financial-check.svg'
 import resultIcon from './../../assets/images/order/Result.svg'
 import uploadIcon from './../../assets/images/order/Upload-documents.svg'
 import viewDocumentsIcon from '../../assets/images/order/View-documents.svg'
+import waitingIcon from '../../assets/images/main/Waiting.svg'
 
 //components
 import { AddNotesModal } from './addNotesModal'
@@ -107,7 +108,6 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
     }
 
 
-    console.log("order", order)
     return (
 
         <Card className={`m-auto mt-3 bg-light productCard border-0 lh-lg ${!print ? 'noPrint' : ''}`} >
@@ -133,7 +133,8 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                                         </Col>
                                         : 
                                         <Col className="d-flex justify-content-end align-items-center text--factor p-0 ">
-                                            <span>در انتظار تعیین وضعیت مالی</span>
+                                            <img src={waitingIcon} alt="tick-icon" className="m-0 p-0 ms-1 p-1 icon--tick--confirm "/>
+                                            <span>درحال انتظار</span>
                                         </Col>
                                     }
 

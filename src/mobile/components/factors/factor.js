@@ -18,6 +18,7 @@ import noteListIcon from '../../assets/images/order/note-list-white.svg'
 import cancelIcon from '../../assets/images/order/cancel.svg'
 import closeIcon from '../../assets/images/order/close.svg'
 import financialCheckIcon from './../../assets/images/order/financial-check.svg'
+import waitingIcon from '../../assets/images/main/Waiting.svg'
 
 //components
 import { AddNotesModal } from './addNotesModal'
@@ -132,7 +133,8 @@ export const Factor = ({ factor, setActiveFactor, setCancelFactorShow, cancelOrd
                                         </>
                                         : 
                                         <>
-                                            <span>منتظر تعیین وضعیت خرید</span>
+                                            <img src={waitingIcon} alt="tick-icon" className="m-0 p-0 ms-1 p-1 icon--tick--confirm " />
+                                            <span>درحال انتظار</span>
                                         </>
                                     }
                                 </Col>
