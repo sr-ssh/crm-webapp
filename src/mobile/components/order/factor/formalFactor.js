@@ -10,13 +10,7 @@ import logo from '../../../assets/images/crm-dark-blue.svg'
 
 export const FormalFactor = ({ order }) => {
 
-    const total = () => {
-        let total = 0
-        order.products.map(item => {
-            return total += item.sellingPrice * item.quantity
-        })
-        return total
-    }
+    let totalPrice = 0
 
     return (
         <Container className="m-auto">
@@ -105,8 +99,10 @@ export const FormalFactor = ({ order }) => {
                             <tbody>
                                 {console.log(order.products)}
                                 {
-                                    order.products?.map((product, index) =>
-                                        <tr>
+                                    order.products?.map((product, index) => {
+                                        totalPrice = totalPrice + (product.quantity * product.sellingPrice + product.quantity * product.sellingPrice * 0.09)
+
+                                        return (<tr>
                                             <td>{(index + 1) && persianJs(index + 1).englishNumber().toString()}</td>
                                             <td>{product.name}</td>
                                             <td>{product.quantity && persianJs(commaNumber(product.quantity)).englishNumber().toString()}</td>
@@ -115,7 +111,8 @@ export const FormalFactor = ({ order }) => {
                                             <td>{product.sellingPrice && persianJs(commaNumber(product.sellingPrice * 0.09)).englishNumber().toString()}</td>
                                             <td>{(product.quantity * product.sellingPrice) && persianJs(commaNumber(product.quantity * product.sellingPrice + product.quantity * product.sellingPrice * 0.09)).englishNumber().toString()}</td>
                                         </tr>
-                                    )
+                                        )
+                                    })
                                 }
                             </tbody>
                         </Table>
@@ -125,7 +122,7 @@ export const FormalFactor = ({ order }) => {
                             جمع کل پس از تخفیف و کسر مالیات و عوارض (ریال) :
                         </Col>
                         <Col xs={2} className="text-center ms-2 text-grey px-0">
-                            {persianJs(commaNumber(total())).englishNumber().toString()}
+                            {persianJs(commaNumber(totalPrice)).englishNumber().toString()}
                         </Col>
                     </Row>
                 </Card.Body>
