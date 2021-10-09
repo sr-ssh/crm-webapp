@@ -37,17 +37,17 @@ export const FormalFactor = ({ order }) => {
                     <Row className="fw-bold px-3 fs-9 pt-2">
                         <Col>
                             <span className="ps-2">تلفن و فکس:</span>
-                            <span className="text-grey">253645854441</span>
+                            <span className="text-grey">_</span>
                         </Col>
                         <Col>
                             <span className="ps-2">شماره اقتصادی:</span>
-                            <span className="text-grey">253645854441</span>
+                            <span className="text-grey">_</span>
                         </Col>
                     </Row>
                     <Row className="fw-bold px-3 fs-9 pt-2">
                         <Col>
                             <span className="ps-2">نشانی شرکت:</span>
-                            <span className="text-grey">کلاهدوز 4 . اولین کوچه سمت راست . پلاک 55</span>
+                            <span className="text-grey">{order.provider.address}</span>
                         </Col>
                     </Row>
                 </Card.Body>
@@ -76,7 +76,7 @@ export const FormalFactor = ({ order }) => {
                     <Row className="fw-bold px-3 fs-9 pt-2">
                         <Col>
                             <span className="ps-2">نشانی :</span>
-                            <span className="text-grey">امیریه 31 . مجتمع سهند </span>
+                            <span className="text-grey">{order.address}</span>
                         </Col>
                     </Row>
                 </Card.Body>
