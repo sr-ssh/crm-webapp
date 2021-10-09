@@ -20,7 +20,7 @@ import viewDocumentsIcon from '../../assets/images/order/View-documents.svg'
 import financialCheckIcon from './../../assets/images/order/financial-check.svg'
 import uploadIcon from './../../assets/images/order/Upload-documents.svg'
 import resultIcon from './../../assets/images/order/Result.svg'
-
+import waitingIcon from '../../assets/images/main/Waiting.svg'
 
 
 // Actions
@@ -237,7 +237,8 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                                                 </>
                                                 :
                                                 <>
-                                                    <span>تایید نشده است</span>
+                                                    <img src={waitingIcon} alt="tick-icon" className="m-0 p-0 ms-1 p-1 icon--tick--confirm " />
+                                                    <span>درحال انتظار</span>
                                                 </>
                                             }
                                         </Card.Text>
