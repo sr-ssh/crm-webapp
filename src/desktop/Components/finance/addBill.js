@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Form, Button, Row, Col, Modal } from 'react-bootstrap';
 import closeIcon from '../../assets/images/close.svg'
+import persianJs from 'persianjs/persian.min';
 
 
 
@@ -62,7 +63,8 @@ export const AddBill = (props) => {
         }
         if (id === "cost") {
             console.log("_______________________________costHandler_______________________________");
-            value = costHandler(value)
+            value = persianJs(value).toEnglishNumber().toString()
+
         }
         setInputs({ ...inputs, [id]: value })
     }
@@ -116,7 +118,9 @@ export const AddBill = (props) => {
                         <Col xs={9} className="order-filter-input">
                             <Form.Group controlId="cost">
                                 <Form.Label className="pe-3">میزان هزینه</Form.Label>
-                                <Form.Control className="order-input" type="number" min="0"
+                                <Form.Control className="order-input" type="tel"
+                                    inputMode="tel"
+                                    pattern="[0-9]*"
                                     onChange={handleChange}
                                     isInvalid={((!cost && validated) || (costValidate) && true)}
                                     isValid={((cost && validated) || (costValidate && cost) && true)}

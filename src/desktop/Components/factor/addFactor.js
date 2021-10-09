@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Container, Form, Button, Row, Col, Spinner } from 'react-bootstrap';
 import "react-multi-date-picker/styles/layouts/mobile.css";
+import persianJs from 'persianjs/persian.min';
 
 // Actions
 import { alertActions } from '../../../actions/alertActions';
@@ -37,8 +38,9 @@ export const AddFactor = () => {
 
     let mobileHandler = (value) => {
         const number = value;
-        const patt = /^(09)(\d{9})/m;
-        let res = patt.test(number) && number.length === 11;
+        // const patt = /^(09)(\d{9})/m;
+        // patt.test(number) &&
+        let res = number.length === 11;
         if (res) {
 
             setMobileValidated(false)
@@ -71,7 +73,7 @@ export const AddFactor = () => {
         let value = e.target.value
         let name = e.target.name
         if (name === "mobile") {
-            value = mobileHandler(value)
+            value = mobileHandler(persianJs(value).toEnglishNumber().toString())
         }
         if (name === "family") {
             value = nameHandler(value)
@@ -136,7 +138,7 @@ export const AddFactor = () => {
                                 <Col className="col-3 add-order-input--desktop mx-0 px-0">
                                     <Form.Group className="p--relative">
                                         <Form.Label className="me-3">موبایل</Form.Label>
-                                        <Form.Control className="order-input radius-16" type="number" name="mobile"
+                                        <Form.Control className="order-input radius-16" type="tel" name="mobile"
                                             isInvalid={((!customer.mobile && validated) || (mobileValidated) && true)}
                                             isValid={((customer.mobile && validated) || (mobileValidated && customer.mobile) && true)}
                                             onChange={handleChange}

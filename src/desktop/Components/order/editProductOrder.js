@@ -113,12 +113,12 @@ export const EditeProductOrder = (props) => {
         await setOldProduct(props.order.products)
         await setAddressUser(props.order.address)
         props.order.customer && await setCompanyName({
-            company: props.order.customer.company, 
+            company: props.order.customer.company,
             nationalCard: props.order.customer.nationalCard,
             financialCode: props.order.customer.financialCode,
             registerNo: props.order.customer.registerNo,
-            postalCode:  props.order.customer.postalCode
-         })
+            postalCode: props.order.customer.postalCode
+        })
         let total = 0
         props.order.products?.map(item => {
             total += item.sellingPrice * item.quantity;
@@ -136,7 +136,7 @@ export const EditeProductOrder = (props) => {
         setAddressUser(e.target.value)
     }
     let companyNameInputHandler = e => {
-        setCompanyName({...companyName, [e.target.name]: e.target.value })
+        setCompanyName({ ...companyName, [e.target.name]: e.target.value })
     }
     const formHandler = (e) => {
         e.preventDefault();
@@ -148,7 +148,7 @@ export const EditeProductOrder = (props) => {
                 address: addressUser || ""
             };
 
-            dispatch(orderActions.editProductOrder({...params, ...companyName}))
+            dispatch(orderActions.editProductOrder({ ...params, ...companyName }))
 
             setTimeout(() => {
                 dispatch(orderActions.getOrders({ status: props.status || " " }))
@@ -157,11 +157,12 @@ export const EditeProductOrder = (props) => {
         }
     }
     let quantityOrderHandler = (e) => {
-        if (e.target.value == "0") {
+        let value = persianJs(e.target.value).toEnglishNumber().toString()
+        if (value == "0") {
             setQuantityOrder(true)
         } else {
             setQuantityOrder(false);
-            setQuantity(e.target.value || 1);
+            setQuantity(value || 1);
         }
     }
 
@@ -189,7 +190,7 @@ export const EditeProductOrder = (props) => {
 
                 <Form onSubmit={formHandler}>
                     <Container className="m-0 p-0 mx-auto d-flex flex-column justify-content-between">
-                       
+
                         <Row className="m-0 p-0 mt-2" >
                             <Col className="p-0 ps-3">
                                 <Card className="border-0 bg-transparent text-light">
@@ -200,25 +201,25 @@ export const EditeProductOrder = (props) => {
                                     />
                                 </Card>
                             </Col>
-                                <Col className="p-0 ps-3">
-                                    <Card className="border-0 bg-transparent text-light">
-                                        <Form.Label className="pe-3">شناسه ملی شرکت</Form.Label>
-                                        <Form.Control className="order-input company-input" type="text"
-                                            defaultValue={props.order.customer?.nationalCard}
-                                            onChange={companyNameInputHandler} name="nationalCard"
-                                        />
-                                    </Card>
-                                </Col>
-                                <Col className="p-0 ">
-                                    <Card className="border-0 bg-transparent text-light">
-                                        <Form.Label className="pe-3">کداقتصادی</Form.Label>
-                                        <Form.Control className="order-input company-input" type="text"
-                                            defaultValue={props.order.customer?.financialCode}
-                                            onChange={companyNameInputHandler} name="financialCode"
-                                        />
-                                    </Card>
-                                </Col>
-                            </Row>
+                            <Col className="p-0 ps-3">
+                                <Card className="border-0 bg-transparent text-light">
+                                    <Form.Label className="pe-3">شناسه ملی شرکت</Form.Label>
+                                    <Form.Control className="order-input company-input" type="text"
+                                        defaultValue={props.order.customer?.nationalCard}
+                                        onChange={companyNameInputHandler} name="nationalCard"
+                                    />
+                                </Card>
+                            </Col>
+                            <Col className="p-0 ">
+                                <Card className="border-0 bg-transparent text-light">
+                                    <Form.Label className="pe-3">کداقتصادی</Form.Label>
+                                    <Form.Control className="order-input company-input" type="text"
+                                        defaultValue={props.order.customer?.financialCode}
+                                        onChange={companyNameInputHandler} name="financialCode"
+                                    />
+                                </Card>
+                            </Col>
+                        </Row>
 
                         <Row className="m-0 p-0 mt-1" >
                             <Col className="m-0 p-0 ">
@@ -232,26 +233,26 @@ export const EditeProductOrder = (props) => {
                             </Col>
                         </Row>
                         <Row className="m-0 p-0 mt-2" >
-                                <Col className="p-0 ps-3">
-                                    <Card className="border-0 bg-transparent text-light">
-                                        <Form.Label className="pe-3">شماره ثبت</Form.Label>
-                                        <Form.Control className="order-input company-input" type="text"
-                                            defaultValue={props.order.customer?.registerNo}
-                                            onChange={companyNameInputHandler} name="registerNo"
-                                        />
-                                    </Card>
-                                </Col>
-                                <Col className="p-0 ">
-                                    <Card className="border-0 bg-transparent text-light">
-                                        <Form.Label className="pe-3">کدپستی</Form.Label>
-                                        <Form.Control className="order-input company-input" type="text"
-                                            defaultValue={props.order.customer?.postalCode}
-                                            onChange={companyNameInputHandler} name="postalCode"
-                                        />
-                                    </Card>
-                                </Col>
-                            </Row>
-                        
+                            <Col className="p-0 ps-3">
+                                <Card className="border-0 bg-transparent text-light">
+                                    <Form.Label className="pe-3">شماره ثبت</Form.Label>
+                                    <Form.Control className="order-input company-input" type="text"
+                                        defaultValue={props.order.customer?.registerNo}
+                                        onChange={companyNameInputHandler} name="registerNo"
+                                    />
+                                </Card>
+                            </Col>
+                            <Col className="p-0 ">
+                                <Card className="border-0 bg-transparent text-light">
+                                    <Form.Label className="pe-3">کدپستی</Form.Label>
+                                    <Form.Control className="order-input company-input" type="text"
+                                        defaultValue={props.order.customer?.postalCode}
+                                        onChange={companyNameInputHandler} name="postalCode"
+                                    />
+                                </Card>
+                            </Col>
+                        </Row>
+
                         <Row className="m-0 p-0 mt-3">
                             <Form.Label className="pe-3">سبد خرید</Form.Label>
                             <Card className="border-0 p-3 pt-2 basket--Product--Container basket--edit--product--container">
@@ -290,10 +291,11 @@ export const EditeProductOrder = (props) => {
                                             <Form.Control
                                                 placeholder="تعداد"
                                                 value={Number.isInteger(quantity) ? "" : quantity}
-                                                onChange={(e) => quantityOrderHandler(e)}
+                                                onChange={quantityOrderHandler}
                                                 className={` order-input--desktop text-center ${quantityOrder ? 'border border-danger' : null}`}
-                                                type="number"
-                                                min="1"
+                                                type="tel"
+                                                inputMode="tel"
+                                                pattern="[0-9]*"
                                                 name="duration"
                                                 style={{ 'maxHeight': '35px' }} >
                                             </Form.Control>
