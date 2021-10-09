@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import persianJs from 'persianjs/persian.min';
 import moment from 'jalali-moment';
 import { Col, Container, Row, Card, Table } from 'react-bootstrap'
@@ -10,13 +10,8 @@ import logo from '../../../assets/images/crm.svg'
 
 export const FormalFactor = ({ factor }) => {
 
-    const getTotalPrice = (order) => {
-        let total = 0
-        order.map(item => {
-            total += item.sellingPrice * item.quantity
-        })
-        return total
-    }
+
+    let totalPrice = 0
 
 
     return (
@@ -102,13 +97,14 @@ export const FormalFactor = ({ factor }) => {
                         <tbody className="border border-blue">
                             {factor.products.length ?
                                 factor.products.map((item, index) => {
+                                    totalPrice = totalPrice + (item.quantity * item.sellingPrice + item.quantity * item.sellingPrice * 0.09)
                                     return (
                                         <>
                                             <tr>
                                                 <td className="py-3 text-center">{persianJs(index + 1).englishNumber().toString()}</td>
                                                 <td className="py-3 text-center">{item.name}</td>
                                                 <td className="py-3 text-center">{persianJs(item.quantity).englishNumber().toString()}</td>
-                                                <td className="py-3 text-center">{persianJs(item.sellingPrice).englishNumber().toString()}</td>
+                                                <td className="py-3 text-center">{persianJs(commaNumber(item.sellingPrice)).englishNumber().toString()}</td>
                                                 <td className="py-3 text-center">0</td>
                                                 <td className="py-3 text-center">{item.sellingPrice && persianJs(commaNumber(item.sellingPrice * 0.09)).englishNumber().toString()}</td>
                                                 <td className="py-3 text-center">{(item.quantity * item.sellingPrice) && persianJs(commaNumber(item.quantity * item.sellingPrice + item.quantity * item.sellingPrice * 0.09)).englishNumber().toString()}</td>
@@ -129,7 +125,7 @@ export const FormalFactor = ({ factor }) => {
                                     <span className="fs-7 fw-bold">جمع کل پس از تخفیف و کسر مالیات و عوارض (ریال): </span>
                                 </td>
                                 <td className="py-3 text-end pe-5" colSpan="4">
-                                    <span className="text--gray--factor--desktop me-5 pe-5">{getTotalPrice(factor.products) && persianJs(getTotalPrice(factor.products)).englishNumber().toString()} </span>
+                                    <span className="text--gray--factor--desktop me-5 pe-5">{totalPrice && persianJs(commaNumber(totalPrice)).englishNumber().toString()} </span>
                                 </td>
                             </tr>
                         </tbody>
