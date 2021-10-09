@@ -23,7 +23,7 @@ export const AddProduct = (props) => {
     const [direct, setDirect] = useState(0)
     const addProductLoading = useSelector(state => state.addProduct.loading)
     const dispatch = useDispatch()
-    
+
     let productnameHandler = (value) => {
         const pName = value;
         const patt = /^[آ-یa-zA-Z0-9 ]+$/;
@@ -54,12 +54,12 @@ export const AddProduct = (props) => {
         e.preventDefault()
         let value = e.target.value
         let name = e.target.name
-        if (name === "productname") {
-            value = productnameHandler(value)
-        }
-        if (name === "productprice") {
-            value = productpriceHandler(value)
-        }
+        // if (name === "productname") {
+        //     value = productnameHandler(value)
+        // }
+        // if (name === "productprice") {
+        //     value = productpriceHandler(value)
+        // }
         if (e.target.id === 'sellingPrice' && value?.length)
             value = persianJs(value).toEnglishNumber().toString();
         setProduct({ ...product, [e.target.id]: value })
@@ -68,7 +68,7 @@ export const AddProduct = (props) => {
     let formHandler = (e) => {
         e.preventDefault()
         if (product?.name && product?.sellingPrice) {
-            dispatch(productActions.addProduct({...product, checkWareHouse, direct}))
+            dispatch(productActions.addProduct({ ...product, checkWareHouse, direct }))
             setProduct({ name: "", sellingPrice: "", description: "" })
             setCheckWareHouse(0)
             setDirect(0)
