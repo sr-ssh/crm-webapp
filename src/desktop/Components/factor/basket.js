@@ -58,7 +58,7 @@ export const Basket = ({ order, insertOrder, totalPrice, insertPrice, selectedIt
         dispatch(stockActions.getStock())
     }
     let quantityOrderHandler = (e) => {
-        let value = persianJs(e.target.value).toEnglishNumber().toString()
+        let value = e.target.value ?  persianJs(e.target.value).toEnglishNumber().toString() : null
 
         if (value == "0") {
             setQuantityOrder(true)
@@ -68,7 +68,7 @@ export const Basket = ({ order, insertOrder, totalPrice, insertPrice, selectedIt
         }
     }
     let priceOrderHandler = (e) => {
-        let value = persianJs(e.target.value).toEnglishNumber().toString()
+        let value = e.target.value ?  persianJs(e.target.value).toEnglishNumber().toString() : null
 
         if (value == "") {
             setPriceOrder(true)
