@@ -14,6 +14,8 @@ import { orderActions, customerActions } from '../../../actions';
 import { Header } from '../base/header2';
 import { Basket } from './basket';
 import { AddNotesModal } from './addNotesModal'
+import {ModalContinueProcessesAddOrder} from './modalContinueProcesses'
+
 // Assets
 import downloadIcon from '../../assets/images/download.svg'
 import addIcon from '../../assets/images/order/add.svg'
@@ -26,6 +28,7 @@ export const AddOrder = () => {
     const [validated, setValidated] = useState(false);
     const [mobileValidated, setMobileValidated] = useState(false);
     const [nameValidated, setNameValidated] = useState(false);
+    const [modalContinueProcesses,setModalContinueProcesses] = useState(false)
     const [order, insertOrder] = useState([])
     const [customer, setCustomer] = useState({ birthday: "" })
     const [totalPrice, insertPrice] = useState("0")
@@ -37,7 +40,10 @@ export const AddOrder = () => {
     let oldCustomer = useSelector(state => state.getCustomer.customer)
     let { loading } = useSelector(state => state.getCustomer)
     let addOrderLoading = useSelector(state => state.addOrder.loading)
+    let addOrder = useSelector(state => state.addOrder)
 
+
+    
     let mobileHandler = (value) => {
         const number = value;
         // const patt = /^(09)(\d{9})/m;
@@ -87,8 +93,8 @@ export const AddOrder = () => {
         e.preventDefault()
         if (order.length && customer.family && customer.mobile) {
             if (e.target.id === 'saleOpprotunity')
-                dispatch(orderActions.addOrder(order, customer, notes, 3))
-            else
+                dispatch(orderActions.addOrder(order, customer, notes, 3,0))
+            else{
                 dispatch(orderActions.addOrder(order, customer, notes))
             setCustomer({ mobile: "", address: "", family: "", reminder: "", duration: "", company: "", lastAddress: "" })
             insertOrder([])
@@ -97,6 +103,7 @@ export const AddOrder = () => {
             setItem("")
             setQuantity(1)
             oldCustomer = null;
+            }
         } else {
             if (customer.mobile && customer.family && !order.length)
                 dispatch(alertActions.error('لیست سفارشات خالی است'));
@@ -122,14 +129,23 @@ export const AddOrder = () => {
     //     birthDate = moment.from(birthDate, 'fa', 'YYYY/MM/DD').locale('en').format('YYYY-MM-DD');
     //     setCustomer({ ...customer, [name]: birthDate })
     // }
+   let clearInputes = () => {
+        setCustomer({ mobile: "", address: "", family: "", reminder: "", duration: "", company: "", lastAddress: "" })
+        insertOrder([])
+        setNotes([])
+        insertPrice("0")
+        setItem("")
+        setQuantity(1)
+        oldCustomer = null;
+       }
     useEffect(() => {
         if (oldCustomer?.mobile)
             setCustomer({ ...customer, ...oldCustomer, address: oldCustomer.lastAddress })
     }, [oldCustomer])
     useEffect(() => {
-        if (addOrderLoading)
-            insertOrder([])
-    }, [addOrderLoading, setCustomer])
+        if(addOrderLoading == false  &&  addOrder.error?.dialogTrigger  )
+           setModalContinueProcesses(true)
+   }, [addOrderLoading])
 
     return (
         <div className="order-page">
@@ -320,6 +336,8 @@ export const AddOrder = () => {
                 </Form>
             </Container>
             <AddNotesModal show={showNotesModal} onHide={() => { setShowNotesModal(false) }} setNotes={setNotes} />
+            <ModalContinueProcessesAddOrder show={modalContinueProcesses} onHide={() => { setModalContinueProcesses(false) }} order={order} customer={customer} notes={notes} clearInputes={clearInputes} />
+        
         </div >
     )
 }
