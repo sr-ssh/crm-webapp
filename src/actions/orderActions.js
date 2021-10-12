@@ -416,8 +416,8 @@ function getShareLinkOrder(params) {
                         dispatch(failure(orderConstants.GET_ORDER_SHARE_LINK_FAILURE, 'ارتباط با سرور برقرار نیست'))
                     }
                     else if (res.success) {
-                        console.log("order share link receive")
-                        dispatch(success(orderConstants.GET_ORDER_SHARE_LINK_SUCCESS, res.data));
+                        console.log("order share link receive", res)
+                        dispatch(success(orderConstants.GET_ORDER_SHARE_LINK_SUCCESS, res));
                     } else if (res.success == false) {
                         dispatch(failure(orderConstants.GET_ORDER_SHARE_LINK_FAILURE, res.message))
                         dispatch(alertActions.error(res.message));

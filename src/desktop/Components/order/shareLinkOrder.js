@@ -21,14 +21,13 @@ export const ShareLinkOrder = ({ isShareLinkOrder, setIsShareLinkOrder, order, .
 
 
     const dispatch = useDispatch()
-    const [isOk, setIsOk] = useState(true)
     const [copied, setCopied] = useState(false)
     const [customerInfoRequire, setCustomerInfoRequire] = useState("")
 
     const [invoiceType, setInvoiceType] = useState(0)
 
     let shareLinkOrder = useSelector(state => state.getShareLinkOrder)
-    let textLink = `پیش فاکتور شما ایجاد گردید. لینک پیش فاکتور http://crm-x.ir/order/factor/${shareLinkOrder?.data?.orderId}/${shareLinkOrder?.data?.keyLink}`;
+    let textLink = `پیش فاکتور شما ایجاد گردید. لینک پیش فاکتور http://crm-x.ir/order/factor/${shareLinkOrder?.data?.data?.orderId}/${shareLinkOrder?.data?.data?.keyLink}`;
 
     let customerInfo = order?.customer
     let toggleHandler = (e) => {
@@ -43,21 +42,11 @@ export const ShareLinkOrder = ({ isShareLinkOrder, setIsShareLinkOrder, order, .
         }
     }
 
-    console.log(customerInfoRequire)
-
     useEffect(() => {
-        if (isOk === true && order != null) {
-            if (invoiceType == 0 && customerInfo.registerNo && customerInfo.financialCode && customerInfo.nationalCard && customerInfo.postalCode) {
-                dispatch(orderActions.getShareLinkOrder({ orderId: order.id, type: invoiceType }))
-                setIsOk(false)
-            } else {
-
-                setCustomerInfoRequire(true)
-            }
+        if (order != null) {
+            dispatch(orderActions.getShareLinkOrder({ orderId: order.id, type: invoiceType }))
         }
-    }, [dispatch, order])
-
-
+    }, [dispatch, order, invoiceType])
 
 
     return (
@@ -71,35 +60,35 @@ export const ShareLinkOrder = ({ isShareLinkOrder, setIsShareLinkOrder, order, .
                     <Row className="p-0 m-0 my-1">
                         <Col className="col-6 ps-2 d-flex align-items-center">
                             <input type="checkbox" id="formal" name="formal" className="btn-toggle-status-green" checked={invoiceType == 0} onChange={toggleHandler} />
-                            <span className="pe-2 text-success">
+                            <label className="pe-2 text-success" htmlFor="formal">
                                 رسمی
-                            </span>
+                            </label>
 
                         </Col>
                         <Col className="col-6 pe-2 d-flex align-items-center">
                             <input type="checkbox" id="inFormal" name="inFormal" className="btn-toggle-status-red" checked={invoiceType == 1} onChange={toggleHandler} />
-                            <span className="pe-2 text-danger">
+                            <label className="pe-2 text-danger" htmlFor="inFormal">
                                 غیر رسمی
-                            </span>
+                            </label>
                         </Col>
                     </Row>
 
                 </Row>
             </Container>
-            {customerInfoRequire ?
-                <>
-                    <Container className="my-1 h-100  d-flex justify-content-center align-items-center flex-wrap" >
-                        <Col className="col-3 mt-2 m-auto d-block align-self-center w-100 mb-4 ">
-                            <h6 className="mt-2 text-center lh-lg ">ابتدا اطلاعات مشتری را از ویرایش سفارش وارد کنید </h6>
-                        </Col>
-                    </Container>
-                </>
-                :
+            {shareLinkOrder && 
                 shareLinkOrder.loading ?
                     <>
                         <Container fluid className="m-0 h-100 my-5  d-flex justify-content-center align-items-center flex-wrap" style={{ width: "350px" }}>
                             <Col className="col-3 mt-2 m-auto d-block align-self-center w-100 mb-4 ">
                                 <Spinner className="m-auto d-block" animation="border" />
+                            </Col>
+                        </Container>
+                    </>
+                    :!shareLinkOrder.data?.data?.status ?
+                    <>
+                        <Container className="my-1 h-100  d-flex justify-content-center align-items-center flex-wrap" >
+                            <Col className="col-3 mt-2 m-auto d-block align-self-center w-100 mb-4 ">
+                                <h6 className="mt-2 text-center lh-lg ">{shareLinkOrder.data?.message} </h6>
                             </Col>
                         </Container>
                     </>

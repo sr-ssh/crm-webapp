@@ -14,14 +14,13 @@ import emailIcon from './../../assets/images/order/email.svg'
 
 export const ShareLinkModal = (props) => {
 
-    const [isOk, setIsOk] = useState(true)
     const [copied, setCopied] = useState(false)
     const [customerInfoRequire, setCustomerInfoRequire] = useState("")
 
     const [invoiceType, setInvoiceType] = useState(0)
-    let link = useSelector(state => state.getShareLinkOrder.data)
+    let link = useSelector(state => state.getShareLinkOrder?.data)
     let loadingLink = useSelector(state => state.getShareLinkOrder.loading)
-    let shareLink = `http://crm-x.ir/order/factor/${link?.orderId}/${link?.keyLink}`
+    let shareLink = `http://crm-x.ir/order/factor/${link?.data?.orderId}/${link?.data?.keyLink}`
     const textLink = `پیش فاکتور شما ایجاد گردید. لینک پیش فاکتور
      \n ${shareLink}`
     const dispatch = useDispatch()
@@ -42,17 +41,10 @@ export const ShareLinkModal = (props) => {
     }
 
     useEffect(() => {
-        if (isOk === true && props.order != null) {
-            if (invoiceType == 0 && customerInfo.registerNo !== undefined && customerInfo.financialCode !== undefined && customerInfo.nationalCard !== undefined && customerInfo.postalCode !== undefined) {
-                dispatch(orderActions.getShareLinkOrder({ orderId: props.order.id, type: invoiceType }))
-                setIsOk(false)
-            } else {
-
-                setCustomerInfoRequire(true)
-            }
+        if (props.order != null) {
+            dispatch(orderActions.getShareLinkOrder({ orderId: props.order.id, type: invoiceType }))
         }
-    }, [dispatch, props.order])
-
+    }, [dispatch, props.order, invoiceType])
 
     return (
         <Modal
@@ -73,40 +65,40 @@ export const ShareLinkModal = (props) => {
                         <Row className="p-0 m-0 my-1">
                             <Col className="col-6 ps-2 d-flex align-items-center">
                                 <input type="checkbox" id="formal" name="formal" className="btn-toggle-status-green" checked={invoiceType == 0} onChange={toggleHandler} />
-                                <span className="pe-2 text-success">
+                                <label className="pe-2 text-success" htmlFor="formal">
                                     رسمی
-                                </span>
+                                </label>
 
                             </Col>
                             <Col className="col-6 pe-2 d-flex align-items-center">
                                 <input type="checkbox" id="inFormal" name="inFormal" className="btn-toggle-status-red" checked={invoiceType == 1} onChange={toggleHandler} />
-                                <span className="pe-2 text-danger">
+                                <label className="pe-2 text-danger" htmlFor="inFormal">
                                     غیر رسمی
-                                </span>
+                                </label>
                             </Col>
                         </Row>
 
                     </Row>
                 </Container>
-                {customerInfoRequire ?
+                
+                {
+                    link && (loadingLink ?
+                    <>
+                        <Container fluid className="my-4 h-100  d-flex justify-content-center align-items-center flex-wrap" >
+                            <Col className="col-3 mt-2 m-auto d-block align-self-center w-100 mb-4 ">
+                                <Spinner className="m-auto d-block" animation="border" />
+                            </Col>
+                        </Container>
+                    </>
+                    : !link?.data?.status ?
                     <>
                         <Container className="my-1 h-100  d-flex justify-content-center align-items-center flex-wrap" >
                             <Col className="col-3 mt-2 m-auto d-block align-self-center w-100 mb-4 ">
-                                <h6 className="mt-2 text-center lh-lg ">ابتدا اطلاعات مشتری را از ویرایش سفارش وارد کنید </h6>
+                                <h6 className="mt-2 text-center lh-lg fs-6-sm">{link?.message}</h6>
                             </Col>
                         </Container>
                     </>
                     :
-                    loadingLink ?
-                        <>
-                            <Container fluid className="my-4 h-100  d-flex justify-content-center align-items-center flex-wrap" >
-                                <Col className="col-3 mt-2 m-auto d-block align-self-center w-100 mb-4 ">
-                                    <Spinner className="m-auto d-block" animation="border" />
-                                </Col>
-                            </Container>
-                        </>
-                        :
-
                         <Container>
                             <Row className="pb-3 pt-1 px-1 order-inputs">
                                 <Col>
@@ -155,7 +147,7 @@ export const ShareLinkModal = (props) => {
                             </Row>
                         </Container>
 
-                }
+                    )}
                 <Snackbar
                     anchorOrigin={{ vertical: "top", horizontal: "center" }}
                     open={copied}
