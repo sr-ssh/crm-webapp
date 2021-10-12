@@ -185,7 +185,7 @@ function cancelProductOrder(orderId, productId) {
 
 }
 
-function addOrder(products, customer, notes, status) {
+function addOrder(products, customer, notes, status , force) {
     console.log("into orderService");
 
     let reminder, address, duration;
@@ -203,7 +203,7 @@ function addOrder(products, customer, notes, status) {
 
     const requestOptions = {
         headers: authHeader(),
-        body: { products, customer, reminder, duration, address, notes, status }
+        body: { products, customer, reminder, duration, address, notes, status  ,force }
     };
 
     return axios

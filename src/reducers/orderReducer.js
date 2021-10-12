@@ -158,7 +158,7 @@ export function addOrder(state = initialState, action) {
             }
         case orderConstants.ADD_ORDER_FAILURE:
             return {
-                err: action.err,
+                error: action.error,
                 loading: false
             }
         default:
