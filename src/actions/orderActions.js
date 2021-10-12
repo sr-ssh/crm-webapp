@@ -212,10 +212,11 @@ function cancelProductOrder(orderId, productId) {
 
     }
 }
-function addOrder(products, customer, notes, status = '') {
+function addOrder(products, customer, notes, status = '' , force = 0) {
     return dispatch => {
         dispatch(request())
-        orderService.addOrder(products, customer, notes, status)
+        if(force!=0) dispatch(failure(null))
+        orderService.addOrder(products, customer, notes, status , force)
             .then(
                 res => {
                     console.log(res)
@@ -233,8 +234,9 @@ function addOrder(products, customer, notes, status = '') {
                         }, 1500);
 
                     } else if (res.success === false) {
-                        dispatch(alertActions.error(res.message));
-                        dispatch(failure(res.message))
+                        if(res.dialogTrigger === undefined)
+                            dispatch(alertActions.error(res.message));
+                        dispatch(failure(res))
                     }
 
                     setTimeout(() => {

@@ -19,11 +19,16 @@ export const Basket = ({ order, insertOrder, totalPrice, insertPrice, selectedIt
     const dispatch = useDispatch()
 
     let checkProductSupply = (product, prevQuantity) => {
+        return true
         if (product.checkWareHouse) {
             let check = !product.ingredients.some(stock => stock.stock.amount < stock.amount * (parseInt(quantity) + prevQuantity))
-            if (!check)
+            if (!check){
                 dispatch(alertActions.error('موجودی محصول کافی نیست'))
-            return check
+                setTimeout(() => {
+                    dispatch(alertActions.clear())
+                }, 1500);
+            }
+                return check
         }
         else return true
     }
