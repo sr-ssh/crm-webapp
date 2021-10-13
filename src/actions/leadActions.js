@@ -1,0 +1,58 @@
+import { leadConstants } from '../constants';
+import { history } from '../helpers';
+import { leadService } from '../services';
+import { alertActions } from './alertActions';
+
+export const leadActions = {
+    addLead
+};
+
+function addLead(lead) {
+    return dispatch => {
+        dispatch(request(leadConstants.ADD_LEAD_REQUEST))
+        leadService.addLead(lead)
+            .then(
+                res => {
+                    console.log(res)
+
+                    if (res === undefined) {
+                        dispatch(alertActions.error('ارتباط با سرور برقرار نیست.سرنخ شما ثبت نشد'));
+                        dispatch(failure(leadConstants.ADD_LEAD_FAILURE, 'ارتباط با سرور برقرار نیست.سرنخ شما ثبت نشد'));
+                    }
+                    else if (res.success) {
+                        console.log("lead added")
+                        dispatch(success(leadConstants.ADD_LEAD_SUCCESS, lead));
+                        dispatch(alertActions.success(res.message));
+
+                    } else if (res.success === false) {
+                        dispatch(failure(leadConstants.ADD_LEAD_FAILURE, lead));
+                        dispatch(alertActions.error(res.message));
+                    }
+
+
+                    setTimeout(() => {
+                        dispatch(alertActions.clear());
+                    }, 800);
+                },
+                error => {
+                    dispatch(failure(error.toString()));
+                    console.log("occure error");
+                    console.log(error.toString());
+                    dispatch(alertActions.error(leadConstants.ADD_LEAD_FAILURE, error.toString()));
+                }
+            );
+    }
+
+}
+
+function request(type) {
+    return { type: type }
+}
+
+function success(type, data) {
+    return { type: type, data }
+}
+
+function failure(type, error) {
+    return { type: type, error }
+}

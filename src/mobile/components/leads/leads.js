@@ -6,7 +6,7 @@ import persianJs from 'persianjs/persian.min';
 // Actions
 import { productActions, employeeActions } from '../../../actions'
 // Components
-import { Header } from '../base/productHeader';
+import { Header } from '../base/productsExcelHeader';
 import { AddLead } from './addLead'
 
 // Icons

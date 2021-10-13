@@ -1,0 +1,7 @@
+export const leadConstants = {
+
+    ADD_LEAD_REQUEST: 'ADD_LEAD_REQUEST',
+    ADD_LEAD_SUCCESS: 'ADD_LEAD_SUCCESS',
+    ADD_LEAD_FAILURE: 'ADD_LEAD_FAILURE',
+
+};

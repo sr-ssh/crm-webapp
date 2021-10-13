@@ -4,7 +4,7 @@ import { Form, Button, Row, Col, Modal, Spinner } from 'react-bootstrap';
 import persianJs from 'persianjs/persian.min';
 
 // Actions
-import { productActions } from '../../../actions';
+import { leadActions } from '../../../actions';
 
 // Icons
 import closeIcon from '../../assets/images/close.svg'
@@ -14,79 +14,32 @@ import closeIcon from '../../assets/images/close.svg'
 
 export const AddLead = (props) => {
 
-    const [product, setProduct] = useState({})
-    const [validated, setValidated] = useState(false);
-    const [productnameValidated, setProductNameValidated] = useState(false);
-    const [productpriceValidated, setProductPriceValidated] = useState(false);
-    const [checkWareHouse, setCheckWareHouse] = useState(false)
-    const [direct, setDirect] = useState(0)
-    const addProductLoading = useSelector(state => state.addProduct.loading)
+    const [input, setInput] = useState({})
+    const loading = useSelector(state => state.addLead.loading)
     const dispatch = useDispatch()
-
-    let productnameHandler = (value) => {
-        const pName = value;
-        const patt = /^[آ-یa-zA-Z0-9 ]+$/;
-        let res = patt.test(pName.trim());
-        if (res) {
-            setProductNameValidated(true)
-            return value
-        }
-        else {
-            return undefined
-        }
-    }
-    let productpriceHandler = (value) => {
-        const pPrice = value;
-        const patt = /^[0-9]+$/m;
-        let res = patt.test(pPrice);
-        if (res) {
-            setProductPriceValidated(true)
-            return value
-        }
-        else
-            return undefined
-    }
-
 
 
     let handleChange = (e) => {
         e.preventDefault()
         let value = e.target.value
         let name = e.target.name
-        // if (name === "productname") {
-        //     value = productnameHandler(value)
-        // }
-        // if (name === "productprice") {
-        //     value = productpriceHandler(value)
-        // }
-        if (e.target.id === 'sellingPrice' && value?.length)
+        if (e.target.id === 'mobile' && value?.length)
             value = persianJs(value).toEnglishNumber().toString();
-        setProduct({ ...product, [e.target.id]: value })
+        setInput({ ...input, [e.target.id]: value })
     }
 
     let formHandler = (e) => {
         e.preventDefault()
-        if (product?.name && product?.sellingPrice) {
-            dispatch(productActions.addProduct({ ...product, checkWareHouse, direct }))
-            setProduct({ name: "", sellingPrice: "", description: "" })
-            setCheckWareHouse(0)
-            setDirect(0)
-            setProductNameValidated(false)
-            setProductPriceValidated(false)
-        }
-        else {
-            setProductNameValidated(true)
-            setProductPriceValidated(true)
+        if (input?.family && input?.mobile) {
+            dispatch(leadActions.addLead(input))
+            setInput({ family: "", mobile: "", description: "" })
         }
     }
 
     useEffect(() => {
-        setDirect(false)
-        setCheckWareHouse(false)
+        setInput({ family: "", mobile: "", description: "" })
     }, [props.show])
 
-    useEffect(() => {
-    }, [checkWareHouse])
 
     return (
         <Modal
@@ -97,33 +50,28 @@ export const AddLead = (props) => {
             className="mx-3 order-serach-modal--medium"
         >
             <Modal.Body className="add-product px-4">
-                <Button className="border-0 customer-modal-close--desktop" type="button" onClick={e => { props.onHide(false); setProductNameValidated(false); setProductPriceValidated(false) }}>
+                <Button className="border-0 customer-modal-close--desktop" type="button" onClick={e => props.onHide(false)}>
                     <img className="d-flex m-auto customer-modal-close-svg--desktop" src={closeIcon} alt="close-btn" />
                 </Button>
                 <Form onSubmit={formHandler} >
                     <Row className="mt-3">
                         <Col className="col-12 order-filter-input">
-                            <Form.Group controlId="name">
+                            <Form.Group controlId="family">
                                 <Form.Label className="pe-3">نام</Form.Label>
-                                <Form.Control name="productname" className="order-input" type="text"
-                                    value={addProductLoading ? "" : null}
+                                <Form.Control name="family" className="order-input" type="text"
+                                    value={loading ? "" : null}
                                     onChange={handleChange}
-                                    isInvalid={(!product?.name && productnameValidated)}
-                                    isValid={((product?.name && validated) || (productnameValidated && product?.name) && true)}
-
                                 />
                             </Form.Group>
                         </Col>
                     </Row>
                     <Row className="mt-3">
                         <Col className="col-12 order-filter-input">
-                            <Form.Group controlId="sellingPrice">
+                            <Form.Group controlId="mobile">
                                 <Form.Label className="pe-3">موبایل</Form.Label>
-                                <Form.Control name="productprice" className="order-input" type="tel" min="0"
-                                    value={addProductLoading ? "" : null}
+                                <Form.Control name="mobile" className="order-input" type="tel" min="0"
+                                    value={loading ? "" : null}
                                     onChange={handleChange}
-                                    isInvalid={(!product?.sellingPrice && productpriceValidated)}
-                                    isValid={((product?.sellingPrice && validated) || (productpriceValidated && product?.sellingPrice) && true)}
                                 />
                             </Form.Group>
                         </Col>
@@ -132,7 +80,7 @@ export const AddLead = (props) => {
                         <Col>
                             <Form.Group controlId="description" className="order-filter-input mt-3">
                                 <Form.Label className="pe-3">توضیحات</Form.Label>
-                                <Form.Control name="productdescription" className="order-input border-0 h-100" as="textarea" rows={6} value={addProductLoading ? "" : null} onChange={handleChange} />
+                                <Form.Control name="description" className="order-input border-0 h-100" as="textarea" rows={6} value={loading ? "" : null} onChange={handleChange} />
                             </Form.Group>
                         </Col>
                     </Row>
@@ -141,7 +89,7 @@ export const AddLead = (props) => {
                     <Row>
                         <Col>
                             {
-                                addProductLoading ? (
+                                loading ? (
                                     <Button className="fw-bold order-submit border-0 w-100 mt-4" size="lg" type="submit" disabled>
                                         <Spinner
                                             as="span"
