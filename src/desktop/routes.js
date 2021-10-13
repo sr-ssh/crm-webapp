@@ -6,6 +6,11 @@ const dashboardRoutes = [
         layout: "/",
     },
     {
+        path: "/lead",
+        name: "سرنخ",
+        layout: "/",
+    },
+    {
         path: "/order/add",
         name: "ثبت سفارش",
         layout: "/",

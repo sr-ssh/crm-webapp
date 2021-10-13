@@ -33,6 +33,9 @@ export const SidebarItems = () => {
                 </Col>
             </Row>
             <Row>
+                <Col xs={10} sm={10} md={10} lg={10} className="py-3 mx-3 fw-bold sidebarItem">
+                    <Link to="/lead">سرنخ</Link>
+                </Col>
                 {
                     permissions && permissions.addOrder &&
                     <Col xs={10} sm={10} md={10} lg={10} className="py-3 mx-3 fw-bold sidebarItem">

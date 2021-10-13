@@ -33,6 +33,7 @@ import { AddFactor } from '../factor/addFactor';
 import { Factors } from '../factor/factors';
 import { Suppliers } from '../suppliers/suppliers';
 import { Stock } from '../stock/stock';
+import { Leads } from '../leads/leads';
 
 
 
@@ -97,6 +98,8 @@ export const Dashboard = (props) => {
                         <PrivateRoute path="/needs" component={AddOrder} ></PrivateRoute>
                         <PrivateRoute path="/suppliers" component={Suppliers} ></PrivateRoute>
                         <PrivateRoute path="/stock" component={Stock} ></PrivateRoute>
+                        <PrivateRoute path="/lead" component={Leads} ></PrivateRoute>
+
                         <Redirect from="*" to="/" />
                     </Switch >
                 </div >
