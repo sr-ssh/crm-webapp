@@ -16,8 +16,6 @@ export const Leads = () => {
 
 
     const [addModalShow, setAddModalShow] = useState(false)
-    const [editModalShow, setEditModalShow] = useState(false)
-    const [xlsxModalShow, setXlsxModalShow] = useState(false)
     const [lead, setLead] = useState({})
     const dispatch = useDispatch()
     const leads = useSelector(state => state.getLeads.leads)
@@ -25,28 +23,33 @@ export const Leads = () => {
     const addloading = useSelector(state => state.addLead.loading)
     const userPermissions = useSelector(state => state.getPermissions.permissions)
     const sideBar = useSelector(state => state.sideBar)
+    const [activeId, setActiveId] = useState({})
 
 
 
     useEffect(() => {
-        if (!editModalShow && !addModalShow && !xlsxModalShow)
+        if (!addModalShow)
             dispatch(leadActions.getLeads())
         dispatch(employeeActions.getPermissions())
-    }, [dispatch, editModalShow, addModalShow, xlsxModalShow])
+    }, [dispatch, addModalShow])
+
+    let acceptLead = (e, id) => {
+        e.preventDefault()
+        setActiveId(id)
+        dispatch(leadActions.editLeadStatus({leadId: id, status: 0}))
+    }
 
     return (
         <>
-            <Header isBTNSearch={false} userPermission={userPermissions.excelProduct} isGetExcel={true} getExcel={() => setXlsxModalShow(true)} isBtnAdd={"اضافه سرنخ"} btnAdd={() => setAddModalShow(true)} />
+            <Header isBTNSearch={false} userPermission={true} isGetExcel={true} getExcel={() => {}} isBtnAdd={"اضافه سرنخ"} btnAdd={() => setAddModalShow(true)} />
             <div className="product-page d-flex flex-column align-items-center margin--top--header" style={{ paddingRight: sideBar.open ? "250px" : 0 }}>
                 <Container fluid className="m-0 px-4 w-100 d-flex justify-content-evenly flex-wrap ">
                     {leads ?
                         (leads.map((item, index) =>
-                            <Col key={index} xs={4}><Lead sideBar={sideBar.open} item={item} setEditModalShow={() => setEditModalShow(true)} setLead={(lead) => setLead(lead)} /></Col>
+                            <Col key={index} xs={4}><Lead acceptLead={acceptLead} sideBar={sideBar.open} item={item} setLead={(lead) => setLead(lead)} activeId={activeId} /></Col>
                         ))
                         : null}
                     <AddLead show={addModalShow} onHide={() => setAddModalShow(false)} />
-                    {/* <EditProduct show={editModalShow} onHide={() => setEditModalShow(false)} product={product} /> */}
-
                 </Container>
             </div>
         </>

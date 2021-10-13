@@ -29,6 +29,9 @@ import { Factor } from './mobile/components/order/factor/factor';
 import { AddFactor } from './mobile/components/factors/addFactor';
 import { Factors } from './mobile/components/factors/factors';
 import { NoteFactor } from './mobile/components/factors/noteFactor'
+import { Suppliers } from './mobile/components/suppliers/suppliers';
+import { Stock } from './mobile/components/stock/stock';
+import { Leads } from './mobile/components/leads/leads';
 
 
 // Styles 
@@ -51,9 +54,7 @@ import './mobile/assets/styles/notesStyle.css';
 import './mobile/assets/styles/orderDetails.css';
 import './mobile/assets/styles/factorStyle.css';
 import './mobile/assets/styles/receiptStyle.css';
-import { Suppliers } from './mobile/components/suppliers/suppliers';
-import { Stock } from './mobile/components/stock/stock';
-import { Lead } from './mobile/components/leads/leads';
+import './mobile/assets/styles/leadStyle.css'
 
 
 
@@ -87,7 +88,7 @@ function AppMobile() {
         <PrivateRoute path="/factors" component={Factors} ></PrivateRoute>
         <PrivateRoute path="/suppliers" component={Suppliers} ></PrivateRoute>
         <PrivateRoute path="/stock" component={Stock} ></PrivateRoute>
-        <PrivateRoute path="/lead" component={Lead} ></PrivateRoute>
+        <PrivateRoute path="/lead" component={Leads} ></PrivateRoute>
 
         <Redirect from="*" to="/" />
       </Switch>

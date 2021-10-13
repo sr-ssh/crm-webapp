@@ -1,0 +1,18 @@
+.button--green.btn-check:checked + .button--green.btn-primary, .button--green.btn-check:active + .button--green.btn-primary, .button--green.btn-primary:active, .btn-primary.active, .show > .btn-primary.dropdown-toggle {
+    background-color: var(--button-color-two);
+}
+.button--green.btn-check:focus + .button--green.btn-primary, .button--green.btn-primary:focus {
+    background-color: var(--button-color-two);
+}
+.button--green.btn-primary:hover {
+    background-color: var(--button-color-two);
+}
+.button--red.btn-check:checked + .button--red.btn-primary, .button--red.btn-check:active + .button--red.btn-primary, .button--red.btn-primary:active, .btn-primary.active, .show > .btn-primary.dropdown-toggle {
+    background-color: var(--dager-color);
+}
+.button--red.btn-check:focus + .button--red.btn-primary, .button--red.btn-primary:focus {
+    background-color: var(--dager-color);
+}
+.button--red.btn-primary:hover {
+    background-color: var(--dager-color);
+}

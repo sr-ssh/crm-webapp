@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export const Lead = ({ item, sideBar, ...props }) => {
+export const Lead = ({ item, sideBar, activeId, acceptLead, ...props }) => {
 
 
     const classes = useStyles();
@@ -50,7 +50,7 @@ export const Lead = ({ item, sideBar, ...props }) => {
                             <span className="fs-6 me-2 fw-bold">{item.mobile && persianJs(item.mobile).englishNumber().toString()}</span>
                             </Col>
                             <Col dir="ltr" className="top-16 ms-2 ">
-                                <Button className="backgound--green border-0 radius-10 p-1">
+                                <Button className="button--green background--green border-0 radius-10 p-1">
                                     <img src={phoneIcon} alt="phone-icon" width="27px"/>
                                 </Button>
                             </Col>
@@ -65,8 +65,8 @@ export const Lead = ({ item, sideBar, ...props }) => {
 
                     <Card.Text className="m-0 p-0 pt-1 d-flex align-items-start ms-2">
                         {
-                            loading ? (
-                                <Button className="radius-10  fs-6 fw-bold backgound--green border-0 w-100 mt-3" size="lg" type="submit" disabled>
+                            (activeId === item._id && loading) ? (
+                                <Button className="button--green fs-6 fw-bold background--green border-0 w-100 mt-3" size="lg" type="submit" disabled>
                                     <Spinner
                                         as="span"
                                         animation="grow"
@@ -77,10 +77,10 @@ export const Lead = ({ item, sideBar, ...props }) => {
                                     در حال انجام عملیات...
                                 </Button>
                             ) : item?.accepted ?
-                                <Button className="radius-10 fs-6 fw-bold backgound--red border-0 w-100 mt-3" size="lg" type="submit" block>
+                                <Button className="button--red fs-6 fw-bold background--red border-0 w-100 mt-3" size="lg" type="submit" block>
                                     ناموفق
                                 </Button>
-                            :  <Button className="radius-10  fs-6 fw-bold backgound--green border-0 w-100 mt-3" size="lg" type="submit" block>
+                            :  <Button onClick={acceptLead} className="button--green fs-6 fw-bold background--green border-0 w-100 mt-3" size="lg" type="submit" block>
                                 قبول
                             </Button>
                         }

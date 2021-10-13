@@ -29,7 +29,7 @@ import './desktop/assets/styles/stockStyle.css'
 import './desktop/assets/styles/productStyle.css'
 import './desktop/assets/styles/employeeStyle.css'
 import './desktop/assets/styles/financeStyle.css'
-
+import './desktop/assets/styles/leadStyle.css'
 
 
 
