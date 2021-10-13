@@ -96,14 +96,7 @@ export const AddOrder = () => {
             if (e.target.id === 'saleOpprotunity'){
                 dispatch(orderActions.addOrder(order, customer, notes, 3 , 0 ))
             }else{
-            dispatch(orderActions.addOrder(order, customer, notes))
-            setCustomer({ mobile: "", address: "", family: "", reminder: "", duration: "", company: "", lastAddress: "" })
-            insertOrder([])
-            setNotes([])
-            insertPrice("0")
-            setItem("")
-            setQuantity(1)
-            oldCustomer = null;
+                dispatch(orderActions.addOrder(order, customer, notes))
             }
         } else {
             if (customer.mobile && customer.family && !order.length)
@@ -124,16 +117,17 @@ export const AddOrder = () => {
         } else
             setShowNotesModal(true)
     }
-    useEffect(() => {
+
+
+    function clearInputes() {
         setCustomer({ mobile: "", address: "", family: "", reminder: "", duration: "", company: "", lastAddress: "" })
         insertOrder([])
         setNotes([])
         insertPrice("0")
         setItem("")
         setQuantity(1)
-        oldCustomer = null;
-    }, [dispatch])
-
+        oldCustomer = null;        
+    }
     // const submitCalendar = (value, name) => {
     //     let birthDate = `${value.year}/${value.month.number}/${value.day}`
     //     birthDate = moment.from(birthDate, 'fa', 'YYYY/MM/DD').locale('en').format('YYYY-MM-DD');
@@ -143,9 +137,13 @@ export const AddOrder = () => {
         if (oldCustomer?.mobile)
             setCustomer({ ...customer, ...oldCustomer, address: oldCustomer.lastAddress })
     }, [oldCustomer])
+
     useEffect(() => {
-         if(addOrderLoading == false  &&  addOrder.error?.dialogTrigger  )
+         if(addOrderLoading == false  &&  addOrder.error?.dialogTrigger == true ){
             setModalContinueProcesses(true)
+         }else if (addOrderLoading == false  &&  addOrder.error?.dialogTrigger == undefined ){
+            clearInputes()
+         }
     }, [addOrderLoading])
 
     return (
@@ -328,7 +326,7 @@ export const AddOrder = () => {
                     </Form>
                 </Container>
                 <AddNotesModal show={showNotesModal} onHide={() => { setShowNotesModal(false) }} setNotes={setNotes} />
-                <ModalContinueProcessesAddOrder show={modalContinueProcesses} onHide={() => { setModalContinueProcesses(false) }} order={order} customer={customer} notes={notes} />
+                <ModalContinueProcessesAddOrder show={modalContinueProcesses} onHide={() => { setModalContinueProcesses(false) }} order={order} customer={customer} notes={notes} clearInputes={clearInputes} />
             </div >
         </>
     )
