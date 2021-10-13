@@ -7,7 +7,8 @@ import { handleResponse, handleError } from '../helpers'
 let baseRoute = SERVER_URL;
 
 export const leadService = {
-    addLead
+    addLead,
+    getLeads
 };
 
 
@@ -23,6 +24,29 @@ function addLead(lead) {
         .then(res => {
             console.log("res.user >> ");
             console.log(res.data);
+            handleResponse(res)
+            return res.data
+        })
+        .catch(function (error) {
+            if (error.response) {
+                console.log(error.response.data);
+                handleError(error.response.status)
+            }
+        });
+}
+
+
+function getLeads() {
+    console.log("into leadService");
+
+    const requestOptions = {
+        headers: authHeader()
+    };
+
+    return axios
+        .get(`${baseRoute}/lead`, requestOptions)
+        .then(res => {
+            console.log("res.user >> "); console.log(res.data.data);
             handleResponse(res)
             return res.data
         })

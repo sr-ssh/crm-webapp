@@ -29,3 +29,27 @@ export function addLead(state = {}, action) {
     }
 
 }
+
+export function getLeads(state = {}, action) {
+    switch (action.type) {
+        case leadConstants.GET_LEADS_REQUEST:
+            return {
+                ...state,
+                loading: true,
+            }
+        case leadConstants.GET_LEADS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                leads: action.data
+            }
+        case leadConstants.GET_LEADS_FAILURE:
+            return {
+                err: action.error,
+                loading: false
+            }
+        default:
+            return state;
+    }
+
+}

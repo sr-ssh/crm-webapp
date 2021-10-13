@@ -4,7 +4,8 @@ import { leadService } from '../services';
 import { alertActions } from './alertActions';
 
 export const leadActions = {
-    addLead
+    addLead,
+    getLeads
 };
 
 function addLead(lead) {
@@ -39,6 +40,46 @@ function addLead(lead) {
                     console.log("occure error");
                     console.log(error.toString());
                     dispatch(alertActions.error(leadConstants.ADD_LEAD_FAILURE, error.toString()));
+                }
+            );
+    }
+
+}
+
+
+
+function getLeads() {
+    return dispatch => {
+        dispatch(request(leadConstants.GET_LEADS_REQUEST))
+        leadService.getLeads()
+            .then(
+                res => {
+                    console.log(res)
+
+                    if (res === undefined) {
+                        dispatch(alertActions.error('ارتباط با سرور برقرار نیست.'));
+                        dispatch(failure(leadConstants.GET_LEADS_FAILURE, 'ارتباط با سرور برقرار نیست'));
+                    }
+                    else if (res.success) {
+                        console.log("lead got")
+                        dispatch(success(leadConstants.GET_LEADS_SUCCESS, res.data));
+                        dispatch(alertActions.success(res.message));
+
+                    } else if (res.success === false) {
+                        dispatch(failure(leadConstants.GET_LEADS_FAILURE));
+                        dispatch(alertActions.error(res.message));
+                    }
+
+
+                    setTimeout(() => {
+                        dispatch(alertActions.clear());
+                    }, 800);
+                },
+                error => {
+                    dispatch(failure(error.toString()));
+                    console.log("occure error");
+                    console.log(error.toString());
+                    dispatch(alertActions.error(leadConstants.GET_LEADS_FAILURE, error.toString()));
                 }
             );
     }

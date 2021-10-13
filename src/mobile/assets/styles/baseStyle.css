@@ -130,3 +130,11 @@ body {
 .text--color--disabled {
   color: var(--text-color-three);
 }
+.backgound--green{
+  background-color: var(--button-color-two);
+  box-shadow: 0px 0px 6px 0px var(--button-color-two);
+}
+.backgound--red{
+  background-color: var(--dager-color);
+  box-shadow: 0px 0px 6px 0px var(--dager-color);
+}

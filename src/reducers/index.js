@@ -21,7 +21,7 @@ import { getStock, addStock, editStock } from './stockReducer';
 import { getSupplier, getSuppliers, getExcelSuppliers } from './supplierReducer';
 import { addReceipt, confirmShop, getReceipts, editReceiptStatus, editReceipt } from './receiptReducer';
 import { sideBar } from './sideBarReducer'
-import { addLead } from './leadReducer';
+import { addLead, getLeads } from './leadReducer';
 
 export default combineReducers({
     authentication,
@@ -72,5 +72,5 @@ export default combineReducers({
     uploadExcelProducts,
     sideBar, confirmFinancial,
     addCustomerformalInfo,
-    addLead
+    addLead, getLeads
 })

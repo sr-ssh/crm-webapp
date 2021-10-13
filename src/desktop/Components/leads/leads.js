@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Button } from '@material-ui/core'
 
 // Actions
-import { productActions, employeeActions } from '../../../actions'
+import { productActions, employeeActions, leadActions } from '../../../actions'
 // Components
 import { AddLead } from './addLead'
 import { Header } from '../base/headerExcel'
@@ -18,20 +18,19 @@ export const Leads = () => {
     const [addModalShow, setAddModalShow] = useState(false)
     const [editModalShow, setEditModalShow] = useState(false)
     const [xlsxModalShow, setXlsxModalShow] = useState(false)
-    const [product, setProduct] = useState({})
+    const [lead, setLead] = useState({})
     const dispatch = useDispatch()
-    const products = useSelector(state => state.getProducts.product)
-    const productLoading = useSelector(state => state.getProducts.loading)
-    const addProductLoading = useSelector(state => state.addProduct.loading)
+    const leads = useSelector(state => state.getLeads.leads)
+    const loading = useSelector(state => state.getLeads.loading)
+    const addloading = useSelector(state => state.addLead.loading)
     const userPermissions = useSelector(state => state.getPermissions.permissions)
     const sideBar = useSelector(state => state.sideBar)
 
 
 
-
     useEffect(() => {
         if (!editModalShow && !addModalShow && !xlsxModalShow)
-            dispatch(productActions.getProducts())
+            dispatch(leadActions.getLeads())
         dispatch(employeeActions.getPermissions())
     }, [dispatch, editModalShow, addModalShow, xlsxModalShow])
 
@@ -40,18 +39,11 @@ export const Leads = () => {
             <Header isBTNSearch={false} userPermission={userPermissions.excelProduct} isGetExcel={true} getExcel={() => setXlsxModalShow(true)} isBtnAdd={"اضافه سرنخ"} btnAdd={() => setAddModalShow(true)} />
             <div className="product-page d-flex flex-column align-items-center margin--top--header" style={{ paddingRight: sideBar.open ? "250px" : 0 }}>
                 <Container fluid className="m-0 px-4 w-100 d-flex justify-content-evenly flex-wrap ">
-                    {/* {
-                        (productLoading) &&
-                        <Col className="col-3 mt-2 m-auto d-block align-self-center w-100 mb-4 ">
-                            <Spinner className="m-auto d-block" animation="border" />
-                        </Col>
-                    } */}
-                    {products ?
-                        (products.map((item, index) =>
-                            <Lead key={index} sideBar={sideBar.open} item={item} setEditModalShow={() => setEditModalShow(true)} setProduct={(product) => setProduct(product)} />
+                    {leads ?
+                        (leads.map((item, index) =>
+                            <Col key={index} xs={4}><Lead sideBar={sideBar.open} item={item} setEditModalShow={() => setEditModalShow(true)} setLead={(lead) => setLead(lead)} /></Col>
                         ))
                         : null}
-
                     <AddLead show={addModalShow} onHide={() => setAddModalShow(false)} />
                     {/* <EditProduct show={editModalShow} onHide={() => setEditModalShow(false)} product={product} /> */}
 
