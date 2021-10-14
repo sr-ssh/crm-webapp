@@ -15,7 +15,7 @@ export const Lead = ({item, acceptLead, activeId}) => {
     const editLoading = useSelector(state => state.editLeadStatus.loading)
 
     useEffect(() => {
-        dispatch(leadActions.getLeads())
+        (activeId === item?._id) && editLoading && dispatch(leadActions.getLeads())
     }, [editLoading])
 
 

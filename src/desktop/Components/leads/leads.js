@@ -16,7 +16,6 @@ export const Leads = () => {
 
 
     const [addModalShow, setAddModalShow] = useState(false)
-    const [lead, setLead] = useState({})
     const dispatch = useDispatch()
     const leads = useSelector(state => state.getLeads.leads)
     const loading = useSelector(state => state.getLeads.loading)
@@ -31,7 +30,7 @@ export const Leads = () => {
         if (!addModalShow)
             dispatch(leadActions.getLeads())
         dispatch(employeeActions.getPermissions())
-    }, [dispatch, addModalShow])
+    }, [dispatch, addModalShow, addloading])
 
     let acceptLead = (e, id) => {
         e.preventDefault()
@@ -46,7 +45,7 @@ export const Leads = () => {
                 <Container fluid className="m-0 px-4 w-100 d-flex justify-content-evenly flex-wrap ">
                     {leads ?
                         (leads.map((item, index) =>
-                            <Col key={index} xs={4}><Lead acceptLead={acceptLead} sideBar={sideBar.open} item={item} setLead={(lead) => setLead(lead)} activeId={activeId} /></Col>
+                            <Col key={index} xs={4}><Lead acceptLead={acceptLead} sideBar={sideBar.open} item={item} activeId={activeId} /></Col>
                         ))
                         : null}
                     <AddLead show={addModalShow} onHide={() => setAddModalShow(false)} />
