@@ -34,7 +34,7 @@ export const ModalContinueProcessesAddOrder = (props) => {
           </Col>
         </Row>
         <Row>
-          {addOrder?.error?.data.map((item) => {
+          {addOrder?.error?.data?.map((item) => {
             return (
               <Col className="text-center">
                 <span className="">{item.name}</span>

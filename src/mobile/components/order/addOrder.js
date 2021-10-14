@@ -96,13 +96,6 @@ export const AddOrder = () => {
                 dispatch(orderActions.addOrder(order, customer, notes, 3,0))
             else{
                 dispatch(orderActions.addOrder(order, customer, notes))
-            setCustomer({ mobile: "", address: "", family: "", reminder: "", duration: "", company: "", lastAddress: "" })
-            insertOrder([])
-            setNotes([])
-            insertPrice("0")
-            setItem("")
-            setQuantity(1)
-            oldCustomer = null;
             }
         } else {
             if (customer.mobile && customer.family && !order.length)
@@ -113,6 +106,15 @@ export const AddOrder = () => {
             console.log('empty order can not be sent')
             setValidated(true);
         }
+    }
+    function clearInputes() {
+        setCustomer({ mobile: "", address: "", family: "", reminder: "", duration: "", company: "", lastAddress: "" })
+        insertOrder([])
+        setNotes([])
+        insertPrice("0")
+        setItem("")
+        setQuantity(1)
+        oldCustomer = null;        
     }
     let noteHandler = (e) => {
         if (notes.length > 0) {
@@ -129,22 +131,16 @@ export const AddOrder = () => {
     //     birthDate = moment.from(birthDate, 'fa', 'YYYY/MM/DD').locale('en').format('YYYY-MM-DD');
     //     setCustomer({ ...customer, [name]: birthDate })
     // }
-   let clearInputes = () => {
-        setCustomer({ mobile: "", address: "", family: "", reminder: "", duration: "", company: "", lastAddress: "" })
-        insertOrder([])
-        setNotes([])
-        insertPrice("0")
-        setItem("")
-        setQuantity(1)
-        oldCustomer = null;
-       }
     useEffect(() => {
         if (oldCustomer?.mobile)
             setCustomer({ ...customer, ...oldCustomer, address: oldCustomer.lastAddress })
     }, [oldCustomer])
     useEffect(() => {
-        if(addOrderLoading == false  &&  addOrder.error?.dialogTrigger  )
-           setModalContinueProcesses(true)
+        if(addOrderLoading == false  &&  addOrder.error?.dialogTrigger == true ){
+            setModalContinueProcesses(true)
+         }else if (addOrderLoading == false  &&  addOrder.error?.dialogTrigger == undefined ){
+            clearInputes()
+         }
    }, [addOrderLoading])
 
     return (
