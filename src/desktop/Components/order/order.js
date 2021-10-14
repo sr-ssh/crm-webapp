@@ -215,6 +215,15 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                         <span className="noPrint">مشاهده مدارک</span>
                     </Button>
                 </Col>
+                {
+                    !order.sellers.some(seller => seller.active === true) && order.status == 3 &&
+                    <Col className="d-flex justify-content-end">
+                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setShowDocModalShow(true); setActiveOrder(order); }}>
+                            <img src={viewDocumentsIcon} height="25px" alt="print-icon" className="col-3" />
+                            <span className="noPrint">آزاد کردن</span>
+                        </Button>
+                    </Col>
+                }
             </Row>
             <Card.Body className="pb-0 ps-1 rounded-3 text-gray">
                 <Row className="p-0 ps-2 m-0 ">
