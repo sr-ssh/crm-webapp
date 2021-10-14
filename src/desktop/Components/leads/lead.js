@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export const Lead = ({ item, sideBar, activeId, acceptLead, addOrder, ...props }) => {
+export const Lead = ({ item, sideBar, activeId, acceptLead, addOrder, failLead, ...props }) => {
 
 
     const classes = useStyles();
@@ -81,7 +81,7 @@ export const Lead = ({ item, sideBar, activeId, acceptLead, addOrder, ...props }
                                     در حال انجام عملیات...
                                 </Button>
                             ) : item?.accepted ?
-                                <Button className="button--red fs-6 fw-bold background--red border-0 w-100 mt-3" size="lg" type="submit" block>
+                                <Button onClick={(e) => failLead(e, item?._id)} className="button--red fs-6 fw-bold background--red border-0 w-100 mt-3" size="lg" type="submit" block>
                                     ناموفق
                                 </Button>
                             :  <Button onClick={(e) => acceptLead(e, item?._id)} className="button--green fs-6 fw-bold background--green border-0 w-100 mt-3" size="lg" type="submit" block>

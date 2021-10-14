@@ -38,6 +38,12 @@ export const Leads = () => {
         dispatch(leadActions.editLeadStatus({leadId: id, status: 0}))
     }
 
+    let failLead = (e, id) => {
+        e.preventDefault()
+        setActiveId(id)
+        dispatch(leadActions.editLeadStatus({leadId: id, status: 1}))
+    }
+
     let addOrder = (e, id, family, mobile) => {
         history.push({
             pathname: '/order/add',
@@ -66,14 +72,14 @@ export const Leads = () => {
                 }
                 {leads ?
                     (leads.map((item, index) => <Lead 
-                                                    key={index} 
-                                                    item={item} 
-                                                    acceptLead={acceptLead} 
-                                                    activeId={activeId}
-                                                    addOrder={addOrder} 
+                                                key={index} 
+                                                item={item} 
+                                                acceptLead={acceptLead} 
+                                                activeId={activeId}
+                                                addOrder={addOrder} 
+                                                failLead={failLead}
                                                 />
                     ))
-
                     : null}
 
                 <AddLead show={addModalShow} onHide={() => setAddModalShow(false)} />

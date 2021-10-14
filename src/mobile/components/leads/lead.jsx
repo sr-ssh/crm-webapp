@@ -8,7 +8,7 @@ import { leadActions } from '../../../actions'
 // Icons
 import phoneIcon from './../../assets/images/lead/call.svg'
 
-export const Lead = ({item, acceptLead, activeId, addOrder}) => {
+export const Lead = ({item, acceptLead, activeId, addOrder,failLead}) => {
 
 
     const dispatch = useDispatch()
@@ -65,7 +65,7 @@ export const Lead = ({item, acceptLead, activeId, addOrder}) => {
                             در حال انجام عملیات...
                         </Button>
                     ) : item?.accepted ?
-                        <Button className="button--red fs-6 fw-bold background--red border-0 w-100 mt-3" size="lg" type="submit" block>
+                        <Button onClick={(e) => failLead(e, item?._id)} className="button--red fs-6 fw-bold background--red border-0 w-100 mt-3" size="lg" type="submit" block>
                             ناموفق
                         </Button>
                     :  <Button onClick={(e) => acceptLead(e, item?._id)} className="button--green fs-6 fw-bold background--green border-0 w-100 mt-3" size="lg" type="submit" block>
