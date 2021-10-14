@@ -19,7 +19,8 @@ export const orderActions = {
     getShareLinkOrder,
     confirmFinancial,
     uploadDoc,
-    showDoc
+    showDoc,
+    editSaleOpportunitySellerStatus
 }
 
 function getOrders(filter) {
@@ -527,6 +528,35 @@ function showDoc(orderId) {
                 }
             );
     };
+}
+
+function editSaleOpportunitySellerStatus(orderId) {
+    return dispatch => {
+        dispatch(request(orderConstants.CONFIRM_FINANCIAL_ORDER_REQUEST))
+        orderService.editSaleOpportunitySellerStatus(orderId)
+            .then(
+                res => {
+                    if (res === undefined) {
+                        dispatch(alertActions.error('ارتباط با سرور برقرار نیست'));
+                        dispatch(failure(orderConstants.CONFIRM_FINANCIAL_ORDER_FAILURE, 'ارتباط با سرور برقرار نیست'))
+                    }
+                    else if (res.success) {
+                        console.log("order financial confirmed")
+                        dispatch(success(orderConstants.CONFIRM_FINANCIAL_ORDER_SUCCESS, res.data));
+                    } else if (res.success == false) {
+                        dispatch(failure(orderConstants.CONFIRM_FINANCIAL_ORDER_FAILURE, res.message))
+                        dispatch(alertActions.error(res.message));
+                    }
+                },
+                error => {
+                    dispatch(failure(orderConstants.CONFIRM_FINANCIAL_ORDER_FAILURE, error.toString()));
+                    console.log("occure error");
+                    console.log(error.toString());
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+    };
+
 }
 
 function request(type) {

@@ -181,7 +181,7 @@ export function getOrderSms(state = initialState, action) {
                 postCustomerSms: 3
             }
             Object.keys(action.sms).map((keyitem) => {
-                action.sms.[keyitem].type = SMSTypes.[keyitem]
+                action.sms[keyitem].type = SMSTypes[keyitem]
             })
 
             return {
@@ -371,6 +371,30 @@ export function showDoc(state = {}, action) {
         case orderConstants.SHOW_DOC_FAILURE:
             return {
                 error: action.error,
+                loading: false
+            }
+        default:
+            return state
+    }
+}
+
+export function editSaleOpportunitySellerStatus(state = {}, action) {
+    switch (action.type) {
+        case orderConstants.EDIT_SALE_OPPORTUNITY_SELLER_REQUEST:
+            return {
+                ...state,
+                params: action.params,
+                loading: true
+            }
+        case orderConstants.EDIT_SALE_OPPORTUNITY_SELLER_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                message: action.message
+            }
+        case orderConstants.EDIT_SALE_OPPORTUNITY_SELLER_FAILURE:
+            return {
+                err: action.err,
                 loading: false
             }
         default:

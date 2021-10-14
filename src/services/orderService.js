@@ -25,7 +25,8 @@ export const orderService = {
     getShareLinkOrder,
     confirmFinancial,
     uploadDoc,
-    showDoc
+    showDoc,
+    editSaleOpportunitySellerStatus
 };
 
 function getOrders(filter = {}) {
@@ -397,6 +398,28 @@ function showDoc(data) {
 
     return axios
         .get(`${baseRoute}/order/doc/${data.orderId}`, data, requestOptions.headers)
+        .then(res => {
+            console.log('res >>')
+            console.log(res)
+            return res.data
+        })
+        .catch(error => {
+            if (error.response) {
+                console.log(error.response.data)
+                handleError(error.response.status)
+            }
+        })
+}
+
+function editSaleOpportunitySellerStatus(data) {
+    console.log('into orderService (editSaleOpportunitySellerStatus)')
+
+    const requestOptions = {
+        headers: authHeader()
+    }
+
+    return axios
+        .put(`${baseRoute}/order/seller/status`, data, requestOptions.headers)
         .then(res => {
             console.log('res >>')
             console.log(res)

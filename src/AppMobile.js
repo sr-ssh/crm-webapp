@@ -66,7 +66,7 @@ function AppMobile() {
   const alert = useSelector(state => state.alert)
   return (
     <Router history={history}>
-      {
+      {/* {
         alert.message &&
         <>
             <div className="modal-backdrop show"> 
@@ -77,7 +77,7 @@ function AppMobile() {
             </Row>
             </div>
         </>
-      }
+      } */}
       <Switch>
 
         <Route exact path="/" component={Login} />
