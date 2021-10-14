@@ -1,11 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import { Container, Card, Row, Alert, Spinner, Col, Button } from 'react-bootstrap';
-import { Popover, Backdrop } from '@material-ui/core';
-import moment from 'jalali-moment';
+import { useDispatch, useSelector } from 'react-redux'
 import persianJs from 'persianjs/persian.min';
 import { makeStyles } from '@material-ui/core/styles';
-import commaNumber from 'comma-number'
-
+import { leadActions } from '../../../actions';
 // Icons
 import phoneIcon from './../../assets/images/lead/call.svg'
 
@@ -27,11 +25,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export const Lead = ({ item, sideBar, activeId, acceptLead, ...props }) => {
+export const Lead = ({ item, sideBar, activeId, acceptLead, addOrder, failLead, ...props }) => {
 
 
     const classes = useStyles();
-    let loading ;
+    const editLoading = useSelector(state => state.editLeadStatus.loading)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        (activeId === item._id) && editLoading && dispatch(leadActions.getLeads())
+    }, [editLoading])
+
 
     return (
         <>
@@ -50,7 +54,7 @@ export const Lead = ({ item, sideBar, activeId, acceptLead, ...props }) => {
                             <span className="fs-6 me-2 fw-bold">{item.mobile && persianJs(item.mobile).englishNumber().toString()}</span>
                             </Col>
                             <Col dir="ltr" className="top-16 ms-2 ">
-                                <Button className="button--green background--green border-0 radius-10 p-1">
+                                <Button onClick={(e) => addOrder(e, item?._id, item?.family, item?.mobile)} className="button--green background--green border-0 radius-10 p-1">
                                     <img src={phoneIcon} alt="phone-icon" width="27px"/>
                                 </Button>
                             </Col>
@@ -65,7 +69,7 @@ export const Lead = ({ item, sideBar, activeId, acceptLead, ...props }) => {
 
                     <Card.Text className="m-0 p-0 pt-1 d-flex align-items-start ms-2">
                         {
-                            (activeId === item._id && loading) ? (
+                            (activeId === item._id && editLoading) ? (
                                 <Button className="button--green fs-6 fw-bold background--green border-0 w-100 mt-3" size="lg" type="submit" disabled>
                                     <Spinner
                                         as="span"
@@ -77,10 +81,10 @@ export const Lead = ({ item, sideBar, activeId, acceptLead, ...props }) => {
                                     در حال انجام عملیات...
                                 </Button>
                             ) : item?.accepted ?
-                                <Button className="button--red fs-6 fw-bold background--red border-0 w-100 mt-3" size="lg" type="submit" block>
+                                <Button onClick={(e) => failLead(e, item?._id)} className="button--red fs-6 fw-bold background--red border-0 w-100 mt-3" size="lg" type="submit" block>
                                     ناموفق
                                 </Button>
-                            :  <Button onClick={acceptLead} className="button--green fs-6 fw-bold background--green border-0 w-100 mt-3" size="lg" type="submit" block>
+                            :  <Button onClick={(e) => acceptLead(e, item?._id)} className="button--green fs-6 fw-bold background--green border-0 w-100 mt-3" size="lg" type="submit" block>
                                 قبول
                             </Button>
                         }

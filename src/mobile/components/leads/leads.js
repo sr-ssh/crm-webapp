@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Container, Card, Row, Button, Spinner, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
-import moment from 'jalali-moment';
-import persianJs from 'persianjs/persian.min';
+import { history } from '../../../helpers';
 // Actions
 import { leadActions, employeeActions } from '../../../actions'
 // Components
@@ -39,6 +38,19 @@ export const Leads = () => {
         dispatch(leadActions.editLeadStatus({leadId: id, status: 0}))
     }
 
+    let failLead = (e, id) => {
+        e.preventDefault()
+        setActiveId(id)
+        dispatch(leadActions.editLeadStatus({leadId: id, status: 1}))
+    }
+
+    let addOrder = (e, id, family, mobile) => {
+        history.push({
+            pathname: '/order/add',
+            state: { id, family, mobile}
+        })
+    }
+
     useEffect(() => {
         if (!addModalShow)
             dispatch(leadActions.getLeads())
@@ -59,9 +71,15 @@ export const Leads = () => {
                     </Row>
                 }
                 {leads ?
-                    (leads.map((item, index) => <Lead key={index} item={item} acceptLead={acceptLead} activeId={activeId}/>
+                    (leads.map((item, index) => <Lead 
+                                                key={index} 
+                                                item={item} 
+                                                acceptLead={acceptLead} 
+                                                activeId={activeId}
+                                                addOrder={addOrder} 
+                                                failLead={failLead}
+                                                />
                     ))
-
                     : null}
 
                 <AddLead show={addModalShow} onHide={() => setAddModalShow(false)} />

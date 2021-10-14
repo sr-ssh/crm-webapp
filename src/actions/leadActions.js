@@ -61,21 +61,24 @@ function getLeads() {
                     if (res === undefined) {
                         dispatch(alertActions.error('ارتباط با سرور برقرار نیست.'));
                         dispatch(failure(leadConstants.GET_LEADS_FAILURE, 'ارتباط با سرور برقرار نیست'));
+                        setTimeout(() => {
+                            dispatch(alertActions.clear());
+                        }, 800);
                     }
                     else if (res.success) {
                         console.log("lead got")
                         dispatch(success(leadConstants.GET_LEADS_SUCCESS, res.data));
-                        dispatch(alertActions.success(res.message));
 
                     } else if (res.success === false) {
                         dispatch(failure(leadConstants.GET_LEADS_FAILURE));
                         dispatch(alertActions.error(res.message));
+                        setTimeout(() => {
+                            dispatch(alertActions.clear());
+                        }, 800);
                     }
 
 
-                    setTimeout(() => {
-                        dispatch(alertActions.clear());
-                    }, 800);
+                    
                 },
                 error => {
                     dispatch(failure(error.toString()));
@@ -131,12 +134,12 @@ function editLeadStatus(lead) {
                         dispatch(alertActions.error('ارتباط با سرور برقرار نیست'));
                         dispatch(failure(leadConstants.EDIT_LEAD_FAILURE, 'ارتباط با سرور برقرار نیست'));
                     }
-                    else if (res.success) {
+                    else if (res.data.status) {
                         console.log("lead added")
                         dispatch(success(leadConstants.EDIT_LEAD_SUCCESS, lead));
                         dispatch(alertActions.success(res.message));
 
-                    } else if (res.success === false) {
+                    } else if (res.data.status === false) {
                         dispatch(failure(leadConstants.EDIT_LEAD_FAILURE, lead));
                         dispatch(alertActions.error(res.message));
                     }

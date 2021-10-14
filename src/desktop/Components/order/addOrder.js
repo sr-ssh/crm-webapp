@@ -20,10 +20,7 @@ import {ModalContinueProcessesAddOrder} from './modalContinueProcesses'
 import downloadIcon from '../../assets/images/download.svg'
 import addIcon from '../../assets/images/order/add.svg'
 
-export const AddOrder = () => {
-
-
-
+export const AddOrder = (props) => {
 
     const [validated, setValidated] = useState(false);
     const [mobileValidated, setMobileValidated] = useState(false);
@@ -145,6 +142,14 @@ export const AddOrder = () => {
             clearInputes()
          }
     }, [addOrderLoading])
+
+    
+    useEffect(() => {
+        if(props.location?.state?.mobile){
+            setCustomer({ ...customer, ...props.location.state })
+        }
+   }, [])
+
 
     return (
         <>

@@ -1,6 +1,8 @@
 import React from 'react';
 import { history } from './helpers';
 import { Redirect, Route, Router, Switch } from 'react-router';
+import { Alert, Row } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 
 import PrivateRoute from './mobile/components/privateRoute';
 
@@ -61,8 +63,21 @@ import './mobile/assets/styles/leadStyle.css'
 
 
 function AppMobile() {
+  const alert = useSelector(state => state.alert)
   return (
     <Router history={history}>
+      {/* {
+        alert.message &&
+        <>
+            <div className="modal-backdrop show"> 
+            <Row className="justify-content-center text-center ">
+                <Alert variant={alert.type}>
+                    {alert.message}
+                </Alert>
+            </Row>
+            </div>
+        </>
+      } */}
       <Switch>
 
         <Route exact path="/" component={Login} />

@@ -20,7 +20,7 @@ import {ModalContinueProcessesAddOrder} from './modalContinueProcesses'
 import downloadIcon from '../../assets/images/download.svg'
 import addIcon from '../../assets/images/order/add.svg'
 
-export const AddOrder = () => {
+export const AddOrder = (props) => {
 
     let alertMessage = useSelector(state => state.alert.message)
     let alerType = useSelector(state => state.alert.type)
@@ -135,6 +135,7 @@ export const AddOrder = () => {
         if (oldCustomer?.mobile)
             setCustomer({ ...customer, ...oldCustomer, address: oldCustomer.lastAddress })
     }, [oldCustomer])
+
     useEffect(() => {
         if(addOrderLoading == false  &&  addOrder.error?.dialogTrigger == true ){
             setModalContinueProcesses(true)
@@ -142,6 +143,12 @@ export const AddOrder = () => {
             clearInputes()
          }
    }, [addOrderLoading])
+
+   useEffect(() => {
+        if(props.location?.state?.mobile){
+            setCustomer({ ...customer, ...props.location.state })
+        }
+   }, [])
 
     return (
         <div className="order-page">
@@ -318,7 +325,7 @@ export const AddOrder = () => {
                             </>
                         }
                     </Row>
-                    {
+                    {/* {
                         alertMessage &&
                         <>
                             <div className="modal-backdrop show"></div>
@@ -328,7 +335,7 @@ export const AddOrder = () => {
                                 </Alert>
                             </Row>
                         </>
-                    }
+                    } */}
                 </Form>
             </Container>
             <AddNotesModal show={showNotesModal} onHide={() => { setShowNotesModal(false) }} setNotes={setNotes} />

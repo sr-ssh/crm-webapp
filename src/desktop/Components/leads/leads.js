@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Container, Spinner, Col } from 'react-bootstrap';
+import { Container, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
-
-import { Button } from '@material-ui/core'
+import { history } from '../../../helpers';
 
 // Actions
 import { productActions, employeeActions, leadActions } from '../../../actions'
@@ -16,7 +15,6 @@ export const Leads = () => {
 
 
     const [addModalShow, setAddModalShow] = useState(false)
-    const [lead, setLead] = useState({})
     const dispatch = useDispatch()
     const leads = useSelector(state => state.getLeads.leads)
     const loading = useSelector(state => state.getLeads.loading)
@@ -31,12 +29,25 @@ export const Leads = () => {
         if (!addModalShow)
             dispatch(leadActions.getLeads())
         dispatch(employeeActions.getPermissions())
-    }, [dispatch, addModalShow])
+    }, [dispatch, addModalShow, addloading])
 
     let acceptLead = (e, id) => {
         e.preventDefault()
         setActiveId(id)
         dispatch(leadActions.editLeadStatus({leadId: id, status: 0}))
+    }
+
+    let failLead = (e, id) => {
+        e.preventDefault()
+        setActiveId(id)
+        dispatch(leadActions.editLeadStatus({leadId: id, status: 1}))
+    }
+
+    let addOrder = (e, id, family, mobile) => {
+        history.push({
+            pathname: '/order/add',
+            state: { id, family, mobile}
+        })
     }
 
     return (
@@ -46,7 +57,16 @@ export const Leads = () => {
                 <Container fluid className="m-0 px-4 w-100 d-flex justify-content-evenly flex-wrap ">
                     {leads ?
                         (leads.map((item, index) =>
-                            <Col key={index} xs={4}><Lead acceptLead={acceptLead} sideBar={sideBar.open} item={item} setLead={(lead) => setLead(lead)} activeId={activeId} /></Col>
+                            <Col key={index} xs={4}>
+                                <Lead 
+                                addOrder={addOrder} 
+                                acceptLead={acceptLead} 
+                                sideBar={sideBar.open} 
+                                item={item} 
+                                activeId={activeId}
+                                failLead={failLead}
+                                />
+                            </Col>
                         ))
                         : null}
                     <AddLead show={addModalShow} onHide={() => setAddModalShow(false)} />

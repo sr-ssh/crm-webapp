@@ -36,6 +36,7 @@ import { ShareLinkOrder } from "./shareLinkOrder"
 import { Note } from './note'
 import { FinancialCheckModal } from './financialCheckModal'
 import { ResultOrder } from './resultOrder'
+import { FreeOrder } from './freeOrder';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -60,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, setCancelOrderShow, recordOrderShow = '', setRecordOrderShow = {}, setActiveOrder, setOrder, status, setUploadModalShow, setShowDocModalShow, setCustomerInfoShow }) => {
+export const Order = ({ order, refresh, setRefresh, deliveryShow, setDeliveryShow, cancelOrderShow, setCancelOrderShow, recordOrderShow = '', setRecordOrderShow = {}, setActiveOrder, setOrder, status, setUploadModalShow, setShowDocModalShow, setCustomerInfoShow }) => {
 
 
     const classes = useStyles();
@@ -74,6 +75,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
     const [isShareLinkOrder, setIsShareLinkOrder] = useState(false)
     const [financialCheckModal, setFinancialCheckModal] = useState(false)
     const [resultOrderModal, setResultOrderModal] = useState(false)
+    const [freeModalShow, setFreeModalShow] = useState(false);
 
     const [isPrivate, setIsPrivate] = useState(order.notes.isPrivate);
     // const [showDocModalShow, setShowDocModalShow] = useState(false)
@@ -215,6 +217,15 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
                         <span className="noPrint">مشاهده مدارک</span>
                     </Button>
                 </Col>
+                {
+                    order.sellers.some(seller => seller.active === true) && order.status == 3 &&
+                    <Col className="d-flex justify-content-end">
+                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setFreeModalShow(true); }}>
+                            <img src={viewDocumentsIcon} height="25px" alt="print-icon" className="col-3" />
+                            <span className="noPrint">آزاد کردن</span>
+                        </Button>
+                    </Col>
+                }
             </Row>
             <Card.Body className="pb-0 ps-1 rounded-3 text-gray">
                 <Row className="p-0 ps-2 m-0 ">
@@ -428,6 +439,7 @@ export const Order = ({ order, deliveryShow, setDeliveryShow, cancelOrderShow, s
             </Dialog>
             <FinancialCheckModal show={financialCheckModal} onHide={() => setFinancialCheckModal(false)} order={financialCheckModal ? order : null} />
             <ResultOrder show={resultOrderModal} onHide={() => setResultOrderModal(false)} order={resultOrderModal ? order : null} />
+            <FreeOrder  show={freeModalShow} onHide={() => {setFreeModalShow(false); setRefresh(!refresh)} } order={order?.id} status="0"/>
             {/* <ShowDocuments show={showDocModalShow} onHide={() => setShowDocModalShow(false)} order={activeOrder} /> */}
         </Card >
     )

@@ -40,6 +40,7 @@ export const SaleOpprotunity = () => {
     const [cancelOrderShow, setCancelOrderShow] = useState(false)
     const [uploadModalShow, setUploadModalShow] = useState(false)
     const [customerInfoShow, setCustomerInfoShow] = useState(false)
+    const [refresh, setRefresh] = useState(false)
 
     const dispatch = useDispatch()
 
@@ -53,7 +54,9 @@ export const SaleOpprotunity = () => {
         !recordOrderShow && dispatch(orderActions.getOrders({ status: 3 }))
     }, [dispatch, recordOrderShow])
 
-
+    useEffect(() => {
+        dispatch(orderActions.getOrders({ status: 3 }))
+    }, [refresh])
 
     return (
         <>
@@ -80,7 +83,7 @@ export const SaleOpprotunity = () => {
 
 
                     {(orders.length > 0) ?
-                        (orders.map((order, index) => <Order key={index} order={order} deliveryShow={deliveryShow} setDeliveryShow={setDeliveryShow} recordOrderShow={recordOrderShow} setRecordOrderShow={setRecordOrderShow} setActiveOrder={setActiveOrder} setOrder={setOrder} status={3} cancelOrderShow={cancelOrderShow} setCancelOrderShow={setCancelOrderShow} setUploadModalShow={setUploadModalShow}  setCustomerInfoShow={setCustomerInfoShow} />))
+                        (orders.map((order, index) => <Order key={index} refresh={refresh} setRefresh={setRefresh}  order={order} deliveryShow={deliveryShow} setDeliveryShow={setDeliveryShow} recordOrderShow={recordOrderShow} setRecordOrderShow={setRecordOrderShow} setActiveOrder={setActiveOrder} setOrder={setOrder} status={3} cancelOrderShow={cancelOrderShow} setCancelOrderShow={setCancelOrderShow} setUploadModalShow={setUploadModalShow}  setCustomerInfoShow={setCustomerInfoShow} />))
 
                         : null}
 

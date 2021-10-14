@@ -3,19 +3,19 @@ import { Card, Row, Button, Spinner, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
 import persianJs from 'persianjs/persian.min';
 // Actions
-import { leadActions, employeeActions } from '../../../actions'
+import { leadActions } from '../../../actions'
 
 // Icons
 import phoneIcon from './../../assets/images/lead/call.svg'
 
-export const Lead = ({item, acceptLead, activeId}) => {
+export const Lead = ({item, acceptLead, activeId, addOrder,failLead}) => {
 
 
     const dispatch = useDispatch()
     const editLoading = useSelector(state => state.editLeadStatus.loading)
 
     useEffect(() => {
-        dispatch(leadActions.getLeads())
+        (activeId === item?._id) && editLoading && dispatch(leadActions.getLeads())
     }, [editLoading])
 
 
@@ -38,7 +38,7 @@ export const Lead = ({item, acceptLead, activeId}) => {
 
                     
                     <Col dir="ltr" className="top-16 ms-2 ">
-                        <Button className="background--green button--green border-0 p-1">
+                        <Button onClick={(e) => addOrder(e, item?._id, item?.family, item?.mobile)} className="background--green button--green border-0 p-1">
                             <img src={phoneIcon} alt="phone-icon" width="27px"/>
                         </Button>
                     </Col>
@@ -65,7 +65,7 @@ export const Lead = ({item, acceptLead, activeId}) => {
                             در حال انجام عملیات...
                         </Button>
                     ) : item?.accepted ?
-                        <Button className="button--red fs-6 fw-bold background--red border-0 w-100 mt-3" size="lg" type="submit" block>
+                        <Button onClick={(e) => failLead(e, item?._id)} className="button--red fs-6 fw-bold background--red border-0 w-100 mt-3" size="lg" type="submit" block>
                             ناموفق
                         </Button>
                     :  <Button onClick={(e) => acceptLead(e, item?._id)} className="button--green fs-6 fw-bold background--green border-0 w-100 mt-3" size="lg" type="submit" block>
