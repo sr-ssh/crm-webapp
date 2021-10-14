@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export const Lead = ({ item, sideBar, activeId, acceptLead, ...props }) => {
+export const Lead = ({ item, sideBar, activeId, acceptLead, addOrder, ...props }) => {
 
 
     const classes = useStyles();
@@ -54,7 +54,7 @@ export const Lead = ({ item, sideBar, activeId, acceptLead, ...props }) => {
                             <span className="fs-6 me-2 fw-bold">{item.mobile && persianJs(item.mobile).englishNumber().toString()}</span>
                             </Col>
                             <Col dir="ltr" className="top-16 ms-2 ">
-                                <Button className="button--green background--green border-0 radius-10 p-1">
+                                <Button onClick={(e) => addOrder(e, item?._id, item?.family, item?.mobile)} className="button--green background--green border-0 radius-10 p-1">
                                     <img src={phoneIcon} alt="phone-icon" width="27px"/>
                                 </Button>
                             </Col>

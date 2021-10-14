@@ -3,12 +3,12 @@ import { Card, Row, Button, Spinner, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
 import persianJs from 'persianjs/persian.min';
 // Actions
-import { leadActions, employeeActions } from '../../../actions'
+import { leadActions } from '../../../actions'
 
 // Icons
 import phoneIcon from './../../assets/images/lead/call.svg'
 
-export const Lead = ({item, acceptLead, activeId}) => {
+export const Lead = ({item, acceptLead, activeId, addOrder}) => {
 
 
     const dispatch = useDispatch()
@@ -38,7 +38,7 @@ export const Lead = ({item, acceptLead, activeId}) => {
 
                     
                     <Col dir="ltr" className="top-16 ms-2 ">
-                        <Button className="background--green button--green border-0 p-1">
+                        <Button onClick={(e) => addOrder(e, item?._id, item?.family, item?.mobile)} className="background--green button--green border-0 p-1">
                             <img src={phoneIcon} alt="phone-icon" width="27px"/>
                         </Button>
                     </Col>
