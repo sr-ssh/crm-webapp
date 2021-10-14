@@ -146,7 +146,7 @@
 }
 
 .basket-dropdown-border-left {
-  border-left: 1px solid var(--button-background);
+  border-left: 1px solid var(--dark--blue);
 }
 
 .products-add--mobile {

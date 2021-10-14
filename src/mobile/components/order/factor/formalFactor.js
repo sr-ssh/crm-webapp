@@ -15,39 +15,69 @@ export const FormalFactor = ({ order }) => {
     return (
         <Container className="m-auto">
 
-            <Row className="align-items-center p-3">
+            {/* <Row className="align-items-center p-3">
                 <Col className='text-bold '>
                     {order.status == 3 ? "پیش فاکتور" : "فاکتور"}
                 </Col>
                 <Col className="text-start">
                     <Image src={logo} alt="crm-icon" height="37px" />
                 </Col>
-            </Row>
-            <Card className="rounded-card border-0 mb-2">
+            </Row> */}
+            <Card className="rounded-card border-0 mb-2 mt-4">
                 <Card.Body className="pb-2 pt-0 px-2 lh-lg">
                     <Card.Title className="mb-1">
-                        <Row className="fw-bold text-center">
+                        <Row className="fw-bold px-1">
                             <Col>
-                                <span className="fs-8 ps-2">فروشنده:</span>
-                                <span className="fs-9 text-grey">{order.provider.family}</span>
+                                <span className="fs-7 ps-2">نام شرکت:</span>
+                                <span className="fs-7 text-grey">{order.provider.company}</span>
                             </Col>
                         </Row>
                     </Card.Title>
                     <hr className="dark-blue-border mt-0 mb-0" />
-                    <Row className="fw-bold px-3 fs-9 pt-2">
+                    <Row className="fw-bold px-1 fs-8 pt-2">
                         <Col>
                             <span className="ps-2">تلفن و فکس:</span>
                             <span className="text-grey">_</span>
                         </Col>
                         <Col>
-                            <span className="ps-2">شماره اقتصادی:</span>
-                            <span className="text-grey">_</span>
+                            <span className="ps-2">کد اقتصادی:</span>
+                            <span className="text-grey">
+                                {order.provider.financialCode && persianJs(order.provider.financialCode).englishNumber().toString()}
+                            </span>
                         </Col>
                     </Row>
-                    <Row className="fw-bold px-3 fs-9 pt-2">
+                    <Row className="fw-bold px-1 fs-8 pt-2">
                         <Col>
                             <span className="ps-2">نشانی شرکت:</span>
                             <span className="text-grey">{order.provider.address}</span>
+                        </Col>
+                    </Row>
+                    <Row className="fw-bold px-1 fs-8 pt-2">
+                        <Col>
+                            <span className="ps-2">شناسه ملی شرکت:</span>
+                            <span className="text-grey">
+                                {order.provider.nationalCode && persianJs(order.provider.nationalCode).englishNumber().toString()} 
+                            </span>
+                        </Col>
+                        <Col>
+                            <span className="ps-2">شماره ثبت:</span>
+                            <span className="text-grey">
+                                {order.provider.registerNo && persianJs(order.provider.registerNo).englishNumber().toString()}
+                            </span>
+                        </Col>
+                    </Row>
+                    <Row className="fw-bold px-1 fs-8 pt-2">
+                        <Col>
+                            <span className="ps-2">کد پستی:</span>
+                            <span className="text-grey">
+                                {order.provider.postalCode && persianJs(order.provider.postalCode).englishNumber().toString()} 
+                            </span>
+                        </Col>
+                        <Col>
+                            <span className="ps-2">فروشنده:</span>
+                            <span className="text-grey">
+                                {order.provider.family && persianJs(order.provider.family).englishNumber().toString()}
+                            </span>
                         </Col>
                     </Row>
                 </Card.Body>
@@ -55,28 +85,54 @@ export const FormalFactor = ({ order }) => {
             <Card className="rounded-card border-0 mb-2">
                 <Card.Body className="pb-2 pt-0 px-2 lh-lg">
                     <Card.Title className="mb-1">
-                        <Row className="fw-bold text-center">
+                        <Row className="fw-bold px-1">
                             <Col>
-                                <span className="fs-8 ps-2">خریدار:</span>
-                                <span className="fs-9 text-grey">{order.customer.family}</span>
+                                <span className="fs-7 ps-2">نام شرکت:</span>
+                                <span className="fs-7 text-grey">{order.customer.company}</span>
                             </Col>
                         </Row>
                     </Card.Title>
                     <hr className="dark-blue-border mt-0 mb-0" />
-                    <Row className="fw-bold px-3 fs-9 pt-2">
+                    <Row className="fw-bold px-1 fs-8 pt-2">
                         <Col>
                             <span className="ps-2">شماره تماس:</span>
                             <span className="text-grey">{order.customer.mobile && persianJs(order.customer.mobile).englishNumber().toString()}</span>
                         </Col>
                         <Col>
-                            <span className="ps-2">تاریخ:</span>
-                            <span className="text-grey">{order.customer.createdAt && persianJs(moment.from(order.customer.createdAt, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD')).englishNumber().toString()}</span>
+                            <span className="ps-2">کد اقتصادی:</span>
+                            <span className="text-grey">{order.customer.financialCode && persianJs(order.customer.financialCode).englishNumber().toString()}</span>
                         </Col>
                     </Row>
-                    <Row className="fw-bold px-3 fs-9 pt-2">
+                    <Row className="fw-bold px-1 fs-8 pt-2">
                         <Col>
                             <span className="ps-2">نشانی :</span>
                             <span className="text-grey">{order.address}</span>
+                        </Col>
+                    </Row>
+                    <Row className="fw-bold px-1 fs-8 pt-2">
+                        <Col>
+                            <span className="ps-2">شناسه ملی شرکت:</span>
+                            <span className="text-grey">{order.customer.nationalCard && persianJs(order.customer.nationalCard).englishNumber().toString()}</span>
+                        </Col>
+                        <Col>
+                            <span className="ps-2">شماره ثبت:</span>
+                            <span className="text-grey">{order.customer.registerNo && persianJs(order.customer.registerNo).englishNumber().toString()}</span>
+                        </Col>
+                    </Row>
+                    <Row className="fw-bold px-1 fs-8 pt-2">
+                        <Col>
+                            <span className="ps-2">کد پستی:</span>
+                            <span className="text-grey">{order.customer.postalCode && persianJs(order.customer.postalCode).englishNumber().toString()}</span>
+                        </Col>
+                        <Col>
+                            <span className="ps-2">خریدار:</span>
+                            <span className="text-grey">{order.customer.family}</span>
+                        </Col>
+                    </Row>
+                    <Row className="fw-bold px-1 fs-8 pt-2">
+                        <Col>
+                            <span className="ps-2">تاریخ:</span>
+                            <span className="text-grey">{order.customer.createdAt && persianJs(moment.from(order.customer.createdAt, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD')).englishNumber().toString()}</span>
                         </Col>
                     </Row>
                 </Card.Body>

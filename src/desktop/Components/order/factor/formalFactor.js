@@ -16,67 +16,132 @@ export const FormalFactor = ({ factor }) => {
 
     return (
         <Container fluid className="factor--page--desktop d-flex flex-column align-items-center">
-            <Row className="w-100 mt-5 d-flex justify-content-around ">
+            {/* <Row className="w-100 mt-5 d-flex justify-content-around ">
                 <Col className="me-5 d-flex align-items-center">
                     <span className="fw-bold fs-5">{factor.status == 3 ? "پیش فاکتور" : "فاکتور"}</span>
                 </Col>
                 <Col className="ms-5 d-flex justify-content-end">
                     <img className="" height="60px" src={logo} alt="" />
                 </Col>
-            </Row>
-            <Row className="w-100 mt-3 d-flex flex-row ">
+            </Row> */}
+            <Row className="w-100 mt-4 d-flex flex-row ">
                 <Col>
                     <Card className="card--factor--desktop">
-                        <Card.Header className="card--header--factor--desktop mx-2 py-3 d-flex justify-content-center align-items-center">
-                            <span className="fw-bold fs-6">فروشنده :</span>
-                            <span className="text--gray--factor--desktop me-3">{factor.provider.family}</span>
-                        </Card.Header>
                         <Card.Body>
                             <Row className="d-flex mx-3 my-2">
-                                <Col className="d-flex align-items-center">
-                                    <span className="fw-bold fs-7">تلفن و فکس:</span>
-                                    <span className="text--gray--factor--desktop me-3 ">_</span>
+                                <Col xs={2} className="d-flex align-items-center basket-dropdown-border-left" >
+                                    <span className="fw-bold fs-6">نام شرکت :</span>
+                                    <span className="text--gray--factor--desktop me-3">{factor.provider.company}</span>
                                 </Col>
                                 <Col className="d-flex align-items-center">
-                                    <span className="fw-bold fs-7">شماره اقتصادی :</span>
-                                    <span className="text--gray--factor--desktop me-3 ">_</span>
-                                </Col>
-                            </Row>
-                            <Row className="d-flex mx-3 my-3">
-                                <Col className="d-flex align-items-center">
-                                    <span className="fw-bold fs-7">نشانی شرکت:</span>
-                                    <span className="text--gray--factor--desktop me-3">{factor.provider.address}</span>
+                                    <Row className="d-flex mx-3 my-0 lh-lg">
+                                        <Col xs={4} className="d-flex align-items-center">
+                                            <span className="fw-bold fs-7">تلفن و فکس:</span>
+                                            <span className="text--gray--factor--desktop me-3 ">_</span>
+                                        </Col>
+                                        <Col xs={4} className="d-flex align-items-center">
+                                            <span className="fw-bold fs-7">کد اقتصادی :</span>
+                                            <span className="text--gray--factor--desktop me-3 ">
+                                                {factor.provider.financialCode && persianJs(factor.provider.financialCode).englishNumber().toString()}
+                                            </span>
+                                        </Col>
+                                        <Col xs={4} className="d-flex align-items-center">
+                                            <span className="fw-bold fs-7">شماره ثبت:</span>
+                                            <span className="text--gray--factor--desktop me-3 ">
+                                                {factor.provider.registerNo && persianJs(factor.provider.registerNo).englishNumber().toString()}
+                                            </span>
+                                        </Col>
+                                        <Col xs={4} className="d-flex align-items-center">
+                                            <span className="fw-bold fs-7">کد پستی:</span>
+                                            <span className="text--gray--factor--desktop me-3 ">
+                                                {factor.provider.postalCode && persianJs(factor.provider.postalCode).englishNumber().toString()}
+                                            </span>
+                                        </Col>
+                                        <Col xs={4} className="d-flex align-items-center">
+                                            <span className="fw-bold fs-7">فروشنده:</span>
+                                            <span className="text--gray--factor--desktop me-3 ">
+                                                {factor.provider.family}
+                                            </span>
+                                        </Col>
+                                        <Col xs={4} className="d-flex align-items-center">
+                                            <span className="fw-bold fs-7">نشانی شرکت:</span>
+                                            <span className="text--gray--factor--desktop me-3">{factor.provider.address}</span>
+                                        </Col>
+                                        <Col xs={4} className="d-flex align-items-center">
+                                            <span className="fw-bold fs-7">شناسه ملی شرکت:</span>
+                                            <span className="text--gray--factor--desktop me-3 ">
+                                                {factor.provider.postalCode && persianJs(factor.provider.postalCode).englishNumber().toString()} 
+                                            </span>
+                                        </Col>
+                                    </Row>
                                 </Col>
                             </Row>
                         </Card.Body>
 
                     </Card>
                 </Col>
+            </Row>
+            <Row className="w-100 mt-3 d-flex flex-row ">
                 <Col>
                     <Card className="card--factor--desktop">
-                        <Card.Header className="card--header--factor--desktop mx-2 py-3 d-flex justify-content-center align-items-center">
-                            <span className="fw-bold fs-6">خریدار :</span>
-                            <span className="text--gray--factor--desktop me-3">{factor.customer.family}</span>
-                        </Card.Header>
-                        <Card.Body>
+                    <Card.Body>
                             <Row className="d-flex mx-3 my-2">
-                                <Col className="d-flex align-items-center">
-                                    <span className="fw-bold fs-7">شماره تلفن :</span>
-                                    <span className="text--gray--factor--desktop me-3 ">{factor.customer.mobile}</span>
+                                <Col xs={2} className="d-flex align-items-center basket-dropdown-border-left" >
+                                    <span className="fw-bold fs-6">نام شرکت :</span>
+                                    <span className="text--gray--factor--desktop me-3">{factor.customer.company}</span>
                                 </Col>
-                                <Col className="d-flex align-items-center pe-5">
-                                    <span className="fw-bold fs-7">تاریخ :</span>
-                                    <span className="text--gray--factor--desktop me-3 ">{factor.createdAt && persianJs(moment.from(factor.customer.createdAt, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD')).englishNumber().toString()}</span>
-                                </Col>
-                            </Row>
-                            <Row className="d-flex mx-3 my-3">
                                 <Col className="d-flex align-items-center">
-                                    <span className="fw-bold fs-7">نشانی :</span>
-                                    <span className="text--gray--factor--desktop me-3">{factor.address}</span>
+                                    <Row className="d-flex mx-3 my-0 lh-lg">
+                                        <Col xs={4} className="d-flex align-items-center">
+                                            <span className="fw-bold fs-7">شماره تماس:</span>
+                                            <span className="text--gray--factor--desktop me-3 ">
+                                                {factor.customer.mobile && persianJs(factor.customer.mobile).englishNumber().toString()}
+                                            </span>
+                                        </Col>
+                                        <Col xs={4} className="d-flex align-items-center">
+                                            <span className="fw-bold fs-7">کد اقتصادی :</span>
+                                            <span className="text--gray--factor--desktop me-3 ">
+                                                {factor.customer.financialCode && persianJs(factor.customer.financialCode).englishNumber().toString()}
+                                            </span>
+                                        </Col>
+                                        <Col xs={4} className="d-flex align-items-center">
+                                            <span className="fw-bold fs-7">تاریخ:</span>
+                                            <span className="text--gray--factor--desktop me-3 ">
+                                                {factor.createdAt && persianJs(moment.from(factor.createdAt, 'YYYY').locale('fa').format('YYYY/MM/DD')).englishNumber().toString()}
+                                            </span>
+                                        </Col>
+                                        <Col xs={4} className="d-flex align-items-center">
+                                            <span className="fw-bold fs-7">شماره ثبت:</span>
+                                            <span className="text--gray--factor--desktop me-3 ">
+                                                {factor.customer.registerNo && persianJs(factor.customer.registerNo).englishNumber().toString()}
+                                            </span>
+                                        </Col>
+                                        <Col xs={4} className="d-flex align-items-center">
+                                            <span className="fw-bold fs-7">کد پستی:</span>
+                                            <span className="text--gray--factor--desktop me-3 ">
+                                                {factor.customer.postalCode && persianJs(factor.customer.postalCode).englishNumber().toString()}
+                                            </span>
+                                        </Col>
+                                        <Col xs={4} className="d-flex align-items-center">
+                                            <span className="fw-bold fs-7">نشانی:</span>
+                                            <span className="text--gray--factor--desktop me-3">{factor.address}</span>
+                                        </Col>
+                                        <Col xs={4} className="d-flex align-items-center">
+                                            <span className="fw-bold fs-7">شناسه ملی شرکت:</span>
+                                            <span className="text--gray--factor--desktop me-3 ">
+                                                {factor.customer.nationalCard && persianJs(factor.customer.nationalCard).englishNumber().toString()} 
+                                            </span>
+                                        </Col>
+                                        <Col xs={4} className="d-flex align-items-center">
+                                            <span className="fw-bold fs-7">خریدار:</span>
+                                            <span className="text--gray--factor--desktop me-3 ">
+                                                {factor.customer.family}
+                                            </span>
+                                        </Col>
+                                    </Row>
                                 </Col>
                             </Row>
                         </Card.Body>
-
                     </Card>
                 </Col>
             </Row>
