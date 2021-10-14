@@ -148,7 +148,8 @@ export function addOrder(state = initialState, action) {
         case orderConstants.ADD_ORDER_REQUEST:
             return {
                 ...state,
-                loading: true
+                loading: true,
+                error: null
             }
         case orderConstants.ADD_ORDER_SUCCESS:
             return {

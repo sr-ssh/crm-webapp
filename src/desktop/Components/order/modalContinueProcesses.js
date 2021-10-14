@@ -11,10 +11,10 @@ export const ModalContinueProcessesAddOrder = (props) => {
   let addOrder = useSelector((state) => state.addOrder);
 
   const editHandler = (e) => {
-      debugger;
     dispatch(orderActions.addOrder(props.order , props.customer ,  props.notes, 3 , 1 ))
     setTimeout(() => {
       props.onHide(false);
+      props.clearInputes()
     }, 700);
   };
   return (
@@ -33,7 +33,7 @@ export const ModalContinueProcessesAddOrder = (props) => {
           </Col>
         </Row>
         <Row>
-          {addOrder?.error?.data.map((item) => {
+          {addOrder?.error?.data?.map((item) => {
             return (
               <Col className="text-center">
                 <span className="">{item.name}</span>

@@ -215,7 +215,6 @@ function cancelProductOrder(orderId, productId) {
 function addOrder(products, customer, notes, status = '' , force = 0) {
     return dispatch => {
         dispatch(request())
-        if(force!=0) dispatch(failure(null))
         orderService.addOrder(products, customer, notes, status , force)
             .then(
                 res => {
@@ -234,7 +233,7 @@ function addOrder(products, customer, notes, status = '' , force = 0) {
                         }, 1500);
 
                     } else if (res.success === false) {
-                        if(res.dialogTrigger === undefined)
+                        if((res.dialogTrigger == undefined) || (res.dialogTrigger !== true))
                             dispatch(alertActions.error(res.message));
                         dispatch(failure(res))
                     }
