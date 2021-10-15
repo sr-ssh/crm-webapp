@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Container, Row, Col, Spinner } from 'react-bootstrap';
-import { Header } from '../base/header2';
-import { CancelOrder } from './cancelOrder'
+import { Container, Row, Col, Spinner,Alert } from 'react-bootstrap';
+
 
 
 // Actions
@@ -11,10 +10,14 @@ import { orderActions } from '../../../actions';
 
 
 //components
+import { Header } from '../base/header2';
 import { Order } from './order';
 import { Delivery } from './delivery'
 import { RecordOrder } from './recordOrder'
 import { UploadDocuments } from './uploadDoc'
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { CancelOrder } from './cancelOrder'
+
 
 
 export const SaleOpprotunity = () => {
@@ -35,6 +38,8 @@ export const SaleOpprotunity = () => {
 
 
     const orders = useSelector(state => state.getOrders.orders)
+    let alert = useSelector(state => state.alert)
+
     let orderLoading = useSelector(state => state.getOrders.loading)
 
 
@@ -51,15 +56,31 @@ export const SaleOpprotunity = () => {
     return (
         <div className="product-page orders ">
             <Header className="noPrint" title="فرصت فروش" backLink="/" />
-            <Container className="m-auto">
-                {
-                    orderLoading &&
-                    <Row>
-                        <Col className="col-3 mt-2 m-auto ">
-                            <Spinner className="m-auto d-block" animation="border" />
-                        </Col>
-                    </Row>
+            {
+                    alert.message &&
+                    <>
+                        <div className="modal-backdrop show"></div>
+                        <Row className="justify-content-center text-center ">
+                            <Alert variant={alert.type}>
+                                {alert.message}
+                            </Alert>
+                        </Row>
+                    </>
                 }
+                 {
+                    orderLoading &&
+                    <Container className="d-flex justify-content-center align-items-center"  style={{ height: "90vh", position: "fixed", top: "64px" }} >
+                        <Row className="d-flex justify-content-center">
+                            <Col className="col-12 d-flex justify-content-center ">
+                            <CircularProgress />
+                            </Col>
+                        </Row>
+                    </Container>
+
+                }
+            <Container className={`m-auto  `} style={{ height: "90vh", position: "fixed", top: "64px" }} >
+                
+               
                 {
                     (orders.length === 0 && !orderLoading) ? (
                         <Row className="justify-content-center align-items-center no-result-filter">
@@ -69,14 +90,14 @@ export const SaleOpprotunity = () => {
                         </Row>
                     ) : null
                 }
-
-
-
-                {(orders.length > 0) ?
+                 
+                <Row className="m-0 p-0 w-100 h-100" style={{ overflowX : "hidden" , overflowY: "scroll" }}>
+                {( !orderLoading &&  orders.length > 0) ?
                     (orders.map((order, index) => <Order key={index} refresh={refresh} setRefresh={setRefresh} order={order} deliveryShow={deliveryShow} setDeliveryShow={setDeliveryShow} recordOrderShow={recordOrderShow} setRecordOrderShow={setRecordOrderShow} setActiveOrder={setActiveOrder} setOrder={setOrder} cancelOrderShow={cancelOrderShow} setCancelOrderShow={setCancelOrderShow} setUploadModalShow={setUploadModalShow} setCustomerInfoShow={setCustomerInfoShow}  />))
 
                     : null}
-
+                </Row>
+                
                 {/* <OrderSearch show={modalShow} onHide={() => setModalShow(false)} /> */}
                 <Delivery show={deliveryShow} onHide={() => setDeliveryShow(false)} order={order} />
                 <RecordOrder show={recordOrderShow} onHide={() => setRecordOrderShow(false)} order={activeOrder} />

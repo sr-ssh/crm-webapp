@@ -14,6 +14,7 @@ export const ResultOrder = (props) => {
 
 
     const dispatch = useDispatch()
+
     let failure = () => {
         dispatch(orderActions.editOrderStatus(props.order.id, "4"))
         setTimeout(() => {
@@ -25,7 +26,7 @@ export const ResultOrder = (props) => {
     }
 
     let successful = () => {
-        dispatch(orderActions.editOrderStatus(props.order.id, "0"))
+        dispatch(orderActions.editOrderStatus(props.order.id, "0" ))
         setTimeout(() => {
             dispatch(orderActions.getOrders({ status: 3 }))
             props.onHide(false)

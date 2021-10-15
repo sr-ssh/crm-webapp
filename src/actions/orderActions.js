@@ -65,6 +65,10 @@ function editOrderStatus(orderId, status) {
                         console.log("order status changed")
                         dispatch(success(orderConstants.EDIT_ORDER_STATUS_SUCCESS))
                         dispatch(alertActions.success(res.message));
+                    }else if (res.success === false) {
+                        console.log("product order changed")
+                        dispatch(failure(orderConstants.EDIT_ORDER_STATUS_FAILURE, res.message));
+                        dispatch(alertActions.error(res.message));
                     }
 
                     setTimeout(() => {
