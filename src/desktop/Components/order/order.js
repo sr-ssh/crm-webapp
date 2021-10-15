@@ -76,6 +76,7 @@ export const Order = ({ order, refresh, setRefresh, deliveryShow, setDeliverySho
     const [financialCheckModal, setFinancialCheckModal] = useState(false)
     const [resultOrderModal, setResultOrderModal] = useState(false)
     const [freeModalShow, setFreeModalShow] = useState(false);
+    const [freeStatus, setFreeStatus] = useState('')
 
     const [isPrivate, setIsPrivate] = useState(order.notes.isPrivate);
     // const [showDocModalShow, setShowDocModalShow] = useState(false)
@@ -220,9 +221,18 @@ export const Order = ({ order, refresh, setRefresh, deliveryShow, setDeliverySho
                 {
                     order.sellers.some(seller => seller.active === true) && order.status == 3 &&
                     <Col className="d-flex justify-content-end">
-                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setFreeModalShow(true); }}>
+                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setFreeModalShow(true); setFreeStatus('0')}}>
                             <img src={viewDocumentsIcon} height="25px" alt="print-icon" className="col-3" />
                             <span className="noPrint">آزاد کردن</span>
+                        </Button>
+                    </Col>
+                }
+                {
+                    !order.sellers.some(seller => seller.active === true) && order.status == 3 &&
+                    <Col className="d-flex justify-content-end">
+                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setFreeModalShow(true); setFreeStatus('1')}}>
+                            <img src={viewDocumentsIcon} height="25px" alt="print-icon" className="col-3" />
+                            <span className="noPrint">گرفتن</span>
                         </Button>
                     </Col>
                 }
@@ -439,7 +449,7 @@ export const Order = ({ order, refresh, setRefresh, deliveryShow, setDeliverySho
             </Dialog>
             <FinancialCheckModal show={financialCheckModal} onHide={() => setFinancialCheckModal(false)} order={financialCheckModal ? order : null} />
             <ResultOrder show={resultOrderModal} onHide={() => setResultOrderModal(false)} order={resultOrderModal ? order : null} />
-            <FreeOrder  show={freeModalShow} onHide={() => {setFreeModalShow(false); setRefresh(!refresh)} } order={order?.id} status="0"/>
+            <FreeOrder  show={freeModalShow} onHide={() => {setFreeModalShow(false); setRefresh(!refresh)} } order={order?.id} status={freeStatus}/>
             {/* <ShowDocuments show={showDocModalShow} onHide={() => setShowDocModalShow(false)} order={activeOrder} /> */}
         </Card >
     )
