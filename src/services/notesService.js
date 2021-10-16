@@ -5,12 +5,6 @@ import { handleResponse, handleError } from '../helpers'
 
 let baseRoute = SERVER_URL;
 
-axios.interceptors.request.use(request => {
-    console.log('Starting Request', request)
-    request.headers = authHeader();
-    return request
-})
-
 export const notesService = {
     getNotes,
     addNotes,

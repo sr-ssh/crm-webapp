@@ -22,6 +22,7 @@ export const Leads = () => {
     const loading = useSelector(state => state.getLeads.loading)
     const editLoading = useSelector(state => state.editLeadStatus.loading)
     const addloading = useSelector(state => state.addLead.loading)
+    const uploadLoading = useSelector(state => state.uploadExcel.loading)
     const userPermissions = useSelector(state => state.getPermissions.permissions)
     
     let uploadHandler = (e) => {
@@ -55,7 +56,7 @@ export const Leads = () => {
         if (!addModalShow)
             dispatch(leadActions.getLeads())
         dispatch(employeeActions.getPermissions())
-    }, [dispatch, addModalShow, addloading, editLoading])
+    }, [dispatch, addModalShow, addloading, editLoading, uploadLoading])
 
 
     return (
