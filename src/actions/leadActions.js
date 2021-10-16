@@ -22,12 +22,12 @@ function addLead(lead) {
                         dispatch(alertActions.error('ارتباط با سرور برقرار نیست.سرنخ شما ثبت نشد'));
                         dispatch(failure(leadConstants.ADD_LEAD_FAILURE, 'ارتباط با سرور برقرار نیست.سرنخ شما ثبت نشد'));
                     }
-                    else if (res.success) {
+                    else if (res.data.status) {
                         console.log("lead added")
                         dispatch(success(leadConstants.ADD_LEAD_SUCCESS, lead));
                         dispatch(alertActions.success(res.message));
 
-                    } else if (res.success === false) {
+                    } else if (res.data.status === false) {
                         dispatch(failure(leadConstants.ADD_LEAD_FAILURE, lead));
                         dispatch(alertActions.error(res.message));
                     }
