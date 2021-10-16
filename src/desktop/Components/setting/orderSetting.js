@@ -196,6 +196,31 @@ export const OrderSetting = () => {
                             </Col>
                         </Row>
 
+                        <Row className="mx-0 my-3">
+                            <Col className="col-3 order-setting-field-label align-self-center">
+                                تعداد سرنخ های فعال هر فرد
+                            </Col>
+                            <Col className="p-0 col-2" style={{ width: "15%" }}>
+                                <Dropdown className="text-center w-100" show={false}>
+                                    <Dropdown.Toggle className="w-100 px-1 d-flex align-items-center dropdown--btn--sms--setting" id="dropdown-basic">
+                                        <span className="me-2 fw-bold">دقیقه</span>
+                                        <img className="ms-1 me-auto" src={spinnerIcon} height="20px" alt="spinner-icon" />
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                        <Dropdown.Item>دقیقه</Dropdown.Item>
+                                        <Dropdown.Item>ساعت</Dropdown.Item>
+                                        <Dropdown.Item >روز</Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown>
+                            </Col>
+                            <Col className="p-0 col-4 d-flex align-items-center justify-content-start">
+                                <Form.Group controlId="defaultReminder" className=" form-grp--setting--desktop">
+                                    <Form.Control type="number" name="leadCountPerEmployee" className="order-setting-field--desktop m-auto" disabled={true} defaultValue={configSettingOrder?.lead?.leadCountPerEmployee}/>
+                                    <span className="ms-3">دقیقه</span>
+                                </Form.Group>
+                            </Col>
+                        </Row>
+
                     </Form.Group>
                     <Row className="m-0 p-0 w-100 mb-3">
                         <Col className="m-0 p-0 col-12">
