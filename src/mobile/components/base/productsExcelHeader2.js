@@ -3,7 +3,7 @@ import { Navbar, Nav, Col } from 'react-bootstrap';
 import { history } from '../../../helpers/history'
 
 import backIcon from './../../assets/images/back.svg'
-import plusIcon from './../../assets/images/Products/pluss-dark-blue.svg'
+import plusIcon from './../../assets/images/Products/pluss.svg'
 import excelIcon from './../../assets/images/excel.svg'
 
 export const Header = ({ title, uploadHandler, setModalShow, userPermission }) => {

@@ -3,6 +3,7 @@ import { Container, Card, Row, Alert, Spinner, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
 import moment from 'jalali-moment';
 import persianJs from 'persianjs/persian.min';
+import commaNumber from 'comma-number'
 // Actions
 import { productActions, employeeActions } from '../../../actions'
 // Components
@@ -64,7 +65,7 @@ export const Products = () => {
                                     <span style={{ "color": "var(--text-color-one)" }}>نام : </span>{item.name && persianJs(item.name).englishNumber().toString()}
                                 </Card.Text>
                                 <Card.Text className="pt-1">
-                                    <span style={{ "color": "var(--text-color-one)" }}>قیمت فروش : </span>{item.sellingPrice && persianJs(item.sellingPrice).englishNumber().toString()}
+                                    <span style={{ "color": "var(--text-color-one)" }}>قیمت فروش : </span>{item.sellingPrice && persianJs(commaNumber(item.sellingPrice)).englishNumber().toString()}
                                 </Card.Text>
                                 <Card.Text className="pt-1">
                                     <span style={{ "color": "var(--text-color-one)" }}>تاریخ ویرایش : </span>{item.updatedAt && persianJs(moment.from(item.updatedAt, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD')).englishNumber().toString()}

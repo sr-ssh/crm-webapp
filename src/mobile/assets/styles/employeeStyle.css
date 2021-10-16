@@ -2,7 +2,7 @@
     background-color: var(--button-color-two);
 }
 
-.hire-application-btn .btn-check:focus + .btn-primary, .btn-primary:focus {
+.hire-application-btn.btn-check:focus + .hire-application-btn.btn-primary, .hire-application-btn.btn-primary:focus {
     background-color: var(--button-color-two);
 }
 
@@ -10,7 +10,7 @@
     background-color: var(--button-color-two);
 }
 
-.hire-application-btn .btn-check:checked + .btn-primary, .btn-check:active + .btn-primary, .btn-primary:active, .btn-primary.active, .show > .btn-primary.dropdown-toggle {
+.hire-application-btn.btn-check:checked + .hire-application-btn.btn-primary, .hire-application-btn.btn-check:active + .hire-application-btn.btn-primary, .hire-application-btn.btn-primary:active, .hire-application-btn.btn-primary.active, .hire-application-btn.show > .hire-application-btn.btn-primary.dropdown-toggle {
     background-color: var(--button-color-two);
 }
 
@@ -18,7 +18,7 @@
     background-color: var(--dager-color);
 }
 
-.close-application-btn .btn-check:focus + .btn-primary, .btn-primary:focus {
+.close-application-btn.btn-check:focus + .close-application-btn.btn-primary, .close-application-btn.btn-primary:focus {
     background-color: var(--button-color-two);
 }
 
@@ -26,7 +26,7 @@
     background-color: var(--button-color-two);
 }
 
-.close-application-btn .btn-check:checked + .btn-primary, .btn-check:active + .btn-primary, .btn-primary:active, .btn-primary.active, .show > .btn-primary.dropdown-toggle {
+.close-application-btn.btn-check:checked + .close-application-btn.btn-primary, .close-application-btn.btn-check:active + .close-application-btn.btn-primary, .close-application-btn.btn-primary:active, .close-application-btn.btn-primary.active, .close-application-btn.show > .close-application-btn.btn-primary.dropdown-toggle {
     background-color: var(--button-color-two);
 }
 

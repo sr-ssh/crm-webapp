@@ -155,6 +155,7 @@
 .registerForm {
   margin-top: 30px;
   z-index: 2;
+  overflow: scroll;
 }
 
 .login-input {
