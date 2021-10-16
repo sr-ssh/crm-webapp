@@ -166,7 +166,7 @@ export const Factor = ({ factor, setCancelFactorShow, setDeliveryShow, cancelOrd
                         <span className="noPrint">چاپ</span>
                     </Button>
                 </Col>
-                {factor.shopApproval.status === false &&
+                {parseInt(factor.shopApproval.status) !== 1 &&
                     <Col className="d-flex justify-content-end col-2">
                         <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 justify-content-center" type="button" onClick={() => { setCancelFactorShow(true); setActiveFactor(factor) }}>
                             <img src={cancelIcon} height="25px" alt="print-icon" className="ms-3" />
@@ -174,7 +174,7 @@ export const Factor = ({ factor, setCancelFactorShow, setDeliveryShow, cancelOrd
                         </Button>
                     </Col>
                 }
-                {factor.shopApproval.status === false &&
+                {parseInt(factor.shopApproval.status) !== 1 &&
                 <Col className="d-flex justify-content-end col-2">
                     <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 justify-content-center" type="button" onClick={() => { setFinancialCheckModal(true) }}>
                         <img src={financialCheckIcon} height="25px" alt="print-icon" className="ms-3" />
