@@ -169,7 +169,7 @@ export const AddProduct = (props) => {
                                         در حال انجام عملیات...
                                     </Button>
                                 ) : (
-                                    <Button className="radius-10 fs-6 py-2 fw-bold backgound--dark--blue border-0 w-100 mt-4" size="lg" type="submit" block>
+                                    <Button className="radius-10 fs-6 py-2 fw-bold backround--dark--blue border-0 w-100 mt-4" size="lg" type="submit" block>
                                         ثبت
                                     </Button>
                                 )
