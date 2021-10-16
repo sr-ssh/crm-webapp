@@ -55,7 +55,7 @@ export const Leads = () => {
         if (!addModalShow)
             dispatch(leadActions.getLeads())
         dispatch(employeeActions.getPermissions())
-    }, [dispatch, addModalShow, addloading])
+    }, [dispatch, addModalShow, addloading, editLoading])
 
 
     return (

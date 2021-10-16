@@ -24,12 +24,11 @@ export const Leads = () => {
     const [activeId, setActiveId] = useState({})
 
 
-
     useEffect(() => {
         if (!addModalShow)
             dispatch(leadActions.getLeads())
         dispatch(employeeActions.getPermissions())
-    }, [dispatch, addModalShow, addloading])
+    }, [dispatch, addModalShow, addloading, ])
 
     let acceptLead = (e, id) => {
         e.preventDefault()
