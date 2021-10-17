@@ -164,7 +164,8 @@ export const Basket = ({ order, insertOrder, totalPrice, insertPrice, selectedIt
                                                             <td>{item.name && persianJs(item.name).englishNumber().toString()}</td>
                                                             <td className="text-center" style={{ 'paddingRight': '0' }}>
                                                                 <Form.Group className="add-order-input text-center" style={{ 'width': '27vw' }}>
-                                                                    <Form.Control className="order-input" type="tel"
+                                                                    <Form.Control className="order-input" 
+                                                                        type="tel"
                                                                         inputMode="tel"
                                                                         pattern="[0-9]*"
                                                                         name="mobile"

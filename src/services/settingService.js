@@ -45,7 +45,7 @@ function editSettingOrder(params) {
     };
 
     return axios
-        .put(`${baseRoute}/settings/edit/order`, requestOptions.body, requestOptions.headers)
+        .put(`${baseRoute}/settings/edit/order`, requestOptions.body, {headers: requestOptions.headers})
         .then(res => {
             console.log("res.user >> ");
             console.log(res.data);
