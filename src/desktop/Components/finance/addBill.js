@@ -63,7 +63,7 @@ export const AddBill = (props) => {
         }
         if (id === "cost") {
             console.log("_______________________________costHandler_______________________________");
-            value = persianJs(value).toEnglishNumber().toString()
+            value = value ? persianJs(value).toEnglishNumber().toString() : null
 
         }
         setInputs({ ...inputs, [id]: value })
