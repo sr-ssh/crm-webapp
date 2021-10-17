@@ -29,7 +29,7 @@ export const OrderSetting = () => {
     postDeliverySms: {},
     postCustomerSms: {},
     reminder: {},
-    duration: {},
+    duration: {}
   });
   const [configSettingLead, setConfigSettingLead] = useState({
     leadCountPerEmployee: "",
