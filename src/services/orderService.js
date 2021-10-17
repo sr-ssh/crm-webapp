@@ -325,7 +325,7 @@ function getShareLinkOrder(params) {
     }
 
     return axios
-        .post(`${baseRoute}/order/details/sharelink`, requestOptions.body, requestOptions.headers)
+        .post(`${baseRoute}/order/details/sharelink`, requestOptions.body, {headers: requestOptions.headers})
         .then(res => {
             console.log('res >>')
             console.log(res)
@@ -351,7 +351,7 @@ function confirmFinancial(orderId) {
     }
 
     return axios
-        .put(`${baseRoute}/order/financial/confirm `, requestOptions.body, requestOptions.headers)
+        .put(`${baseRoute}/order/financial/confirm `, requestOptions.body, {headers: requestOptions.headers})
         .then(res => {
             console.log('res >>')
             console.log(res)
@@ -375,7 +375,7 @@ function uploadDoc(data) {
     }
 
     return axios
-        .post(`${baseRoute}/order/doc`, requestOptions.body, requestOptions.headers)
+        .post(`${baseRoute}/order/doc`, requestOptions.body, {headers: requestOptions.headers})
         .then(res => {
             console.log('res >>')
             console.log(res)
@@ -397,7 +397,7 @@ function showDoc(data) {
     }
 
     return axios
-        .get(`${baseRoute}/order/doc/${data.orderId}`, data, requestOptions.headers)
+        .get(`${baseRoute}/order/doc/${data.orderId}`, {headers: requestOptions.headers})
         .then(res => {
             console.log('res >>')
             console.log(res)
@@ -419,7 +419,7 @@ function editSaleOpportunitySellerStatus(data) {
     }
 
     return axios
-        .put(`${baseRoute}/order/seller/status`, data, requestOptions.headers)
+        .put(`${baseRoute}/order/seller/status`, data, {headers: requestOptions.headers})
         .then(res => {
             console.log('res >>')
             console.log(res)

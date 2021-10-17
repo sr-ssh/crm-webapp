@@ -53,7 +53,7 @@ export const UploadDocuments = (props) => {
             centered
             className="mx-3 order-serach-modal"
         >
-            <Modal.Body className="add-product px-4">
+            <Modal.Body className="add-product px-3">
                 <Button className="border-0 customer-modal-close--desktop" type="button" onClick={e => { props.onHide(false); setProductNameValidated(false);}}>
                     <img className="d-flex m-auto customer-modal-close-svg--desktop" src={closeIcon} alt="close-btn" />
                 </Button>
@@ -71,18 +71,44 @@ export const UploadDocuments = (props) => {
                             </Form.Group>
                         </Col>
                     </Row>
-                    <Row className="top-16">
+                    <Row className="mt-3">
                         <Col>
-                            <img className="file--icon--mobile" src={fileIcon} alt="file-icon" height="30px" />
-                            <span className="pe-4 fs-7 file--icon--mobile fw-bold">{!file ? "آدرس فایل را مشخص کنید" : file.name}</span>
-                            <input type="file" accept="image/png, image/gif, image/jpeg" className={`d-flex flex-row w-100 align-items-center justify-content-center btn--add--note--desktop receipt--add--note  py-0 upload--file--input pe-0 h-50`} onChange={e => {console.log(e.target.files[0]);setFile(e.target.files[0]);}} title="آدرس فایل را مشخص کنید"/>
+                        <Button
+                            className="btn--upload--order w-100 d-flex flex-row align-items-center radius-16 receipt--add--note py-4 pe-3 h-100"
+                            style={{ position: "relative" }}
+                        >
+                            <img
+                            className=""
+                            src={fileIcon}
+                            alt="file-icon"
+                            height="40px"
+                            />
+                            <span className="pe-2 fs-6-sm file--icon fw-bold">
+                            {!file ? "آدرس فایل را مشخص کنید" : file.name}
+                            </span>
+                            <input
+                            type="file"
+                            id="file"
+                            name="file"
+                            className="btn--upload"
+                            accept=".xlsx, .xls, .csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                            onChange={(e) => {
+                                console.log(e.target.files[0]);
+                                setFile(e.target.files[0]);
+                            }}
+                            title="آدرس فایل را مشخص کنید"
+                            />
+                        </Button>
                         </Col>
+                       {/*      <img className="file--icon--mobile" src={fileIcon} alt="file-icon" height="30px" />
+                            <span className="pe-4 fs-7 file--icon--mobile fw-bold">{!file ? "آدرس فایل را مشخص کنید" : file.name}</span>
+                            <input type="file" accept="image/png, image/gif, image/jpeg" className={`d-flex flex-row w-100 align-items-center justify-content-center btn--add--note--desktop receipt--add--note  py-0 upload--file--input pe-0 h-50`} onChange={e => {console.log(e.target.files[0]);setFile(e.target.files[0]);}} title="آدرس فایل را مشخص کنید"/> */}
                     </Row>
                     <Row>
                         <Col>
                             {
                                 addProductLoading ? (
-                                    <Button className="fw-bold receipt--btn--mobile border-0 w-100 mt-0 fs-6-sm py-2" size="lg" type="submit" disabled>
+                                    <Button className="fw-bold receipt--btn--mobile border-0 w-100 mt-4 fs-6-sm py-2" size="lg" type="submit" disabled>
                                         <Spinner
                                             as="span"
                                             animation="grow"
@@ -93,7 +119,7 @@ export const UploadDocuments = (props) => {
                                         در حال انجام عملیات...
                                     </Button>
                                 ) : (
-                                    <Button className="fw-bold receipt--btn--mobile border-0 w-100 mt-0 fs-6-sm py-2" size="lg" type="submit" block>
+                                    <Button className="fw-bold receipt--btn--mobile border-0 w-100 mt-4 fs-6-sm py-2" size="lg" type="submit" block>
                                         آپلود
                                     </Button>
                                 )
