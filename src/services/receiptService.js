@@ -335,7 +335,7 @@ function confirmShop(receiptId) {
     }
 
     return axios
-        .post(`${baseRoute}/confirm/shop `, requestOptions.body, requestOptions.headers)
+        .post(`${baseRoute}/confirm/shop `, requestOptions.body, { headers: requestOptions.headers })
         .then(res => {
             console.log('res >>')
             console.log(res)
