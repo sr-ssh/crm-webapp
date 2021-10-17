@@ -19,7 +19,6 @@ export const Basket = ({ order, insertOrder, totalPrice, insertPrice, selectedIt
     const dispatch = useDispatch()
 
     let checkProductSupply = (product, prevQuantity) => {
-        return true
         if (product.checkWareHouse) {
             let check = !product.ingredients.some(stock => stock.stock.amount < stock.amount * (parseInt(quantity) + prevQuantity))
             if (!check)

@@ -33,7 +33,7 @@ export const ModalContinueProcessesAddOrder = (props) => {
       <Modal.Body className="add-product px-4" style={{ width : "500px"}} > 
       <Button className="border-0 customer-modal-close--desktop" type="button" onClick={e => props.onHide(false)}>
                     <img className="d-flex m-auto customer-modal-close-svg--desktop" src={closeIcon} alt="close-btn" />
-                </Button>
+      </Button>
         <Row>
           <Col className="text-center">
             <span className="">موجودی موارد زیر اتمام یافته است. آیا از ادامه دادن مطمئن هستید؟</span>
