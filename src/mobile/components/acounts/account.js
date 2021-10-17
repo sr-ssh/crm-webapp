@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Container, Form, Button, Row, Col, Alert, Spinner, Card } from 'react-bootstrap';
 import "react-multi-date-picker/styles/layouts/mobile.css"
@@ -20,11 +20,13 @@ export const Account = () => {
     let user_type = JSON.parse(localStorage.getItem('type'));
     let application_status = JSON.parse(localStorage.getItem('applicationStatus'));
     const userInfo = useSelector(state => state.getUserInfo.user);
+    const editLoading = useSelector(state => state.editUserInfo.loading);
+
     const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(userActions.getUserInfo())
-    }, [dispatch])
+    }, [dispatch, editLoading])
 
     return (
         <div className="product-page">

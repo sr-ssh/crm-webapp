@@ -158,7 +158,7 @@ export const EmployerAccount = ({ user }) => {
                 <img className="" src={editIcon} height="34px" alt="edit-icon" />
             </Col>
             
-            <EditEmployerAccount show={editModalShow} onHide={() => { setEditModalShow(false); history.go(0) }} user={user} />
+            <EditEmployerAccount show={editModalShow} onHide={() => { setEditModalShow(false); }} user={user} />
         </>
     )
 }

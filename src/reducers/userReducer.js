@@ -30,17 +30,20 @@ export function editUserInfo(state = initialState, action) {
         case userConstants.EDIT_USER_INFO_REQUEST:
             return {
                 ...state,
-                user: {}
+                user: {},
+                loading: true
             }
         case userConstants.EDIT_USER_INFO_SUCCESS:
             return {
                 ...state,
-                user: action.user
+                user: action.user,
+                loading: false
             }
         case userConstants.EDIT_USER_INFO_FAILURE:
             return {
                 ...state,
-                user: {}
+                user: {},
+                loading: true
             }
     
         default:
