@@ -155,3 +155,23 @@ body {
 .text--color--disabled {
   color: var(--text-color-four);
 }
+
+.btn--success--desktop,
+.btn--success--desktop:hover,
+.btn--success--desktop:active,
+.btn--success--desktop:active:focus,
+.btn--success--desktop:focus {
+  color: #fff;
+  background-color: var(--button-color-two);
+  box-shadow: none;
+}
+
+.btn--danger--desktop,
+.btn--danger--desktop:hover,
+.btn--danger--desktop:active,
+.btn--danger--desktop:active:focus,
+.btn--danger--desktop:focus {
+  color: #fff;
+  background-color: var(--dager-color);
+  box-shadow: none;
+}

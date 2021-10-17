@@ -4,6 +4,8 @@ import { Modal, Row, Col, Form, Button, Spinner, Alert } from "react-bootstrap";
 
 // Actions
 import { orderActions } from "../../../actions";
+// Icons
+import closeIcon from '../../assets/images/close.svg'
 
 export const ModalContinueProcessesAddOrder = (props) => {
   const dispatch = useDispatch();
@@ -11,6 +13,7 @@ export const ModalContinueProcessesAddOrder = (props) => {
   let addOrder = useSelector((state) => state.addOrder);
 
   const editHandler = (e) => {
+    e.preventDefault();
     dispatch(orderActions.addOrder(props.order , props.customer ,  props.notes, 3 , 1 ))
     setTimeout(() => {
       props.onHide(false);
@@ -20,38 +23,39 @@ export const ModalContinueProcessesAddOrder = (props) => {
   return (
     <Modal
       {...props}
-      size="lg"
+      // size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
       backdrop="static"
-      className="mx-3 order-serach-modal"
+      className="mx-3"
     >
-      <Modal.Body className="add-product px-4">
+      
+      <Modal.Body className="add-product px-4" style={{ width : "500px"}} > 
+      <Button className="border-0 customer-modal-close--desktop" type="button" onClick={e => props.onHide(false)}>
+                    <img className="d-flex m-auto customer-modal-close-svg--desktop" src={closeIcon} alt="close-btn" />
+                </Button>
         <Row>
           <Col className="text-center">
-            <span className="">کالا های زیر در انبار موجود نیستند.</span>
+            <span className="">موجودی موارد زیر اتمام یافته است. آیا از ادامه دادن مطمئن هستید؟</span>
           </Col>
         </Row>
-        <Row>
-          {addOrder?.error?.data?.map((item) => {
+
+
+        <Row className="mt-3 bg-light notes-round d-flex justify-content-center align-items-center px-3 "   > 
+          {addOrder?.error?.data?.map((item , index) => {
             return (
-              <Col className="text-center">
-                <span className="">{item.name}</span>
+              <>
+              <Col className="m-0 p-0 text-center flex-grow-0 text-nowrap my-2">
+                <span className="fw-bold">{item.name}</span>
                 <span className="">{item.amount}</span>
-              </Col>
+                 { addOrder?.error?.data.length-1 === index  ? null :<span className="mx-2">.</span> }
+              </Col> 
+              </>
             );
           })}
         </Row>
         <Form className="d-flex justify-content-around">
-          <Button
-            className="fw-bold order-submit border-0 w-25 mt-4 text-light"
-            onClick={(e) => props.onHide(false)}
-            size="lg"
-            block
-          >
-            لغو عملیات
-          </Button>
-          {addOrderLoading ? (
+        {addOrderLoading ? (
             <Button
               className="fw-bold order-submit border-0 w-50 mt-4"
               size="lg"
@@ -67,17 +71,25 @@ export const ModalContinueProcessesAddOrder = (props) => {
               />
               در حال ثبت ...
             </Button>
-          ) : (
+          ) : (<Button
+            className="fw-bold order-submit border-0 w-50 mt-4 text-light ms-5 btn--success--desktop"
+            onClick={(e) => editHandler(e)}
+            size="lg"
+            block
+          >
+            بله
+          </Button>
+          )}
+        
             <Button
-              className="fw-bold order-submit border-0 bg-danger text-light w-25 mt-4"
+              className="fw-bold order-submit border-0  text-light w-50 mt-4 me-5 btn--danger--desktop" 
               size="lg"
-              onClick={(e) => editHandler(e)}
+            onClick={(e) =>{ e.preventDefault();props.onHide(false)} }
               type="submit"
               block
             >
-              ادامه عملیات
+              خیر
             </Button>
-          )}
         </Form>
       </Modal.Body>
     </Modal>
