@@ -174,6 +174,8 @@ function appInfo() {
         .then(res => {
             console.log("res.user >> ");
             console.log(res.data.data);
+            let userId = res.data.data.userId.replace(/^"(.*)"$/, '$1');
+            localStorage.setItem('userId', userId);
             if (res.data.success)
                 history.push('/dashboard');
             return res.data.data

@@ -1,18 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Redirect, Switch } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 
-import { Container, Row, Nav, Navbar, Dropdown, Form, Col, FormControl, Image } from 'react-bootstrap';
 import PrivateRoute from '../PrivateRoute';
 import NotificationAlert from "react-notification-alert";
 import { useSelector } from 'react-redux';
-import { Typography, Breadcrumbs, Link, Button, Backdrop } from '@material-ui/core';
-
 
 // Actions
 import { employeeActions } from '../../../actions/employeeActions';
 import { userActions } from '../../../actions/userActions'
-
 
 // Routes
 import { Main } from './main'
@@ -24,7 +20,6 @@ import { Products } from '../products/products';
 import { Finance } from '../finance/finance';
 import { Customers } from '../customers/customers';
 import { Employees } from '../employee/employees';
-import { Discounts } from '../discounts/discounts';
 import Bills from '../finance/bills';
 import { Applications } from '../employee/applications';
 import { Account } from '../acounts/account';
@@ -34,7 +29,7 @@ import { Factors } from '../factor/factors';
 import { Suppliers } from '../suppliers/suppliers';
 import { Stock } from '../stock/stock';
 import { Leads } from '../leads/leads';
-
+import { socket } from '../../../helpers/socketIo';
 
 
 
@@ -71,6 +66,24 @@ export const Dashboard = (props) => {
         if (alert.message?.length > 0 && alert.message && alert.type)
             notificationAlertRef.current.notificationAlert(options);
     }, [alert]);
+
+
+
+
+    useEffect(() => {
+
+        
+        socket.on("connect", data => {
+            console.log("connect", socket.id)
+        }); 
+
+        socket.on("push", data => {
+            console.log("pushhhhhhhhhhhh", data.message)
+        }); 
+
+    }, [])
+
+
 
 
     return (
