@@ -45,6 +45,7 @@ export const Dashboard = (props) => {
     useEffect(() => {
         dispatch(employeeActions.getPermissions())
         dispatch(userActions.getUserInfo())
+        dispatch(userActions.appInfo());
     }, [dispatch])
 
     useEffect(() => {
@@ -72,13 +73,16 @@ export const Dashboard = (props) => {
 
     useEffect(() => {
 
-        
         socket.on("connect", data => {
-            console.log("connect", socket.id)
+            console.log("_________________connect_________________", socket.id)
+            console.log(data)
+            console.log(socket)
         }); 
 
         socket.on("push", data => {
             console.log("pushhhhhhhhhhhh", data.message)
+            console.log("pushhhhhhhhhhhh", data)
+        
         }); 
 
     }, [])

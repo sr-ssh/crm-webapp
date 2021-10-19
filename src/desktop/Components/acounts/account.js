@@ -41,7 +41,7 @@ export const Account = () => {
                                 userInfo && user_type === 1 && <EmployerAccount user={userInfo} />
                             }
                             {
-                                userInfo && user_type === 2 && application_status === 2 && <EmployeeAccount />
+                                userInfo && user_type === 2 && application_status === 2 && <EmployeeAccount  user={userInfo}  />
                             }
                             {
                                 userInfo && user_type === 2 && application_status === 1 && <WaitingAccount user={userInfo} />
