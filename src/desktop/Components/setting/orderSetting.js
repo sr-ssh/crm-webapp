@@ -10,6 +10,8 @@ import {
   Dropdown,
   Spinner,
 } from "react-bootstrap";
+import persianJs from 'persianjs/persian.min';
+
 
 // Actions
 import { settingActions } from "../../../actions";
@@ -58,12 +60,14 @@ export const OrderSetting = () => {
       });
     }
     if (name === "shareText") {
+      value = value  ? persianJs(value).toEnglishNumber().toString() : null
       setConfigSettingOrder({
         ...configSettingOrder,
         [id]: { ...configSettingOrder[id], time: value },
       });
     }
     if (id === "leadCountPerEmployee") {
+      value = value  ? persianJs(value).toEnglishNumber().toString() : null
       setConfigSettingLead({
         ...configSettingLead,
         [id]: value,
@@ -71,8 +75,12 @@ export const OrderSetting = () => {
     }
   };
 
+    console.log(configSettingOrder)
+
   const HandleSubmit = (e) => {
     e.preventDefault();
+
+    if(configSettingLead.leadCountPerEmployee == null || configSettingOrder.share.time == null  ) {return}
     dispatch(
       settingActions.editSettingOrder({
         order: configSettingOrder,
@@ -252,6 +260,29 @@ export const OrderSetting = () => {
             </Card>
           </Row>
           <Form.Group>
+          <Row className="mx-0 my-3">
+              <Col className="col-5 order-setting-field-label align-self-center">
+               هر کارمند مجوز دارد چه تعداد سر نخ قبول کند ؟
+              </Col>
+              <Col className="p-0 col-4 d-flex align-items-center justify-content-start">
+                <Form.Group
+                  controlId="leadCountPerEmployee"
+                  className={` form-grp--setting--desktop me-0 ${configSettingLead.leadCountPerEmployee == null ? "border border-danger" : null }`} 
+                >
+                  <Form.Control
+                    type="tel" 
+                    name="leadCountPerEmployee"
+                    className="order-setting-field--desktop m-auto"
+                    onChange={toggleHandler}
+                    required
+                    defaultValue={configSettingLead?.leadCountPerEmployee}
+                  />
+                   <span className="ms-3">
+                  عدد
+                  </span>
+                </Form.Group>
+              </Col>
+            </Row>
             <Row className="mx-0 my-3">
               <Col className="col-3 order-setting-field-label align-self-center">
                 تموم شدن وقت اشتراک گذاری بعد از
@@ -288,15 +319,15 @@ export const OrderSetting = () => {
               <Col className="p-0 col-4 d-flex align-items-center justify-content-start">
                 <Form.Group
                   controlId="defaultReminder"
-                  className=" form-grp--setting--desktop"
+                  className={` form-grp--setting--desktop ${configSettingOrder.share.time == null ? "border border-danger" : null  }`}
                 >
                   <Form.Control
-                    type="number"
+                   type="tel" 
                     name="shareText"
                     id="share"
                     className="order-setting-field--desktop m-auto"
                     onChange={toggleHandler}
-                    min="1"
+                    required
                     defaultValue={configSettingOrder.share.time}
                   />
                   <span className="ms-3">
@@ -436,26 +467,7 @@ export const OrderSetting = () => {
               </Col>
             </Row>
 
-            <Row className="mx-0 my-3">
-              <Col className="col-3 order-setting-field-label align-self-center">
-                تعداد سرنخ های فعال هر فرد
-              </Col>
-              <Col className="p-0 col-4 d-flex align-items-center justify-content-start">
-                <Form.Group
-                  controlId="leadCountPerEmployee"
-                  className=" form-grp--setting--desktop"
-                >
-                  <Form.Control
-                    type="number"
-                    name="leadCountPerEmployee"
-                    className="order-setting-field--desktop m-auto"
-                    onChange={toggleHandler}
-                    min="1"
-                    defaultValue={configSettingLead?.leadCountPerEmployee}
-                  />
-                </Form.Group>
-              </Col>
-            </Row>
+            
           </Form.Group>
           <Row className="m-0 p-0 w-100 mb-3">
             <Col className="m-0 p-0 col-12">
