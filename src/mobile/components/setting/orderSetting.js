@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState , useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   Container,
@@ -10,6 +10,8 @@ import {
   Dropdown,
   Spinner,
 } from "react-bootstrap";
+import persianJs from 'persianjs/persian.min';
+
 
 // Components
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -22,6 +24,7 @@ import inactiveEditIcon from "../../assets/images/setting/inactive-edit.svg";
 import spinnerIcon from "./../../assets/images/sppiner-blue.svg";
 
 export const OrderSetting = () => {
+
   const dispatch = useDispatch();
   const [configSettingOrder, setConfigSettingOrder] = useState({
     share: {},
@@ -36,6 +39,10 @@ export const OrderSetting = () => {
   });
   let settingOrder = useSelector((state) => state.getSettingOrder);
   let editsettingOrder = useSelector((state) => state.editSettingOrder);
+
+  const preSmsRef = useRef(null)
+  const postDeliverySmsRef = useRef(null)
+  const postCustomerSmsRef = useRef(null)
 
   let toggleHandler = (e) => {
     let { id, name, value, type, checked } = e.target;
@@ -58,18 +65,43 @@ export const OrderSetting = () => {
       });
     }
     if (name === "shareText") {
+      value = value  ? persianJs(value).toEnglishNumber().toString() : null
+
       setConfigSettingOrder({
         ...configSettingOrder,
         [id]: { ...configSettingOrder[id], time: value },
       });
     }
     if (id === "leadCountPerEmployee") {
+      value = value  ? persianJs(value).toEnglishNumber().toString() : null
+
       setConfigSettingLead({
         ...configSettingLead,
         [id]: value,
       });
     }
   };
+  let activeInput = (inputName) => {
+
+    setConfigSettingOrder({
+      ...configSettingOrder,
+      [inputName]: { ...configSettingOrder[inputName], status: true },
+    });
+
+    switch (inputName) {
+      case "preSms":
+        preSmsRef.current.focus()
+        break;
+      case "postDeliverySms":
+        postDeliverySmsRef.current.focus()
+        break;
+      case "postCustomerSms":
+        postCustomerSmsRef.current.focus()
+        break;
+      default:
+        break;
+    }
+  }
 
   const getUnitTimeText = (e) => {
     if (e === "M") {
@@ -83,6 +115,8 @@ export const OrderSetting = () => {
 
   const HandleSubmit = (e) => {
     e.preventDefault();
+    if(configSettingLead.leadCountPerEmployee == null || configSettingOrder.share.time == null || configSettingOrder.reminder.time == null ||  configSettingOrder.duration.time == null  ) {return}
+
     dispatch(
       settingActions.editSettingOrder({
         order: configSettingOrder,
@@ -137,6 +171,7 @@ export const OrderSetting = () => {
                     <Form.Control
                       as="textarea"
                       name="preSms"
+                      ref={preSmsRef}
                       className={`textarea--setting--desktop ${
                         !configSettingOrder.preSms.status &&
                         "inactive--textarea--setting--desktop"
@@ -155,6 +190,7 @@ export const OrderSetting = () => {
                       height="35px"
                       alt="edit-icon"
                       style={{ cursor: "pointer" }}
+                      onClick={()=>activeInput("preSms")}
                     />
                   </Col>
                 </Card.Body>
@@ -185,6 +221,7 @@ export const OrderSetting = () => {
                     <Form.Control
                       as="textarea"
                       name="postDeliverySms"
+                      ref={postDeliverySmsRef}
                       className={`textarea--setting--desktop ${
                         !configSettingOrder.postDeliverySms.status &&
                         "inactive--textarea--setting--desktop"
@@ -203,6 +240,8 @@ export const OrderSetting = () => {
                       height="35px"
                       alt="edit-icon"
                       style={{ cursor: "pointer" }}
+                      onClick={()=>activeInput("postDeliverySms")}
+
                     />
                   </Col>
                 </Card.Body>
@@ -233,6 +272,7 @@ export const OrderSetting = () => {
                     <Form.Control
                       as="textarea"
                       name="postCustomerSms"
+                      ref={postCustomerSmsRef}
                       className={`textarea--setting--desktop ${
                         !configSettingOrder.postCustomerSms.status &&
                         "inactive--textarea--setting--desktop"
@@ -251,10 +291,47 @@ export const OrderSetting = () => {
                       height="35px"
                       alt="edit-icon"
                       style={{ cursor: "pointer" }}
+                      onClick={()=>activeInput("postCustomerSms")}
+
                     />
                   </Col>
                 </Card.Body>
               </Card>
+            </Col>
+          </Row>
+          <Row className="m-0 mt-3 d-flex flex-column">
+            <Col
+              className={`col-12 d-flex align-items-center justify-content-start me-3 `}
+            >
+              <span className=" fw-bold fs-15px">
+              هر کارمند مجوز دارد چه تعداد سر نخ قبول کند ؟
+
+              </span>
+            </Col>
+            <Col className="m-0 pt-3 d-flex justify-content-between ">
+              <Col
+                className="p-0 col-12 d-flex align-items-center justify-content-start"
+                style={{ widyh: "45%" }}
+              >
+                <Form.Group
+                  controlId="leadCountPerEmployee"
+                  className={` form-grp--setting--mobile w-100 ${configSettingLead.leadCountPerEmployee == null ? "border border-danger" : null } `}
+                >
+                  <Form.Control
+                    type="tel"
+                    inputMode="tel"
+                    pattern="[0-9]*"
+                    name="leadCountPerEmployee"
+                    className="order-setting-field--desktop m-auto"
+                    onChange={toggleHandler}
+                    min="0"
+                    defaultValue={configSettingLead?.leadCountPerEmployee}
+                  />
+                  <span className="ms-3">
+                  عدد
+                  </span>
+                </Form.Group>
+              </Col>
             </Col>
           </Row>
           <Row className="m-0 mt-3 d-flex flex-column">
@@ -273,7 +350,7 @@ export const OrderSetting = () => {
               >
                 <Form.Group
                   controlId="defaultReminder"
-                  className="form-grp--setting--mobile"
+                  className={`form-grp--setting--mobile ${configSettingOrder.share.time == null ? "border border-danger" : null  }`}
                 >
                   <Form.Control
                     type="tel"
@@ -335,7 +412,7 @@ export const OrderSetting = () => {
               >
                 <Form.Group
                   controlId="defaultReminder"
-                  className="form-grp--setting--mobile"
+                  className={` form-grp--setting--mobile ${configSettingOrder.reminder.time == null ? "border border-danger" : null } `} 
                 >
                   <Form.Control
                     type="tel"
@@ -409,7 +486,7 @@ export const OrderSetting = () => {
               >
                 <Form.Group
                   controlId="defaultReminder"
-                  className="form-grp--setting--mobile"
+                  className={` form-grp--setting--mobile ${configSettingOrder.duration.time == null ? "border border-danger" : null }`}
                 >
                   <Form.Control
                     type="tel"
@@ -470,37 +547,7 @@ export const OrderSetting = () => {
               </Col>
             </Col>
           </Row>
-          <Row className="m-0 mt-3 d-flex flex-column">
-            <Col
-              className={`col-12 d-flex align-items-center justify-content-start me-3 `}
-            >
-              <span className=" fw-bold fs-15px">
-                تعداد سرنخ های فعال هر فرد
-              </span>
-            </Col>
-            <Col className="m-0 pt-3 d-flex justify-content-between ">
-              <Col
-                className="p-0 col-5 d-flex align-items-center justify-content-start"
-                style={{ widyh: "45%" }}
-              >
-                <Form.Group
-                  controlId="defaultReminder"
-                  className="form-grp--setting--mobile"
-                >
-                  <Form.Control
-                    type="tel"
-                    inputMode="tel"
-                    pattern="[0-9]*"
-                    name="leadCountPerEmployee"
-                    className="order-setting-field--desktop m-auto"
-                    onChange={toggleHandler}
-                    min="0"
-                    defaultValue={configSettingLead?.leadCountPerEmployee}
-                  />
-                </Form.Group>
-              </Col>
-            </Col>
-          </Row>
+          
           <Row className="m-0 p-0 w-100 py-2 ">
             <Col className="m-0  col-12">
               <Button
