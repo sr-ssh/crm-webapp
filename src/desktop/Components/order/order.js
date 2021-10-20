@@ -21,6 +21,8 @@ import financialCheckIcon from './../../assets/images/order/financial-check.svg'
 import uploadIcon from './../../assets/images/order/Upload-documents.svg'
 import resultIcon from './../../assets/images/order/Result.svg'
 import waitingIcon from '../../assets/images/main/Waiting.svg'
+import freeIcon from '../../assets/images/order/free1.svg'
+
 
 
 // Actions
@@ -147,6 +149,24 @@ export const Order = ({ order, refresh, setRefresh, deliveryShow, setDeliverySho
 
         <Card className={`m-auto mt-3 bg-light productCard border-0 lh-lg ${!print ? 'noPrint' : ''} mx-1 ${classes.productCard}`} >
             <Row className="m-0 mt-3 noPrint ">
+            {
+                    order.sellers.some(seller => seller.active === true) && order.status == 3 &&
+                    <Col className="d-flex justify-content-end">
+                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setFreeModalShow(true); setFreeStatus('0')}}>
+                            <img src={freeIcon} height="25px" alt="print-icon" className="col-3" />
+                            <span className="noPrint me-1">آزاد کردن</span>
+                        </Button>
+                    </Col>
+                }
+                {
+                    !order.sellers.some(seller => seller.active === true) && order.status == 3 &&
+                    <Col className="d-flex justify-content-end">
+                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setFreeModalShow(true); setFreeStatus('1')}}>
+                            <img src={freeIcon} height="25px" alt="print-icon" className="col-3" />
+                            <span className="noPrint me-1">گرفتن</span>
+                        </Button>
+                    </Col>
+                }
 
                 <Col className="d-flex justify-content-center ">
                     <Button className={`${order.status == 2 ? "w-50" : "w-100"} btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2`} type="button" onClick={() => { setIsShareLinkOrder(true) }}>
@@ -218,24 +238,7 @@ export const Order = ({ order, refresh, setRefresh, deliveryShow, setDeliverySho
                         <span className="noPrint">مشاهده مدارک</span>
                     </Button>
                 </Col>
-                {
-                    order.sellers.some(seller => seller.active === true) && order.status == 3 &&
-                    <Col className="d-flex justify-content-end">
-                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setFreeModalShow(true); setFreeStatus('0')}}>
-                            <img src={viewDocumentsIcon} height="25px" alt="print-icon" className="col-3" />
-                            <span className="noPrint">آزاد کردن</span>
-                        </Button>
-                    </Col>
-                }
-                {
-                    !order.sellers.some(seller => seller.active === true) && order.status == 3 &&
-                    <Col className="d-flex justify-content-end">
-                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setFreeModalShow(true); setFreeStatus('1')}}>
-                            <img src={viewDocumentsIcon} height="25px" alt="print-icon" className="col-3" />
-                            <span className="noPrint">گرفتن</span>
-                        </Button>
-                    </Col>
-                }
+                
             </Row>
             <Card.Body className="pb-0 ps-1 rounded-3 text-gray">
                 <Row className="p-0 ps-2 m-0 ">
