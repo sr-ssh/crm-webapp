@@ -20,6 +20,7 @@ import resultIcon from './../../assets/images/order/Result.svg'
 import uploadIcon from './../../assets/images/order/Upload-documents.svg'
 import viewDocumentsIcon from '../../assets/images/order/View-documents.svg'
 import waitingIcon from '../../assets/images/main/Waiting.svg'
+import freeIcon from  '../../assets/images/order/free1.svg'
 
 //components
 import { AddNotesModal } from './addNotesModal'
@@ -336,7 +337,7 @@ export const Order = ({ order, refresh, setRefresh, deliveryShow, setDeliverySho
                         order.sellers.some(seller => seller.active === true) && order.status == 3 &&
                         <Col xs={6} className="p-0 px-1 pb-3 ps-2">
                             <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setFreeModalShow(true); setFreeStatus('0')}}>
-                                <img src={resultIcon} height="25px" alt="print-icon" className="col-3" />
+                                <img src={freeIcon} height="25px" alt="print-icon" className="col-3" />
                                 <span className="pe-1">آزاد کردن</span>
                             </Button>
                         </Col>
@@ -345,7 +346,7 @@ export const Order = ({ order, refresh, setRefresh, deliveryShow, setDeliverySho
                         !order.sellers.some(seller => seller.active === true) && order.status == 3 &&
                         <Col xs={6} className="p-0 px-1 pb-3 ps-2">
                             <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setFreeModalShow(true); setFreeStatus('1')}}>
-                                <img src={resultIcon} height="25px" alt="print-icon" className="col-3" />
+                                <img src={freeIcon} height="25px" alt="print-icon" className="col-3" />
                                 <span className="pe-1">گرفتن</span>
                             </Button>
                         </Col>
