@@ -57,7 +57,12 @@
   white-space: nowrap;
   color: var(--text-color-one);
 }
-
+.employees--p--gray--desktop   {
+  font-size: 16px ;
+  margin-right: .3rem;
+  white-space: nowrap;
+  color: var(--text-color-one);
+}
 .employees-text-gray--desktop span {
   color: black;
   font-size: 13px;
@@ -68,5 +73,62 @@
   color: black;
   font-size: 12px;
   font-weight: 600;
+  /* white-space: nowrap; */
+}
+
+.modal--edit--employee .modal-dialog-centered{
+  justify-content: center;
+}
+.modal--edit--employee .modal-content{
+  width: 400px;
+}
+.option--time--filter--groupe {
+  display: inline-block;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.option--time--filter--groupe input {
+  display: none;
+}
+
+.option--time--filter--groupe span {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 100;
   white-space: nowrap;
+}
+
+.option--time--filter--groupe span:before,
+.option--time--filter--groupe span:after {
+  content: "";
+}
+
+.option--time--filter--groupe span:before {
+  background-color: #fff;
+  border: 2px solid var(--button-color-two);
+  width: 15px;
+  height: 15px;
+  margin-left: 10px;
+  display: inline-block;
+  border-radius: 50%;
+}
+
+.option--time--filter--groupe span:after {
+  background: var(--button-color-two);
+  width: 15px;
+  height:15px;
+  border-radius: 50%;
+  position: absolute;
+  top: 9px;
+  right: 0px;
+  transition: 300ms;
+  opacity: 0;
+}
+
+.option--time--filter--groupe input:checked + span:after {
+  opacity: 1;
 }

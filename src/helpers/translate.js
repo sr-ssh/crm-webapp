@@ -35,4 +35,6 @@ export function translate(key) {
         return "کد اقتصادی و فکس"
     else if (key === "nationalIDCode")
         return "کدملی"
+    else if (key === "getAllSaleOpprotunity")
+        return "مشاهده تمام فرصت فروش ها"
 }
