@@ -19,12 +19,8 @@ export const EditEmployee = (props) => {
     let alert = useSelector(state => state.alert)
 
 
-
-    console.log(newPermission);
-    console.log(voipNo);
-
     const handleChange = (e) => {
-        let { id, name, type, value, checked } = e.target
+        let {  name, type, value, checked } = e.target
         if (type == "checkbox") {
             setNewPermission({ ...newPermission, [name]: checked })
         }
@@ -36,7 +32,6 @@ export const EditEmployee = (props) => {
     const formHandler = (e) => {
         e.preventDefault()
         let employee = { permissions: newPermission, _id: props.employee._id , voipNo: voipNo.voipNo }
-        debugger
         dispatch(employeeActions.editEmployee(employee))
         setTimeout(() => {
             props.onHide(false)

@@ -73,6 +73,15 @@ export const Employees = () => {
                                         <Card.Text className="p-0 employees-text-gray--desktop">
                                             موبایل : <span>{item.mobile && persianJs(item.mobile).englishNumber().toString()}</span>
                                         </Card.Text>
+                                        <Col className="m-0 mb-2 p-0 d-flex  ">
+                                            <Card.Text className="m-0 p-0 fs-6 ms-2 employees-text-gray--desktop">
+                                                sip :
+                                            </Card.Text>
+                                            <Card.Text className="m-0 p-0 employees-text-gray--desktop">
+                                                <span>{item.voipNumber && persianJs(item.voipNumber).englishNumber().toString()}</span>
+                                            </Card.Text>
+                                        </Col>
+                                        
                                         <Row className="m-0 p-0 d-flex align-items-center">
                                             <Col xs={6} className="p-0 ">
                                                 <Card.Text className="employees-text-gray--desktop">
