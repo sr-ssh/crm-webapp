@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { AppBar, Toolbar, IconButton, Drawer } from '@material-ui/core';
 import { Button } from 'react-bootstrap'
 import { makeStyles } from '@material-ui/core/styles';
@@ -11,9 +11,7 @@ import { sideBarActions } from '../../../actions';
 
 // Icon
 import menuIcon from '../../assets/images/header/list.svg'
-import excelIcon from '../../assets/images/header/excel.svg'
 import SearchIcon from '@material-ui/icons/Search';
-import AddIcon from '@material-ui/icons/Add';
 // Components
 import { SideBar } from '../main/sideBar'
 import routes from "../../routes";
@@ -49,7 +47,6 @@ export const Header = (props) => {
     const dispatch = useDispatch()
 
 
-    console.log(sideBar)
     return (
         <>
             <AppBar className={classes.appBar}>

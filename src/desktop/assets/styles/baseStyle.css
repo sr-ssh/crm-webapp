@@ -175,3 +175,33 @@ body {
   background-color: var(--dager-color);
   box-shadow: none;
 }
+.paddingRight--sideBar--open{
+  padding-right: 250px !important;
+}
+.modal--notif--call--incoming .modal-dialog-centered{
+  justify-content: center;
+}
+.modal--notif--call--incoming .modal-content{
+  width: 325px;
+}
+.btn--answer--incom--call {
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  padding: 0.5rem 0;
+  border: none;
+  color: var(--button-color-one);
+  background-color: #fff;
+  border: 1px solid #c2ccd7;
+  margin-bottom: 0.7rem;
+  border-radius: 8px;
+}
+.btn--answer--incom--call:hover,
+.btn--answer--incom--call:active,
+.btn--answer--incom--call:focus,
+.btn--answer--incom--call:focus:active,
+.btn--answer--incom--call:active:focus {
+  color: var(--button-color-one);
+  box-shadow: none;
+  background-color: #c2ccd7 !important;
+}
