@@ -18,7 +18,6 @@ export const EditEmployee = (props) => {
     let editEmployeeLoading = useSelector(state => state.editEmployee.loading)
     let alert = useSelector(state => state.alert)
 
-console.log(newPermission)
 
     const handleChange = (e) => {
         let {  name, type, value, checked } = e.target
@@ -32,7 +31,6 @@ console.log(newPermission)
     const formHandler = (e) => {
         e.preventDefault()
         let employee = { permissions: newPermission, _id: props.employee._id , voipNo: voipNo.voipNo }
-        debugger
         dispatch(employeeActions.editEmployee(employee))
         setTimeout(() => {
             props.onHide(false)
