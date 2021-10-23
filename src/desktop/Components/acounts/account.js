@@ -35,7 +35,7 @@ export const Account = () => {
             <Header isBTNSearch={false} isBTNRequest={false} />
             <div className="product-page margin--top--header" style={{ paddingRight: sideBar.open ? "250px" : 0 }}>
                 <Container fluid className="m-0 w-100 d-flex justify-content-center flex-wrap emplyees-text-gray ">
-                    <Card className="m-auto mt-3 productCard border-0 col-4" >
+                    <Card className="m-auto mt-3 productCard border-0 col-6" >
                         <Card.Body className="ps-1 rounded-3 mx-3">
                             {
                                 userInfo && user_type === 1 && <EmployerAccount user={userInfo} />

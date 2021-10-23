@@ -31,11 +31,11 @@ export const EmployerAccount = ({ user }) => {
                     <Card className="backgound--light--blue border-0 radius-10">
                         <Card.Body className="py-2">
                             <Row>
-                            <Col xs={3}>
+                            <Col>
                                 نام :
                             </Col>
                             <Col dir="ltr" className="pe-0">
-                                <span className="fw-bold">{user.family && persianJs(user.family).englishNumber().toString()}</span>
+                                <span className="fw-bold text-nowrap">{user.family && persianJs(user.family).englishNumber().toString()}</span>
                             </Col>
                             </Row>
                         </Card.Body>
@@ -45,109 +45,109 @@ export const EmployerAccount = ({ user }) => {
             <Col className="px-2">
                 <Card.Text className="pt-1">
                     <Row className="ms-0 align-items-center">
-                        <Col xs={3}>
+                        <Col >
                             موبایل :
                         </Col>
                         <Col dir="ltr" className="pe-0">
-                            <span className="fw-bold">{user.mobile && persianJs(user.mobile).englishNumber().toString()}</span>
+                            <span className=" text-nowrap fw-bold">{user.mobile && persianJs(user.mobile).englishNumber().toString()}</span>
                         </Col>
                     </Row>
                 </Card.Text>
 
                 <Card.Text className="pt-1">
-                    <Row className="ms-0 align-items-center">
-                        <Col xs={3}>
+                    <Row className="ms-0 align-items-center flex-nowrap">
+                        <Col >
                             کدملی :
                         </Col>
                         <Col dir="ltr" className="pe-0">
-                            <span className="fw-bold">{user.nationalIDCode && persianJs(user.nationalIDCode).englishNumber().toString()}</span>
+                            <span className=" text-nowrap fw-bold">{user.nationalIDCode && persianJs(user.nationalIDCode).englishNumber().toString()}</span>
                         </Col>
                     </Row>
                 </Card.Text>
                 <Card.Text className="pt-1">
-                    <Row className="ms-0 align-items-center">
-                        <Col xs={3}>
+                    <Row className="ms-0 align-items-center flex-nowrap">
+                        <Col >
                             ایمیل :
                         </Col>
                         <Col dir="ltr" className="pe-0">
-                            <span className="fw-bold">{user.email}</span>
+                            <span className=" text-nowrap fw-bold">{user.email}</span>
                         </Col>
                     </Row>
                 </Card.Text>
 
                 <Card.Text className="pt-1">
-                    <Row className="ms-0 align-items-center">
-                        <Col xs={3}>
+                    <Row className="ms-0 align-items-center flex-nowrap">
+                        <Col >
                             نام شرکت :
                         </Col>
                         <Col dir="ltr" className="pe-0">
-                            <span className="fw-bold">{user.company && persianJs(user.company).englishNumber().toString()}</span>
+                            <span className=" text-nowrap fw-bold">{user.company && persianJs(user.company).englishNumber().toString()}</span>
                         </Col>
                     </Row>
                 </Card.Text>
 
                 <Card.Text className="pt-1">
-                    <Row className="ms-0 align-items-center">
-                        <Col xs={3}>
+                    <Row className="ms-0 align-items-center flex-nowrap">
+                        <Col >
                             آدرس شرکت :
                         </Col>
                         <Col dir="ltr" className="pe-0">
-                            <span className="fw-bold">{user.address && persianJs(user.address).englishNumber().toString()}</span>
+                            <span className=" text-nowrap fw-bold">{user.address && persianJs(user.address).englishNumber().toString()}</span>
                         </Col>
                     </Row>
                 </Card.Text>
 
                 <Card.Text className="pt-1">
-                    <Row className="ms-0 align-items-center">
-                        <Col xs={3}>
+                    <Row className="ms-0 align-items-center flex-nowrap">
+                        <Col >
                             نوع :
                         </Col>
                         <Col dir="ltr" className="pe-0">
-                            <span className="fw-bold">کارفرما</span>
+                            <span className=" text-nowrap fw-bold">کارفرما</span>
                         </Col>
                     </Row>
                 </Card.Text>
 
                 <Card.Text className="pt-1">
-                    <Row className="ms-0 align-items-center">
-                        <Col xs={4}>
+                    <Row className="ms-0 align-items-center flex-nowrap">
+                        <Col>
                             شناسه ملی شرکت :
                         </Col>
                         <Col dir="ltr" className="pe-0">
-                            <span className="fw-bold">{user.nationalCode && persianJs(user.nationalCode).englishNumber().toString()}</span>
+                            <span className=" text-nowrap fw-bold">{user.nationalCode && persianJs(user.nationalCode).englishNumber().toString()}</span>
                         </Col>
                     </Row>
                 </Card.Text>
 
                 <Card.Text className="pt-1">
-                    <Row className="ms-0 align-items-center">
-                        <Col xs={3}>
+                    <Row className="ms-0 align-items-center flex-nowrap">
+                        <Col >
                             کد اقتصادی :
                         </Col>
                         <Col dir="ltr" className="pe-0">
-                            <span className="fw-bold">{user.financialCode && persianJs(user.financialCode).englishNumber().toString()}</span>
+                            <span className=" text-nowrap fw-bold">{user.financialCode && persianJs(user.financialCode).englishNumber().toString()}</span>
                         </Col>
                     </Row>
                 </Card.Text>
 
                 <Card.Text className="pt-1">
-                    <Row className="ms-0 align-items-center">
-                        <Col xs={3}>
+                    <Row className="ms-0 align-items-center flex-nowrap">
+                        <Col >
                             کد پستی :
                         </Col>
                         <Col dir="ltr" className="pe-0">
-                            <span className="fw-bold">{user.postalCode && persianJs(user.postalCode).englishNumber().toString()}</span>
+                            <span className=" text-nowrap fw-bold">{user.postalCode && persianJs(user.postalCode).englishNumber().toString()}</span>
                         </Col>
                     </Row>
                 </Card.Text>
 
                 <Card.Text className="pt-1">
-                    <Row className="ms-0 align-items-center">
-                        <Col xs={3}>
+                    <Row className="ms-0 align-items-center flex-nowrap">
+                        <Col >
                             شماره ثبت :
                         </Col>
                         <Col dir="ltr" className="pe-0">
-                            <span className="fw-bold">{user.registerNo && persianJs(user.registerNo).englishNumber().toString()}</span>
+                            <span className=" text-nowrap fw-bold">{user.registerNo && persianJs(user.registerNo).englishNumber().toString()}</span>
                         </Col>
                     </Row>
                 </Card.Text>
