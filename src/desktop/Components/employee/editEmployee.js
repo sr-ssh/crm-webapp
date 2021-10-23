@@ -18,13 +18,13 @@ export const EditEmployee = (props) => {
     let editEmployeeLoading = useSelector(state => state.editEmployee.loading)
     let alert = useSelector(state => state.alert)
 
+console.log(newPermission)
 
     const handleChange = (e) => {
         let {  name, type, value, checked } = e.target
         if (type == "checkbox") {
             setNewPermission({ ...newPermission, [name]: checked })
-        }
-        setVoipNo({voipNo  :value })
+        }else setVoipNo({voipNo  :value })
 
     }
 
@@ -32,6 +32,7 @@ export const EditEmployee = (props) => {
     const formHandler = (e) => {
         e.preventDefault()
         let employee = { permissions: newPermission, _id: props.employee._id , voipNo: voipNo.voipNo }
+        debugger
         dispatch(employeeActions.editEmployee(employee))
         setTimeout(() => {
             props.onHide(false)
@@ -40,9 +41,9 @@ export const EditEmployee = (props) => {
     }
 
     useEffect(() => {
-        if (!newPermission)
+        if (props.show)
             setNewPermission(props.employee.permission)
-    }, [newPermission, props.show])
+    }, [props.show])
 
 
     return (
@@ -55,7 +56,7 @@ export const EditEmployee = (props) => {
             className="mx-3 modal--edit--employee"
         >
             <Modal.Body className="add-product px-4 permission-card applications-text-gray" style={{ width : "400px"}} > 
-                <Button className="border-0 customer-modal-close" style={{ left: "-13px" }} type="button" onClick={e => props.onHide(false)}>
+                <Button className="border-0 customer-modal-close" style={{ left: "-13px" }} type="button" onClick={e =>{ props.onHide(false); setNewPermission(null) } }>
                     <img className="d-flex m-auto customer-modal-close-svg" src={closeIcon} alt="close-btn" />
                 </Button>
                 {/* {
@@ -73,13 +74,13 @@ export const EditEmployee = (props) => {
                     <Row className="m-0 p-0 ">
                         <Col>
                             نام :
-                            <span>{props.employee.family}</span>
+                            <span className="me-2">{props.employee.family}</span>
                         </Col>
                     </Row>
                     <Row className="m-0 p-0 mt-3">
                         <Col>
                             موبایل:
-                            <span>{props.show && persianJs(props.employee.mobile).englishNumber().toString()}</span>
+                            <span className="me-2" >{props.show && persianJs(props.employee.mobile).englishNumber().toString()}</span>
                         </Col>
                     </Row>
                     <Row className="m-0 p-0 mt-3" >

@@ -44,9 +44,9 @@ export const Employees = () => {
     let getEmployeesLoading = useSelector(state => state.getEmployees.loading)
     const dispatch = useDispatch()
     useEffect(() => {
-        if (!addModalShow && !editModalShow && !removeModalShow)
+        if (!addModalShow && !removeModalShow)
             dispatch(employeeActions.getEmployees())
-    }, [dispatch, addModalShow, editModalShow, removeModalShow])
+    }, [dispatch, addModalShow, removeModalShow])
 
     return (
         <>
