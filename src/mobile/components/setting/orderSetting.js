@@ -310,7 +310,7 @@ export const OrderSetting = () => {
             </Col>
             <Col className="m-0 pt-3 d-flex justify-content-between ">
               <Col
-                className="p-0 col-12 d-flex align-items-center justify-content-start"
+                className="p-0 col-6 d-flex align-items-center justify-content-start"
                 style={{ widyh: "45%" }}
               >
                 <Form.Group
