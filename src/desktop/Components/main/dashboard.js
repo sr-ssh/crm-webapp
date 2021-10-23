@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Redirect, Switch } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 
@@ -31,7 +31,8 @@ import { Stock } from '../stock/stock';
 import { Leads } from '../leads/leads';
 import { socket } from '../../../helpers/socketIo';
 
-
+// Componens 
+import { NotificationCallIncoming } from '../notificationView/notifCallIncoming'
 
 export const Dashboard = (props) => {
 
@@ -41,6 +42,9 @@ export const Dashboard = (props) => {
 
     const mainPanel = useRef(null);
     const notificationAlertRef = useRef(null);
+    const [incomCall , setIncomCall] = useState(false);
+    const [incomCallMessage , setIncomCallMessage] = useState({});
+
 
     useEffect(() => {
         dispatch(employeeActions.getPermissions())
@@ -80,6 +84,8 @@ export const Dashboard = (props) => {
         }); 
 
         socket.on("push", data => {
+            setIncomCall(true)
+            setIncomCallMessage(data.message)
             console.log("pushhhhhhhhhhhh", data.message)
             console.log("pushhhhhhhhhhhh", data)
         
@@ -92,6 +98,7 @@ export const Dashboard = (props) => {
 
     return (
         <>
+            <NotificationCallIncoming incomCall={incomCall} setIncomCall={setIncomCall} incomCallMessage={incomCallMessage} setIncomCallMessage={setIncomCallMessage} />
             <div className="wrapper">
                 <div className="content">
                     <NotificationAlert ref={notificationAlertRef} />
