@@ -97,9 +97,10 @@ function editEmployee(employee) {
                         dispatch(success(employeeConstants.EDIT_EMPLOYEE_SUCCESS, employee));
                         dispatch(alertActions.success(res.message));
                         //history.go(0)
-                    } else if (res.success === false)
+                    } else if (res.success === false){
+                        dispatch(failure(employeeConstants.EDIT_EMPLOYEE_FAILURE, res.message))
                         dispatch(alertActions.error(res.message));
-
+                    }
                     setTimeout(() => {
                         dispatch(alertActions.clear());
                     }, 1500);
