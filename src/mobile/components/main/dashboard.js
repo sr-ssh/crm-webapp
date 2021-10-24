@@ -35,6 +35,7 @@ export const Dashboard = () => {
     useEffect(() => {
         dispatch(userActions.getUserInfo())
         dispatch(productActions.getProducts())
+        dispatch(userActions.appInfo());
         if (!(permissions))
             dispatch(employeeActions.getPermissions())
 

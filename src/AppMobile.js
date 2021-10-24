@@ -73,7 +73,6 @@ function AppMobile() {
   const [incomCallMessage , setIncomCallMessage] = useState({});
 
   useEffect(() => {
-
     socket.on("connect", data => {
         console.log("_________________connect_________________", socket.id)
         console.log(data)
@@ -81,8 +80,7 @@ function AppMobile() {
     }); 
 
     socket.on("push", data => {
-
-      if(history.location.pathname !== "/" || history.location.pathname !== "/register" ){
+      if(window.location.pathname !== "/" || window.location.pathname !== "/register" ){
         setIncomCall(true)
         setIncomCallMessage(data.message)
         console.log("pushhhhhhhhhhhh", data.message)
@@ -91,9 +89,8 @@ function AppMobile() {
     
     }); 
 
-}, [])
+}, [window.location.pathname])
 
-  console.log(history)
   return (
     <Router history={history}>
       {/* {
