@@ -46,7 +46,7 @@ export const Employees = () => {
                 }
                 {employees ?
                     (employees.map((item, index) =>
-                        <Card key={index} className="m-auto mt-3 productCard" >
+                        <Card key={index} className="m-auto my-3 productCard" >
                             <Card.Body className="pb-0 ps-1 rounded-3 ">
                                 <Card.Text className="pt-1">
                                     نام : <span>{item.family && persianJs(item.family).englishNumber().toString()}</span>
@@ -54,6 +54,14 @@ export const Employees = () => {
                                 <Card.Text className="pt-1">
                                     موبایل : <span>{item.mobile && persianJs(item.mobile).englishNumber().toString()}</span>
                                 </Card.Text>
+                                <Col className="m-0 mb-2 p-0 d-flex  ">
+                                            <Card.Text className="m-0 p-0 fs-6 ms-2 employees-text-gray--desktop">
+                                                sip :
+                                            </Card.Text>
+                                            <Card.Text className="m-0 p-0 employees-text-gray--desktop">
+                                                <span>{item.voipNumber && persianJs(item.voipNumber).englishNumber().toString()}</span>
+                                            </Card.Text>
+                                </Col>
                                 <Row>
                                     <Col xs={4} className="ps-0">
                                         <Card.Text className="pt-1">
@@ -74,7 +82,7 @@ export const Employees = () => {
                                 </Row>
 
 
-                                <Row className="justify-content-end">
+                                <Row className="mt-4 justify-content-end">
                                     <Card.Link className="d-flex justify-content-center editLogo" onClick={() => { setRemoveModalShow(true); setEmployee(item) }}>
                                         <img className="" src={deleteIcon} height="29px" alt="delete-icon" />
                                     </Card.Link>

@@ -14,27 +14,33 @@ export const EditEmployee = (props) => {
     const [validated, setValidated] = useState(false)
     const dispatch = useDispatch()
     let [newPermission, setNewPermission] = useState(props.employee.permission)
+    const [voipNo , setVoipNo] = useState({voipNo : props.employee?.voipNumber})
     let editEmployeeLoading = useSelector(state => state.editEmployee.loading)
     let alert = useSelector(state => state.alert)
 
     const handleChange = (e) => {
-        if (e.target.type != "checkbox") {
-            e.preventDefault()
-        }
-        setNewPermission({ ...newPermission, [e.target.name]: e.target.checked })
+        let {  name, type, value, checked } = e.target
+        if (type == "checkbox") {
+            setNewPermission({ ...newPermission, [name]: checked })
+        }else setVoipNo({voipNo  :value })
+
     }
 
 
     const formHandler = (e) => {
         e.preventDefault()
-        let employee = { permissions: newPermission, _id: props.employee._id }
+        let employee = { permissions: newPermission, _id: props.employee._id , voipNo: voipNo.voipNo }
         dispatch(employeeActions.editEmployee(employee))
+        setTimeout(() => {
+            props.onHide(false)
+            dispatch(employeeActions.getEmployees())
+        }, 1500);
     }
 
     useEffect(() => {
-        if (!newPermission)
+        if (props.show)
             setNewPermission(props.employee.permission)
-    }, [newPermission, props.show])
+    }, [props.show])
 
     return (
         <Modal
@@ -60,21 +66,30 @@ export const EditEmployee = (props) => {
                     </>
                 }
                 <Form onSubmit={formHandler} noValidate validated={validated}>
-                    <Row >
-                        <Col xs={2}>
+                <Row className="m-0 p-0 ">
+                    <Col>
                             نام :
-                        </Col>
-                        <Col>
-                            <span>{props.employee.family}</span>
+                            <span className="me-2">{props.employee.family}</span>
                         </Col>
                     </Row>
-                    <Row className="my-2">
-                        <Col xs={3}>
+                    <Row className="m-0 p-0 mt-3">
+                    <Col>
                             موبایل:
+                            <span className="me-2" >{props.show && persianJs(props.employee.mobile).englishNumber().toString()}</span>
                         </Col>
-                        <Col>
-                            <span>{props.show && persianJs(props.employee.mobile).englishNumber().toString()}</span>
-                        </Col>
+                    </Row>
+                    <Row className="m-0 p-0 mt-3" >
+                            <Col className="p-0">
+                                <Card className="border-0 bg-transparent text-light">
+                                    <Form.Label className="pe-3 fs-6">sip</Form.Label>
+                                    <Form.Control className="order-input address-input"
+                                        type="number"
+                                        name="voipNumber"
+                                        defaultValue={props.employee?.voipNumber}
+                                        onChange={handleChange}
+                                    />
+                                </Card>
+                            </Col>
                     </Row>
                     <Card className="m-auto mt-3 productCard border-0 lh-lg pb-2" >
                         <Card.Body className="pb-0 ps-0 emplyees-text-gray">
@@ -87,6 +102,7 @@ export const EditEmployee = (props) => {
                                 <Col className="pe-0">
                                     {
                                         props.show && newPermission && Object.keys(newPermission).map((key, index) => {
+                                            if(key == "getDiscounts")return
                                             return (
                                                 <Form.Group key={index} className="fw-bold" onChange={handleChange}>
                                                     <Row className="my-1">
