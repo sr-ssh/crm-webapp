@@ -1,4 +1,4 @@
-import React from 'react';
+import React , { useEffect,useState } from 'react';
 import { history } from './helpers';
 import { Redirect, Route, Router, Switch } from 'react-router';
 import { Alert, Row } from 'react-bootstrap';
@@ -59,11 +59,41 @@ import './mobile/assets/styles/receiptStyle.css';
 import './mobile/assets/styles/leadStyle.css'
 
 
+// Helper
+import { socket } from './helpers/socketIo';
+import { NotificationCallIncoming } from './mobile/components/notificationView/notifCallIncoming'
+
+
 
 
 
 function AppMobile() {
   const alert = useSelector(state => state.alert)
+  const [incomCall , setIncomCall] = useState(false);
+  const [incomCallMessage , setIncomCallMessage] = useState({});
+
+  useEffect(() => {
+
+    socket.on("connect", data => {
+        console.log("_________________connect_________________", socket.id)
+        console.log(data)
+        console.log(socket)
+    }); 
+
+    socket.on("push", data => {
+
+      if(history.location.pathname !== "/" || history.location.pathname !== "/register" ){
+        setIncomCall(true)
+        setIncomCallMessage(data.message)
+        console.log("pushhhhhhhhhhhh", data.message)
+        console.log("pushhhhhhhhhhhh", data)
+      }
+    
+    }); 
+
+}, [])
+
+  console.log(history)
   return (
     <Router history={history}>
       {/* {
@@ -107,6 +137,7 @@ function AppMobile() {
 
         <Redirect from="*" to="/" />
       </Switch>
+      <NotificationCallIncoming incomCall={incomCall} setIncomCall={setIncomCall} incomCallMessage={incomCallMessage} setIncomCallMessage={setIncomCallMessage} />
     </Router>
   );
 }
