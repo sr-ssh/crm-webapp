@@ -23,9 +23,10 @@ export const EditEmployee = (props) => {
         let {  name, type, value, checked } = e.target
         if (type == "checkbox") {
             setNewPermission({ ...newPermission, [name]: checked })
-        }else setVoipNo({voipNo  :value })
+        }else setVoipNo({voipNo  : value })
 
     }
+
 
 
     const formHandler = (e) => {
@@ -39,8 +40,10 @@ export const EditEmployee = (props) => {
     }
 
     useEffect(() => {
-        if (props.show)
+        if (props.show){
             setNewPermission(props.employee.permission)
+            setVoipNo({voipNo : props.employee?.voipNumber})
+        }
     }, [props.show])
 
 
@@ -104,7 +107,7 @@ export const EditEmployee = (props) => {
                             </Col>
                                     {
                                         props.show && newPermission && Object.keys(newPermission).map((key, index) => {
-                                            if (key === "preSms") return
+                                            if(key == "getDiscounts")return
                                             return (
                                                 <Col xs={6} className="p-0 mt-2 employees-text-permission--desktop d-flex  align-items-center ">
                                                     <label className="mb-0 p-0 option--time--filter--groupe">
@@ -115,7 +118,7 @@ export const EditEmployee = (props) => {
                                                             onChange={handleChange}
                                                             defaultChecked={newPermission[key]}
                                                         />
-                                                        <span>{translate(key)}</span>
+                                                        <span><p className="p-0 m-0 ">{translate(key)}</p></span>
                                                     </label>
                                                 </Col>
                                             )
