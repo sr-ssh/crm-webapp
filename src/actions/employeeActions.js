@@ -276,7 +276,6 @@ function editApplication(application) {
                     else if (res.success) {
                         console.log("applications received")
                         dispatch(success(employeeConstants.EDIT_APPLICATIONS_SUCCESS, res.data));
-                        history.go(0)
                     }
 
                     setTimeout(() => {

@@ -58,7 +58,7 @@ export const Applications = () => {
                         <Spinner className="m-auto d-block" animation="border" />
                     </Col>
                 }
-                {applications.length > 0 ?
+                { applications.length > 0 ?
                     <Container fluid className="m-0 px-4 w-100 d-flex justify-content-center align-items-center flex-wrap ">
                         {
                             !applicationsLoading && applications.map((item, index) =>
@@ -119,7 +119,7 @@ export const Applications = () => {
                             )
                         }
                     </Container>
-                    :
+                    : !applicationsLoading &&
                     <Container fluid className="m-0 px-4 w-100 h-75 d-flex justify-content-center align-items-center flex-wrap ">
 
                         <p className="mt-3">درخواستی موجود نمی باشد</p>

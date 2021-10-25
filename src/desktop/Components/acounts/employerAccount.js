@@ -152,6 +152,21 @@ export const EmployerAccount = ({ user }) => {
                     </Row>
                 </Card.Text>
 
+                { 
+                    user.voipNumbers?.map((item, index) => 
+                        <Card.Text className="pt-1">
+                            <Row className="ms-0 align-items-center flex-nowrap">
+                                <Col >
+                                    خط تلفن {index + 1} :
+                                </Col>
+                                <Col dir="ltr" className="pe-0">
+                                    <span className=" text-nowrap fw-bold">{item && persianJs(item).englishNumber().toString()}</span>
+                                </Col>
+                            </Row>
+                        </Card.Text>
+                    )
+                }
+
             </Col>
 
             <Col className="text-start mt-3" onClick={() => setEditModalShow(true)}>

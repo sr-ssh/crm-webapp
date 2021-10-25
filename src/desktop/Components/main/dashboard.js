@@ -98,7 +98,12 @@ export const Dashboard = (props) => {
 
     return (
         <>
-            <NotificationCallIncoming incomCall={incomCall} setIncomCall={setIncomCall} incomCallMessage={incomCallMessage} setIncomCallMessage={setIncomCallMessage} />
+            <NotificationCallIncoming
+            incomCall={incomCall}
+            setIncomCall={setIncomCall}
+            incomCallMessage={incomCallMessage}
+            setIncomCallMessage={setIncomCallMessage}
+            />
             <div className="wrapper">
                 <div className="content">
                     <NotificationAlert ref={notificationAlertRef} />
