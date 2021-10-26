@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Container, Form, Button, Row, Col, Alert, Spinner } from 'react-bootstrap';
-import DatePicker from "react-multi-date-picker";
-import moment from 'jalali-moment';
+import { Container, Form, Button, Row, Col, Spinner } from 'react-bootstrap';
 import "react-multi-date-picker/styles/layouts/mobile.css";
 import persianJs from 'persianjs/persian.min';
 
@@ -21,9 +19,6 @@ import downloadIcon from '../../assets/images/download.svg'
 import addIcon from '../../assets/images/order/add.svg'
 
 export const AddOrder = (props) => {
-
-    let alertMessage = useSelector(state => state.alert.message)
-    let alerType = useSelector(state => state.alert.type)
 
     const [validated, setValidated] = useState(false);
     const [mobileValidated, setMobileValidated] = useState(false);

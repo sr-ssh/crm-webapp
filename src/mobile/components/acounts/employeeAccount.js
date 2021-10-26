@@ -106,7 +106,7 @@ export const EmployeeAccount = ({ user }) => {
 
       <Card.Text className="pt-1 pe-3">
         <Row className="ms-0 align-items-center">
-          <Col xs={3}>خط تلفن :</Col>
+          <Col xs={3} className="fs-6">sip :</Col>
           <Col className="pe-0">
             <span className="fw-bold">
               {user.voipNumber &&

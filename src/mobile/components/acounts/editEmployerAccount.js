@@ -14,16 +14,16 @@ import persianJs from "persianjs/persian.min";
 
 //Assets
 import closeIcon from "../../assets/images/close.svg";
+import addIcon1 from "../../assets/images/order/add-blue.svg";
+import addIcon2 from "./../../assets/images/order/plus.svg";
 
 //Actions
 import { userActions } from "../../../actions";
 
 export const EditEmployerAccount = (props) => {
   let { user } = props;
-  const [oldProduct, setOldProduct] = useState([]);
-  const [validated, setValidated] = useState(false);
-  const [inputProductValidation, setInputProductValidation] = useState(false);
   const [inputs, setInputs] = useState("");
+  const [voipNumbers, setVoipNumbers] = useState([]);
   const dispatch = useDispatch();
 
   const loader = useSelector((state) => state.editProducOrder.loading);
@@ -39,22 +39,26 @@ export const EditEmployerAccount = (props) => {
         postalCode: user.postalCode,
         address: user.address,
         nationalIDCode: user.nationalIDCode,
+        voipNumbers: user.voipNumbers,
+        voipNumber: user.voipNumber,
       });
-    console.log(inputs);
-  }, [props.show]);
+  }, [props.show, inputs]);
 
   let closeHandler = (e) => {
     props.onHide(false);
   };
 
-  let companyNameInputHandler = (e) => {
-    let value = persianJs(e.target.value).toEnglishNumber().toString();
-    setInputs({ ...inputs, [e.target.name]: value });
+  let companyNameInputHandler = (e, index) => {
+    let value = e.target.value && persianJs(e.target.value).toEnglishNumber().toString();
+    if (e.target.name === "voipNumbers") {
+      inputs.voipNumbers[index] = parseInt(value);
+      console.log(inputs);
+    } else setInputs({ ...inputs, [e.target.name]: value });
   };
 
   const formHandler = (e) => {
     e.preventDefault();
-
+    inputs.voipNumbers = inputs.voipNumbers.filter((item) => item !== "" && item !== null);
     dispatch(userActions.editEmployerAccount(inputs));
   };
 
@@ -143,7 +147,7 @@ export const EditEmployerAccount = (props) => {
             </Row>
 
             <Row className="m-0 p-0 mt-2">
-              <Col className="p-0 ps-3">
+              <Col xs={6} className="p-0 ps-3">
                 <Card className="border-0 bg-transparent text-light">
                   <Form.Label className="pe-3">شناسه ملی شرکت</Form.Label>
                   <Form.Control
@@ -159,7 +163,7 @@ export const EditEmployerAccount = (props) => {
               </Col>
 
               <Col className="p-0 ">
-                <Card className="border-0 bg-transparent text-light">
+                <Card xs={6} className="border-0 bg-transparent text-light">
                   <Form.Label className="pe-3">کداقتصادی</Form.Label>
                   <Form.Control
                     className="order-input company-input"
@@ -175,7 +179,7 @@ export const EditEmployerAccount = (props) => {
             </Row>
 
             <Row className="m-0 p-0 mt-1">
-              <Col className="p-0 ps-3">
+              <Col xs={6} className="p-0 ps-3">
                 <Card className="border-0 bg-transparent text-light">
                   <Form.Label className="pe-3">شماره ثبت</Form.Label>
                   <Form.Control
@@ -190,7 +194,7 @@ export const EditEmployerAccount = (props) => {
                 </Card>
               </Col>
 
-              <Col className="p-0 ">
+              <Col xs={6} className="p-0 ">
                 <Card className="border-0 bg-transparent text-light">
                   <Form.Label className="pe-3">کدپستی</Form.Label>
                   <Form.Control
@@ -203,6 +207,85 @@ export const EditEmployerAccount = (props) => {
                     name="postalCode"
                   />
                 </Card>
+              </Col>
+            </Row>
+
+            <Row className="m-0 p-0">
+              <Col xs={6} className="p-0 ps-3 mt-1">
+                <Card className="border-0 bg-transparent text-light">
+                  <Form.Label className="pe-3">sip</Form.Label>
+                  <Form.Control
+                    className="order-input company-input"
+                    type="tel"
+                    inputMode="tel"
+                    pattern="[0-9 ۰-۹]*"
+                    defaultValue={inputs.voipNumber}
+                    onChange={companyNameInputHandler}
+                    name="sip"
+                  />
+                </Card>
+              </Col>
+              {inputs.voipNumbers?.map((item, index) => (
+                <Col
+                  xs={`${
+                    index == inputs.voipNumbers.length - 1 &&
+                    inputs.voipNumbers?.length
+                      ? 4
+                      : 6
+                  }`}
+                  key={index}
+                  className={`p-0 mt-1 ${
+                    index != inputs.voipNumbers.length - 1
+                      ? index % 2
+                        ? "ps-3"
+                        : ""
+                      : "ms-3"
+                  } `}
+                >
+                  <Card className="border-0 bg-transparent text-light">
+                    <Form.Label className="pe-3">
+                      خط تلفن {index + 1}
+                    </Form.Label>
+                    <Form.Control
+                      className="order-input company-input"
+                      type="tel"
+                      inputMode="tel"
+                      pattern="[0-9 ۰-۹]*"
+                      defaultValue={item}
+                      onChange={(e) => companyNameInputHandler(e, index)}
+                      name="voipNumbers"
+                    />
+                  </Card>
+                </Col>
+              ))}
+
+              <Col className="mt-2 mb-0 pb-0 pt-3 w-50 pe-0">
+                {!inputs.voipNumbers?.length ? (
+                  <Button
+                    className={`d-flex flex-row align-items-center btn--add--voip--desktop radius-10`}
+                    onClick={() => setVoipNumbers(inputs.voipNumbers?.push(""))}
+                  >
+                    <img
+                      className="me-3"
+                      src={addIcon1}
+                      height="25px"
+                      alt="edit-icon"
+                    />
+                    <span className="me-1 fw-bold ms-3">اضافه خط تلفن</span>
+                  </Button>
+                ) : (
+                  <Button
+                    className={`p-2 d-flex flex-row align-items-center btn--add--voip radius-16 `}
+                    onClick={() => setVoipNumbers(inputs.voipNumbers?.push(""))}
+                  >
+                    <img
+                      className=""
+                      src={addIcon2}
+                      height="25px"
+                      alt="edit-icon"
+                    />
+                  </Button>
+                )}
               </Col>
             </Row>
 
@@ -224,7 +307,7 @@ export const EditEmployerAccount = (props) => {
               </Button>
             ) : (
               <Button
-                className="fw-bold btn-dark-blue notes-round border-0 w-100 mt-4"
+                className="fw-bold btn-light-blue notes-round border-0 w-100 mt-4"
                 size="lg"
                 type="submit"
                 block
