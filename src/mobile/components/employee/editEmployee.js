@@ -40,7 +40,7 @@ export const EditEmployee = (props) => {
     useEffect(() => {
         if (props.show){
             setNewPermission(props.employee.permission)
-            setVoipNo({voipNo : props.employee?.voipNumber})
+            setVoipNo({voipNo : props.employee?.voipNumber ? props.employee?.voipNumber : null })
         }
     }, [props.show])
 
