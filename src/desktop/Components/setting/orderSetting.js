@@ -83,7 +83,9 @@ export const OrderSetting = () => {
 
   const HandleSubmit = (e) => {
     e.preventDefault();
-    if(configSettingLead.leadCountPerEmployee == null || configSettingOrder.share.time == null || configSettingOrder.reminder.time == null ||  configSettingOrder.duration.time == null  ) {return}
+
+    // configSettingOrder.reminder.time == null ||  configSettingOrder.duration.time == null 
+    if( configSettingLead.leadCountPerEmployee == null ||  configSettingOrder.share.time == null ) {return}
 
     dispatch(
       settingActions.editSettingOrder({
@@ -300,12 +302,12 @@ export const OrderSetting = () => {
               <Col className="p-0 col-4 d-flex align-items-center justify-content-start">
                 <Form.Group
                   controlId="leadCountPerEmployee"
-                  className={` form-grp--setting--desktop me-0 ${configSettingLead.leadCountPerEmployee == null ? "border border-danger" : null }`} 
+                  className={` form-grp--setting--desktop me-0 ${configSettingLead.leadCountPerEmployee == null ? "border border-danger" : null }  `} 
                 >
                   <Form.Control
                     type="tel" 
                     name="leadCountPerEmployee"
-                    className="order-setting-field--desktop m-auto"
+                    className=" order-setting-field--desktop m-auto"
                     onChange={toggleHandler}
                     required
                     defaultValue={configSettingLead?.leadCountPerEmployee}
@@ -352,7 +354,7 @@ export const OrderSetting = () => {
               <Col className="p-0 col-4 d-flex align-items-center justify-content-start">
                 <Form.Group
                   controlId="defaultReminder"
-                  className={` form-grp--setting--desktop ${configSettingOrder.share.time == null ? "border border-danger" : null  }`}
+                  className={` form-grp--setting--desktop ${configSettingOrder.share.time == null ? "border border-danger" : null  } `}
                 >
                   <Form.Control
                    type="tel" 
@@ -417,8 +419,9 @@ export const OrderSetting = () => {
               <Col className="p-0 col-4 d-flex align-items-center justify-content-start">
                 <Form.Group
                   controlId="defaultReminder"
-                  className={` form-grp--setting--desktop ${configSettingOrder.reminder.time == null ? "border border-danger" : null } `}
+                  className={` form-grp--setting--desktop  `}
                 >
+                  {/* ${configSettingOrder.reminder.time == null ? "border border-danger" : null } */}
                   <Form.Control
                     type="number"
                     name="shareText"
@@ -482,8 +485,9 @@ export const OrderSetting = () => {
               <Col className="p-0 col-4 d-flex align-items-center justify-content-start">
                 <Form.Group
                   controlId="defaultReminder"
-                  className={` form-grp--setting--desktop ${configSettingOrder.duration.time == null ? "border border-danger" : null } `}
+                  className={` form-grp--setting--desktop  `}
                 >
+                  {/* ${configSettingOrder.duration.time == null ? "border border-danger" : null } */}
                   <Form.Control
                     type="number"
                     name="shareText"

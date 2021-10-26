@@ -4,6 +4,8 @@ import { Card, Table, Row, Col, Button } from 'react-bootstrap';
 import persianJs from 'persianjs/persian.min';
 import { makeStyles } from '@material-ui/core/styles';
 import commaNumber from 'comma-number'
+import {  useSelector } from 'react-redux'
+
 
 //icons
 import tickIcon from './../../assets/images/factor/tick.svg'
@@ -57,6 +59,8 @@ export const Order = ({ order, refresh, setRefresh, deliveryShow, setDeliverySho
     const [financialCheckModal, setFinancialCheckModal] = useState(false)
     const [resultOrderModal, setResultOrderModal] = useState(false)
     const [freeStatus, setFreeStatus] = useState('')
+    let userInfo = useSelector(state => state.getUserInfo)
+
 
     const [input, setInput] = useState('')
     const [name, setName] = useState('')
@@ -111,7 +115,7 @@ export const Order = ({ order, refresh, setRefresh, deliveryShow, setDeliverySho
         return `${persianJs(day).englishNumber().toString()}  ${month}  ${persianJs(year).englishNumber().toString()}`
     }
 
-
+console.log(userInfo)
     return (
 
         <Card className={`m-auto mt-3 bg-light productCard border-0 lh-lg ${!print ? 'noPrint' : ''}`} >
@@ -192,9 +196,19 @@ export const Order = ({ order, refresh, setRefresh, deliveryShow, setDeliverySho
                                     ثبت شده توسط:
                                 </Col>
                                 <Col className="d-flex justify-content-end text--factor p-0">
-                                    <span>{order.employee ? order.employee.family : null}</span>
+                                     <span>{order.employee ? order.employee.family : order.sellers[0].id.family}</span>
                                 </Col>
                             </Row>
+                            {order.sellers.length > 0 &&
+                                <Row className="d-flex justify-content-between align-items-center my-1" >
+                                    <Col className="lable--factor p-0" >
+                                        دنبال کننده فعال:
+                                    </Col>
+                                    <Col className="d-flex justify-content-end text--factor p-0">
+                                        <span>{order.sellers[order.sellers.length - 1].id.family}</span>
+                                    </Col>
+                                </Row>
+                            }
                         </Card.Body>
                     </Card>
                 </Row>
@@ -334,20 +348,11 @@ export const Order = ({ order, refresh, setRefresh, deliveryShow, setDeliverySho
                         </Col>
                     }
                     {
-                        order.sellers.some(seller => seller.active === true) && order.status == 3 &&
+                        order.sellers.some(seller => seller.active === true) && order.status == 3 && order.sellers[order.sellers.length - 1].id._id === userInfo.user.id &&
                         <Col xs={6} className="p-0 px-1 pb-3 ps-2">
                             <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setFreeModalShow(true); setFreeStatus('0')}}>
                                 <img src={freeIcon} height="25px" alt="print-icon" className="col-3" />
                                 <span className="pe-1">آزاد کردن</span>
-                            </Button>
-                        </Col>
-                    }
-                    {
-                        !order.sellers.some(seller => seller.active === true) && order.status == 3 &&
-                        <Col xs={6} className="p-0 px-1 pb-3 ps-2">
-                            <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setFreeModalShow(true); setFreeStatus('1')}}>
-                                <img src={freeIcon} height="25px" alt="print-icon" className="col-3" />
-                                <span className="pe-1">گرفتن</span>
                             </Button>
                         </Col>
                     }

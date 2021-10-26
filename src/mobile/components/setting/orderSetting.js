@@ -115,7 +115,9 @@ export const OrderSetting = () => {
 
   const HandleSubmit = (e) => {
     e.preventDefault();
-    if(configSettingLead.leadCountPerEmployee == null || configSettingOrder.share.time == null || configSettingOrder.reminder.time == null ||  configSettingOrder.duration.time == null  ) {return}
+
+    // configSettingOrder.reminder.time == null ||  configSettingOrder.duration.time == null 
+    if( configSettingLead.leadCountPerEmployee == null ||  configSettingOrder.share.time == null ) {return}
 
     dispatch(
       settingActions.editSettingOrder({
@@ -311,7 +313,7 @@ export const OrderSetting = () => {
             <Col className="m-0 pt-3 d-flex justify-content-between ">
               <Col
                 className="p-0 col-6 d-flex align-items-center justify-content-start"
-                style={{ widyh: "45%" }}
+                style={{ width: "45%" }}
               >
                 <Form.Group
                   controlId="leadCountPerEmployee"
@@ -346,11 +348,11 @@ export const OrderSetting = () => {
             <Col className="m-0 pt-3 d-flex justify-content-between ">
               <Col
                 className="p-0 col-5 d-flex align-items-center justify-content-start"
-                style={{ widyh: "45%" }}
+                style={{ width: "45%" }}
               >
                 <Form.Group
                   controlId="defaultReminder"
-                  className={`form-grp--setting--mobile ${configSettingOrder.share.time == null ? "border border-danger" : null  }`}
+                  className={`form-grp--setting--mobile ${configSettingOrder.share.time == null ? "border border-danger" : null  } `}
                 >
                   <Form.Control
                     type="tel"
@@ -408,12 +410,13 @@ export const OrderSetting = () => {
             <Col className="m-0 pt-3 d-flex justify-content-between ">
               <Col
                 className="p-0 col-5 d-flex align-items-center justify-content-start"
-                style={{ widyh: "45%" }}
+                style={{ width: "45%" }}
               >
                 <Form.Group
                   controlId="defaultReminder"
-                  className={` form-grp--setting--mobile ${configSettingOrder.reminder.time == null ? "border border-danger" : null } `} 
+                  className={` form-grp--setting--mobile `} 
                 >
+                  {/* ${configSettingOrder.reminder.time == null ? "border border-danger" : null }  */}
                   <Form.Control
                     type="tel"
                     inputMode="tel"
@@ -482,12 +485,13 @@ export const OrderSetting = () => {
             <Col className="m-0 pt-3 d-flex justify-content-between ">
               <Col
                 className="p-0 col-5 d-flex align-items-center justify-content-start"
-                style={{ widyh: "45%" }}
+                style={{ width: "45%" }}
               >
                 <Form.Group
                   controlId="defaultReminder"
-                  className={` form-grp--setting--mobile ${configSettingOrder.duration.time == null ? "border border-danger" : null }`}
+                  className={` form-grp--setting--mobile $`}
                 >
+                  {/* {configSettingOrder.duration.time == null ? "border border-danger" : null } */}
                   <Form.Control
                     type="tel"
                     inputMode="tel"
