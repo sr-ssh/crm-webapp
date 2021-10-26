@@ -1,0 +1,34 @@
+.btn--add--voip {
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  padding: 0.5rem 0;
+  border-color: var(--dark--blue);
+  color: var(--button-color-one);
+  background-color: var(--light-blue);
+}
+.btn--add--voip:hover,
+.btn--add--voip:active,
+.btn--add--voip:focus,
+.btn--add--voip:focus:active,
+.btn--add--voip:active:focus {
+  color: var(--button-color-one);
+  background-color: var(--light-blue) !important;
+}
+.btn--add--voip--desktop {
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 0.3rem 1.5rem;
+    color: var(--button-color-one);
+    background-color: #fff;
+    border-color: var(--dark--blue);
+  }
+  .btn--add--voip--desktop:hover,
+  .btn--add--voip--desktop:active,
+  .btn--add--voip--desktop:focus,
+  .btn--add--voip--desktop:focus:active,
+  .btn--add--voip--desktop:active:focus {
+    color: var(--button-color-one);
+    background-color: #fff !important;
+  }

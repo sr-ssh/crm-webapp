@@ -152,6 +152,17 @@ export const EmployerAccount = ({ user }) => {
                     </Row>
                 </Card.Text>
 
+                <Card.Text className="pt-1">
+                    <Row className="ms-0 align-items-center flex-nowrap">
+                        <Col className="fs-6">
+                            sip :
+                        </Col>
+                        <Col dir="ltr" className="pe-0">
+                            <span className=" text-nowrap fw-bold">{user.voipNumber && persianJs(user.voipNumber).englishNumber().toString()}</span>
+                        </Col>
+                    </Row>
+                </Card.Text>
+
                 { 
                     user.voipNumbers?.map((item, index) => 
                         <Card.Text className="pt-1">
