@@ -17,6 +17,7 @@ import { RecordOrder } from './recordOrder'
 import { UploadDocuments } from './uploadDoc'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { CancelOrder } from './cancelOrder'
+import {FreeSaleOpportunity} from './freeSaleOpportunity'
 
 
 
@@ -93,8 +94,12 @@ export const SaleOpprotunity = () => {
                  
                 <Row className="m-0 p-0 w-100 h-100" style={{ overflowX : "hidden" , overflowY: "scroll" }}>
                 {( !orderLoading &&  orders.length > 0) ?
-                    (orders.map((order, index) => <Order key={index} refresh={refresh} setRefresh={setRefresh} order={order} deliveryShow={deliveryShow} setDeliveryShow={setDeliveryShow} recordOrderShow={recordOrderShow} setRecordOrderShow={setRecordOrderShow} setActiveOrder={setActiveOrder} setOrder={setOrder} cancelOrderShow={cancelOrderShow} setCancelOrderShow={setCancelOrderShow} setUploadModalShow={setUploadModalShow} setCustomerInfoShow={setCustomerInfoShow}  />))
-
+                    (orders.map((order, index) =>{
+                        if(order.sellers.some(seller => seller.active === true) && order.status == 3)
+                            return  <Order key={index} refresh={refresh} setRefresh={setRefresh} order={order} deliveryShow={deliveryShow} setDeliveryShow={setDeliveryShow} recordOrderShow={recordOrderShow} setRecordOrderShow={setRecordOrderShow} setActiveOrder={setActiveOrder} setOrder={setOrder} cancelOrderShow={cancelOrderShow} setCancelOrderShow={setCancelOrderShow} setUploadModalShow={setUploadModalShow} setCustomerInfoShow={setCustomerInfoShow}  />
+                        else
+                            return <FreeSaleOpportunity order={order}  refresh={refresh} setRefresh={setRefresh} />
+                    }))
                     : null}
                 </Row>
                 
