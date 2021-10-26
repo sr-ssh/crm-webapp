@@ -83,7 +83,9 @@ export const Order = ({ order, refresh, setRefresh, deliveryShow, setDeliverySho
     const [isPrivate, setIsPrivate] = useState(order.notes.isPrivate);
     // const [showDocModalShow, setShowDocModalShow] = useState(false)
     let editStatusNotesLoading = useSelector(state => state.editStatusNotes)
-
+    let userInfo = useSelector(state => state.getUserInfo)
+    
+    
     const [input, setInput] = useState('')
     const [name, setName] = useState('')
     const [orderId, setOrderId] = useState("")
@@ -145,12 +147,14 @@ export const Order = ({ order, refresh, setRefresh, deliveryShow, setDeliverySho
         const year = moment.from(date, 'YYYY').locale('fa').format('YYYY')
         return `${persianJs(day).englishNumber().toString()}  ${month}  ${persianJs(year).englishNumber().toString()}`
     }
+
+
     return (
 
         <Card className={`m-auto mt-3 bg-light productCard border-0 lh-lg ${!print ? 'noPrint' : ''} mx-1 ${classes.productCard}`} >
             <Row className="m-0 mt-3 noPrint ">
             {
-                    order.sellers.some(seller => seller.active === true) && order.status == 3 &&
+                    order.sellers.some(seller => seller.active === true) && order.status == 3 &&  order.sellers[order.sellers.length - 1].id._id === userInfo.user.id &&
                     <Col className="d-flex justify-content-end">
                         <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setFreeModalShow(true); setFreeStatus('0')}}>
                             <img src={freeIcon} height="25px" alt="print-icon" className="col-3" />
@@ -321,9 +325,16 @@ export const Order = ({ order, refresh, setRefresh, deliveryShow, setDeliverySho
                                 </Col>
                                 <Col className="p-0 d-flex justify-content-evenly" >
                                     <Card.Text>
-                                        ثبت شده توسط: <span>{order.employee ? order.employee.family : null}</span>
+                                        ثبت شده توسط: <span>{order.employee ? order.employee.family : order.sellers[0].id.family}</span>
                                     </Card.Text>
                                 </Col>
+                                {order.sellers.length > 0 &&
+                                    <Col className="p-0 d-flex justify-content-evenly" >
+                                        <Card.Text>
+                                            دنبال کننده فعال: <span>{order.sellers[order.sellers.length - 1].id.family}</span>
+                                        </Card.Text>
+                                    </Col>
+                                }
                             </Row>
                         </Card.Body>
                     </Card>
