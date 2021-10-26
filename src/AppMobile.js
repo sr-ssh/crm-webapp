@@ -73,18 +73,19 @@ function AppMobile() {
   const [incomCallMessage , setIncomCallMessage] = useState({});
 
   useEffect(() => {
+    
+    console.log("_________________________________________________________TRY TO CONNECT_________________________________________________________")
+    
     socket.on("connect", data => {
-        console.log("_________________connect_________________", socket.id)
+        console.log("_________________Connected_________________", socket.id)
         console.log(data)
-        console.log(socket)
     }); 
 
     socket.on("push", data => {
       if(window.location.pathname !== "/" || window.location.pathname !== "/register" ){
         setIncomCall(true)
         setIncomCallMessage(data.message)
-        console.log("pushhhhhhhhhhhh", data.message)
-        console.log("pushhhhhhhhhhhh", data)
+        console.log("___________________________________________New Push___________________________________________", data)
       }
     
     }); 
