@@ -15,14 +15,14 @@ export const FormalFactor = ({ order }) => {
     return (
         <Container className="m-auto">
 
-            {/* <Row className="align-items-center p-3">
+            <Row className="align-items-center p-3">
                 <Col className='text-bold '>
                     {order.status == 3 ? "پیش فاکتور" : "فاکتور"}
                 </Col>
                 <Col className="text-start">
                     <Image src={logo} alt="crm-icon" height="37px" />
                 </Col>
-            </Row> */}
+            </Row>
             <Card className="rounded-card border-0 mb-2 mt-4">
                 <Card.Body className="pb-2 pt-0 px-2 lh-lg">
                     <Card.Title className="mb-1">

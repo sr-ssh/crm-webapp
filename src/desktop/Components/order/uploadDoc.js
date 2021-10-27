@@ -117,7 +117,7 @@ export const UploadDocuments = (props) => {
           </Row>
           <Row>
             <Col>
-              {addProductLoading ? (
+              {/* {addProductLoading ? (
                 <Button
                   className="fw-bold order-submit border-0 w-100 mt-3"
                   size="lg"
@@ -132,8 +132,8 @@ export const UploadDocuments = (props) => {
                     aria-hidden="true"
                   />
                   در حال انجام عملیات...
-                </Button>
-              ) : (
+                </Button> */}
+              {/* ) : ( */}
                 <Button
                   className="fw-bold receipt--btn--mobile border-0 w-100 mt-3"
                   size="lg"
@@ -142,7 +142,7 @@ export const UploadDocuments = (props) => {
                 >
                   ثبت
                 </Button>
-              )}
+              {/* )} */}
             </Col>
           </Row>
         </Form>

@@ -21,15 +21,14 @@ export const ShareLinkOrder = ({ isShareLinkOrder, setIsShareLinkOrder, order, .
 
 
     const dispatch = useDispatch()
-    const [copied, setCopied] = useState(false)
     const [customerInfoRequire, setCustomerInfoRequire] = useState("")
 
     const [invoiceType, setInvoiceType] = useState(0)
 
     let shareLinkOrder = useSelector(state => state.getShareLinkOrder)
-    let textLink = `پیش فاکتور شما ایجاد گردید. لینک پیش فاکتور http://crm-x.ir/order/factor/${shareLinkOrder?.data?.data?.orderId}/${shareLinkOrder?.data?.data?.keyLink}`;
-
-    let customerInfo = order?.customer
+    let shareLink = `http://crm-x.ir/order/factor/${shareLinkOrder?.data?.data?.orderId}/${shareLinkOrder?.data?.data?.keyLink}`;
+    const textLink = `پیش فاکتور شما ایجاد گردید. لینک پیش فاکتور
+     \n ${shareLink}`
     let toggleHandler = (e) => {
         let type = e.target.id == "formal" ? 0 : e.target.id == "inFormal" ? 1 : null
         if ((type == 1) || (type == 0 && order?.customer.registerNo && order?.customer.financialCode && order?.customer.nationalCard && order?.customer.postalCode)) {
@@ -102,7 +101,7 @@ export const ShareLinkOrder = ({ isShareLinkOrder, setIsShareLinkOrder, order, .
                         <Row>
                             <Row className="p-0 m-0 mb-2">
                                 <Col className="col-6">
-                                    <CopyToClipboard text={textLink} >
+                                    <CopyToClipboard text={shareLink} >
                                         <Button className="w-100 btn-outline-dark btn--sale--opprotunity border-0">
                                             <img src={copyIcon} height="25px" alt="edit-order-icon" />
                                             <span className="me-2">کپی در کلیپبورد</span>

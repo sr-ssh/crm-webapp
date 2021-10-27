@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import moment from 'jalali-moment';
-import { Container, Form, Card, Table, Row, Col, Spinner, Button } from 'react-bootstrap';
+import { Container, Form, Card, Table, Row, Col, Button } from 'react-bootstrap';
 import persianJs from 'persianjs/persian.min';
 import { Dialog, CircularProgress } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
@@ -22,8 +22,6 @@ import uploadIcon from './../../assets/images/order/Upload-documents.svg'
 import resultIcon from './../../assets/images/order/Result.svg'
 import waitingIcon from '../../assets/images/main/Waiting.svg'
 import freeIcon from '../../assets/images/order/free1.svg'
-
-
 
 // Actions
 import { notesActions } from '../../../actions';
@@ -325,7 +323,7 @@ export const Order = ({ order, refresh, setRefresh, deliveryShow, setDeliverySho
                                 </Col>
                                 <Col className="p-0 d-flex justify-content-evenly" >
                                     <Card.Text>
-                                        ثبت شده توسط: <span>{order.employee ? order.employee.family : order.sellers[0].id.family}</span>
+                                        ثبت شده توسط: <span>{order.employee ? order.employee.family : order.sellers[0]?.id.family}</span>
                                     </Card.Text>
                                 </Col>
                                 {order.sellers.length > 0 &&

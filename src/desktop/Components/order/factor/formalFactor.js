@@ -16,14 +16,14 @@ export const FormalFactor = ({ factor }) => {
 
     return (
         <Container fluid className="factor--page--desktop d-flex flex-column align-items-center">
-            {/* <Row className="w-100 mt-5 d-flex justify-content-around ">
+            <Row className="w-100 mt-5 d-flex justify-content-around ">
                 <Col className="me-5 d-flex align-items-center">
                     <span className="fw-bold fs-5">{factor.status == 3 ? "پیش فاکتور" : "فاکتور"}</span>
                 </Col>
                 <Col className="ms-5 d-flex justify-content-end">
                     <img className="" height="60px" src={logo} alt="" />
                 </Col>
-            </Row> */}
+            </Row>
             <Row className="w-100 mt-4 d-flex flex-row ">
                 <Col>
                     <Card className="card--factor--desktop">
