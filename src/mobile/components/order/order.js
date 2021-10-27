@@ -192,7 +192,7 @@ console.log(userInfo)
                                         دنبال کننده فعال:
                                     </Col>
                                     <Col className="d-flex justify-content-end text--factor p-0">
-                                        <span>{order.sellers[order.sellers.length - 1].id.family}</span>
+                                        <span>{order.sellers[order.sellers.length - 1].id?.family}</span>
                                     </Col>
                                 </Row>
                             }
@@ -319,7 +319,7 @@ console.log(userInfo)
                         </Button>
                     </Col>
                     <Col xs={6} className="p-0 px-1 pb-3 ps-2">
-                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setDeliveryShow(true); setOrder(order.id); }}>
+                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setDeliveryShow(true); setOrder(order?.id); }}>
                             <img src={deliveryIcon} height="25px" alt="delivery-icon" className="col-3" />
                             <span className="pe-1">پیک</span>
                         </Button>
@@ -335,7 +335,7 @@ console.log(userInfo)
                         </Col>
                     }
                     {
-                        order.sellers.some(seller => seller.active === true) && order.status == 3 && order.sellers[order.sellers.length - 1].id._id === userInfo.user.id &&
+                        order.sellers.some(seller => seller.active === true) && order.status == 3 && order.sellers[order.sellers.length - 1].id?._id === userInfo.user?.id &&
                         <Col xs={6} className="p-0 px-1 pb-3 ps-2">
                             <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setFreeModalShow(true); setFreeStatus('0')}}>
                                 <img src={freeIcon} height="25px" alt="print-icon" className="col-3" />
