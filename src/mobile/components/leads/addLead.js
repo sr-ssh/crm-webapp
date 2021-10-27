@@ -47,7 +47,7 @@ export const AddLead = (props) => {
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
-            className="mx-3 order-serach-modal"
+            className="mx-3 order-serach-modal px-3"
         >
             <Modal.Body className="add-product px-3">
                 <Button className="border-0 customer-modal-close--desktop" type="button" onClick={e => props.onHide(false)}>
