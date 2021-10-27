@@ -69,19 +69,6 @@ export const Order = ({ order, refresh, setRefresh, deliveryShow, setDeliverySho
     const [editProductOrder, setEditProductOrder] = useState("");
     const [shareLinkOrder, setShareLinkOrder] = useState("")
 
-    const edit = (value, name, orderId, productId) => {
-        setInput(value)
-        setName(name)
-        setProductId(productId)
-        setOrderId(orderId)
-        setEditModalShow(true);
-    }
-    const cancel = (orderId, productId) => {
-        setProductId(productId)
-        setOrderId(orderId)
-        setCancelModalShow(true);
-    }
-
 
     const getTotalPrice = (order) => {
         let total = 0
@@ -196,7 +183,7 @@ console.log(userInfo)
                                     ثبت شده توسط:
                                 </Col>
                                 <Col className="d-flex justify-content-end text--factor p-0">
-                                     <span>{order.employee ? order.employee.family : order.sellers[0].id.family}</span>
+                                     <span>{order.employee ? order.employee.family : order.sellers[0]?.id.family}</span>
                                 </Col>
                             </Row>
                             {order.sellers.length > 0 &&
