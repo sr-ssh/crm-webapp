@@ -8,7 +8,7 @@
 }
 
 .sidebarItem {
-    border-bottom: 1px solid var(--button-background);
+    border-bottom: 1px solid var(--dark-blue);
 }
 
 .sidebarItem a {
@@ -17,6 +17,6 @@
 }
 
 .dashboardIcons {
-    background-color: var(--button-background);
+    background-color: var(--dark-blue);
     height: 10vh;
 }
