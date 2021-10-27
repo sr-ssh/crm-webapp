@@ -135,7 +135,7 @@ export const Basket = ({
                                   }}
                                 >
                                   <Row>
-                                    <Col className="text-end basket-dropdown-border-left pe-1">
+                                    <Col className="text-end pe-1">
                                       {item.name}
                                     </Col>
                                     <Col>
