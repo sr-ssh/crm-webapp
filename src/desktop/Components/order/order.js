@@ -160,7 +160,7 @@ export const Order = ({
       <Row className="m-0 mt-3 noPrint ">
         {order.sellers.some((seller) => seller.active === true) &&
           order.status == 3 &&
-          order.sellers[order.sellers.length - 1].id._id ===
+          order.sellers[order.sellers.length - 1].id?._id ===
             userInfo.user.id && (
             <Col className="d-flex justify-content-end">
               <Button
@@ -512,7 +512,7 @@ export const Order = ({
                     <Card.Text>
                       دنبال کننده فعال:{" "}
                       <span>
-                        {order.sellers[order.sellers.length - 1].id.family}
+                        {order.sellers[order.sellers.length - 1].id?.family}
                       </span>
                     </Card.Text>
                   </Col>
