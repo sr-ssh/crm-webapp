@@ -27,6 +27,7 @@ import { Header } from '../base/header'
 import { CancelOrder } from './cancelOrder'
 import { UploadDocuments } from './uploadDoc'
 import {FreeSaleOpportunity} from './freeSaleOpportunity'
+import { ShowDocuments } from './showDoc'
 
 
 export const SaleOpprotunity = () => {
@@ -40,6 +41,8 @@ export const SaleOpprotunity = () => {
     const [order, setOrder] = useState('')
     const [cancelOrderShow, setCancelOrderShow] = useState(false)
     const [uploadModalShow, setUploadModalShow] = useState(false)
+    const [showDocModalShow, setShowDocModalShow] = useState(false)
+
     const [customerInfoShow, setCustomerInfoShow] = useState(false)
     const [refresh, setRefresh] = useState(false)
 
@@ -88,7 +91,7 @@ export const SaleOpprotunity = () => {
                     {(orders.length > 0) ?
                         (orders.map((order, index) => {
                              if(order.sellers.some(seller => seller.active === true) && order.status == 3)
-                                  return <Order key={index} refresh={refresh} setRefresh={setRefresh}  order={order} deliveryShow={deliveryShow} setDeliveryShow={setDeliveryShow} recordOrderShow={recordOrderShow} setRecordOrderShow={setRecordOrderShow} setActiveOrder={setActiveOrder} setOrder={setOrder} status={3} cancelOrderShow={cancelOrderShow} setCancelOrderShow={setCancelOrderShow} setUploadModalShow={setUploadModalShow}  setCustomerInfoShow={setCustomerInfoShow} />
+                                  return <Order key={index} refresh={refresh} setRefresh={setRefresh}  order={order} deliveryShow={deliveryShow} setDeliveryShow={setDeliveryShow} recordOrderShow={recordOrderShow} setRecordOrderShow={setRecordOrderShow} setActiveOrder={setActiveOrder} setOrder={setOrder} status={3} cancelOrderShow={cancelOrderShow} setCancelOrderShow={setCancelOrderShow} setUploadModalShow={setUploadModalShow} uploadModalShow={uploadModalShow}  setCustomerInfoShow={setCustomerInfoShow} setShowDocModalShow={setShowDocModalShow} />
                               else
                                   return <FreeSaleOpportunity order={order}  refresh={refresh} setRefresh={setRefresh} />
                         }))
@@ -99,6 +102,8 @@ export const SaleOpprotunity = () => {
                     <RecordOrder show={recordOrderShow} onHide={() => setRecordOrderShow(false)} order={activeOrder} />
                     <CancelOrder status="4" show={cancelOrderShow} onHide={() => setCancelOrderShow(false)} order={activeOrder} />
                     <UploadDocuments show={uploadModalShow} onHide={() => setUploadModalShow(false)} order={activeOrder} />
+                    {activeOrder.id && <ShowDocuments show={showDocModalShow} onHide={() => setShowDocModalShow(false)} order={activeOrder} UploadModalShow={() => setUploadModalShow(true)} setActiveOrder={setActiveOrder} />}
+               
                 </Container>
             </div >
         </>
