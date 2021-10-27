@@ -178,7 +178,7 @@ export const AddOrder = (props) => {
           >
             <Row
               className="d-flex flex-column"
-              style={{ width: "65%", height: "100vh" }}
+              style={{ width: "65%" }}
             >
               <Row className="col-12 m-0 p-0 mt-2 order-inputs d-flex flex-row justify-content-between align-items-center">
                 <Col className="col-4 add-order-input--desktop">

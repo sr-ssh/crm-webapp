@@ -156,7 +156,7 @@
 }
 .my-custom-scrollbar--desktop {
   position: relative;
-  height: 14vh;
+  height: 22vh;
   overflow: auto;
 }
 .my-custom-scrollbar--desktop::-webkit-scrollbar {
