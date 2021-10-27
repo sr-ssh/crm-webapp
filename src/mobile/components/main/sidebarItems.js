@@ -148,7 +148,7 @@ export const SidebarItems = () => {
           lg={10}
           className="py-3 mx-3 fw-bold sidebarItem"
         >
-          <Link to="/factor/add">ثبت فاکتورها</Link>
+          <Link to="/factor/add">ثبت فاکتور</Link>
         </Col>
         <Col
           xs={10}
