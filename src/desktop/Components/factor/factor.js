@@ -257,7 +257,7 @@ export const Factor = ({ factor, setCancelFactorShow, setDeliveryShow, cancelOrd
                                 <Col className="p-0 d-flex flex-flex-grow-1"></Col>
                                 <Col className="p-0 d-flex justify-content-center" >
                                     ثبت شده توسط : :
-                                    <span className="me-2">{factor.employee.family}</span>
+                                    <span className="me-2">{factor.employee?.family}</span>
                                 </Col>
                             </Row>
                         </Card.Body>
