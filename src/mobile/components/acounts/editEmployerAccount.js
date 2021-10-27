@@ -42,7 +42,7 @@ export const EditEmployerAccount = (props) => {
         voipNumbers: user.voipNumbers,
         voipNumber: user.voipNumber,
       });
-  }, [props.show, inputs]);
+  }, [props.show]);
 
   let closeHandler = (e) => {
     props.onHide(false);
@@ -60,6 +60,10 @@ export const EditEmployerAccount = (props) => {
     e.preventDefault();
     inputs.voipNumbers = inputs.voipNumbers.filter((item) => item !== "" && item !== null);
     dispatch(userActions.editEmployerAccount(inputs));
+    setTimeout(() => {
+      dispatch(userActions.getUserInfo())
+      closeHandler()
+    }, 1500);
   };
 
   return (
