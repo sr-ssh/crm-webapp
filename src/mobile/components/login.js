@@ -44,7 +44,7 @@ export const Login = () => {
       value = persianJs(value).toEnglishNumber().toString();
       value = usernameHandler(value);
     }
-    if (id === "password")
+    if (id === "password" && value)
       value = persianJs(value).toEnglishNumber().toString();
 
     setInputs((inputs) => ({ ...inputs, [id]: value }));
