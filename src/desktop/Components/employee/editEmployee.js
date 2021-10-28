@@ -4,20 +4,18 @@ import { useDispatch, useSelector } from 'react-redux'
 import persianJs from 'persianjs/persian.min';
 // Actions
 import { employeeActions } from '../../../actions/employeeActions';
-// Heloers
+// Helpers
 import { translate } from '../../../helpers';
 // Icons
 import closeIcon from '../../assets/images/close.svg'
-import tickIcon from '../../assets/images/tick.svg'
 
 export const EditEmployee = (props) => {
+
     const [validated, setValidated] = useState(false)
     const dispatch = useDispatch()
     let [newPermission, setNewPermission] = useState(props.employee.permission)
     const [voipNo , setVoipNo] = useState({voipNo : props.employee?.voipNumber})
     let editEmployeeLoading = useSelector(state => state.editEmployee.loading)
-    let alert = useSelector(state => state.alert)
-
 
     const handleChange = (e) => {
         let {  name, type, value, checked } = e.target
@@ -27,14 +25,13 @@ export const EditEmployee = (props) => {
 
     }
 
-
-
     const formHandler = (e) => {
         e.preventDefault()
         let employee = { permissions: newPermission, _id: props.employee._id , voipNo: voipNo.voipNo }
         dispatch(employeeActions.editEmployee(employee))
         setTimeout(() => {
             props.onHide(false)
+            setNewPermission(null) 
             dispatch(employeeActions.getEmployees())
         }, 1500);
     }

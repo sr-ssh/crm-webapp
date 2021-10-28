@@ -19,4 +19,8 @@ export function translate(key) {
   else if (key === "nationalIDCode") return "کدملی";
   else if (key === "getAllSaleOpprotunity") return "مشاهده تمام فرصت فروش ها";
   else if (key === "getLead") return "سرنخ";
+  else if (key === "addReceipt") return "ثبت فاکتور";
+  else if (key === "getReceipts") return "فاکتور ها";
+  else if (key === "getSuppliers") return "تامین کننده ها";
+  else if (key === "getStock") return "مواد خام";
 }

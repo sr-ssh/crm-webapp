@@ -45,7 +45,7 @@ export const SidebarItems = () => {
         >
           <Link to="/lead">سرنخ</Link>
         </Col>}
-        {permissions && permissions.addOrder && (
+        {isPermitted("/order/add") && (
           <Col
             xs={10}
             sm={10}
@@ -56,7 +56,7 @@ export const SidebarItems = () => {
             <Link to="/order/add">ثبت سفارش</Link>
           </Col>
         )}
-        {permissions && permissions.saleOpprotunity && (
+        {isPermitted("/saleopprotunity") && (
           <Col
             xs={10}
             sm={10}
@@ -67,7 +67,7 @@ export const SidebarItems = () => {
             <Link to="/saleopprotunity">فرصت فروش</Link>
           </Col>
         )}
-        {permissions && permissions.getOrders && (
+        {isPermitted("/orders") && (
           <Col
             xs={10}
             sm={10}
@@ -78,7 +78,7 @@ export const SidebarItems = () => {
             <Link to="/orders">سفارش ها</Link>
           </Col>
         )}
-        {permissions && permissions.reminder && (
+        {isPermitted("/reminders") && (
           <Col
             xs={10}
             sm={10}
@@ -89,7 +89,7 @@ export const SidebarItems = () => {
             <Link to="/reminders">یادآوری</Link>
           </Col>
         )}
-        {permissions && permissions.getProducts && (
+        {isPermitted("/products") && (
           <Col
             xs={10}
             sm={10}
@@ -100,7 +100,7 @@ export const SidebarItems = () => {
             <Link to="/products">محصولات</Link>
           </Col>
         )}
-        {permissions && permissions.finance && (
+        {isPermitted("/finance") && (
           <Col
             xs={10}
             sm={10}
@@ -111,7 +111,7 @@ export const SidebarItems = () => {
             <Link to="/finance">مالی</Link>
           </Col>
         )}
-        {permissions && permissions.getCustomers && (
+        {isPermitted("/customers") && (
           <Col
             xs={10}
             sm={10}
@@ -122,7 +122,7 @@ export const SidebarItems = () => {
             <Link to="/customers">مشتریان</Link>
           </Col>
         )}
-        {permissions && permissions.getEmployees && (
+        {isPermitted("/employees") && (
           <Col
             xs={10}
             sm={10}
@@ -133,7 +133,7 @@ export const SidebarItems = () => {
             <Link to="/employees">کارمندان</Link>
           </Col>
         )}
-        {permissions && permissions.getDiscounts && (
+        {/* {isPermitted("/discounts") && (
           <Col
             xs={10}
             sm={10}
@@ -143,8 +143,8 @@ export const SidebarItems = () => {
           >
             <Link to="/discounts">تخفیف ها</Link>
           </Col>
-        )}
-        <Col
+        )} */}
+        {isPermitted("/factor/add") && <Col
           xs={10}
           sm={10}
           md={10}
@@ -152,17 +152,17 @@ export const SidebarItems = () => {
           className="py-3 mx-3 fw-bold sidebarItem"
         >
           <Link to="/factor/add">ثبت فاکتور</Link>
-        </Col>
-        <Col
+        </Col>}
+        {isPermitted("/factor") && <Col
           xs={10}
           sm={10}
           md={10}
           lg={10}
           className="py-3 mx-3 fw-bold sidebarItem"
         >
-          <Link to="/factors">فاکتورها</Link>
-        </Col>
-        <Col
+          <Link to="/factor">فاکتورها</Link>
+        </Col>}
+        {isPermitted("/suppliers") && <Col
           xs={10}
           sm={10}
           md={10}
@@ -170,8 +170,8 @@ export const SidebarItems = () => {
           className="py-3 mx-3 fw-bold sidebarItem"
         >
           <Link to="/suppliers">تامین کننده ها</Link>
-        </Col>
-        <Col
+        </Col>}
+        {isPermitted("/stock") && <Col
           xs={10}
           sm={10}
           md={10}
@@ -179,7 +179,7 @@ export const SidebarItems = () => {
           className="py-3 mx-3 fw-bold sidebarItem"
         >
           <Link to="/stock">لیست مواد خام</Link>
-        </Col>
+        </Col>}
       </Row>
 
       <Row className="d-flex justify-content-center align-items-center mt-auto dashboardIcons">

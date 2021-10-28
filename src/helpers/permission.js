@@ -30,17 +30,21 @@ export function isPermitted(route) {
     return true;
   } else if (route === "/lead") {
     if (permissions?.getLead) return true;
+} else if (route === "/factor") {
+  if (permissions?.getReceipts) return true;
+} else if (route === "/factor/add") {
+  if (permissions?.addReceipt) return true;
+} else if (route === "/suppliers") {
+  if (permissions?.getSuppliers) return true;
+} else if (route === "/stock") {
+  if (permissions?.getStock) return true;
   } else if (
     [
       "/",
       "/register",
       "/dashboard",
       "/account",
-      "/factor/add",
       "/factors",
-      "/factor",
-      "/suppliers",
-      "/stock",
     ].includes(route)
   )
     return true;

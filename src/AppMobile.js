@@ -129,7 +129,7 @@ function AppMobile() {
         <Route exact path="/order/notes" component={Notes}></Route>
         <Route exact path="/factor/note" component={NoteFactor}></Route>
         <PrivateRoute path="/factor/add" component={AddFactor} ></PrivateRoute>
-        <PrivateRoute path="/factors" component={Factors} ></PrivateRoute>
+        <PrivateRoute path="/factor" component={Factors} ></PrivateRoute>
         <PrivateRoute path="/suppliers" component={Suppliers} ></PrivateRoute>
         <PrivateRoute path="/stock" component={Stock} ></PrivateRoute>
         <PrivateRoute path="/lead" component={Leads} ></PrivateRoute>

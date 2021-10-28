@@ -53,6 +53,7 @@ export const SideBarItem = ({ route }) => {
                             <Collapse in={open} timeout="auto" unmountOnExit>
                                 {route?.children.map((item, index) => {
                                     return (
+                                        isPermitted(item.path) && 
                                         <ListItem ListItem button className={`px-2 py-2 pe-3 item--sidebar noPrint`} >
                                             <Typography color="textPrimary" variant="subtitle2" className="text-end text-dark fw-bold pe-4 ff-iranSans noPrint">
                                                 <NavLink to={item.path} className="nav-link fw-bold d-flex align-items-center noPrintr" activeClassName="active">
