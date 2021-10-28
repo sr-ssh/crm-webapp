@@ -67,7 +67,7 @@ export const Lead = ({ item, sideBar, activeId, acceptLead, addOrder, failLead, 
                         </>
                     }
 
-                    <Card.Text className="m-0 p-0 pt-1 d-flex align-items-start ms-2">
+                    <Card.Text className="m-0 p-0 pt-1 d-flex align-items-start ms-2 w-50">
                         {
                             (activeId === item._id && editLoading) ? (
                                 <Button className="button--green fs-6-sm fw-bold background--green border-0 w-100 mt-3" size="lg" type="submit" disabled>
