@@ -54,7 +54,7 @@ export const Lead = ({item, acceptLead, activeId, addOrder,failLead}) => {
             <Card.Text className="m-0 p-0 pt-1 d-flex align-items-start ms-2">
                 {
                     ((activeId === item?._id) && editLoading) ? (
-                        <Button className="button--green fs-6 fw-bold background--green border-0 w-100 mt-3" size="lg" type="submit" disabled>
+                        <Button className="button--green fs-6 fw-bold background--green border-0 w-50 mt-3" size="lg" type="submit" disabled>
                             <Spinner
                                 as="span"
                                 animation="grow"
@@ -65,10 +65,10 @@ export const Lead = ({item, acceptLead, activeId, addOrder,failLead}) => {
                             در حال انجام عملیات...
                         </Button>
                     ) : item?.accepted ?
-                        <Button onClick={(e) => failLead(e, item?._id)} className="button--red fs-6 fw-bold background--red border-0 w-100 mt-3" size="lg" type="submit" block>
+                        <Button onClick={(e) => failLead(e, item?._id)} className="button--red fs-6 fw-bold background--red border-0 w-50 mt-3" size="lg" type="submit" block>
                             ناموفق
                         </Button>
-                    :  <Button onClick={(e) => acceptLead(e, item?._id)} className="button--green fs-6 fw-bold background--green border-0 w-100 mt-3" size="lg" type="submit" block>
+                    :  <Button onClick={(e) => acceptLead(e, item?._id)} className="button--green fs-6 fw-bold background--green border-0 w-50 mt-3" size="lg" type="submit" block>
                         قبول
                     </Button>
                 }
