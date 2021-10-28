@@ -55,7 +55,7 @@ export const EditEmployerAccount = (props) => {
     let value =
       e.target.value && persianJs(e.target.value).toEnglishNumber().toString();
     if (e.target.name == "voipNumbers") {
-      inputs.voipNumbers[index] = parseInt(value);
+      inputs.voipNumbers[index] = value;
       console.log(inputs);
     } else setInputs({ ...inputs, [e.target.name]: value });
   };
