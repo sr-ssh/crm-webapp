@@ -5,6 +5,7 @@ import persianJs from 'persianjs/persian.min';
 import { Dialog } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import commaNumber from 'comma-number'
+import {useSelector} from 'react-redux'
 
 //icons
 import tickIcon from './../../assets/images/factor/tick.svg'
@@ -49,6 +50,7 @@ export const Factor = ({ factor, setActiveFactor, setCancelFactorShow, cancelOrd
     const [editFactorModalShow, setEditFactorModalShow] = useState(false)
     const [showNotesModal, setShowNotesModal] = useState(false)
     const [financialCheckModal, setFinancialCheckModal] = useState(false)
+    const userPermissions = useSelector(state => state.getPermissions.permissions)
 
 
     const [input, setInput] = useState('')
@@ -278,7 +280,7 @@ export const Factor = ({ factor, setActiveFactor, setCancelFactorShow, cancelOrd
                         </Button>
                     </Col>
                     {
-                        parseInt(factor.shopApproval.status) !== 1 &&
+                        userPermissions.purchaseConfirmationInvoice == true && parseInt(factor.shopApproval.status) !== 1 &&
                         <Col xs={6} className="p-0 px-1 pb-3 pe-2">
                             <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => setFinancialCheckModal(true)}>
                                 <img src={financialCheckIcon} height="25px" alt="submit-icon" className="col-3 py-1" />

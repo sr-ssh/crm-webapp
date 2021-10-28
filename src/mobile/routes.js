@@ -16,7 +16,7 @@ const dashboardRoutes = [
         layout: "/",
     },
     {
-        path: "/saleopprotunity",
+        path: "/saleOpprotunity",
         name: "فرصت فروش",
         layout: "/",
     },
@@ -51,12 +51,12 @@ const dashboardRoutes = [
                 layout: "/",
             },
             {
-                path: "/suppliers",
+                path: "/factor/suppliers",
                 name: "تامین کننده ها",
                 layout: "/",
             },
             {
-                path: "/stock",
+                path: "/factor/stock",
                 name: "مواد خام",
                 layout: "/",
             }

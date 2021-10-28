@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, Container, Alert, Spinner } from 'react-bootstrap';
 // Actions
-import { orderActions } from '../../../actions';
+import { orderActions , employeeActions} from '../../../actions';
 // Components
 import { Header } from '../base/serachHeader';
 import { OrderSearch } from './search'
@@ -34,6 +34,7 @@ export const Orders = () => {
 
     useEffect(() => {~
         !cancelOrderShow && dispatch(orderActions.getOrders({ status: "" }))
+        dispatch(employeeActions.getPermissions())
     }, [dispatch, cancelOrderShow])
 
 

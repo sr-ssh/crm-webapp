@@ -35,7 +35,7 @@ export const Applications = () => {
     return (
         <>
             <div className="finance-page orders">
-                <Header title="درخواست ها" backLink="/employees" />
+                <Header title="درخواست ها" backLink="/dashboard" />
                 <Container fluid className="m-auto">
                     {
                         applicationsLoading &&

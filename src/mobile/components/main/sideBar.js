@@ -24,25 +24,25 @@ export const SideBar = ({ routes }) => {
    
     return (
         <>
-            <div className="sidebar sidebar--mobile noPrint">
+            <div className="m-0 p-0 sidebar sidebar--mobile noPrint">
 
                 <Row className="m-0 p-0 py-3 d-flex flex-row">
-                    <Col className="d-flex justify-content-center">
+                    <Col className="m-0 p-0 d-flex justify-content-center">
                         <img className=" noPrint" height="50px" src={logo} alt="crmx-logo" />
                     </Col>
                 </Row>
                 <List
-                    style={{marginBottom: "60px" }}
                     component="nav"
                     aria-labelledby="nested-list-subheader"
-                    className="flex-column "
+                    className="flex-column sideBar--item--mobile"
                 >
+                    <Row className="m-0 p-0 ">
                     {routes.map((prop, key) => {
                         return (
                             <SideBarItem key={key} route={prop} />
                         );
                     })}
-
+                    </Row>      
                 </List>
                 <Row className="m-0 p-0 d-flex justify-content-center align-items-center mt-auto dashboardIcons--desktop noPrint" style={{'position': 'relative'}}>
                     <Col className=" col-4">

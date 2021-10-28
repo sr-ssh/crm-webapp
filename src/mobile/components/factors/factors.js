@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { Container, Row, Col, Spinner } from 'react-bootstrap'
 // Actions
-import { receiptActions } from '../../../actions';
+import { receiptActions , employeeActions } from '../../../actions';
 
 // Components
 import { Header } from '../base/serachHeader'
@@ -24,11 +24,12 @@ export const Factors = () => {
     let { receipts, loading } = useSelector(state => state.getReceipts)
 
 
+
     useEffect(() => {
         !cancelFactorShow && dispatch(receiptActions.getReceipts())
+        dispatch(employeeActions.getPermissions())
     }, [dispatch, cancelFactorShow])
 
-    console.log(receipts)
 
 
 

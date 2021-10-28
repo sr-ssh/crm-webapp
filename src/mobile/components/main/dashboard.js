@@ -50,7 +50,7 @@ export const Dashboard = () => {
                 onSetOpen={setIsOpen}
                 pullRight={true}
                 styles={{
-                    sidebar: { background: "white", width: "42vw", "zIndex": "1040" },
+                    sidebar: { background: "white", width: "45vw", "zIndex": "1040" },
                     overlay: { zIndex: "1030" }
                 }}
                 overlayClassName="test3"

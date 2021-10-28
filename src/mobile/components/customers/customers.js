@@ -39,7 +39,7 @@ export const Customers = () => {
     return (
         <>
             <div className="product-page orders">
-                <Header title="مشتریان" setModalShow={setModalShow} getExcel={getExcel} userPermission={userPermissions.excelCustomer} />
+                <Header title="مشتریان" setModalShow={setModalShow} getExcel={getExcel} userPermission={userPermissions.getExcelCustomers} />
                 <Container fluid className="m-auto">
                     {
                         customerLoading &&
