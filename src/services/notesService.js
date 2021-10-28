@@ -14,9 +14,12 @@ export const notesService = {
 function getNotes(orderId) {
     console.log("into notesService");
 
+    const requestOptions = {
+        headers: authHeader()
+    };
 
     return axios
-        .get(`${baseRoute}/order/notes/${orderId}`)
+        .get(`${baseRoute}/order/notes/${orderId}`, requestOptions)
         .then(res => {
             console.log("res.user >> "); console.log(res.data.data);
             return res.data
@@ -34,10 +37,11 @@ function addNotes(orderId, notes) {
     console.log("into notesService");
 
     const requestOptions = {
-        body: { orderId, notes }
+        body: { orderId, notes },
+        headers: authHeader()
     };
     return axios
-        .put(`${baseRoute}/order/notes`, requestOptions.body)
+        .put(`${baseRoute}/order/notes`, requestOptions.body, {headers: requestOptions.headers})
         .then(res => {
             console.log("res.user >> "); console.log(res.data.data);
             return res.data
@@ -54,10 +58,11 @@ function editStatusNotes(orderId, status) {
     console.log("into notesService");
 
     const requestOptions = {
-        body: { orderId, status }
+        body: { orderId, status },
+        headers: authHeader()
     };
     return axios
-        .put(`${baseRoute}/order/notes/status`, requestOptions.body)
+        .put(`${baseRoute}/order/notes/status`, requestOptions.body, {headers: requestOptions.headers})
         .then(res => {
             console.log("res.user >> "); console.log(res.data.data);
             return res.data

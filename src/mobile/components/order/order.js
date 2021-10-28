@@ -102,7 +102,6 @@ export const Order = ({ order, refresh, setRefresh, deliveryShow, setDeliverySho
         return `${persianJs(day).englishNumber().toString()}  ${month}  ${persianJs(year).englishNumber().toString()}`
     }
 
-console.log(userInfo)
     return (
 
         <Card className={`m-auto mt-3 bg-light productCard border-0 lh-lg ${!print ? 'noPrint' : ''}`} >
