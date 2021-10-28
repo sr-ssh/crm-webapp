@@ -26,13 +26,13 @@ export const SideBar = ({ routes }) => {
         <>
             <div className="sidebar sidebar--mobile noPrint">
 
-                <Row className="m-0 p-0 py-3 d-flex flex-row logo--sidebar--desktop">
+                <Row className="m-0 p-0 py-3 d-flex flex-row">
                     <Col className="d-flex justify-content-center">
                         <img className=" noPrint" height="50px" src={logo} alt="crmx-logo" />
                     </Col>
                 </Row>
                 <List
-                    style={{ marginTop: "75px", marginBottom: "60px" }}
+                    style={{marginBottom: "60px" }}
                     component="nav"
                     aria-labelledby="nested-list-subheader"
                     className="flex-column "
@@ -44,7 +44,7 @@ export const SideBar = ({ routes }) => {
                     })}
 
                 </List>
-                <Row className="m-0 p-0 d-flex justify-content-center align-items-center mt-auto dashboardIcons--desktop noPrint">
+                <Row className="m-0 p-0 d-flex justify-content-center align-items-center mt-auto dashboardIcons--desktop noPrint" style={{'position': 'relative'}}>
                     <Col className=" col-4">
                         <Col onClick={e => userActions.logout()}>
                             <img className="m-auto d-block exit--icon--desktop noPrint" src={exitIcon} height="40px" alt="exit-icon" />
