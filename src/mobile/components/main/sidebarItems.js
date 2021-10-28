@@ -10,6 +10,8 @@ import exitIcon from "../../assets/images/drawer/exit.svg";
 import { userActions } from "../../../actions";
 import { useDispatch } from "react-redux";
 import { employeeActions } from "../../../actions/employeeActions";
+import { isPermitted } from '../../../helpers/permission'
+
 
 export const SidebarItems = () => {
   let permissions = JSON.parse(localStorage.getItem("permissions"));
@@ -33,7 +35,8 @@ export const SidebarItems = () => {
         </Col>
       </Row>
       <Row>
-        <Col
+        {
+          isPermitted("/lead") && <Col
           xs={10}
           sm={10}
           md={10}
@@ -41,7 +44,7 @@ export const SidebarItems = () => {
           className="py-3 mx-3 fw-bold sidebarItem"
         >
           <Link to="/lead">سرنخ</Link>
-        </Col>
+        </Col>}
         {permissions && permissions.addOrder && (
           <Col
             xs={10}
