@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 // Components
 import { SidebarItems } from './sidebarItems'
+import { SideBar } from './sideBar'
 import { MainMenuOptions } from './mainMenuOptions'
 import { EmployerNoProduct } from './employerNoProduct';
 import { EmployeeApp } from './employeeApp'
@@ -45,7 +46,7 @@ export const Dashboard = () => {
     return (
         <>
             <Sidebar
-                sidebar={<SidebarItems />}
+                sidebar={<SideBar />}
                 open={isOpen}
                 onSetOpen={setIsOpen}
                 pullRight={true}
