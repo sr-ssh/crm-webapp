@@ -44,7 +44,7 @@ export const SideBarItem = ({ route }) => {
                     (route?.children?.length > 0 && isPermitted(route.layout)) ?
                         <>
                             <ListItem ListItem button className={`px-2 py-2 item--sidebar noPrint ${location.pathname.includes(route.layout) ? 'active--item--sidebar' : null}`} onClick={handleClick} >
-                                <Typography color="textPrimary" className="w-100 d-flex flex-row align-items-center text-end text-dark fw-bold pe-4 py-2 noPrint  ff-iranSans">
+                                <Typography color="textPrimary" className="w-100 d-flex flex-row align-items-center text-end text-dark fw-bold pe-2 py-2 noPrint  ff-iranSans">
                                     <span className="px-2  pe-3 noPrint ">{route.name}</span>
                                     <div className="noPrint" style={{ flexGrow: 1 }}></div>
                                     {open ? <ExpandLess classes="noPrint" /> : <ExpandMore className="noPrint" />}
@@ -55,7 +55,7 @@ export const SideBarItem = ({ route }) => {
                                     return (
                                         isPermitted(item.path) && 
                                         <ListItem ListItem button className={`px-2 py-2 pe-3 item--sidebar noPrint`} >
-                                            <Typography color="textPrimary" variant="subtitle2" className="text-end text-dark fw-bold pe-4 ff-iranSans noPrint">
+                                            <Typography color="textPrimary" variant="subtitle2" className="text-end text-dark fw-bold pe-2 ff-iranSans noPrint">
                                                 <NavLink to={item.path} className="nav-link fw-bold d-flex align-items-center noPrintr" activeClassName="active">
 
                                                     {item.path === location.pathname ? <Brightness1Icon className={classes.muiListIconActive} /> : <Brightness1Icon className={classes.muiListIcon} />}
@@ -71,7 +71,7 @@ export const SideBarItem = ({ route }) => {
                         </> : isPermitted(route.path) ? (
                             <>
                                 <ListItem ListItem button className={`px-2 py-2 item--sidebar noPrint  ${route.path == location.pathname ? 'active--item--sidebar' : null}`} >
-                                    <Typography color="textPrimary" className="text-end text-dark fw-bold pe-4 ff-iranSans noPrint">
+                                    <Typography color="textPrimary" className="text-end text-dark fw-bold pe-2 ff-iranSans noPrint">
                                         <NavLink to={route.path} className="nav-link fw-bold noPrint" activeClassName="active">
                                             {route.name}
                                         </NavLink>
