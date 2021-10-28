@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react'
 import Sidebar from 'react-sidebar'
 import { Container, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
-
+import routes from './../../routes'
+import { makeStyles } from '@material-ui/core/styles';
 
 // Components
-import { SidebarItems } from './sidebarItems'
+import { SideBar } from './sideBar'
 import { MainMenuOptions } from './mainMenuOptions'
 import { EmployerNoProduct } from './employerNoProduct';
 import { EmployeeApp } from './employeeApp'
@@ -18,7 +19,6 @@ import logo from '../../assets/images/crm.svg'
 import { employeeActions } from '../../../actions/employeeActions'
 import { userActions } from '../../../actions/userActions'
 import { productActions } from '../../../actions/productActions'
-
 
 
 export const Dashboard = () => {
@@ -45,7 +45,7 @@ export const Dashboard = () => {
     return (
         <>
             <Sidebar
-                sidebar={<SidebarItems />}
+                sidebar={<SideBar routes={routes} />}
                 open={isOpen}
                 onSetOpen={setIsOpen}
                 pullRight={true}
