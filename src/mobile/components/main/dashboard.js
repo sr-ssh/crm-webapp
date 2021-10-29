@@ -36,10 +36,9 @@ export const Dashboard = () => {
         dispatch(userActions.getUserInfo())
         dispatch(productActions.getProducts())
         dispatch(userActions.appInfo());
-        if (!(permissions))
-            dispatch(employeeActions.getPermissions())
+        dispatch(employeeActions.getPermissions())
 
-    }, [dispatch, permissions])
+    }, [dispatch])
 
 
     return (
