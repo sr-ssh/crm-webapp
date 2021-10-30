@@ -56,7 +56,7 @@ export const SaleOpprotunity = () => {
 
     return (
         <div className="product-page orders ">
-            <Header className="noPrint" title="فرصت فروش" backLink="/dashboard" />
+            <Header className="noPrint" title="فرصت فروش" backLink="/" />
             {
                     alert.message &&
                     <>

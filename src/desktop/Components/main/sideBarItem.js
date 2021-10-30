@@ -5,7 +5,7 @@ import { ListItem, Typography, Collapse } from '@material-ui/core';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Brightness1Icon from '@material-ui/icons/Brightness1';
-import { isPermitted , getPermissionRoutesChilde } from '../../../helpers/permission'
+import { isPermitted } from '../../../helpers/permission'
 
 
 
@@ -41,7 +41,7 @@ export const SideBarItem = ({ route }) => {
         <>
             {
                 (route.path === "/setting" && user_type !== 1) ? null :
-                    (route?.children?.length > 0 && getPermissionRoutesChilde(route)) ?
+                    (route?.children?.length > 0 && isPermitted(route.layout)) ?
                         <>
                             <ListItem ListItem button className={`px-2 py-2 item--sidebar noPrint ${location.pathname.includes(route.layout) ? 'active--item--sidebar' : null}`} onClick={handleClick} >
                                 <Typography color="textPrimary" className="w-100 d-flex flex-row align-items-center text-end text-dark fw-bold pe-4 py-2 noPrint  ff-iranSans">

@@ -24,7 +24,7 @@ export const Leads = () => {
     const addloading = useSelector(state => state.addLead.loading)
     const uploadLoading = useSelector(state => state.uploadExcel.loading)
     const userPermissions = useSelector(state => state.getPermissions.permissions)
-
+    
     let uploadHandler = (e) => {
         e.preventDefault()
         console.log(e.target.files[0])
@@ -61,7 +61,7 @@ export const Leads = () => {
 
     return (
         <div className="product-page">
-            <Header title="سرنخ" uploadHandler={uploadHandler} setModalShow={setAddModalShow} userPermission={userPermissions.uploadExcelLeads} />
+            <Header title="سرنخ" uploadHandler={uploadHandler} setModalShow={setAddModalShow} userPermission={true} />
             <Container className="m-auto">
                 {
                     ((editLoading === false) && loading) &&

@@ -42,7 +42,7 @@ export const Products = () => {
 
     return (
         <div className="product-page">
-            <Header title="محصول ها" getExcel={() => setXlsxModalShow(true)} setModalShow={setAddModalShow} userPermission={userPermissions.ExcelProducts} />
+            <Header title="محصولات" getExcel={() => setXlsxModalShow(true)} setModalShow={setAddModalShow} userPermission={userPermissions.excelProduct} />
             <Container className="m-auto">
                 {
                     (productLoading) &&

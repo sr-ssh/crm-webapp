@@ -41,7 +41,7 @@ export const Suppliers = () => {
 
     return (
         <>
-            <Header isBTNSearch={true} searchModalShow={() => setModalShow(true)} userPermission={userPermissions.getExcelSuppliers} isGetExcel={true} getExcel={getExcel} isBtnAdd={" "} />
+            <Header isBTNSearch={true} searchModalShow={() => setModalShow(true)} userPermission={userPermissions.excelCustomer} isGetExcel={true} getExcel={getExcel} isBtnAdd={" "} />
 
 
             <div className="product-page orders margin--top--header" style={{ paddingRight: sideBar.open ? "250px" : 0 }}>

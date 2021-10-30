@@ -5,7 +5,7 @@ import { List, ListItem, Typography, Link, Collapse, ListItemText } from '@mater
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Brightness1Icon from '@material-ui/icons/Brightness1';
-import { isPermitted , getPermissionRoutesChilde } from '../../../helpers/permission'
+import { isPermitted } from '../../../helpers/permission'
 import { Row, Col, Card, Nav } from 'react-bootstrap';
 import logo from '../../assets/images/crm-dark.svg'
 
@@ -23,11 +23,7 @@ const useStyles = makeStyles((theme) => ({
         width: "11px",
         height: "11px",
         marginLeft: 9,
-        color: "#1d64cd"
-    },
-    expandIcon: {
-        color: "#1d64cd",
-        fontSize:"25px"
+        color: "#70b2e2"
     }
 }));
 
@@ -47,7 +43,7 @@ export const SideBarItem = ({ route }) => {
         <>
             {
                 (route.path === "/setting" && user_type !== 1) ? null :
-                    (route?.children?.length > 0 && getPermissionRoutesChilde(route)) ?
+                    (route?.children?.length > 0 && isPermitted(route.layout)) ?
                         <>
                         {/* <Row className="m-0 p-0 py-3 d-flex flex-row logo--sidebar--desktop">
                         <Col className="d-flex justify-content-center">
@@ -58,15 +54,15 @@ export const SideBarItem = ({ route }) => {
                                 <Typography color="textPrimary" className="w-100 d-flex flex-row align-items-center text-end text-dark fw-bold pe-2 py-2 noPrint  ff-iranSans">
                                     <span className="px-2  pe-3 noPrint ">{route.name}</span>
                                     <div className="noPrint" style={{ flexGrow: 1 }}></div>
-                                    {open ? <ExpandLess classes="noPrint" classes={{root:classes.expandIcon}} /> : <ExpandMore className="noPrint" classes={{root:classes.expandIcon}} />}
+                                    {open ? <ExpandLess classes="noPrint" /> : <ExpandMore className="noPrint" />}
                                 </Typography>
                             </ListItem>
                             <Collapse in={open} timeout="auto" unmountOnExit>
                                 {route?.children.map((item, index) => {
                                     return (
                                         isPermitted(item.path) && 
-                                        <ListItem ListItem button className={`px-2 py-2 pe-2 item--sidebar noPrint`} >
-                                            <Typography color="textPrimary" variant="subtitle2" className="text-end text-dark fw-bold ff-iranSans noPrint">
+                                        <ListItem ListItem button className={`px-2 py-2 pe-3 item--sidebar noPrint`} >
+                                            <Typography color="textPrimary" variant="subtitle2" className="text-end text-dark fw-bold pe-2 ff-iranSans noPrint">
                                                 <NavLink to={item.path} className="nav-link fw-bold d-flex align-items-center noPrintr" activeClassName="active">
 
                                                     {item.path === location.pathname ? <Brightness1Icon className={classes.muiListIconActive} /> : <Brightness1Icon className={classes.muiListIcon} />}

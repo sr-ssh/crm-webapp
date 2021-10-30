@@ -79,8 +79,6 @@ export const Factor = ({ factor, setCancelFactorShow, setDeliveryShow, cancelOrd
     const [isShareLinkOrder, setIsShareLinkOrder] = useState(false)
     const [isPrivate, setIsPrivate] = useState(factor?.note?.isPrivate);
     const [financialCheckModal, setFinancialCheckModal] = useState(false)
-    const userPermissions = useSelector(state => state.getPermissions.permissions)
-
 
     let editStatusNotesLoading = useSelector(state => state.editStatusNotes)
     console.log(isPrivate)
@@ -176,7 +174,7 @@ export const Factor = ({ factor, setCancelFactorShow, setDeliveryShow, cancelOrd
                         </Button>
                     </Col>
                 }
-                {userPermissions.purchaseConfirmationInvoice && parseInt(factor.shopApproval.status) !== 1 &&
+                {parseInt(factor.shopApproval.status) !== 1 &&
                 <Col className="d-flex justify-content-end col-2">
                     <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 justify-content-center" type="button" onClick={() => { setFinancialCheckModal(true) }}>
                         <img src={financialCheckIcon} height="25px" alt="print-icon" className="ms-3" />

@@ -39,7 +39,7 @@ export const Suppliers = () => {
     return (
         <>
             <div className="product-page orders">
-                <Header title="تامین کننده ها" setModalShow={setModalShow} getExcel={getExcel} userPermission={userPermissions.getExcelSuppliers} />
+                <Header title="تامین کننده ها" setModalShow={setModalShow} getExcel={getExcel} userPermission={userPermissions.excelCustomer} />
                 <Container fluid className="m-auto pb-3">
                     {
                         supplierLoading &&
