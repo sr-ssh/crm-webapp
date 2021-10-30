@@ -39,7 +39,7 @@ export const Products = () => {
 
     return (
         <>
-            <Header isBTNSearch={false} userPermission={userPermissions.excelProduct} isGetExcel={true} getExcel={() => setXlsxModalShow(true)} isBtnAdd={"اضافه محصول"} btnAdd={() => setAddModalShow(true)} />
+            <Header isBTNSearch={false} userPermission={userPermissions.ExcelProducts} isGetExcel={true} getExcel={() => setXlsxModalShow(true)} isBtnAdd={"اضافه محصول"} btnAdd={() => setAddModalShow(true)} />
             <div className="product-page d-flex flex-column align-items-center margin--top--header" style={{ paddingRight: sideBar.open ? "250px" : 0 }}>
                 <Container fluid className="m-0 px-4 w-100 d-flex justify-content-evenly flex-wrap ">
                     {/* {

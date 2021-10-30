@@ -123,10 +123,10 @@ export const Dashboard = (props) => {
                         <PrivateRoute path="/account" component={Account} ></PrivateRoute>
                         <PrivateRoute path="/setting" component={Setting} ></PrivateRoute>
                         <PrivateRoute path="/factor/add" component={AddFactor} ></PrivateRoute>
-                        <PrivateRoute path="/factor" component={Factors} ></PrivateRoute>
+                        <PrivateRoute exact path="/factor" component={Factors} ></PrivateRoute>
                         <PrivateRoute path="/needs" component={AddOrder} ></PrivateRoute>
-                        <PrivateRoute path="/suppliers" component={Suppliers} ></PrivateRoute>
-                        <PrivateRoute path="/stock" component={Stock} ></PrivateRoute>
+                        <PrivateRoute path="/factor/suppliers" component={Suppliers} ></PrivateRoute>
+                        <PrivateRoute path="/factor/stock" component={Stock} ></PrivateRoute>
                         <PrivateRoute path="/lead" component={Leads} ></PrivateRoute>
 
                         <Redirect from="*" to="/" />

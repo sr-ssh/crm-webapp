@@ -39,6 +39,7 @@ export const Employees = () => {
     const [removeModalShow, setRemoveModalShow] = useState(false)
     const [employee, setEmployee] = useState({})
     const sideBar = useSelector(state => state.sideBar)
+    const userPermissions = useSelector(state => state.getPermissions.permissions)
 
     let employees = useSelector(state => state.getEmployees.employees)
     let getEmployeesLoading = useSelector(state => state.getEmployees.loading)
@@ -50,7 +51,7 @@ export const Employees = () => {
 
     return (
         <>
-            <Header isBTNSearch={false} isBTNRequest={true} />
+            <Header isBTNSearch={false} isBTNRequest={userPermissions.employeeRequests} />
 
             <div className="product-page margin--top--header" style={{ paddingRight: sideBar.open ? "250px" : 0 }}>
 

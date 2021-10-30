@@ -100,6 +100,8 @@ export const Order = ({
   // const [showDocModalShow, setShowDocModalShow] = useState(false)
   let editStatusNotesLoading = useSelector((state) => state.editStatusNotes);
   let userInfo = useSelector((state) => state.getUserInfo);
+  const userPermissions = useSelector(state => state.getPermissions.permissions)
+
 
   const [input, setInput] = useState("");
   const [name, setName] = useState("");
@@ -202,7 +204,7 @@ export const Order = ({
               </Button>
             </Col>
           )}
-        {order.status === 0 && (
+        {userPermissions.financialConfirmationOrder && order.status === 0 && (
           <Col className="d-flex justify-content-center">
             <Button
               className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2"

@@ -60,7 +60,7 @@ export const Leads = () => {
 
     return (
         <>
-            <Header isBTNSearch={false} userPermission={true} isGetExcel={true} getExcel={uploadHandler} isBtnAdd={"اضافه سرنخ"} btnAdd={() => setAddModalShow(true)} />
+            <Header isBTNSearch={false} userPermission={userPermissions.uploadExcelLeads} isGetExcel={true} getExcel={uploadHandler} isBtnAdd={"اضافه سرنخ"} btnAdd={() => setAddModalShow(true)} />
             <div className="product-page d-flex flex-column align-items-center margin--top--header" style={{ paddingRight: sideBar.open ? "250px" : 0 }}>
                 <Container fluid className="m-0 px-4 w-100 d-flex justify-content-evenly flex-wrap ">
                     {leads ?
