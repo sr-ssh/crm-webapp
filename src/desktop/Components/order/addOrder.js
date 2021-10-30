@@ -132,11 +132,8 @@ export const AddOrder = (props) => {
     setQuantity(1);
     oldCustomer = null;
   }
-  // const submitCalendar = (value, name) => {
-  //     let birthDate = `${value.year}/${value.month.number}/${value.day}`
-  //     birthDate = moment.from(birthDate, 'fa', 'YYYY/MM/DD').locale('en').format('YYYY-MM-DD');
-  //     setCustomer({ ...customer, [name]: birthDate })
-  // }
+
+  
   useEffect(() => {
     if (oldCustomer?.mobile)
       setCustomer({
