@@ -75,6 +75,17 @@ export const AddFactor = () => {
     setCustomer({ ...customer, [name]: value });
   };
 
+  const clearInputs = () => {
+    setCustomer({ mobile: "", address: "", family: "", company: "" });
+    insertOrder([]);
+    setNotes([]);
+    insertPrice("0");
+    setItem("");
+    setQuantity(1);
+    setPrice(0);
+    oldCustomer = null;
+  };
+
   let formHandler = (e) => {
     e.preventDefault();
     if (order.length && customer.family && customer.mobile) {
@@ -115,8 +126,8 @@ export const AddFactor = () => {
     if (oldCustomer?.mobile) setCustomer({ ...customer, ...oldCustomer });
   }, [oldCustomer]);
   useEffect(() => {
-    if (addOrderLoading) insertOrder([]);
-  }, [addOrderLoading, setCustomer]);
+    if (addOrderLoading === false) clearInputs();
+  }, [addOrderLoading]);
 
   return (
     <>
