@@ -241,24 +241,26 @@ export const Factor = ({
               </Button>
             </Col>
           )}
-          <Col xs={6} className="p-0 px-1 pb-3 ps-2">
-            <Button
-              className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2"
-              type="button"
-              onClick={() => {
-                setEditFactorModalShow(true);
-                setEditFactor(factor);
-              }}
-            >
-              <img
-                src={editeOrderIcon}
-                height="25px"
-                alt="edit-order-icon"
-                className="col-3 py-1"
-              />
-              <span className="pe-1 noPrint">ویرایش</span>
-            </Button>
-          </Col>
+          {parseInt(factor.shopApproval.status) !== 1 && (
+            <Col xs={6} className="p-0 px-1 pb-3 ps-2">
+              <Button
+                className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2"
+                type="button"
+                onClick={() => {
+                  setEditFactorModalShow(true);
+                  setEditFactor(factor);
+                }}
+              >
+                <img
+                  src={editeOrderIcon}
+                  height="25px"
+                  alt="edit-order-icon"
+                  className="col-3 py-1"
+                />
+                <span className="pe-1 noPrint">ویرایش</span>
+              </Button>
+            </Col>
+          )}
           <Col xs={6} className="px-1 pb-3 pe-2">
             <Button
               className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2"

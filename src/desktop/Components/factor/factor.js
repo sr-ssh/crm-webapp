@@ -184,25 +184,26 @@ export const Factor = ({
             </Button>
           </Col>
         )}
-        <Col className="d-flex justify-content-start col-2">
-          <Button
-            className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 justify-content-center"
-            type="button"
-            onClick={() => {
-              setEditFactorModalShow(true);
-              setEditFactor(factor);
-            }}
-          >
-            <img
-              src={editeOrderIcon}
-              height="30px"
-              alt="edit-order-icon"
-              className="ms-3 py-1"
-            />
-            <span className="noPrint">ویرایش</span>
-          </Button>
-        </Col>
-
+        {parseInt(factor.shopApproval.status) !== 1 && (
+          <Col className="d-flex justify-content-start col-2">
+            <Button
+              className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 justify-content-center"
+              type="button"
+              onClick={() => {
+                setEditFactorModalShow(true);
+                setEditFactor(factor);
+              }}
+            >
+              <img
+                src={editeOrderIcon}
+                height="30px"
+                alt="edit-order-icon"
+                className="ms-3 py-1"
+              />
+              <span className="noPrint">ویرایش</span>
+            </Button>
+          </Col>
+        )}
         <Col className="d-flex justify-content-cent col-2">
           <Button
             className={`w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 justify-content-center`}
@@ -297,23 +298,6 @@ export const Factor = ({
                 <Col className="p-0 d-flex justify-content-center">
                   نام :<span className="me-2">{factor.supplier.family}</span>
                 </Col>
-                {/* <Col className="col-5">
-                                    <Card.Text className="text-center">
-                                        وضعیت: {(() => {
-                                            switch (order.status) {
-                                                case 0:
-                                                    return <span>فعال</span>;
-                                                case 1:
-                                                    return <span>پایان یافته</span>;;
-                                                case 2:
-                                                    return <span>لغو شده</span>;;
-                                                default:
-                                                    return;
-                                            }
-                                        })()}
-                                    </Card.Text>
-                                </Col> */}
-
                 <Col className="p-0 d-flex justify-content-center">
                   موبایل:
                   <span className="me-2">
@@ -335,7 +319,7 @@ export const Factor = ({
                 <Col className="p-0 d-flex flex-flex-grow-1"></Col>
                 <Col className="p-0 d-flex flex-flex-grow-1"></Col>
                 <Col className="p-0 d-flex justify-content-center">
-                  ثبت شده توسط : :
+                  ثبت شده توسط :
                   <span className="me-2">{factor.employee?.family}</span>
                 </Col>
               </Row>
