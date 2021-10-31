@@ -17,7 +17,6 @@ export const FinancialCheckModal = (props) => {
     let toggleHandler = (e) => {
         let type = e.target.id === "pass" ? 1 : e.target.id === "fail" ? 2 : null
         setInvoiceType(type)
-        // dispatch(orderActions.getShareLinkOrder({ orderId: props.order.id, status: type }))
     }
     let handleClick = () => {
 
@@ -51,18 +50,18 @@ export const FinancialCheckModal = (props) => {
                         <Row className="p-0 m-0 my-1">
                             <Col className="col-6 ps-2 d-flex align-items-center">
                                 <input type="checkbox" id="pass" name="pass" className="btn-toggle-status-green" checked={invoiceType === 1} onChange={toggleHandler} />
-                                <span className="pe-2 fw-bold">تایید</span>
-                                <span className="pe-2 text-success">
+                                <label htmlFor="pass" className="pe-2 fw-bold">تایید</label>
+                                <label htmlFor="pass" className="pe-2 text-success">
                                     مالی شود
-                                </span>
+                                </label>
                                 .
                             </Col>
                             <Col className="col-6 pe-2 d-flex align-items-center">
                                 <input type="checkbox" id="fail" name="fail" className="btn-toggle-status-red" checked={invoiceType === 2} onChange={toggleHandler} />
-                                <span className="pe-2 fw-bold">تایید</span>
-                                <span className="pe-2 text-danger">
+                                <label htmlFor="fail" className="pe-2 fw-bold">تایید</label>
+                                <label htmlFor="fail" className="pe-2 text-danger">
                                     مالی نشود
-                                </span>
+                                </label>
                                 .
                             </Col>
                         </Row>

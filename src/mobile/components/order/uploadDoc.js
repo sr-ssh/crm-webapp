@@ -106,7 +106,7 @@ export const UploadDocuments = (props) => {
                     </Row>
                     <Row>
                         <Col>
-                            {
+                            {/* {
                                 addProductLoading ? (
                                     <Button className="fw-bold receipt--btn--mobile border-0 w-100 mt-4 fs-6-sm py-2" size="lg" type="submit" disabled>
                                         <Spinner
@@ -118,12 +118,12 @@ export const UploadDocuments = (props) => {
                                         />
                                         در حال انجام عملیات...
                                     </Button>
-                                ) : (
+                                ) : ( */}
                                     <Button className="fw-bold receipt--btn--mobile border-0 w-100 mt-4 fs-6-sm py-2" size="lg" type="submit" block>
                                         آپلود
                                     </Button>
-                                )
-                            }
+                                {/* )
+                            } */}
                         </Col>
                     </Row>
                 </Form>

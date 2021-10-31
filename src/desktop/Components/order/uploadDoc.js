@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Form, Button, Row, Col, Modal, Spinner } from "react-bootstrap";
+import { Form, Button, Row, Col, Modal } from "react-bootstrap";
 
 // Actions
 import { orderActions } from "../../../actions";
