@@ -21,7 +21,7 @@ import closeSideBarIcon from '../../assets/images/close-menu.svg'
 
 
 
-export const SideBar = ({ routes }) => {
+export const SideBar = ({ routes,setShowLogout }) => {
 
     const location = useLocation();
     let user_type = JSON.parse(localStorage.getItem('type'));
@@ -55,7 +55,7 @@ export const SideBar = ({ routes }) => {
                 </List>
                 <Row className="m-0 p-0 d-flex justify-content-center align-items-center mt-auto dashboardIcons--desktop noPrint">
                     <Col className=" col-4">
-                        <Col onClick={e => userActions.logout()}>
+                        <Col onClick={e => setShowLogout(true)}>
                             <img className="m-auto d-block exit--icon--desktop noPrint" src={exitIcon} height="40px" alt="exit-icon" />
                         </Col>
                     </Col>

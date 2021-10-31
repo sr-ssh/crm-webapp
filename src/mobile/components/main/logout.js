@@ -1,13 +1,11 @@
 import React from "react";
 import { Modal, Row, Col, Form, Button, Spinner, Alert } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
+
 // Actions
-import { orderActions } from "../../../actions";
+import { userActions } from "../../../actions";
 
-// Icons
-import closeIcon from "../../assets/images/close.svg";
-
-export const FreeOrder = (props) => {
+export const Logout = (props) => {
   const dispatch = useDispatch();
 
   let alert = useSelector((state) => state.alert);
@@ -23,12 +21,7 @@ export const FreeOrder = (props) => {
 
   const formHandler = (e) => {
     e.preventDefault();
-    dispatch(
-      orderActions.editSaleOpportunitySellerStatus({
-        orderId: props.order,
-        status: props.status,
-      })
-    );
+    dispatch(userActions.logout());
   };
 
   return (

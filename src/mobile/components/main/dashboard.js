@@ -15,16 +15,18 @@ import { EmployeeNoApp } from './employeeNoApp'
 // Icons
 import menuIcon from './../../assets/images/menu.svg'
 import logo from '../../assets/images/crm.svg'
+
 // Actions
 import { employeeActions } from '../../../actions/employeeActions'
 import { userActions } from '../../../actions/userActions'
 import { productActions } from '../../../actions/productActions'
+import { Logout } from './logout';
 
 
 export const Dashboard = () => {
 
     const [isOpen, setIsOpen] = useState(false)
-
+    const [showLogout, setShowLogout] = useState(false)
     let user_type = JSON.parse(localStorage.getItem('type'));
     let application_status = JSON.parse(localStorage.getItem('applicationStatus'));
     const permissions = useSelector(state => state.getPermissions.permissions);
@@ -45,7 +47,7 @@ export const Dashboard = () => {
     return (
         <>
             <Sidebar
-                sidebar={<SideBar routes={routes} />}
+                sidebar={<SideBar routes={routes} setShowLogout={setShowLogout}/>}
                 open={isOpen}
                 onSetOpen={setIsOpen}
                 pullRight={true}
@@ -85,6 +87,7 @@ export const Dashboard = () => {
                             {user_type === 2 && application_status === 3 &&
                                 <EmployeeNoApp />
                             }
+                            <Logout show={showLogout} onHide={() => setShowLogout(false)}/>
                         </Row>
                     </Container>
 
