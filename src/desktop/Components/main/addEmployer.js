@@ -38,10 +38,10 @@ export const AddEmployer = (props) => {
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
-            className="mx-3 order-serach-modal"
+            className="mx-3 order-serach-modal--medium"
         >
             <Modal.Body className="add-product px-4">
-                <Button className="border-0 customer-modal-close" type="button" onClick={e => props.onHide(false)}>
+                <Button className="border-0 customer-modal-close--desktop" type="button" onClick={e => props.onHide(false)}>
                     <img className="d-flex m-auto customer-modal-close-svg" src={closeIcon} alt="close-btn" />
                 </Button>
                 {
@@ -86,8 +86,13 @@ export const AddEmployer = (props) => {
                                 در حال انجام عملیات...
                             </Button>
                         ) : (
-                            <Button className="fw-bold order-submit border-0 w-100 mt-4" size="lg" type="submit" block>
-                                افزودن
+                            <Button
+                              className="fw-bold order-submit btn-dark-blue border-0 w-100 mt-4 notes-round"
+                              size="lg"
+                              type="submit"
+                              block
+                            >
+                              ثبت
                             </Button>
                         )
                     }

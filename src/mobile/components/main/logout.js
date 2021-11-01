@@ -49,7 +49,7 @@ export const Logout = (props) => {
         </Row>
         <Form onSubmit={formHandler} className="d-flex justify-content-around">
           <Button
-            className="fw-bold order-submit border-0 w-25 mt-4 text-light"
+            className="fw-bold order-submit border-0 w-25 mt-4 bg-danger text-light"
             onClick={(e) => props.onHide(false)}
             size="lg"
             block
@@ -75,7 +75,7 @@ export const Logout = (props) => {
             </Button>
           ) : (
             <Button
-              className="fw-bold order-submit border-0 bg-danger text-light w-25 mt-4"
+              className="fw-bold order-submit border-0 text-light w-25 mt-4"
               size="lg"
               onClick={(e) => editHandler(e)}
               type="submit"
