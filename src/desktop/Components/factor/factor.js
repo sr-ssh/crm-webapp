@@ -118,13 +118,6 @@ export const Factor = ({
     return total;
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const handleToggle = () => {
-    setOpen(!open);
-  };
-
   let toggleHanler = (e, id) => {
     if (e.target.checked === true) {
         dispatch(receiptActions.editReceiptNoteStatus(id, '1'))
@@ -133,7 +126,6 @@ export const Factor = ({
         dispatch(receiptActions.editReceiptNoteStatus(id, '0'))
     }
     setTimeout(() => { setFactorId("") }, 1000)
-    console.log("log");
   };
 
   const printWindow = async () => {

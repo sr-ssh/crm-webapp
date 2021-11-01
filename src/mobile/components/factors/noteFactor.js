@@ -5,7 +5,7 @@ import moment from 'jalali-moment';
 import persianJs from 'persianjs/persian.min';
 
 // Actions
-import { notesActions, alertActions } from '../../../actions';
+import { notesActions, alertActions, receiptActions } from '../../../actions';
 
 // Helpers
 import { history } from '../../../helpers'
@@ -38,10 +38,11 @@ export const NoteFactor = (props) => {
             }, 1500);
         } else {
             console.log("OK")
-            // if (e.target.checked === true)
-            //     dispatch(notesActions.editStatusNotes(props.location.state.id, "1"))
-            // else if (e.target.checked === false)
-            //     dispatch(notesActions.editStatusNotes(props.location.state.id, "0"))
+            setIsPrivate(!isPrivate)
+            if (e.target.checked === true)
+                dispatch(receiptActions.editReceiptNoteStatus(props.location.state.factor.id, "1"))
+            else if (e.target.checked === false)
+                dispatch(receiptActions.editReceiptNoteStatus(props.location.state.factor.id, "0"))
         }
     }
 
@@ -61,9 +62,9 @@ export const NoteFactor = (props) => {
     useEffect(() => {
         if (props.location.state === undefined)
             return history.goBack()
-        if (props.location.state.factor.note) {
-            setNote(props.location.state.factor.note.Note)
-            setIsPrivate(props.location.state.factor.note.isPrivate)
+        if (props.location.state.factor.note && props.location.state.factor.note.text) {
+            setNote(props.location.state.factor.note)
+            setIsPrivate(props.location.state.factor.note.private)
         } else {
             setIsPrivate(false)
             setPermission(true)
@@ -92,7 +93,7 @@ export const NoteFactor = (props) => {
                     }
                     <Container>
                         <Row className="header--notes">
-                            {/* onChange={() => setIsPrivate(!isPrivate)} */}
+                            
                             <Form.Group className="fw-bold mx-4"  >
                                 <label for="r1">
                                     {isPrivate ?
@@ -117,7 +118,7 @@ export const NoteFactor = (props) => {
                                                         <Row className="">
                                                             <Col className="fs-6">
                                                                 <Card.Text>
-                                                                    {note.writtenBy}
+                                                                    {note.writtenBy.family}
 
                                                                 </Card.Text>
                                                             </Col>
@@ -134,7 +135,7 @@ export const NoteFactor = (props) => {
                                                 <Col className="m-0 p-0 col-3 fs-6">
                                                     یادداشت :
                                                 </Col>
-                                                <Col className="m-0 p-0 text-dark fw-bold">
+                                                <Col className="m-0 p-0 text-dark fw-bold lh-lg">
                                                     {note.text}
 
                                                 </Col>

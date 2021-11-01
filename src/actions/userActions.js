@@ -73,7 +73,6 @@ function appInfo() {
                 }
             );
     };
-
 }
 
 function register(user) {
