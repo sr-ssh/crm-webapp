@@ -97,19 +97,6 @@ export const Factor = ({
   const [productId, setProductId] = useState("");
   const [editFactor, setEditFactor] = useState("");
 
-  const edit = (value, name, factorId, productId) => {
-    setInput(value);
-    setName(name);
-    setProductId(productId);
-    setFactorId(factorId);
-    setEditModalShow(true);
-  };
-  const cancel = (factorId, productId) => {
-    setProductId(productId);
-    setFactorId(factorId);
-    setCancelModalShow(true);
-  };
-
   const getTotalPrice = (factor) => {
     let total = 0;
     factor.map((item) => {
@@ -149,6 +136,11 @@ export const Factor = ({
       .englishNumber()
       .toString()}`;
   };
+
+  useEffect(() => {
+    setIsPrivate(factor.note?.private || false)
+  }, [factor])
+
   return (
     <Card
       className={`m-auto mt-3 bg-light productCard border-0 lh-lg ${
