@@ -21,7 +21,7 @@ export const Logout = (props) => {
 
   const formHandler = (e) => {
     e.preventDefault();
-    dispatch(userActions.logout());
+    userActions.logout();
   };
 
   return (
