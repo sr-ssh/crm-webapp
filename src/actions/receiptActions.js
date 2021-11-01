@@ -6,17 +6,9 @@ export const receiptActions = {
     getReceipts,
     addReceipt,
     editReceiptStatus,
-    editOrderPrice,
-    editOrderQuantity,
-    getSms,
-    editSms,
-    sendDeliverySms,
-    editNewSms,
-    cancelProductOrder,
     editReceipt,
-    orderDetails,
-    getShareLinkOrder,
-    confirmShop
+    confirmShop,
+    editReceiptNoteStatus
 }
 
 function getReceipts(filter) {
@@ -93,66 +85,6 @@ function editReceiptStatus(receiptId, status) {
 }
 
 
-function editOrderPrice(orderId, productId, status) {
-    return dispatch => {
-        dispatch(request(receiptConstants.EDIT_ORDER_PRICE_REQUEST))
-        recieptService.editOrderPrice(orderId, productId, status)
-            .then(
-                res => {
-                    if (res === undefined) {
-                        dispatch(alertActions.error('ارتباط با سرور برقرار نیست'))
-                        dispatch(failure('ارتباط با سرور برقرار نمیباشد'))
-                    }
-                    else if (res.success) {
-                        console.log("order status changed")
-                        dispatch(success(receiptConstants.EDIT_ORDER_PRICE_SUCCESS, res.data))
-                        dispatch(alertActions.success(res.message));
-                    }
-
-                    setTimeout(() => {
-                        dispatch(alertActions.clear());
-                    }, 1500);
-                },
-                error => {
-                    dispatch(failure(receiptConstants.EDIT_ORDER_PRICE_FAILURE, error.toString()));
-                    console.log("occure error");
-                    console.log(error.toString());
-                    dispatch(alertActions.error(error.toString()));
-                }
-            );
-
-    }
-}
-function editOrderQuantity(orderId, productId, status) {
-    return dispatch => {
-        dispatch(request(receiptConstants.EDIT_ORDER_QUANTITY_REQUEST))
-        recieptService.editOrderQuantity(orderId, productId, status)
-            .then(
-                res => {
-                    if (res === undefined) {
-                        dispatch(alertActions.error('ارتباط با سرور برقرار نیست'))
-                        dispatch(failure('ارتباط با سرور برقرار نمیباشد'))
-                    }
-                    else if (res.success) {
-                        console.log("order status changed")
-                        dispatch(success(receiptConstants.EDIT_ORDER_QUANTITY_SUCCESS, res.data))
-                        dispatch(alertActions.success(res.message));
-                    }
-
-                    setTimeout(() => {
-                        dispatch(alertActions.clear());
-                    }, 1500);
-                },
-                error => {
-                    dispatch(failure(receiptConstants.EDIT_ORDER_QUANTITY_FAILURE, error.toString()));
-                    console.log("occure error");
-                    console.log(error.toString());
-                    dispatch(alertActions.error(error.toString()));
-                }
-            );
-
-    }
-}
 
 function editReceipt({ receiptId, stocks, address }) {
     return dispatch => {
@@ -190,39 +122,6 @@ function editReceipt({ receiptId, stocks, address }) {
 }
 
 
-function cancelProductOrder(orderId, productId) {
-    console.log("actions");
-    return dispatch => {
-        dispatch(request(receiptConstants.CANCEL_PRODUCT_ORDER_REQUEST))
-        recieptService.cancelProductOrder(orderId, productId)
-            .then(
-                res => {
-                    if (res === undefined) {
-                        dispatch(alertActions.error('ارتباط با سرور برقرار نیست'))
-                        dispatch(failure('ارتباط با سرور برقرار نمیباشد'))
-                    }
-                    else if (res.success) {
-                        console.log("product order changed")
-                        dispatch(success(receiptConstants.CANCEL_PRODUCT_ORDER_SUCCESS, res.data))
-                        dispatch(alertActions.success(res.message));
-                    } else if (res.success === false) {
-                        console.log("product order changed")
-                        dispatch(failure(receiptConstants.CANCEL_PRODUCT_ORDER_FAILURE, res.message));
-                        dispatch(alertActions.error(res.message));
-                    }
-
-
-                },
-                error => {
-                    dispatch(failure(receiptConstants.CANCEL_PRODUCT_ORDER_FAILURE, error.toString()));
-                    console.log("occure error");
-                    console.log(error.toString());
-                    dispatch(alertActions.error(error.toString()));
-                }
-            );
-
-    }
-}
 function addReceipt(products, customer, notes, status = '') {
     return dispatch => {
         dispatch(request())
@@ -266,185 +165,6 @@ function addReceipt(products, customer, notes, status = '') {
     function failure(error) { return { type: receiptConstants.ADD_RECEIPT_FAILURE, error } }
 }
 
-function editSms(params) {
-    return dispatch => {
-        dispatch(request(params))
-        Object.values(params).map(item =>
-            recieptService.editOrderSms(item)
-                .then(
-                    res => {
-                        console.log(res)
-                        if (res === undefined) {
-                            dispatch(alertActions.error('ارتباط با سرور برقرار نیست'));
-                            dispatch(failure('ارتباط با سرور برقرار نیست'))
-                        }
-                        else if (res.success) {
-                            console.log("order sms edited")
-                            dispatch(success());
-                            dispatch(alertActions.success(res.message));
-
-                        } else if (res.success === false) {
-
-                            dispatch(alertActions.error(res.message));
-                            dispatch(failure(res.message))
-
-                        }
-
-                        setTimeout(() => {
-                            dispatch(alertActions.clear());
-                        }, 1500);
-                    },
-                    error => {
-                        dispatch(failure(error.toString()));
-                        console.log("occure error");
-                        console.log(error.toString());
-                        dispatch(alertActions.error(error.toString()));
-                    }
-                )
-        )
-    }
-    function request(params) { console.log('into request'); return { type: receiptConstants.EDIT_SETTING_SMS_REQUEST, params } }
-    function success() { console.log("into success"); return { type: receiptConstants.EDIT_SETTING_SMS_SUCCESS } }
-    function failure(error) { return { type: receiptConstants.EDIT_SETTING_SMS_FAILURE, error } }
-}
-
-function editNewSms(sms) {
-    return {
-        type: receiptConstants.EDIT_SETTING_SMS,
-        sms
-    }
-}
-
-function getSms() {
-    return dispatch => {
-        dispatch(request())
-        recieptService.getOrderSms()
-            .then(
-                res => {
-                    console.log(res)
-                    if (res === undefined) {
-                        dispatch(alertActions.error('ارتباط با سرور برقرار نیست'));
-                        dispatch(failure('ارتباط با سرور برقرار نیست'))
-                    }
-                    else if (res.success) {
-                        console.log("order added")
-                        dispatch(success(res.data.setting.order));
-
-                    } else if (res.success === false) {
-                        dispatch(alertActions.error(res.message));
-                        dispatch(failure(res.message))
-                    }
-
-                    setTimeout(() => {
-                        dispatch(alertActions.clear());
-                    }, 1500);
-                },
-                error => {
-                    dispatch(failure(error.toString()));
-                    console.log("occure error");
-                    console.log(error.toString());
-                    dispatch(alertActions.error(error.toString()));
-                }
-            )
-    }
-    function request() { console.log("into request"); return { type: receiptConstants.GET_SETTING_SMS_REQUEST } }
-    function success(sms) { console.log("into success"); return { type: receiptConstants.GET_SETTING_SMS_SUCCESS, sms } }
-    function failure(error) { return { type: receiptConstants.GET_SETTING_SMS_FAILURE, error } }
-}
-
-function sendDeliverySms(data) {
-    return dispatch => {
-        dispatch(request(receiptConstants.SEND_ORDER_SMS_REQUEST))
-        recieptService.sendDeliverySms(data)
-            .then(
-                res => {
-                    if (res === undefined)
-                        dispatch(alertActions.error('ارتباط با سرور برقرار نیست'));
-                    else if (res.success) {
-                        console.log("sms sent")
-                        dispatch(success(receiptConstants.SEND_ORDER_SMS_SUCCESS, res.data));
-                        dispatch(alertActions.success(res.message));
-                    }
-
-                    setTimeout(() => {
-                        dispatch(alertActions.clear());
-                    }, 1500);
-                },
-                error => {
-                    dispatch(failure(receiptConstants.SEND_ORDER_SMS_FAILURE, error.toString()));
-                    console.log("occure error");
-                    console.log(error.toString());
-                    dispatch(alertActions.error(error.toString()));
-                }
-            );
-    };
-
-}
-
-
-
-function orderDetails(params) {
-    return dispatch => {
-        dispatch(request(receiptConstants.GET_ORDER_DETAILS_REQUEST))
-        recieptService.orderDetails(params)
-            .then(
-                res => {
-                    if (res === undefined) {
-                        dispatch(alertActions.error('ارتباط با سرور برقرار نیست'));
-                        dispatch(failure(receiptConstants.GET_ORDER_DETAILS_FAILURE))
-                    }
-                    else if (res.success) {
-                        console.log("order Details receive")
-                        dispatch(success(receiptConstants.GET_ORDER_DETAILS_SUCCESS, res.data));
-                        // dispatch(alertActions.success(res.message));
-                    }
-                    else if (res.success == false) {
-                        console.log("order Details receive")
-                        dispatch(alertActions.error(res.message));
-                        dispatch(failure(receiptConstants.GET_ORDER_DETAILS_FAILURE, res.message))
-                    }
-                },
-                error => {
-                    dispatch(failure(receiptConstants.GET_ORDER_DETAILS_FAILURE, error.toString()));
-                    console.log("occure error");
-                    console.log(error.toString());
-                    dispatch(alertActions.error(error.toString()));
-                }
-            );
-    };
-
-}
-
-
-function getShareLinkOrder(orderId) {
-    return dispatch => {
-        dispatch(request(receiptConstants.GET_ORDER_SHARE_LINK_REQUEST))
-        recieptService.getShareLinkOrder(orderId)
-            .then(
-                res => {
-                    if (res === undefined) {
-                        dispatch(alertActions.error('ارتباط با سرور برقرار نیست'));
-                        dispatch(failure(receiptConstants.GET_ORDER_SHARE_LINK_FAILURE, 'ارتباط با سرور برقرار نیست'))
-                    }
-                    else if (res.success) {
-                        console.log("order share link receive")
-                        dispatch(success(receiptConstants.GET_ORDER_SHARE_LINK_SUCCESS, res.data));
-                    } else if (res.success == false) {
-                        dispatch(failure(receiptConstants.GET_ORDER_SHARE_LINK_FAILURE, res.message))
-                        dispatch(alertActions.error(res.message));
-                    }
-                },
-                error => {
-                    dispatch(failure(receiptConstants.GET_ORDER_SHARE_LINK_FAILURE, error.toString()));
-                    console.log("occure error");
-                    console.log(error.toString());
-                    dispatch(alertActions.error(error.toString()));
-                }
-            );
-    };
-
-}
-
 function confirmShop(receiptId) {
     return dispatch => {
         dispatch(request(receiptConstants.CONFIRM_FINANCIAL_RECEIPT_REQUEST))
@@ -473,6 +193,52 @@ function confirmShop(receiptId) {
     };
 
 }
+
+
+function editReceiptNoteStatus(receiptId, status ) {
+  return (dispatch) => {
+    //   console.log()
+    dispatch(request(receiptConstants.EDIT_RECEIPT_NOTE_STATUS_REQUEST));
+    recieptService.editReceiptNoteStatus(receiptId, status).then(
+      (res) => {
+        if (res === undefined) {
+          dispatch(alertActions.error("ارتباط با سرور برقرار نیست"));
+          dispatch(
+            failure(
+              receiptConstants.EDIT_RECEIPT_NOTE_STATUS_FAILURE,
+              "ارتباط با سرور برقرار نمیباشد"
+            )
+          );
+        } else if (res.success) {
+          console.log("receipt changed");
+          dispatch(
+            success(receiptConstants.EDIT_RECEIPT_NOTE_STATUS_SUCCESS, res.data)
+          );
+          dispatch(alertActions.success(res.message));
+        } else if (res.success === false) {
+          console.log("error >>>> " + res);
+          dispatch(
+            failure(receiptConstants.EDIT_RECEIPT_NOTE_STATUS_FAILURE, res.message)
+          );
+          dispatch(alertActions.error(res.message));
+        }
+
+        setTimeout(() => {
+          dispatch(alertActions.clear());
+        }, 1500);
+      },
+      (error) => {
+        dispatch(
+          failure(receiptConstants.EDIT_RECEIPT_NOTE_STATUS_FAILURE, error.toString())
+        );
+        console.log("occure error");
+        console.log(error.toString());
+        dispatch(alertActions.error(error.toString()));
+      }
+    );
+  };
+}
+
 function request(type) {
     return { type: type }
 }

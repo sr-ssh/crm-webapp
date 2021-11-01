@@ -9,16 +9,9 @@ export const recieptService = {
     getReceipts,
     addReceipt,
     editReceiptStatus,
-    getOrderSms,
-    editOrderSms,
-    sendDeliverySms,
-    editOrderPrice,
-    editOrderQuantity,
-    cancelProductOrder,
     editReceipt,
-    orderDetails,
-    getShareLinkOrder,
-    confirmShop
+    confirmShop,
+    editReceiptNoteStatus
 };
 
 function getReceipts(filter = {}) {
@@ -83,53 +76,6 @@ function editReceiptStatus(receiptId, status) {
 }
 
 
-function editOrderPrice(orderId, productId, price) {
-    console.log("into orderService")
-
-    const requestOptions = {
-        headers: authHeader(),
-        body: { orderId, productId, price }
-    };
-
-    return axios
-        .put(`${baseRoute}/order/product/price`, requestOptions.body, { headers: requestOptions.headers })
-        .then(res => {
-            console.log("res.user >> ");
-            console.log(res.data);
-            return handleResponse(res)
-        })
-        .catch(function (error) {
-            if (error.response) {
-                console.log(error.response.data);
-                handleError(error.response.status)
-            }
-        });
-
-}
-
-function editOrderQuantity(orderId, productId, quantity) {
-    console.log("into orderService")
-
-    const requestOptions = {
-        headers: authHeader(),
-        body: { orderId, productId, quantity }
-    };
-
-    return axios
-        .put(`${baseRoute}/order/product/quantity`, requestOptions.body, { headers: requestOptions.headers })
-        .then(res => {
-            console.log("res.user >> ");
-            console.log(res.data);
-            return handleResponse(res)
-        })
-        .catch(function (error) {
-            if (error.response) {
-                console.log(error.response.data);
-                handleError(error.response.status)
-            }
-        });
-
-}
 
 function editReceipt(receiptId, stocks, address) {
     console.log("into receiptService")
@@ -156,27 +102,6 @@ function editReceipt(receiptId, stocks, address) {
 }
 
 
-function cancelProductOrder(orderId, productId) {
-    console.log("into orderService")
-
-    const requestOptions = {
-        headers: authHeader()
-    };
-    return axios
-        .delete(`${baseRoute}/order/product`, { data: { orderId, productId }, headers: requestOptions.headers })
-        .then(res => {
-            console.log("res.user >> ");
-            console.log(res.data);
-            return handleResponse(res)
-        })
-        .catch(function (error) {
-            if (error.response) {
-                console.log(error.response.data);
-                handleError(error.response.status)
-            }
-        });
-
-}
 
 function addReceipt(stock, supplier, note) {
     console.log("into receiptService");
@@ -206,124 +131,6 @@ function addReceipt(stock, supplier, note) {
         });
 }
 
-function getOrderSms() {
-    console.log('into orderService')
-
-    const requestOptions = {
-        headers: authHeader(),
-        body: {}
-    }
-
-    return axios
-        .get(`${baseRoute}/settings/order/sms`, { headers: requestOptions.headers })
-        .then(res => {
-            console.log("res.user >> ")
-            console.log(res.data)
-            return handleResponse(res)
-        })
-        .catch(function (error) {
-            if (error.response) {
-                console.log(error.response.data)
-                handleError(error.response.status)
-            }
-        })
-}
-
-function editOrderSms(params) {
-    console.log('into orderService')
-
-    const requestOptions = {
-        headers: authHeader(),
-        body: params
-    }
-    console.log(params);
-    return axios
-        .put(`${baseRoute}/settings/order/sms`, requestOptions.body, { headers: requestOptions.headers })
-        .then(res => {
-            console.log('res >>')
-            console.log(res.data)
-            return handleResponse(res)
-        })
-        .catch(error => {
-            if (error.response) {
-                console.log(error.response.data)
-                handleError(error.response.status)
-            }
-        })
-}
-
-function sendDeliverySms(params) {
-    console.log('into orderService')
-
-    const requestOptions = {
-        headers: authHeader(),
-        body: params
-    }
-
-    return axios
-        .post(`${baseRoute}/order/delivery/sms`, requestOptions.body, { headers: requestOptions.headers })
-        .then(res => {
-            console.log('res >>')
-            console.log(res.data)
-            return handleResponse(res)
-        })
-        .catch(error => {
-            if (error.response) {
-                console.log(error.response.data)
-                handleError(error.response.status)
-            }
-        })
-}
-
-
-
-function orderDetails(params) {
-    console.log('into orderService (orderDetails)')
-
-    const requestOptions = {
-        headers: authHeader()
-    }
-
-    return axios
-        .get(`${baseRoute}/order/details/${params.orderId}/${params.keyLink}`, { headers: requestOptions.headers })
-        .then(res => {
-            console.log('res >>')
-            console.log(res)
-            return res.data
-        })
-        .catch(error => {
-            if (error.response) {
-                console.log(error.response.data)
-                handleError(error.response.status)
-            }
-        })
-}
-
-
-function getShareLinkOrder(orderId) {
-    console.log('into orderService (getShareLinkOrder)')
-
-    const requestOptions = {
-        headers: authHeader(),
-        body: { orderId: orderId }
-    }
-
-    return axios
-        .post(`${baseRoute}/order/details/sharelink`, requestOptions.body, requestOptions.headers)
-        .then(res => {
-            console.log('res >>')
-            console.log(res)
-            return res.data
-        })
-        .catch(error => {
-            if (error.response) {
-                console.log(error.response.data)
-                handleError(error.response.status)
-            }
-        })
-}
-
-
 
 
 function confirmShop(receiptId) {
@@ -347,4 +154,29 @@ function confirmShop(receiptId) {
                 handleError(error.response.status)
             }
         })
+}
+
+
+function editReceiptNoteStatus(receiptId, status) {
+    console.log("into receiptService")
+
+    const requestOptions = {
+        headers: authHeader(),
+        body: { receiptId, status }
+    };
+
+    return axios
+        .put(`${baseRoute}/note/status`, requestOptions.body, { headers: requestOptions.headers })
+        .then(res => {
+            console.log("res.user >> ");
+            console.log(res.data);
+            return handleResponse(res)
+        })
+        .catch(function (error) {
+            if (error.response) {
+                console.log(error.response.data);
+                handleError(error.response.status)
+            }
+        });
+
 }

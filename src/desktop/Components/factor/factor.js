@@ -34,7 +34,7 @@ import financialCheckIcon from "./../../assets/images/order/financial-check.svg"
 import waitingIcon from "../../assets/images/main/Waiting.svg";
 
 // Actions
-import { notesActions, orderActions } from "../../../actions";
+import { notesActions, orderActions, receiptActions } from "../../../actions";
 
 //components
 import { AddNotesModal } from "./addNotesModal";
@@ -43,7 +43,6 @@ import { history } from "../../../helpers/history";
 import { CancelProductOrder } from "./cancelProductOrder";
 import { EditFactor } from "./editFactor";
 import { Notes } from "./notes";
-import { ShareLinkOrder } from "./shareLinkOrder";
 import { Note } from "./note";
 import { FinancialCheckModal } from "./financialCheckModal";
 
@@ -87,7 +86,7 @@ export const Factor = ({
   const [showNotesModal, setShowNotesModal] = useState(false);
   const [open, setOpen] = useState(false);
   const [isShareLinkOrder, setIsShareLinkOrder] = useState(false);
-  const [isPrivate, setIsPrivate] = useState(factor?.note?.isPrivate);
+  const [isPrivate, setIsPrivate] = useState(factor?.note?.private);
   const [financialCheckModal, setFinancialCheckModal] = useState(false);
 
   let editStatusNotesLoading = useSelector((state) => state.editStatusNotes);
@@ -126,14 +125,14 @@ export const Factor = ({
     setOpen(!open);
   };
 
-  let toggleHanler = (e) => {
-    // if (e.target.checked === true) {
-    //     dispatch(notesActions.editStatusNotes(order.id, '1'))
-    // }
-    // else if (e.target.checked === false) {
-    //     dispatch(notesActions.editStatusNotes(order.id, '0'))
-    // }
-    // setTimeout(() => { setFactorId("") }, 1000)
+  let toggleHanler = (e, id) => {
+    if (e.target.checked === true) {
+        dispatch(receiptActions.editReceiptNoteStatus(id, '1'))
+    }
+    else if (e.target.checked === false) {
+        dispatch(receiptActions.editReceiptNoteStatus(id, '0'))
+    }
+    setTimeout(() => { setFactorId("") }, 1000)
     console.log("log");
   };
 
@@ -414,7 +413,7 @@ export const Factor = ({
                               className="btn-toggle-status-notes--desktop"
                               checked={isPrivate}
                               onChange={(e) => {
-                                toggleHanler(e);
+                                toggleHanler(e, factor.id);
                                 setFactorId(factor.id);
                               }}
                             />
@@ -430,8 +429,8 @@ export const Factor = ({
                 style={{ height: "calc(100% - 50px)", overflow: "auto" }}
               >
                 <Row style={{ height: "100%" }}>
-                  {factor.note?.Note != undefined ? (
-                    <Note note={factor.note?.Note} />
+                  {(factor.note && factor.note.text )? (
+                    <Note note={factor.note} />
                   ) : (
                     <Col className="m-0 p-0 d-flex justify-content-center align-items-center">
                       <span> هنوز یادداشتی برای این فاکتور ثبت نشده است</span>
@@ -443,8 +442,6 @@ export const Factor = ({
           </Col>
         </Row>
       </Card.Body>
-      {/* <EditField show={editModalShow} onHide={() => { setEditModalShow(false); setInput(''); }} input={input} name={name} productId={productId} factorId={factorId} setInput={setInput} />
-            <CancelProductOrder show={cancelModalShow} onHide={() => { setCancelModalShow(false) }} productId={productId} factorId={factorId} /> */}
       <EditFactor
         show={editFactorModalShow}
         onHide={() => {
@@ -457,14 +454,6 @@ export const Factor = ({
         onHide={() => setFinancialCheckModal(false)}
         factor={financialCheckModal ? factor : null}
       />
-
-      {/* <AddNotesModal show={showNotesModal} onHide={() => { setShowNotesModal(false) }} permission={true} factorId={factor.id} status={status} />
-            <Dialog onClose={handleClose} className="notes-round" aria-labelledby="notes-dialog" open={open} classes={{ paper: classes.paper }} >
-                <Notes order={order} open={open} setOpen={setOpen} setShowNotesModal={setShowNotesModal} setActiveOrder={() => setActiveOrder(order)} />
-            </Dialog>
-            <Dialog classes={{ paper: classes.paper }} onClose={() => setIsShareLinkOrder(false)} aria-labelledby="shareLink-dialog" open={isShareLinkOrder}>
-                <ShareLinkOrder isShareLinkOrder={isShareLinkOrder} setIsShareLinkOrder={setIsShareLinkOrder} customerMobile={factor.customer.mobile} />
-            </Dialog> */}
     </Card>
   );
 };
