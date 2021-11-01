@@ -2,9 +2,14 @@ import React , { useEffect,useState } from 'react';
 import { history } from './helpers';
 import { Redirect, Route, Router, Switch } from 'react-router';
 import { Alert, Row } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
 
 import PrivateRoute from './mobile/components/privateRoute';
+
+
+// Actions
+import { userActions } from './actions'
+
 
 //routes
 import { Dashboard } from './mobile/components/main/dashboard'
@@ -69,9 +74,13 @@ import { NotificationCallIncoming } from './mobile/components/notificationView/n
 
 
 function AppMobile() {
+
+  const dispatch = useDispatch()
   const alert = useSelector(state => state.alert)
   const [incomCall , setIncomCall] = useState(false);
+  const[ bodyLoading , setBodyLoading] = useState(false)
   const [incomCallMessage , setIncomCallMessage] = useState({});
+  
 
   useEffect(() => {
     
@@ -92,6 +101,12 @@ function AppMobile() {
     }); 
 
 }, [window.location.pathname])
+
+    useEffect(() => {
+      dispatch(userActions.appInfo());
+    }, [])
+
+  
 
   return (
     <Router history={history}>

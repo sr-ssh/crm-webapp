@@ -34,7 +34,6 @@ export const Orders = () => {
 
     useEffect(() => {~
         !cancelOrderShow && dispatch(orderActions.getOrders({ status: "" }))
-        dispatch(employeeActions.getPermissions())
     }, [dispatch, cancelOrderShow])
 
 

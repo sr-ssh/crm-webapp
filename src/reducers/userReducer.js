@@ -50,3 +50,29 @@ export function editUserInfo(state = initialState, action) {
             return state;
     }
 }
+
+export function appInfo(state = initialState, action) {
+    switch (action.type) {
+        case userConstants.APP_INFO_REQUEST:
+            return {
+                ...state,
+                loading : true,
+                user: {}
+            }
+        case userConstants.APP_INFO_SUCCESS:
+            return {
+                ...state,
+                loading : false,
+                user: action.user
+            }
+        case userConstants.APP_INFO_FAILURE:
+            return {
+                ...state,
+                loading : false,
+                error: action.error
+            }
+    
+        default:
+            return state;
+    }
+}

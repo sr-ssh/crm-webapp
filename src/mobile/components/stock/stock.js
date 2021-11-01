@@ -32,7 +32,6 @@ export const Stock = () => {
     useEffect(() => {
         if (!editModalShow && !addModalShow)
             dispatch(stockActions.getStock())
-        dispatch(employeeActions.getPermissions())
 
     }, [dispatch, editModalShow, addModalShow])
 

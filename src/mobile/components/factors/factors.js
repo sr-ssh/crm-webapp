@@ -27,7 +27,6 @@ export const Factors = () => {
 
     useEffect(() => {
         !cancelFactorShow && dispatch(receiptActions.getReceipts())
-        dispatch(employeeActions.getPermissions())
     }, [dispatch, cancelFactorShow])
 
 

@@ -18,10 +18,6 @@ export const MainMenuOptions = () => {
     let permissions = JSON.parse(localStorage.getItem('permissions'));
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        dispatch(employeeActions.getPermissions())
-    }, [dispatch])
-
     return (
         <div>
             {
