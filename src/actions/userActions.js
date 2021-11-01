@@ -63,8 +63,13 @@ function appInfo() {
             .then(
                 res => {
                     console.log("user entered")
-                    console.log(res)
-                    dispatch(alertActions.success(res));
+                    if (res?.success) {
+                        console.log(res)
+                        dispatch(alertActions.success(res));
+                        setTimeout(() => {
+                            dispatch(alertActions.clear());
+                        }, 1500);
+                    }
                 },
                 error => {
                     console.log("occure error");

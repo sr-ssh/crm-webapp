@@ -38,8 +38,9 @@ export const Dashboard = () => {
         dispatch(userActions.getUserInfo())
         dispatch(productActions.getProducts())
         dispatch(userActions.appInfo());
-        if (!(permissions))
+        if (Object.keys(permissions).length === 0 && permissions.constructor === Object)
             dispatch(employeeActions.getPermissions())
+        console.log("permissions", permissions)
 
     }, [dispatch, permissions])
 
