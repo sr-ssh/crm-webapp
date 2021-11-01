@@ -50,7 +50,7 @@ export const Notes = (props) => {
                     <Container>
                         <Row className="header--notes">
                             <Form.Group className="fw-bold mx-4" onChange={() => setIsPrivate(!isPrivate)} >
-                                <label for="r1">
+                                <label htmlFor="r1">
                                     {isPrivate ?
                                         <input type="checkbox" id="r1" name="r-group" className="btn-toggle-status-notes" checked onClick={toggleHanler} />
                                         :
@@ -69,7 +69,7 @@ export const Notes = (props) => {
                                 </Col>
                             </Row> :
                             (note?.length > 0) ?
-                                (note?.map((note) => <Note note={note} />))
+                                (note?.map((note, index) => <Note key={index} note={note} />))
                                 : <span> هنوز یادداشتی برای این سفارش ثبت نشده است</span>
                     }
 

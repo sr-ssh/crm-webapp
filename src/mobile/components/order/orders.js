@@ -41,17 +41,6 @@ export const Orders = () => {
         <div className="product-page orders ">
             <Header className="noPrint" title="سفارش ها" modalShow={modalShow} setModalShow={setModalShow} />
             <Container className="m-auto">
-                {/* {
-                    alertMessage &&
-                    <>
-                        <div className="modal-backdrop show"></div>
-                        <Row className="justify-content-center text-center ">
-                            <Alert variant={alerType}>
-                                {alertMessage}
-                            </Alert>
-                        </Row>
-                    </>
-                } */}
                 {
                     orderLoading &&
                     <Row>
