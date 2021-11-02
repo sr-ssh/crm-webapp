@@ -80,7 +80,6 @@ function AppMobile() {
   const [incomCall , setIncomCall] = useState(false);
   const[ bodyLoading , setBodyLoading] = useState(false)
   const [incomCallMessage , setIncomCallMessage] = useState({});
-  
   let isUserEntered = localStorage.getItem("user")
   useEffect(() => {
     
@@ -101,15 +100,12 @@ function AppMobile() {
     }); 
 
 }, [window.location.pathname])
-  
-    console.log(isUserEntered)
 
     useEffect(() => {
       if(isUserEntered === null ){ return }
        dispatch(userActions.appInfo());
     }, [])
 
-  
 
   return (
     <Router history={history}>
