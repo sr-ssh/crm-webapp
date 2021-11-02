@@ -81,7 +81,7 @@ function AppMobile() {
   const[ bodyLoading , setBodyLoading] = useState(false)
   const [incomCallMessage , setIncomCallMessage] = useState({});
   
-
+  let isUserEntered = localStorage.getItem("user")
   useEffect(() => {
     
     console.log("_________________________________________________________TRY TO CONNECT_________________________________________________________")
@@ -101,9 +101,12 @@ function AppMobile() {
     }); 
 
 }, [window.location.pathname])
+  
+    console.log(isUserEntered)
 
     useEffect(() => {
-      dispatch(userActions.appInfo());
+      if(isUserEntered === null ){ return }
+       dispatch(userActions.appInfo());
     }, [])
 
   

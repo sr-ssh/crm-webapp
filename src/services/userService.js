@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { SERVER_URL } from '../config';
 import { history } from '../helpers';
-import { authHeader } from '../helpers';
+import { authHeader , handleError} from '../helpers';
 
 let baseRoute = SERVER_URL;
 
@@ -174,8 +174,6 @@ function appInfo() {
         .then(res => {
             console.log("res.user >> ");
             console.log(res.data);
-            // let userId = res.data.data.userId.replace(/^"(.*)"$/, '$1');
-            // localStorage.setItem('userId', userId);
             // if (res.data.success)
             //     history.push('/dashboard');
             return res.data
@@ -183,7 +181,7 @@ function appInfo() {
         .catch(function (error) {
             if (error.response) {
                 console.log(error.response.data);
-                console.log(error.response.status);
+                handleError(error.response.status);
             }
         });
 }
