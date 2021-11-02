@@ -22,37 +22,10 @@ export const AddProduct = (props) => {
   const addProductLoading = useSelector((state) => state.addProduct.loading);
   const dispatch = useDispatch();
 
-  let productnameHandler = (value) => {
-    const pName = value;
-    const patt = /^[آ-یa-zA-Z0-9 ]+$/;
-    let res = patt.test(pName.trim());
-    if (res) {
-      setProductNameValidated(true);
-      return value;
-    } else {
-      return undefined;
-    }
-  };
-  let productpriceHandler = (value) => {
-    const pPrice = value;
-    const patt = /^[0-9]+$/m;
-    let res = patt.test(pPrice);
-    if (res) {
-      setProductPriceValidated(true);
-      return value;
-    } else return undefined;
-  };
 
   let handleChange = (e) => {
     e.preventDefault();
     let value = e.target.value;
-    let name = e.target.name;
-    // if (name === "productname") {
-    //     value = productnameHandler(value)
-    // }
-    // if (name === "productprice") {
-    //     value = productpriceHandler(value)
-    // }
     if (e.target.id === "sellingPrice" && value?.length)
       value = persianJs(value).toEnglishNumber().toString();
     setProduct({ ...product, [e.target.id]: value });

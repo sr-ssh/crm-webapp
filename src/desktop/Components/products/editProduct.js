@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Form, Button, Row, Col, Modal, Spinner, Alert } from "react-bootstrap";
+import { Form, Button, Row, Col, Modal, Spinner } from "react-bootstrap";
 import persianJs from "persianjs/persian.min";
 
 // Actions
@@ -16,7 +16,6 @@ import { AddProductCheck } from "./addProductCheck";
 export const EditProduct = (props) => {
   const [newProduct, setnewProduct] = useState(props.product);
   const editProductLoading = useSelector((state) => state.editProduct.loading);
-  const alert = useSelector((state) => state.alert);
   const dispatch = useDispatch();
   const [validated, setValidated] = useState(false);
   const [checkWareHouse, setCheckWareHouse] = useState(false);
@@ -35,7 +34,8 @@ export const EditProduct = (props) => {
     } else {
       return undefined;
     }
-  };
+  }
+
   let productpriceHandler = (value) => {
     const pPrice = value;
     const patt = /^[0-9]+$/m;
@@ -101,17 +101,6 @@ export const EditProduct = (props) => {
             alt="close-btn"
           />
         </Button>
-        {/* {
-                    alert.message &&
-                    <>
-                        <div className="modal-backdrop show"></div>
-                        <Row className="justify-content-center text-center ">
-                            <Alert variant={alert.type}>
-                                {alert.message}
-                            </Alert>
-                        </Row>
-                    </>
-                } */}
         <Form onSubmit={formHandler}>
           <Row className="my-3 mb-4 justify-content-center">
             <Col className="ms-3">
