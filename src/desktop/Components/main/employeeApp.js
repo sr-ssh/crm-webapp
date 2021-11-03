@@ -25,13 +25,6 @@ export const EmployeeApp = () => {
 
     }
 
-    useEffect(() => {
-
-        dispatch(employeeActions.getPermissions())
-
-    }, [dispatch])
-
-
     return (
         <>
             <Row className="col-12 d-flex flex-column align-items-center">

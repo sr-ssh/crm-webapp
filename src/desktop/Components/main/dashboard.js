@@ -7,8 +7,8 @@ import NotificationAlert from "react-notification-alert";
 import { useSelector } from 'react-redux';
 
 // Actions
-import { employeeActions } from '../../../actions/employeeActions';
-import { userActions } from '../../../actions/userActions'
+import { userActions } from '../../../actions'
+
 
 // Routes
 import { Main } from './main'
@@ -46,11 +46,7 @@ export const Dashboard = (props) => {
     const [incomCallMessage , setIncomCallMessage] = useState({});
 
 
-    useEffect(() => {
-        dispatch(employeeActions.getPermissions())
-        dispatch(userActions.getUserInfo())
-        dispatch(userActions.appInfo());
-    }, [dispatch])
+    
 
     useEffect(() => {
         let options = {};
@@ -93,6 +89,9 @@ export const Dashboard = (props) => {
 
     }, [])
 
+    useEffect(() => {
+        dispatch(userActions.appInfo());
+    }, [])
 
 
 

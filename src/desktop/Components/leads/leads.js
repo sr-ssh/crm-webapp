@@ -20,7 +20,8 @@ export const Leads = () => {
     const loading = useSelector(state => state.getLeads.loading)
     const addloading = useSelector(state => state.addLead.loading)
     const uploadloading = useSelector(state => state.uploadExcel.loading)
-    const userPermissions = useSelector(state => state.getPermissions.permissions)
+  const {user : userInfo ,loading : userInfoLoading } = useSelector(state => state.appInfo)
+
     const sideBar = useSelector(state => state.sideBar)
     const [activeId, setActiveId] = useState({})
 
@@ -28,7 +29,6 @@ export const Leads = () => {
     useEffect(() => {
         if (!addModalShow)
             dispatch(leadActions.getLeads())
-        dispatch(employeeActions.getPermissions())
     }, [dispatch, addModalShow, addloading, uploadloading])
 
     let acceptLead = (e, id) => {
@@ -60,7 +60,7 @@ export const Leads = () => {
 
     return (
         <>
-            <Header isBTNSearch={false} userPermission={userPermissions.uploadExcelLeads} isGetExcel={true} getExcel={uploadHandler} isBtnAdd={"اضافه سرنخ"} btnAdd={() => setAddModalShow(true)} />
+            <Header isBTNSearch={false} userPermission={userInfo.data.permission.uploadExcelLeads} isGetExcel={true} getExcel={uploadHandler} isBtnAdd={"اضافه سرنخ"} btnAdd={() => setAddModalShow(true)} />
             <div className="product-page d-flex flex-column align-items-center margin--top--header" style={{ paddingRight: sideBar.open ? "250px" : 0 }}>
                 <Container fluid className="m-0 px-4 w-100 d-flex justify-content-evenly flex-wrap ">
                     {leads ?

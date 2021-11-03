@@ -21,7 +21,7 @@ export const Suppliers = () => {
     const [modalShow, setModalShow] = useState(false)
     let suppliers = useSelector(state => state.getSuppliers.suppliers)
     let supplierLoading = useSelector(state => state.getSuppliers.loading)
-    const userPermissions = useSelector(state => state.getPermissions.permissions)
+    const {user : userInfo ,loading : userInfoLoading } = useSelector(state => state.appInfo)
     const sideBar = useSelector(state => state.sideBar)
 
     const dispatch = useDispatch()
@@ -41,7 +41,7 @@ export const Suppliers = () => {
 
     return (
         <>
-            <Header isBTNSearch={true} searchModalShow={() => setModalShow(true)} userPermission={userPermissions.getExcelSuppliers} isGetExcel={true} getExcel={getExcel} isBtnAdd={" "} />
+            <Header isBTNSearch={true} searchModalShow={() => setModalShow(true)} userPermission={userInfo.data.permission.getExcelSuppliers} isGetExcel={true} getExcel={getExcel} isBtnAdd={" "} />
 
 
             <div className="product-page orders margin--top--header" style={{ paddingRight: sideBar.open ? "250px" : 0 }}>

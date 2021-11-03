@@ -99,9 +99,7 @@ export const Order = ({
   const [isPrivate, setIsPrivate] = useState(order.notes.isPrivate);
   // const [showDocModalShow, setShowDocModalShow] = useState(false)
   let editStatusNotesLoading = useSelector((state) => state.editStatusNotes);
-  let userInfo = useSelector((state) => state.getUserInfo);
-  const userPermissions = useSelector(state => state.getPermissions.permissions)
-
+  const {user : userInfo ,loading : userInfoLoading } = useSelector(state => state.appInfo)
 
   const [input, setInput] = useState("");
   const [name, setName] = useState("");
@@ -146,11 +144,7 @@ export const Order = ({
     const month = new Intl.DateTimeFormat("fa-IR", option).format(now);
     const day = moment.from(date, "DD").locale("fa").format("DD");
     const year = moment.from(date, "YYYY").locale("fa").format("YYYY");
-    return `${persianJs(day).englishNumber().toString()}  ${month}  ${persianJs(
-      year
-    )
-      .englishNumber()
-      .toString()}`;
+    return `${persianJs(day).englishNumber().toString()}  ${month}  ${persianJs(year).englishNumber().toString()}`;
   };
 
   return (
@@ -162,8 +156,7 @@ export const Order = ({
       <Row className="m-0 mt-3 noPrint ">
         {order.sellers.some((seller) => seller.active === true) &&
           order.status == 3 &&
-          order.sellers[order.sellers.length - 1].id?._id ===
-            userInfo.user.id && (
+          order.sellers[order.sellers.length - 1].id?._id === userInfo.data.id && (
             <Col className="d-flex justify-content-end">
               <Button
                 className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2"
@@ -183,28 +176,7 @@ export const Order = ({
               </Button>
             </Col>
           )}
-        {!order.sellers.some((seller) => seller.active === true) &&
-          order.status == 3 && (
-            <Col className="d-flex justify-content-end">
-              <Button
-                className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2"
-                type="button"
-                onClick={() => {
-                  setFreeModalShow(true);
-                  setFreeStatus("1");
-                }}
-              >
-                <img
-                  src={freeIcon}
-                  height="25px"
-                  alt="print-icon"
-                  className="col-3"
-                />
-                <span className="noPrint me-1">گرفتن</span>
-              </Button>
-            </Col>
-          )}
-        {userPermissions.financialConfirmationOrder && order.status === 0 && (
+        {userInfo.data.permission.financialConfirmationOrder && order.status === 0 && (
           <Col className="d-flex justify-content-center">
             <Button
               className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2"

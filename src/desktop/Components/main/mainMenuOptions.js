@@ -18,9 +18,6 @@ export const MainMenuOptions = () => {
     let permissions = JSON.parse(localStorage.getItem('permissions'));
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        dispatch(employeeActions.getPermissions())
-    }, [dispatch])
 
     return (
         <div className="col-12 d-flex flex-column align-items-center">

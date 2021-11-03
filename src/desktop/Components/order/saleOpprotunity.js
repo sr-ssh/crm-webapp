@@ -69,8 +69,6 @@ export const SaleOpprotunity = () => {
         dispatch(orderActions.getOrders({ status: 3 }))
     }, [refresh])
 
-    console.log(orders)
-
     return (
         <>
             <Header isBTNSearch={true} searchModalShow={() => setModalShow(true)} isBTNRequest={false} />
