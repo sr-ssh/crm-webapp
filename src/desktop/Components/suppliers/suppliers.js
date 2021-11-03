@@ -34,14 +34,12 @@ export const Suppliers = () => {
 
     useEffect(() => {
         dispatch(supplierActions.getSuppliers());
-        dispatch(employeeActions.getPermissions())
-
     }, [dispatch])
 
 
     return (
         <>
-            <Header isBTNSearch={true} searchModalShow={() => setModalShow(true)} userPermission={userInfo.data.permission.getExcelSuppliers} isGetExcel={true} getExcel={getExcel} isBtnAdd={" "} />
+            <Header isBTNSearch={true} searchModalShow={() => setModalShow(true)} userPermission={userInfo?.data?.permission.getExcelSuppliers} isGetExcel={true} getExcel={getExcel} isBtnAdd={" "} />
 
 
             <div className="product-page orders margin--top--header" style={{ paddingRight: sideBar.open ? "250px" : 0 }}>

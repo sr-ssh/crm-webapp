@@ -93,6 +93,8 @@ export const Dashboard = (props) => {
         dispatch(userActions.appInfo());
     }, [])
 
+    console.log(1)
+
 
 
     return (
