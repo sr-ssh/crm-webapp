@@ -27,15 +27,19 @@ export const SideBar = ({ routes, setShowLogout }) => {
           </Col>
         </Row>
         <List
-          style={{ marginBottom: "60px" }}
-          component="nav"
-          aria-labelledby="nested-list-subheader"
-          className="flex-column "
-        >
-          {routes.map((prop, key) => {
-            return <SideBarItem key={key} route={prop} />;
-          })}
-        </List>
+                    component="nav"
+                    aria-labelledby="nested-list-subheader"
+                    className="flex-column sideBar--item--mobile"
+                >
+                    <Row className="m-0 p-0 ">
+                    {routes.map((prop, key) => {
+                        return (
+                            <SideBarItem key={key} route={prop} />
+                        );
+                    })}
+                    </Row>      
+                </List>
+
         <Row
           className="m-0 p-0 d-flex justify-content-center align-items-center mt-auto dashboardIcons--desktop noPrint"
           style={{ position: "relative" }}

@@ -23,8 +23,13 @@ const useStyles = makeStyles((theme) => ({
         width: "11px",
         height: "11px",
         marginLeft: 9,
-        color: "#70b2e2"
+        color: "#1d64cd"
+    },
+    expandIcon: {
+        color: "#1d64cd",
+        fontSize:"25px"
     }
+
 }));
 
 
@@ -49,14 +54,14 @@ export const SideBarItem = ({ route }) => {
                                 <Typography color="textPrimary" className="w-100 d-flex flex-row align-items-center text-end text-dark fw-bold pe-2 py-2 noPrint  ff-iranSans">
                                     <span className="px-2  pe-3 noPrint ">{route.name}</span>
                                     <div className="noPrint" style={{ flexGrow: 1 }}></div>
-                                    {open ? <ExpandLess classes="noPrint" /> : <ExpandMore className="noPrint" />}
+                                    {open ? <ExpandLess classes="noPrint" classes={{root:classes.expandIcon}} /> : <ExpandMore className="noPrint" classes={{root:classes.expandIcon}} />}
                                 </Typography>
                             </ListItem>
                             <Collapse in={open} timeout="auto" unmountOnExit>
                                 {route?.children.map((item, index) => {
                                     return (
                                         isPermitted(item.path) && 
-                                        <ListItem ListItem button className={`px-2 py-2 pe-3 item--sidebar noPrint`} >
+                                        <ListItem ListItem button className={`px-2 py-2 pe-2 item--sidebar noPrint`} >
                                             <Typography color="textPrimary" variant="subtitle2" className="text-end text-dark fw-bold pe-2 ff-iranSans noPrint">
                                                 <NavLink to={item.path} className="nav-link fw-bold d-flex align-items-center noPrintr" activeClassName="active">
 

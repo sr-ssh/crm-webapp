@@ -24,3 +24,13 @@
 .sidebar--mobile{
     width: 42vw !important;
 }
+.sideBar--item--mobile{
+    height: 80vh;
+    overflow-y: scroll;
+}
+.sideBar--item--mobile::-webkit-scrollbar {
+    display: none;
+}
+.sidebar--mobile{
+    width: 100% !important;
+}
