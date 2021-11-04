@@ -5,7 +5,7 @@ export function isPermitted(route) {
 
   if (route === "/products") {
     if (permissions?.getProducts) return true;
-  } else if (route === "/saleOpprotunity") {
+  } else if (route === "/saleopprotunity") {
     if (permissions?.saleOpprotunity) return true;
   } else if (route === "/orders") {
     if (permissions?.getOrders) return true;
