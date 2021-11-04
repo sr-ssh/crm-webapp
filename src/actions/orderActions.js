@@ -487,7 +487,6 @@ function uploadDoc(orderId) {
                         dispatch(alertActions.success(res.message));
                         setTimeout(() => {
                             dispatch(alertActions.clear());
-                            history.go(0)
                         }, 1500);
                     } else if (res.success == false) {
                         dispatch(failure(orderConstants.UPLOAD_DOC_FAILURE, res.message))

@@ -86,8 +86,13 @@ export const AddEmployer = (props) => {
                                 در حال انجام عملیات...
                             </Button>
                         ) : (
-                            <Button className="fw-bold order-submit border-0 w-100 mt-4" size="lg" type="submit" block>
-                                افزودن
+                            <Button
+                              className="fw-bold order-submit btn-dark-blue border-0 w-100 mt-4 notes-round"
+                              size="lg"
+                              type="submit"
+                              block
+                            >
+                              ثبت
                             </Button>
                         )
                     }

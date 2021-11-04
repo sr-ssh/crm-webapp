@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { AppBar, Toolbar, IconButton, Drawer } from '@material-ui/core';
 import { Button } from 'react-bootstrap'
 import { makeStyles } from '@material-ui/core/styles';
@@ -15,7 +15,7 @@ import SearchIcon from '@material-ui/icons/Search';
 // Components
 import { SideBar } from '../main/sideBar'
 import routes from "../../routes";
-
+import { Logout } from './logout';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -42,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
 export const Header = (props) => {
 
 
+    const [showLogout, setShowLogout] = useState(false)
     const sideBar = useSelector(state => state.sideBar)
     const classes = useStyles({ open: sideBar.open });
     const dispatch = useDispatch()
@@ -73,7 +74,7 @@ export const Header = (props) => {
                         variant="persistent"
                         onClose={() => dispatch(sideBarActions.sideBar(2))}
                     >
-                        <SideBar routes={routes} />
+                        <SideBar routes={routes} setShowLogout={setShowLogout}/>
 
                     </Drawer>
                     {props.isBTNSearch ?
@@ -98,6 +99,7 @@ export const Header = (props) => {
                         : null
                     }
                 </Toolbar>
+                <Logout show={showLogout} onHide={() => setShowLogout(false)}/>
             </AppBar>
 
         </>

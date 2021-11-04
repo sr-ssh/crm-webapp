@@ -25,7 +25,7 @@ export const AddOrder = (props) => {
     const [nameValidated, setNameValidated] = useState(false);
     const [modalContinueProcesses,setModalContinueProcesses] = useState(false)
     const [order, insertOrder] = useState([])
-    const [customer, setCustomer] = useState({ birthday: "" })
+    const [customer, setCustomer] = useState({ mobile: "", family: "", company: "", duration: "", reminder: "", address: "" })
     const [totalPrice, insertPrice] = useState("0")
     const [selectedItem, setItem] = useState("")
     const [quantity, setQuantity] = useState(1)
@@ -121,11 +121,6 @@ export const AddOrder = (props) => {
             setShowNotesModal(true)
     }
 
-    // const submitCalendar = (value, name) => {
-    //     let birthDate = `${value.year}/${value.month.number}/${value.day}`
-    //     birthDate = moment.from(birthDate, 'fa', 'YYYY/MM/DD').locale('en').format('YYYY-MM-DD');
-    //     setCustomer({ ...customer, [name]: birthDate })
-    // }
     useEffect(() => {
         if (oldCustomer?.mobile)
             setCustomer({ ...customer, ...oldCustomer, address: oldCustomer.lastAddress })
@@ -213,21 +208,7 @@ export const AddOrder = (props) => {
                         <Col className="p-0 col-5 me-auto add-order-input">
                             <Form.Group controlId="birthday">
                                 <Form.Label className="pe-2">نام شرکت</Form.Label>
-                                {/* <DatePicker
-                                    style={{
-                                        width: "100%"
-                                    }}
-                                    inputClass="search-input"
-                                    className="rmdp-mobile"
-                                    calendar="persian"
-                                    locale="fa"
-                                    value={customer.birthday !== "1900-01-01T05:42:13.845Z" && customer.birthday ? moment(customer.birthday, 'YYYY-MM-DD').locale('fa').format('YYYY/MM/DD') : null}
-                                    calendarPosition="auto-right"
-                                    editable={false}
-                                    animation
-                                    maxDate={new Date()}
-                                    onChange={value => submitCalendar(value, 'birthday')}
-                                /> */}
+                                
                                 <Form.Control className="order-input" type="text" name="company"
                                     onChange={handleChange}
                                     value={customer.company}

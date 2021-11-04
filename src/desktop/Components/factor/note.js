@@ -4,7 +4,7 @@ import moment from 'jalali-moment';
 import persianJs from 'persianjs/persian.min';
 
 export const Note = ({ note }) => {
-
+console.log(note)
     const now = new Date(note.createdAt);
     const option = {
         month: 'long',
@@ -24,7 +24,7 @@ export const Note = ({ note }) => {
                                     <Row className="mx-4">
                                         <Col className="fs-13-px">
                                             <Card.Text>
-                                                {note.writtenBy}
+                                                {note.writtenBy?.family}
                                             </Card.Text>
                                         </Col>
                                         <Col className="fs-13-px">
@@ -39,7 +39,7 @@ export const Note = ({ note }) => {
                             </Card>
                         </Row>
                         <Row className="p-0 m-0 mt-3 mx-3" >
-                            <Col className="m-0 p-0 text-dark fw-bold">
+                            <Col className="m-0 p-0 text-dark fw-bold lh-lg">
                                 {note.text}
                             </Col>
                         </Row>

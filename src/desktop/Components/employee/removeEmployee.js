@@ -32,20 +32,6 @@ export const RemoveEmployee = (props) => {
             className="mx-3 order-serach-modal"
         >
             <Modal.Body className="add-product px-4">
-                <Button className="border-0 customer-modal-close" type="button" onClick={e => props.onHide(false)}>
-                    <img className="d-flex m-auto customer-modal-close-svg" src={closeIcon} alt="close-btn" />
-                </Button>
-                {/* {
-                    alert.message &&
-                    <>
-                        <div className="modal-backdrop show"></div>
-                        <Row className="justify-content-center text-center ">
-                            <Alert variant={alert.type}>
-                                {alert.message}
-                            </Alert>
-                        </Row>
-                    </>
-                } */}
 
                 <Row>
                     <Col className="text-center">
@@ -53,7 +39,7 @@ export const RemoveEmployee = (props) => {
                     </Col>
                 </Row>
                 <Form onSubmit={formHandler} className="d-flex justify-content-around">
-                    <Button className="fw-bold order-submit border-0 w-25 mt-4 text-light" onClick={e => props.onHide(false)} size="lg" block>
+                    <Button className="fw-bold order-submit border-0 w-25 mt-4 bg-danger text-light" onClick={e => props.onHide(false)} size="lg" block>
                         خیر
                     </Button>
                     {
@@ -69,7 +55,7 @@ export const RemoveEmployee = (props) => {
                                 در حال حذف...
                             </Button>
                         ) : (
-                            <Button className="fw-bold order-submit border-0 bg-danger text-light w-25 mt-4" size="lg" onClick={e => deleteHandler(e)} type="submit" block>
+                            <Button className="fw-bold order-submit border-0 text-light w-25 mt-4" size="lg" onClick={e => deleteHandler(e)} type="submit" block>
                                 بله
                             </Button>
                         )

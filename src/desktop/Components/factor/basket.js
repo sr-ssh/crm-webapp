@@ -26,14 +26,18 @@ export const Basket = ({
   const [dimStatus, setDimStatus] = useState(false);
   const [quantityOrder, setQuantityOrder] = useState(false);
   const [priceOrder, setPriceOrder] = useState(false);
+  const [priceValidate, setPriceValidate] = useState(null);
   const stock = useSelector((state) => state.getStock.stock);
   const dispatch = useDispatch();
 
   let newOrder = (e) => {
     e.preventDefault();
     let product = stock.find((item) => item.name === selectedItem);
-    if (!product || quantityOrder || priceOrder) return;
-
+    if (!(product._id && price)) {
+      setPriceValidate(false);
+      return;
+    }
+    setPriceValidate(true);
     insertPrice(parseInt(totalPrice) + parseInt(quantity) * parseInt(price));
     let newOrder = {
       _id: product._id,
@@ -90,6 +94,7 @@ export const Basket = ({
     } else {
       setPriceOrder(false);
       setPrice(value || 1);
+      setPriceValidate(true);
     }
   };
 
@@ -167,6 +172,8 @@ export const Basket = ({
                   pattern="[0-9]*"
                   name="price"
                   style={{ maxHeight: "40px" }}
+                  isValid={priceValidate}
+                  isInvalid={!priceValidate}
                 ></Form.Control>
               </Col>
               <Col className="col-2 p-0 m-0 px-3 d-flex justify-content-center">

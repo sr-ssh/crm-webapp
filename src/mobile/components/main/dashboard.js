@@ -16,9 +16,11 @@ import {CircularProgress} from '@material-ui/core';
 // Icons
 import menuIcon from './../../assets/images/menu.svg'
 import logo from '../../assets/images/crm.svg'
+
 // Actions
 import { userActions, employeeActions } from '../../../actions'
 import { productActions } from '../../../actions/productActions'
+import { Logout } from './logout';
 
 
 export const Dashboard = (props) => {
@@ -26,6 +28,7 @@ export const Dashboard = (props) => {
     const [isOpen, setIsOpen] = useState(false)
     const dispatch = useDispatch()
 
+    const [showLogout, setShowLogout] = useState(false)
     let user_type = JSON.parse(localStorage.getItem('type'));
     let application_status = JSON.parse(localStorage.getItem('applicationStatus'));
     const {user : userInfo ,loading : userInfoLoading } = useSelector(state => state.appInfo)
@@ -40,7 +43,7 @@ export const Dashboard = (props) => {
     return (
         <>
             <Sidebar
-                sidebar={<SideBar routes={routes} />}
+                sidebar={<SideBar routes={routes} setShowLogout={setShowLogout}/>}
                 open={isOpen}
                 onSetOpen={setIsOpen}
                 pullRight={true}
@@ -85,6 +88,7 @@ export const Dashboard = (props) => {
                             {user_type === 2 && application_status === 3 &&
                                 <EmployeeNoApp />
                             }
+                            <Logout show={showLogout} onHide={() => setShowLogout(false)}/>
                         </Row>
                     }
                     </Container>

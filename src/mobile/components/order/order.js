@@ -36,17 +36,6 @@ import { ResultOrder } from './resultOrder'
 import { FreeOrder } from './freeOrder';
 
 
-
-const useStyles = makeStyles((theme) => ({
-    backdrop: {
-        zIndex: theme.zIndex.drawer + 1,
-        color: '#fff !important',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)'
-    }
-}));
-
-
-
 export const Order = ({ order, refresh, setRefresh, deliveryShow, setDeliveryShow, cancelOrderShow, setCancelOrderShow, recordOrderShow = '', setRecordOrderShow = {}, setActiveOrder, setOrder, setUploadModalShow, setShowDocModalShow, freeSaleOpportunity }) => {
 
     let [print, setPrint] = useState(false)
@@ -212,10 +201,10 @@ export const Order = ({ order, refresh, setRefresh, deliveryShow, setDeliverySho
                             {
 
                                 order.products.length
-                                    ? order.products.map(item => {
+                                    ? order.products.map((item, index) => {
                                         return (
 
-                                            <tr key={item.name}>
+                                            <tr key={index}>
                                                 <td>{item.name && persianJs(item.name).englishNumber().toString()}</td>
                                                 <td>
                                                     <Row>

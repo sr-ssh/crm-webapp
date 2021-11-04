@@ -1,13 +1,11 @@
 import React from "react";
 import { Modal, Row, Col, Form, Button, Spinner, Alert } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
+
 // Actions
-import { orderActions } from "../../../actions";
+import { userActions } from "../../../actions";
 
-// Icons
-import closeIcon from "../../assets/images/close.svg";
-
-export const FreeOrder = (props) => {
+export const Logout = (props) => {
   const dispatch = useDispatch();
 
   let alert = useSelector((state) => state.alert);
@@ -23,12 +21,7 @@ export const FreeOrder = (props) => {
 
   const formHandler = (e) => {
     e.preventDefault();
-    dispatch(
-      orderActions.editSaleOpportunitySellerStatus({
-        orderId: props.order,
-        status: props.status,
-      })
-    );
+    userActions.logout();
   };
 
   return (
@@ -56,7 +49,7 @@ export const FreeOrder = (props) => {
         </Row>
         <Form onSubmit={formHandler} className="d-flex justify-content-around">
           <Button
-            className="fw-bold order-submit border-0 w-25 mt-4 text-light"
+            className="fw-bold order-submit border-0 w-25 mt-4 bg-danger text-light"
             onClick={(e) => props.onHide(false)}
             size="lg"
             block
@@ -82,7 +75,7 @@ export const FreeOrder = (props) => {
             </Button>
           ) : (
             <Button
-              className="fw-bold order-submit border-0 bg-danger text-light w-25 mt-4"
+              className="fw-bold order-submit border-0 text-light w-25 mt-4"
               size="lg"
               onClick={(e) => editHandler(e)}
               type="submit"

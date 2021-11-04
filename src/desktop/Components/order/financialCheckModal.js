@@ -42,7 +42,7 @@ export const FinancialCheckModal = (props) => {
             className="mx-3 order-serach-modal--medium"
         >
             <Modal.Body className="add-product px-3 pt-4">
-                <Button className="border-0 customer-modal-close" type="button" onClick={e => props.onHide(false)}>
+                <Button className="border-0 customer-modal-close--desktop" type="button" onClick={e => props.onHide(false)}>
                     <img className="d-flex m-auto customer-modal-close-svg" src={closeIcon} alt="close-btn" />
                 </Button>
                 <Card className="notes-round">
@@ -51,18 +51,18 @@ export const FinancialCheckModal = (props) => {
                         <Row className="p-0 m-0 my-1">
                             <Col className="col-6 ps-2 d-flex align-items-center">
                                 <input type="checkbox" id="pass" name="pass" className="btn-toggle-status-green" checked={invoiceType === 1} onChange={toggleHandler} />
-                                <span className="pe-2 fw-bold">تایید</span>
-                                <span className="pe-2 text-success">
+                                <label htmlFor="pass" className="pe-2 fw-bold">تایید</label>
+                                <label htmlFor="pass" className="pe-2 text-success">
                                     مالی شود
-                                </span>
+                                </label>
                                 .
                             </Col>
                             <Col className="col-6 pe-2 d-flex align-items-center">
                                 <input type="checkbox" id="fail" name="fail" className="btn-toggle-status-red" checked={invoiceType === 2} onChange={toggleHandler} />
-                                <span className="pe-2 fw-bold">تایید</span>
-                                <span className="pe-2 text-danger">
+                                <label htmlFor="fail" className="pe-2 fw-bold">تایید</label>
+                                <label htmlFor="fail" className="pe-2 text-danger">
                                     مالی نشود
-                                </span>
+                                </label>
                                 .
                             </Col>
                         </Row>
