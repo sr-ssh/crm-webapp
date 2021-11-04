@@ -1,4 +1,5 @@
 export function translate(key) {
+  key = key.trim()
   switch (key) {
     case "addOrder":return "ثبت سفارش";
     case "getOrders":return "سفارش ها";

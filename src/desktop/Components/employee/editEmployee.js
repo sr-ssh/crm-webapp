@@ -35,7 +35,6 @@ export const EditEmployee = (props) => {
             dispatch(employeeActions.getEmployees())
         }, 1500);
     }
-    console.log(voipNo)
 
     useEffect(() => {
         if (props.show){
