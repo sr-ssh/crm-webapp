@@ -39,6 +39,7 @@ import { NoteFactor } from './mobile/components/factors/noteFactor'
 import { Suppliers } from './mobile/components/suppliers/suppliers';
 import { Stock } from './mobile/components/stock/stock';
 import { Leads } from './mobile/components/leads/leads';
+import { AddSeller } from './mobile/components/seller/addSeller';
 
 
 // Styles 
@@ -146,6 +147,7 @@ function AppMobile() {
         <PrivateRoute exact path="/factor" component={Factors} ></PrivateRoute>
         <PrivateRoute path="/factor/suppliers" component={Suppliers} ></PrivateRoute>
         <PrivateRoute path="/factor/stock" component={Stock} ></PrivateRoute>
+        <PrivateRoute path="/seller/add" component={AddSeller} ></PrivateRoute>
         <PrivateRoute path="/lead" component={Leads} ></PrivateRoute>
 
         <Redirect from="*" to="/" />

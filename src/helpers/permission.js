@@ -37,7 +37,7 @@ export function isPermitted(route) {
     if (permissions?.getSuppliers) return true;
   } else if (route === "/factor/stock") {
     if (permissions?.getStock) return true;
-  } else if (["/","/register","/dashboard","/account"].includes(route)){
+  } else if (["/","/register","/dashboard","/account", "/seller/add"].includes(route)){
     return true;
   } else
     return false;
