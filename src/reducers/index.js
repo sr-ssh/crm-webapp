@@ -137,4 +137,4 @@ export default combineReducers({
   editLeadStatus,
   editSaleOpportunitySellerStatus,
   editReceiptNoteStatus
-})
+});

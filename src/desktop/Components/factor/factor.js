@@ -65,7 +65,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 export const Factor = ({ factor, setCancelFactorShow, setDeliveryShow, cancelOrderShow, setCancelOrderShow, recordOrderShow = '', setRecordOrderShow = {}, setActiveFactor, setOrder, status }) => {
 
     const classes = useStyles();
@@ -109,7 +108,7 @@ export const Factor = ({ factor, setCancelFactorShow, setDeliveryShow, cancelOrd
     });
     return total;
   };
-
+  
   let toggleHanler = (e, id) => {
     if (e.target.checked === true) {
         dispatch(receiptActions.editReceiptNoteStatus(id, '1'))
@@ -207,14 +206,26 @@ export const Factor = ({ factor, setCancelFactorShow, setDeliveryShow, cancelOrd
             <span className="noPrint">چاپ</span>
           </Button>
         </Col>
-        {parseInt(factor.shopApproval.status) !== 1 &&
-                    <Col className="d-flex justify-content-end col-2">
-                        <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 justify-content-center" type="button" onClick={() => { setCancelFactorShow(true); setActiveFactor(factor) }}>
-                            <img src={cancelIcon} height="25px" alt="print-icon" className="ms-3" />
-                            <span className="noPrint">لغو فاکتور</span>
-                        </Button>
-                    </Col>
-                }
+        {parseInt(factor.shopApproval.status) !== 1 && (
+          <Col className="d-flex justify-content-end col-2">
+            <Button
+              className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 justify-content-center"
+              type="button"
+              onClick={() => {
+                setCancelFactorShow(true);
+                setActiveFactor(factor);
+              }}
+            >
+              <img
+                src={cancelIcon}
+                height="25px"
+                alt="print-icon"
+                className="ms-3"
+              />
+              <span className="noPrint">لغو فاکتور</span>
+            </Button>
+          </Col>
+        )}
       </Row>
       <Card.Body className="pb-0 ps-1 rounded-3 text-gray">
         <Row className="p-0 ps-2 m-0 ">
