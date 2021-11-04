@@ -25,7 +25,7 @@ export const Products = () => {
     const products = useSelector(state => state.getProducts.product)
     const productLoading = useSelector(state => state.getProducts.loading)
     const addProductLoading = useSelector(state => state.addProduct.loading)
-    const userPermissions = useSelector(state => state.getPermissions.permissions)
+    const {user : userInfo ,loading : userInfoLoading } = useSelector(state => state.appInfo)
     const sideBar = useSelector(state => state.sideBar)
 
 
@@ -34,12 +34,11 @@ export const Products = () => {
     useEffect(() => {
         if (!editModalShow && !addModalShow && !xlsxModalShow)
             dispatch(productActions.getProducts())
-        dispatch(employeeActions.getPermissions())
     }, [dispatch, editModalShow, addModalShow, xlsxModalShow])
 
     return (
         <>
-            <Header isBTNSearch={false} userPermission={userPermissions.excelProduct} isGetExcel={true} getExcel={() => setXlsxModalShow(true)} isBtnAdd={"اضافه محصول"} btnAdd={() => setAddModalShow(true)} />
+            <Header isBTNSearch={false} userPermission={userInfo?.data.permission.ExcelProducts} isGetExcel={true} getExcel={() => setXlsxModalShow(true)} isBtnAdd={"اضافه محصول"} btnAdd={() => setAddModalShow(true)} />
             <div className="product-page d-flex flex-column align-items-center margin--top--header" style={{ paddingRight: sideBar.open ? "250px" : 0 }}>
                 <Container fluid className="m-0 px-4 w-100 d-flex justify-content-evenly flex-wrap ">
                     {/* {

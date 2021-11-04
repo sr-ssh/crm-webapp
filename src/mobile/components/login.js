@@ -22,10 +22,12 @@ import passwordLogo from "./../assets/images/password.svg";
 import notSeenIcon from "../assets/images/Not-seen.svg";
 import beSeenIcon from "../assets/images/be-seen.svg";
 
-export const Login = () => {
+export const Login = (props) => {
   let alertMessage = useSelector((state) => state.alert.message);
   let alerType = useSelector((state) => state.alert.type);
   let loggingInLoading = useSelector((state) => state.authentication.loading);
+  let isUserEntered = localStorage.getItem("user")
+
 
   const [showPassword, setShowPassword] = useState(false);
   const [validated, setValidated] = useState(false);
@@ -59,7 +61,7 @@ export const Login = () => {
   };
 
   useEffect(() => {
-    dispatch(userActions.appInfo());
+      if(isUserEntered !== null ){props.history.push('/dashboard'); return }
   }, [dispatch]);
 
   return (

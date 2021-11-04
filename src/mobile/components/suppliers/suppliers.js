@@ -31,7 +31,6 @@ export const Suppliers = () => {
 
     useEffect(() => {
         dispatch(supplierActions.getSuppliers());
-        dispatch(employeeActions.getPermissions())
 
     }, [dispatch])
 

@@ -21,27 +21,25 @@ export const Customers = () => {
     const [modalShow, setModalShow] = useState(false)
     let customers = useSelector(state => state.getCustomers.customers)
     let customerLoading = useSelector(state => state.getCustomers.loading)
-    const userPermissions = useSelector(state => state.getPermissions.permissions)
+    const {user : userInfo ,loading : userInfoLoading } = useSelector(state => state.appInfo)
+
     const sideBar = useSelector(state => state.sideBar)
 
     const dispatch = useDispatch()
 
 
     const getExcel = () => {
-
         dispatch(customerActions.getExcelCustomers(filters))
     }
 
     useEffect(() => {
         dispatch(customerActions.getCustomers());
-        dispatch(employeeActions.getPermissions())
-
     }, [dispatch])
 
 
     return (
         <>
-            <Header isBTNSearch={true} searchModalShow={() => setModalShow(true)} userPermission={userPermissions.excelCustomer} isGetExcel={true} getExcel={getExcel} isBtnAdd={" "} />
+            <Header isBTNSearch={true} searchModalShow={() => setModalShow(true)} userPermission={userInfo?.data?.permission.getExcelCustomers} isGetExcel={true} getExcel={getExcel} isBtnAdd={" "} />
 
 
             <div className="product-page orders margin--top--header" style={{ paddingRight: sideBar.open ? "250px" : 0 }}>

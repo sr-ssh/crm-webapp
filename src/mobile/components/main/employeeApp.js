@@ -11,8 +11,8 @@ import { employeeActions } from '../../../actions/employeeActions';
 
 export const EmployeeApp = () => {
 
-    let employer = JSON.parse(localStorage.getItem('employer'));
-    let applicationId = JSON.parse(localStorage.getItem('applicationId'));
+    let employer = JSON.parse(localStorage.getItem("employer"));
+    let applicationId = localStorage.getItem('applicationId');
     const dispatch = useDispatch()
 
     const closeApplication = (e) => {
@@ -25,11 +25,6 @@ export const EmployeeApp = () => {
 
     }
 
-    useEffect(() => {
-
-        dispatch(employeeActions.getPermissions())
-
-    }, [dispatch])
 
 
     return (

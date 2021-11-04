@@ -31,7 +31,6 @@ export const Customers = () => {
 
     useEffect(() => {
         dispatch(customerActions.getCustomers());
-        dispatch(employeeActions.getPermissions())
 
     }, [dispatch])
 

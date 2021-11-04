@@ -14,7 +14,7 @@ import { getDiscounts } from './discountReducer';
 import { addDiscount } from './discountReducer';
 import { getEmployees, editEmployee, addEmployee, deleteEmployee, getApplications, addApplication } from './employeeReducer';
 import { getPermissions } from './employeeReducer';
-import { getUserInfo, editUserInfo } from './userReducer';
+import { getUserInfo, editUserInfo , appInfo } from './userReducer';
 import { getNotes, addNotes, editStatusNotes } from './notesReducer'
 import { getSettingOrder, editSettingOrder } from './settingReducer'
 import { getStock, addStock, editStock } from './stockReducer';
@@ -24,6 +24,7 @@ import { sideBar } from './sideBarReducer'
 import { addLead, getLeads, uploadExcel, editLeadStatus } from './leadReducer';
 
 export default combineReducers({
+    appInfo,
     authentication,
     register,
     alert,

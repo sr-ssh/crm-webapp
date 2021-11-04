@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { SERVER_URL } from '../config';
 import { history } from '../helpers';
-import { authHeader } from '../helpers';
+import { authHeader , handleError} from '../helpers';
 
 let baseRoute = SERVER_URL;
 
@@ -173,17 +173,15 @@ function appInfo() {
         .post(`${baseRoute}/app/info`, requestOptions.body, { headers: requestOptions.headers })
         .then(res => {
             console.log("res.user >> ");
-            console.log(res.data.data);
-            let userId = res.data.data.userId.replace(/^"(.*)"$/, '$1');
-            localStorage.setItem('userId', userId);
-            if (res.data.success)
-                history.push('/dashboard');
-            return res.data.data
+            console.log(res.data);
+            // if (res.data.success)
+            //     history.push('/dashboard');
+            return res.data
         })
         .catch(function (error) {
             if (error.response) {
                 console.log(error.response.data);
-                console.log(error.response.status);
+                handleError(error.response.status);
             }
         });
 }

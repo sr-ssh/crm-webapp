@@ -36,7 +36,6 @@ export const Products = () => {
     useEffect(() => {
         if (!editModalShow && !addModalShow && !xlsxModalShow)
             dispatch(productActions.getProducts())
-        dispatch(employeeActions.getPermissions())
     }, [dispatch, editModalShow, addModalShow, xlsxModalShow])
 
 

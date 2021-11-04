@@ -1,10 +1,10 @@
 
-import { userService } from '../services/userService';
+import { userActions } from '../actions';
 
 export function handleError(code) {
     console.log("handle error, code: "); console.log(code);
     if (code == 401 || code === 403 || code === 402) {
-        userService.logout();
+        userActions.logout();
         window.location.reload(true);
     }
 }

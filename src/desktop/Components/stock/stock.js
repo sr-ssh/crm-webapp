@@ -25,24 +25,16 @@ export const Stock = () => {
     const dispatch = useDispatch()
     const products = useSelector(state => state.getStock.stock)
     const productLoading = useSelector(state => state.getProducts.loading)
-    const addProductLoading = useSelector(state => state.addProduct.loading)
-    const userPermissions = useSelector(state => state.getPermissions.permissions)
     const sideBar = useSelector(state => state.sideBar)
-
-    const getExcel = () => {
-        dispatch(productActions.getExcelProducts())
-    }
-
 
     useEffect(() => {
         if (!editModalShow && !addModalShow)
             dispatch(stockActions.getStock())
-        dispatch(employeeActions.getPermissions())
     }, [dispatch, editModalShow, addModalShow])
 
     return (
         <>
-            <Header isBTNSearch={false} userPermission={true} isGetExcel={false} isBtnAdd={"اضافه مواد خام"} btnAdd={() => setAddModalShow(true)} />
+            <Header isBTNSearch={false} userPermission={false} isGetExcel={false} isBtnAdd={"اضافه مواد خام"} btnAdd={() => setAddModalShow(true)} />
 
             <div className="product-page d-flex flex-column align-items-center margin--top--header" style={{ paddingRight: sideBar.open ? "250px" : 0 }}>
                 <Container fluid className="m-0 px-4 w-100 d-flex justify-content-evenly flex-wrap">

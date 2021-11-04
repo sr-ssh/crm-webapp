@@ -55,7 +55,6 @@ export const Leads = () => {
     useEffect(() => {
         if (!addModalShow)
             dispatch(leadActions.getLeads())
-        dispatch(employeeActions.getPermissions())
     }, [dispatch, addModalShow, addloading, editLoading, uploadLoading])
 
 

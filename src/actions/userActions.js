@@ -59,20 +59,53 @@ function login(mobileOrEmail, password) {
 
 function appInfo() {
     return dispatch => {
+        dispatch(request());
         userService.appInfo()
             .then(
                 res => {
-                    console.log("user entered")
-                    console.log(res)
-                    dispatch(alertActions.success(res));
+                    
+
+                    if (res === undefined) {
+                        dispatch(alertActions.error('ارتباط با سرور برقرار نیست'));
+                        dispatch(failure("ارتباط با سرور برقرار نیست"))
+                    }
+                    else if (res.success) {
+                        if(res.data ){
+                            localStorage.setItem('permissions', JSON.stringify(res.data.permission));
+                            localStorage.setItem('type', JSON.stringify(res.data.type));
+                            localStorage.setItem('userId', res.data._id );
+                            if(res.data.type == 2 && res.data.application_status && res.data.application_id ){
+                                localStorage.setItem('applicationId', res.data.application_id );
+                                localStorage.setItem('applicationStatus', res.data.application_status );
+                                if(res.data.application_status == 1)
+                                    localStorage.setItem('employer', JSON.stringify(res.data.employer_info) );
+                            }
+                        }
+                        console.log("user entered")
+                        dispatch(success(res));
+                    } else if (res.success === false) {
+                        dispatch(alertActions.error(res.message));
+                        dispatch(failure(res.message))
+                    }
+
+                    setTimeout(() => {
+                        dispatch(alertActions.clear());
+                    }, 1500);
+
                 },
                 error => {
                     console.log("occure error");
                     console.log(error.toString());
                     dispatch(alertActions.error(error.toString()));
+                    dispatch(failure(error.toString()))
                 }
             );
     };
+
+    function request() { console.log("into request"); return { type: userConstants.APP_INFO_REQUEST } }
+    function success(user) { console.log("into success"); return { type: userConstants.APP_INFO_SUCCESS, user } }
+    function failure(error) { console.log("occure error"); return { type: userConstants.APP_INFO_FAILURE, error } }
+
 
 }
 
