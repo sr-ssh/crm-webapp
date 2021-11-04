@@ -135,17 +135,17 @@ function AppMobile() {
         <PrivateRoute path="/dashboard" component={Dashboard} ></PrivateRoute>
         <Route path="/order/factor/:orderId/:keyLink" component={Factor} />
         <PrivateRoute path="/order/add" component={AddOrder} ></PrivateRoute>
-        <PrivateRoute path="/employees" component={Employees} ></PrivateRoute>
+        <PrivateRoute exact path="/employees" component={Employees} ></PrivateRoute>
         <PrivateRoute path="/setting" component={Setting}></PrivateRoute>
-        <PrivateRoute path="/employee/add" component={Applications} ></PrivateRoute>
+        <PrivateRoute path="/employees/add" component={Applications} ></PrivateRoute>
         <PrivateRoute path="/account" component={Account} ></PrivateRoute>
         <PrivateRoute path="/saleopprotunity" component={SaleOpprotunity}></PrivateRoute>
         <Route exact path="/order/notes" component={Notes}></Route>
         <Route exact path="/factor/note" component={NoteFactor}></Route>
         <PrivateRoute path="/factor/add" component={AddFactor} ></PrivateRoute>
-        <PrivateRoute path="/factor" component={Factors} ></PrivateRoute>
-        <PrivateRoute path="/suppliers" component={Suppliers} ></PrivateRoute>
-        <PrivateRoute path="/stock" component={Stock} ></PrivateRoute>
+        <PrivateRoute exact path="/factor" component={Factors} ></PrivateRoute>
+        <PrivateRoute path="/factor/suppliers" component={Suppliers} ></PrivateRoute>
+        <PrivateRoute path="/factor/stock" component={Stock} ></PrivateRoute>
         <PrivateRoute path="/lead" component={Leads} ></PrivateRoute>
 
         <Redirect from="*" to="/" />

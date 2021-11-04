@@ -34,7 +34,7 @@ export const Employees = () => {
 
     return (
         <div className="product-page">
-            <Header title="کارمندان" backLink="/dashboard" addLink="/employee/add" />
+            <Header title="کارمندان" backLink="/dashboard" addLink="/employees/add" />
             <Container className="m-auto emplyees-text-gray">
                 {
                     getEmployeesLoading &&
@@ -72,6 +72,7 @@ export const Employees = () => {
                                         <Card.Text className="pt-1">
                                             {
                                                 Object.keys(item.permission).map(per =>
+                                                    per === "getDiscounts" ? null :
                                                     item.permission[per]
                                                         ? <Col><img src={checkIcon} height="27px" alt="tick-icon" className="application-check-icon" /> <span>  {translate(per)}</span></Col>
                                                         : null
