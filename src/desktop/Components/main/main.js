@@ -24,8 +24,8 @@ export const Main = () => {
     const {user : userInfo ,loading : userInfoLoading } = useSelector(state => state.appInfo)
 
     useEffect(() => {
-        userInfoLoading !== undefined && !userInfoLoading && Object.keys(userInfo?.data).length < 1 &&  dispatch(userActions.appInfo());
-    }, [dispatch])
+        userInfoLoading !== undefined && !userInfoLoading &&  dispatch(userActions.appInfo());
+    }, [])
 
 
     return (
