@@ -29,7 +29,6 @@ export const Customers = () => {
 
 
     const getExcel = () => {
-
         dispatch(customerActions.getExcelCustomers(filters))
     }
 
@@ -40,7 +39,7 @@ export const Customers = () => {
 
     return (
         <>
-            <Header isBTNSearch={true} searchModalShow={() => setModalShow(true)} userPermission={userInfo.data.permission.getExcelCustomers} isGetExcel={true} getExcel={getExcel} isBtnAdd={" "} />
+            <Header isBTNSearch={true} searchModalShow={() => setModalShow(true)} userPermission={userInfo?.data?.permission.getExcelCustomers} isGetExcel={true} getExcel={getExcel} isBtnAdd={" "} />
 
 
             <div className="product-page orders margin--top--header" style={{ paddingRight: sideBar.open ? "250px" : 0 }}>
