@@ -145,6 +145,7 @@ export const Factor = ({ factor, setCancelFactorShow, setDeliveryShow, cancelOrd
     setIsPrivate(factor.note?.private || false)
   }, [factor])
 
+
   return (
     <Card
       className={`m-auto mt-3 bg-light productCard border-0 lh-lg ${
@@ -152,7 +153,7 @@ export const Factor = ({ factor, setCancelFactorShow, setDeliveryShow, cancelOrd
       } mx-1 ${classes.productCard}`}
     >
       <Row className="mx-2 mt-3 noPrint d-flex justify-content-between">
-        {userInfo?.data.permission.purchaseConfirmationInvoice && parseInt(factor.shopApproval.status) !== 1 (
+        {userInfo?.data.permission.purchaseConfirmationInvoice && factor.shopApproval.status === 0  && (
           <Col className="d-flex justify-content-end col-2">
             <Button
               className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 justify-content-center"
