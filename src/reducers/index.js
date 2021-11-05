@@ -49,7 +49,7 @@ import {
   addApplication,
 } from "./employeeReducer";
 import { getPermissions } from "./employeeReducer";
-import { getUserInfo, editUserInfo , appInfo } from "./userReducer";
+import { getUserInfo, editUserInfo, appInfo } from "./userReducer";
 import { getNotes, addNotes, editStatusNotes } from "./notesReducer";
 import { getSettingOrder, editSettingOrder } from "./settingReducer";
 import { getStock, addStock, editStock } from "./stockReducer";
@@ -68,7 +68,7 @@ import {
 } from "./receiptReducer";
 import { sideBar } from "./sideBarReducer";
 import { addLead, getLeads, uploadExcel, editLeadStatus } from "./leadReducer";
-
+import { addSeller } from "./sellerReducer";
 
 export default combineReducers({
   appInfo,
@@ -136,5 +136,6 @@ export default combineReducers({
   uploadExcel,
   editLeadStatus,
   editSaleOpportunitySellerStatus,
-  editReceiptNoteStatus
+  editReceiptNoteStatus,
+  addSeller,
 });
