@@ -61,10 +61,10 @@ function getSellers(filter = {}) {
     headers: authHeader(),
   };
 
-  if (!filter.company) filter.company = " ";
-  if (!filter.phone) filter.phone = " ";
-  if (!filter.mobile) filter.mobile = " ";
-  if (!filter.address) filter.address = " ";
+  if (filter.company === "" || !filter.company) filter.company = " ";
+  if (filter.phone === "" || !filter.phone) filter.phone = " ";
+  if (filter.mobile === "" || !filter.mobile) filter.mobile = " ";
+  if (filter.address === "" || !filter.address) filter.address = " ";
 
   return axios
     .get(

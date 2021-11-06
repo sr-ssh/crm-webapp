@@ -4,7 +4,7 @@ import { Card, Row, Col } from "react-bootstrap";
 import persianJs from "persianjs/persian.min";
 import commaNumber from "comma-number";
 
-export const Seller = ({ customer }) => {
+export const Seller = ({ seller }) => {
   return (
     <Card className="m-auto mt-3 bg-light productCard border-0 lh-lg pb-2">
       <Card.Body className="pb-0 ps-0 text-gray">
@@ -12,25 +12,12 @@ export const Seller = ({ customer }) => {
           <Card className="background-blue border-0 customer-round">
             <Card.Body className="py-2 px-0">
               <Row>
-                <Col className="col-4 ps-0 ms-0">
-                  <Card.Text>
-                    <span>{customer.family}</span>
-                  </Card.Text>
+                <Col className="col-5 ps-0 ms-0">
+                  <Card.Text>ثبت شده توسط بازاریاب:</Card.Text>
                 </Col>
-                <Col dir="ltr" className="col-8">
+                <Col dir="ltr" className="col-7">
                   <Card.Text>
-                    تاریخ عضویت :{" "}
-                    <span>
-                      {customer.createdAt &&
-                        persianJs(
-                          moment
-                            .from(customer.createdAt, "YYYY/MM/DD")
-                            .locale("fa")
-                            .format("DD MMMM YYYY")
-                        )
-                          .englishNumber()
-                          .toString()}
-                    </span>
+                    <span>{seller.marketer.family}</span>
                   </Card.Text>
                 </Col>
               </Row>
@@ -40,105 +27,87 @@ export const Seller = ({ customer }) => {
         <Row className="pe-2">
           <Row className="mt-2">
             <Col>
-              <Card.Text>موبایل:</Card.Text>
+              <Card.Text>تلفن:</Card.Text>
             </Col>
             <Col dir="ltr">
               <Card.Text>
                 <span>
-                  {customer.mobile &&
-                    persianJs(customer.mobile).englishNumber().toString()}
+                  {seller.phone &&
+                    persianJs(seller.phone).englishNumber().toString()}
                 </span>
               </Card.Text>
             </Col>
           </Row>
-          {/* <Row className="mt-2">
-                        <Col>
-                            <Card.Text>
-                                تاریخ تولد:
-                            </Card.Text>
-                        </Col>
-                        <Col dir="ltr">
-                            <Card.Text>
-                                <span dir="rtl">{customer.birthday && persianJs(moment.from(customer.birthday, 'YYYY/MM/DD').locale('fa').format('DD MMMM YYYY')).englishNumber().toString()}</span>
-                            </Card.Text>
-                        </Col>
-                    </Row> */}
+
           <Row className="mt-2">
             <Col>
-              <Card.Text>تعداد سفارش:</Card.Text>
+              <Card.Text>همراه:</Card.Text>
             </Col>
             <Col dir="ltr">
               <Card.Text>
                 <span>
-                  {customer.order &&
-                    persianJs(customer.order).englishNumber().toString()}
+                  {seller.mobile &&
+                    persianJs(seller.mobile).englishNumber().toString()}
                 </span>
               </Card.Text>
             </Col>
           </Row>
+        
           <Row className="mt-2">
             <Col>
-              <Card.Text>سفارش های موفق:</Card.Text>
+              <Card.Text>نام فروشنده:</Card.Text>
             </Col>
             <Col dir="ltr">
               <Card.Text>
                 <span>
-                  {customer.successfullOrders &&
-                    persianJs(customer.successfullOrders)
-                      .englishNumber()
-                      .toString()}
+                  {seller.family
+                    }
                 </span>
               </Card.Text>
             </Col>
           </Row>
+
           <Row className="mt-2">
             <Col>
-              <Card.Text>سفارش های ناموفق:</Card.Text>
+              <Card.Text>نام مجموعه:</Card.Text>
             </Col>
             <Col dir="ltr">
               <Card.Text>
                 <span>
-                  {customer.failOrders &&
-                    persianJs(customer.failOrders).englishNumber().toString()}
+                  {seller.company
+                    }
                 </span>
               </Card.Text>
             </Col>
           </Row>
           <Row className="mt-2">
             <Col>
-              <Card.Text>آخرین خرید:</Card.Text>
-            </Col>
-            <Col dir="ltr">
-              <Card.Text>
-                <span dir="rtl">
-                  {customer.lastBuy &&
-                    persianJs(
-                      moment
-                        .from(customer.lastBuy, "YYYY/MM/DD")
-                        .locale("fa")
-                        .format("DD MMMM YYYY")
-                    )
-                      .englishNumber()
-                      .toString()}
-                </span>
-              </Card.Text>
-            </Col>
-          </Row>
-          <Row className="mt-2">
-            <Col>
-              <Card.Text>جمع خرید:</Card.Text>
+              <Card.Text>شماره کارت:</Card.Text>
             </Col>
             <Col dir="ltr">
               <Card.Text>
                 <span>
-                  {customer.total &&
-                    persianJs(commaNumber(customer.total))
-                      .englishNumber()
-                      .toString()}
+                {seller.cardNumber &&
+                    persianJs(seller.cardNumber).englishNumber().toString()}
                 </span>
               </Card.Text>
             </Col>
           </Row>
+
+          <Row className="mt-2">
+            <Col>
+              <Card.Text>آدرس:</Card.Text>
+            </Col>
+            <Col dir="ltr">
+              <Card.Text>
+                <span>
+                {seller.address &&
+                    persianJs(seller.address).englishNumber().toString()}
+                </span>
+              </Card.Text>
+            </Col>
+          </Row>
+        
         </Row>
       </Card.Body>
     </Card>
