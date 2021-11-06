@@ -86,10 +86,6 @@ const dashboardRoutes = [
                 path: "/seller/add",
                 name: "ثبت فروشنده",
                 layout: "/",
-            },{
-                path: "/seller/list",
-                name: "فروشندگان",
-                layout: "/",
             }
         ]
     },

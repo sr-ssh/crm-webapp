@@ -70,7 +70,6 @@ import './mobile/assets/styles/sellerStyle.css'
 // Helper
 import { socket } from './helpers/socketIo';
 import { NotificationCallIncoming } from './mobile/components/notificationView/notifCallIncoming'
-import { Sellers } from './mobile/components/seller/sellers';
 
 
 
@@ -150,7 +149,6 @@ function AppMobile() {
         <PrivateRoute path="/factor/suppliers" component={Suppliers} ></PrivateRoute>
         <PrivateRoute path="/factor/stock" component={Stock} ></PrivateRoute>
         <PrivateRoute path="/seller/add" component={AddSeller} ></PrivateRoute>
-        <PrivateRoute path="/seller/list" component={Sellers} ></PrivateRoute>
         <PrivateRoute path="/lead" component={Leads} ></PrivateRoute>
 
         <Redirect from="*" to="/" />

@@ -58,4 +58,3 @@ export function getSeller(state = {}, action) {
       return state;
   }
 }
-
