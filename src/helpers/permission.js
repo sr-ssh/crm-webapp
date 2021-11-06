@@ -38,9 +38,9 @@ export function isPermitted(route) {
     if (permissions?.getStock) return true;
   } else if (route === "/seller/add") {
     if (permissions?.addSeller) return true;
-  } else if (route === "/seller/list") {
-    /* if (permissions?.addSeller) */ return true;
-  } else if (["/","/register","/dashboard","/account", '/seller'].includes(route)){
+  } else if (route === "/seller") {
+    if (permissions?.getSellers) return true;
+  } else if (["/","/register","/dashboard","/account"].includes(route)){
     return true;
   } else return false;
 }

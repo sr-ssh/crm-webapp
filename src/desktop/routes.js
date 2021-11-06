@@ -73,7 +73,7 @@ const dashboardRoutes = [
                 layout: "/",
             },
             {
-                path: "/seller/list",
+                path: "/seller",
                 name: "لیست فروشنده ها",
                 layout: "/",
             },

@@ -1,13 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Modal, Button, Row, Col, Form } from "react-bootstrap";
-//import { DatePicker } from "jalali-react-datepicker";
-import DatePicker from "react-multi-date-picker";
-import moment from "jalali-moment";
 import persianJs from "persianjs/persian.min";
 
 // Actions
-import { orderActions } from "../../../actions";
+import { sellerActions } from "../../../actions";
 // Icons
 import closeIcon from "../../assets/images/close.svg";
 
@@ -16,26 +13,26 @@ export const SellerSearch = (props) => {
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
-    e.preventDefault();
-    if (e.target.name == "customerMobile")
-      e.target.value = persianJs(e.target.value).toEnglishNumber().toString();
-    setFilters({ ...filters, [e.target.name]: e.target.value });
+    console.log("handlechange", e.target);
+
+    let value =
+      e.target.value && persianJs(e.target.value).toEnglishNumber().toString();
+    setFilters({ ...filters, [e.target.name]: value });
+
+    console.log(filters);
   };
 
   const formHandler = (e) => {
     e.preventDefault();
-    dispatch(orderActions.getOrders(filters));
+    dispatch(sellerActions.getSellers(filters));
     props.onHide(false);
   };
 
-  const submitCalendar = (value, name) => {
-    let date = `${value.year}/${value.month.number}/${value.day}`;
-    date = moment
-      .from(date, "fa", "YYYY/MM/DD")
-      .locale("en")
-      .format("YYYY-MM-DD");
-    setFilters({ ...filters, [name]: date });
-  };
+  useEffect(() => {
+    props.show &&
+      props.setFilters({ company: "", phone: "", mobile: "", address: "" });
+  }, [props.show]);
+
   return (
     <Modal
       {...props}
@@ -65,8 +62,8 @@ export const SellerSearch = (props) => {
                 <Form.Control
                   className="order-input notes-round"
                   type="text"
-                  name="customerName"
-                  value={filters.customerName}
+                  name="company"
+                  value={filters.company}
                   onChange={handleChange}
                 />
               </Form.Group>
@@ -79,8 +76,10 @@ export const SellerSearch = (props) => {
                 <Form.Control
                   className="order-input notes-round"
                   type="tel"
-                  name="customerMobile"
-                  value={filters.customerMobile}
+                  inputMode="tel"
+                  pattern="[0-9]*"
+                  name="phone"
+                  value={filters.phone}
                   onChange={handleChange}
                 />
               </Form.Group>
@@ -91,30 +90,35 @@ export const SellerSearch = (props) => {
                 <Form.Control
                   className="order-input notes-round"
                   type="tel"
-                  name="customerMobile"
-                  value={filters.customerMobile}
+                  inputMode="tel"
+                  pattern="[0-9]*"
+                  name="mobile"
+                  value={filters.mobile}
                   onChange={handleChange}
                 />
               </Form.Group>
             </Col>
           </Row>
           <Row className="my-2 justify-content-between">
-          <Col className="col-12  order-filter-input">
+            <Col className="col-12  order-filter-input">
               <Form.Group>
                 <Form.Label className="pe-2">آدرس</Form.Label>
                 <Form.Control
                   className="order-input notes-round"
-                  style={{height : "85px"}}
+                  style={{ height: "85px" }}
                   type="text"
-                  name="customerMobile"
-                  value={filters.customerMobile}
+                  name="address"
+                  value={filters.address}
                   onChange={handleChange}
                 />
               </Form.Group>
             </Col>
           </Row>
           <Row className="px-2 mt-5">
-            <Button className="fw-bold btn-dark-blue notes-round border-0 w-100 mt-3 py-3" type="submit">
+            <Button
+              className="fw-bold btn-dark-blue notes-round border-0 w-100 mt-3 py-3"
+              type="submit"
+            >
               جست و جو
             </Button>
           </Row>
