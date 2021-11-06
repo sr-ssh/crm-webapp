@@ -62,18 +62,23 @@ const dashboardRoutes = [
             }
         ]
     },
-    // {
-    //     layout: "/seller",
-    //     path: "/seller",
-    //     name: "فروشندگان",
-    //     children: [
-    //         {
-    //             path: "/seller/add",
-    //             name: "ثبت فروشنده",
-    //             layout: "/",
-    //         },
-    //     ]
-    // },
+    {
+        layout: "/seller",
+        path: "/seller",
+        name: "فروشندگان",
+        children: [
+            {
+                path: "/seller/add",
+                name: "ثبت فروشنده",
+                layout: "/",
+            },
+            {
+                path: "/seller/list",
+                name: "لیست فروشنده ها",
+                layout: "/",
+            },
+        ]
+    },
     {
         layout: "/finance",
         path: "/finance",
