@@ -6,6 +6,7 @@ import { Container, Spinner, Col, Row, Alert } from "react-bootstrap";
 import { Header } from "../base/header";
 import { SellersCard } from "./sellersCard";
 import { CircularProgress } from "@material-ui/core";
+import { SellerSearch } from "./search";
 
 import { sellerActions } from "../../../actions";
 
@@ -13,6 +14,7 @@ export const SellersList = () => {
   const dispatch = useDispatch();
   const sideBar = useSelector((state) => state.sideBar);
   const [filters, setFilters] = useState({});
+  const [modalShow, setModalShow] = useState(false);
 
   const { loading: getSellersLoading, data: getSellersData } = useSelector(
     (state) => state.getSellers
@@ -22,10 +24,13 @@ export const SellersList = () => {
     dispatch(sellerActions.getSellers());
   }, []);
 
-
   return (
     <>
-      <Header isBTNSearch={false} isBTNRequest={false} />
+      <Header
+        isBTNSearch={true}
+        isBTNRequest={false}
+        searchModalShow={setModalShow}
+      />
       <div
         className="product-page orders margin--top--header"
         style={{ paddingRight: sideBar.open ? "250px" : 0 }}
@@ -63,6 +68,13 @@ export const SellersList = () => {
                 ))}
             </>
           )}
+
+          <SellerSearch
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+            filters={filters}
+            setFilters={setFilters}
+          />
         </Container>
       </div>
     </>
