@@ -20,9 +20,8 @@ function addSeller(params) {
     headers: authHeader(),
     body: params,
   };
-  debugger
   return axios
-    .post(`${baseRoute}/seller`, requestOptions.body, requestOptions.headers)
+    .post(`${baseRoute}/seller`, requestOptions.body, { headers: requestOptions.headers })
     .then((res) => {
       console.log("response add Seller =>>>> ");
       console.log(res);
