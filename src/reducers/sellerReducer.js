@@ -58,3 +58,28 @@ export function getSeller(state = {}, action) {
       return state;
   }
 }
+
+
+export function getSellers(state = {}, action) {
+  switch (action.type) {
+    case sellerConstants.GET_SELLERS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case sellerConstants.GET_SELLERS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        data: action.data,
+      };
+    case sellerConstants.GET_SELLERS_FAILURE:
+      return {
+        ...state,
+        error: action.error,
+        loading: false,
+      };
+    default:
+      return state;
+  }
+}
