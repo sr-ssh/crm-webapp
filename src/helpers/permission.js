@@ -39,7 +39,7 @@ export function isPermitted(route) {
     if (permissions?.getStock) return true;
   }else if (route === "/seller/add") {
    /*if (permissions?.getStock) */ return true;
-  } else if (["/","/register","/dashboard","/account"].includes(route)){
+  } else if (["/","/register","/dashboard","/account", '/seller/list'].includes(route)){
     return true;
   } else
     return false;
