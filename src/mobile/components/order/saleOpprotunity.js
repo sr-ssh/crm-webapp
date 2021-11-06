@@ -15,6 +15,8 @@ import { UploadDocuments } from "./uploadDoc";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { CancelOrder } from "./cancelOrder";
 import { FreeSaleOpportunity } from "./freeSaleOpportunity";
+import { ShowDocuments } from './showDoc'
+
 
 export const SaleOpprotunity = () => {
   const [recordOrderShow, setRecordOrderShow] = useState(false);
@@ -24,6 +26,7 @@ export const SaleOpprotunity = () => {
   const [cancelOrderShow, setCancelOrderShow] = useState(false);
   const [uploadModalShow, setUploadModalShow] = useState(false);
   const [customerInfoShow, setCustomerInfoShow] = useState(false);
+  const [showDocModalShow, setShowDocModalShow] = useState(false);
   const [refresh, setRefresh] = useState(false);
 
   const dispatch = useDispatch();
@@ -108,6 +111,7 @@ export const SaleOpprotunity = () => {
                         setCancelOrderShow={setCancelOrderShow}
                         setUploadModalShow={setUploadModalShow}
                         setCustomerInfoShow={setCustomerInfoShow}
+                        setShowDocModalShow={setShowDocModalShow}
                       />
                     );
                   else
@@ -144,6 +148,14 @@ export const SaleOpprotunity = () => {
           onHide={() => setUploadModalShow(false)}
           order={activeOrder}
         />
+        {activeOrder.id && (
+          <ShowDocuments
+            show={showDocModalShow}
+            onHide={() => setShowDocModalShow(false)}
+            order={activeOrder.id}
+            UploadModalShow={() => setUploadModalShow(true)}
+          />
+        )}
       </Container>
     </div>
   );
