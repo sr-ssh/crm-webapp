@@ -4,7 +4,8 @@ import { alertActions } from "./alertActions";
 
 export const sellerActions = {
   addSeller,
-  getSeller
+  getSeller,
+  getSellers
 };
 
 function request(type) {
@@ -107,3 +108,47 @@ function getSeller(params) {
     );
   };
 }
+
+
+function getSellers(params) {
+  return (dispatch) => {
+    dispatch(request(sellerConstants.GET_SELLERS_REQUEST));
+    sellerService.getSellers(params).then(
+      (res) => {
+        if (res === undefined) {
+          dispatch(
+            failure(
+              sellerConstants.GET_SELLERS_FAILURE,
+              "ارتباط با سرور برقرار نیست"
+            )
+          );
+          dispatch(alertActions.error("ارتباط با سرور برقرار نیست"));
+        } else if (res.success) {
+          console.log("got the seller");
+          dispatch(success(sellerConstants.GET_SELLERS_SUCCESS, res.data));
+          dispatch(alertActions.success(res.data.message));
+        } else if (res.success == false) {
+          console.log("seller didn't added");
+          dispatch(
+            failure(
+              sellerConstants.GET_SELLERS_FAILURE,
+              res.data.message.toString()
+            )
+          );
+          dispatch(alertActions.error(res.data.message));
+        }
+
+        setTimeout(() => {
+          dispatch(alertActions.clear());
+        }, 1500);
+      },
+      (error) => {
+        console.log("occure error");
+        console.log(error.toString());
+        dispatch(failure(sellerConstants.GET_SELLERS_FAILURE, error.toString()));
+        dispatch(alertActions.error(error.toString()));
+      }
+    );
+  };
+}
+

@@ -68,7 +68,7 @@ import {
 } from "./receiptReducer";
 import { sideBar } from "./sideBarReducer";
 import { addLead, getLeads, uploadExcel, editLeadStatus } from "./leadReducer";
-import { addSeller, getSeller } from "./sellerReducer";
+import { addSeller, getSeller, getSellers } from "./sellerReducer";
 
 export default combineReducers({
   appInfo,
@@ -138,5 +138,6 @@ export default combineReducers({
   editSaleOpportunitySellerStatus,
   editReceiptNoteStatus,
   addSeller,
-  getSeller
+  getSeller,
+  getSellers
 });
