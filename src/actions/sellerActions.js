@@ -82,16 +82,16 @@ function getSeller(params) {
         } else if (res.success) {
           console.log("got the seller");
           dispatch(success(sellerConstants.GET_SELLER_SUCCESS, res.data));
-          dispatch(alertActions.success(res.data.message));
+          // dispatch(alertActions.success(res.message));
         } else if (res.success == false) {
           console.log("seller didn't added");
           dispatch(
             failure(
               sellerConstants.GET_SELLER_FAILURE,
-              res.data.message.toString()
+              res.message.toString()
             )
           );
-          dispatch(alertActions.error(res.data.message));
+          dispatch(alertActions.error(res.message));
         }
 
         setTimeout(() => {
