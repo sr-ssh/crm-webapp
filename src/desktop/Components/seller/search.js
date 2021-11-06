@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Modal, Button, Row, Col, Form } from "react-bootstrap";
 import persianJs from "persianjs/persian.min";
 
+// Components
+import { CircularProgress } from "@material-ui/core";
 // Actions
 import { sellerActions } from "../../../actions";
 // Icons
@@ -10,6 +12,9 @@ import closeIcon from "../../assets/images/close.svg";
 
 export const SellerSearch = (props) => {
   const [filters, setFilters] = useState({ status: props.status || " " });
+  const { loading: getSellersLoading, data: getSellersData } = useSelector(
+    (state) => state.getSellers
+  );
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
@@ -17,7 +22,7 @@ export const SellerSearch = (props) => {
 
     let value =
       e.target.value && persianJs(e.target.value).toEnglishNumber().toString();
-    setFilters({ ...filters, [e.target.name]: value });
+    setFilters({ ...filters, [e.target.name]: value.replaceAll(/\s/g, "") });
 
     console.log(filters);
   };
@@ -25,13 +30,17 @@ export const SellerSearch = (props) => {
   const formHandler = (e) => {
     e.preventDefault();
     dispatch(sellerActions.getSellers(filters));
-    props.onHide(false);
   };
 
   useEffect(() => {
     props.show &&
       props.setFilters({ company: "", phone: "", mobile: "", address: "" });
   }, [props.show]);
+
+  useEffect(() => {
+    props.show == true && getSellersLoading == false && props.onHide(false);
+  }, [getSellersLoading]);
+
 
   return (
     <Modal
@@ -77,7 +86,7 @@ export const SellerSearch = (props) => {
                   className="order-input notes-round"
                   type="tel"
                   inputMode="tel"
-                  pattern="[0-9]*"
+                  // pattern="[0-9]*"
                   name="phone"
                   value={filters.phone}
                   onChange={handleChange}
@@ -91,7 +100,7 @@ export const SellerSearch = (props) => {
                   className="order-input notes-round"
                   type="tel"
                   inputMode="tel"
-                  pattern="[0-9]*"
+                  // pattern="[0-9]*"
                   name="mobile"
                   value={filters.mobile}
                   onChange={handleChange}
@@ -115,12 +124,24 @@ export const SellerSearch = (props) => {
             </Col>
           </Row>
           <Row className="px-2 mt-5">
-            <Button
-              className="fw-bold btn-dark-blue notes-round border-0 w-100 mt-3 py-3"
-              type="submit"
-            >
-              جست و جو
-            </Button>
+            {getSellersLoading ? (
+              <Button
+                className="fw-bold receipt--btn border-0 w-100 fs-6 d-flex justify-content-center align-items-center"
+                size="lg"
+                type="submit"
+                disabled
+              >
+                <CircularProgress className="text-light ms-3" size="25px" />
+                در حال جستجو ...
+              </Button>
+            ) : (
+              <Button
+                className="fw-bold btn-dark-blue notes-round border-0 w-100 mt-3 py-3"
+                type="submit"
+              >
+                جست و جو
+              </Button>
+            )}
           </Row>
         </Form>
       </Modal.Body>

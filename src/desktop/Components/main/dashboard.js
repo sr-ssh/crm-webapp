@@ -133,7 +133,7 @@ export const Dashboard = (props) => {
                         <PrivateRoute path="/factor/stock" component={Stock} ></PrivateRoute>
                         <PrivateRoute path="/lead" component={Leads} ></PrivateRoute>
                         <PrivateRoute path="/seller/add" component={AddSeller} ></PrivateRoute>
-                        <PrivateRoute path="/seller/list" component={SellersList} ></PrivateRoute>
+                        <PrivateRoute path="/seller" component={SellersList} ></PrivateRoute>
                         <Redirect from="*" to="/" />
                     </Switch >
                 </div >

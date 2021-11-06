@@ -7,7 +7,7 @@ let baseRoute = SERVER_URL;
 export const sellerService = {
   addSeller,
   getSeller,
-  getSellers
+  getSellers,
 };
 
 function addSeller(params) {
@@ -18,7 +18,9 @@ function addSeller(params) {
     body: params,
   };
   return axios
-    .post(`${baseRoute}/seller`, requestOptions.body, { headers: requestOptions.headers })
+    .post(`${baseRoute}/seller`, requestOptions.body, {
+      headers: requestOptions.headers,
+    })
     .then((res) => {
       console.log("response add Seller =>>>> ");
       console.log(res);
@@ -36,7 +38,7 @@ function getSeller(params) {
   console.log("into sellerService -> getSeller");
 
   const requestOptions = {
-    headers: authHeader()
+    headers: authHeader(),
   };
 
   return axios
@@ -65,7 +67,7 @@ function getSellers(filter = {}) {
   if (filter.phone === "" || !filter.phone) filter.phone = " ";
   if (filter.mobile === "" || !filter.mobile) filter.mobile = " ";
   if (filter.address === "" || !filter.address) filter.address = " ";
-
+  debugger;
   return axios
     .get(
       `${baseRoute}/seller/${encodeURI(filter.company)}/${encodeURI(
