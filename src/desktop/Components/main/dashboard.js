@@ -30,6 +30,7 @@ import { Suppliers } from '../suppliers/suppliers';
 import { Stock } from '../stock/stock';
 import { Leads } from '../leads/leads';
 import { socket } from '../../../helpers/socketIo';
+import { AddSeller } from '../seller/addSeller'
 
 // Componens 
 import { NotificationCallIncoming } from '../notificationView/notifCallIncoming'
@@ -129,7 +130,7 @@ export const Dashboard = (props) => {
                         <PrivateRoute path="/factor/suppliers" component={Suppliers} ></PrivateRoute>
                         <PrivateRoute path="/factor/stock" component={Stock} ></PrivateRoute>
                         <PrivateRoute path="/lead" component={Leads} ></PrivateRoute>
-
+                        <PrivateRoute path="/seller/add" component={AddSeller} ></PrivateRoute>
                         <Redirect from="*" to="/" />
                     </Switch >
                 </div >

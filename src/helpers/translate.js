@@ -33,6 +33,7 @@ export function translate(key) {
     case "getExcelSuppliers":return "اکسل تامین کننده ها";
     case "financialConfirmationOrder":return "تایید مالی سفارش ها";
     case "purchaseConfirmationInvoice":return "تایید خرید فاکتور ها";
+    case "addSeller":return "ثبت فروشنده";
     default:break;
   }
 }

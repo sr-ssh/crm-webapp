@@ -1,0 +1,12 @@
+.download--seller--btn--mobile {
+  position: absolute;
+  left: 24px;
+  top: 116px;
+  background-color: white;
+}
+.remove--btn--mobile{
+  position: absolute;
+  right: 187px;
+  top: 118px;
+  background-color: white;
+}
