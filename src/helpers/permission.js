@@ -38,8 +38,8 @@ export function isPermitted(route) {
   } else if (route === "/factor/stock") {
     if (permissions?.getStock) return true;
   }else if (route === "/seller/add") {
-   /*if (permissions?.getStock) */ return true;
-  } else if (["/","/register","/dashboard","/account", '/seller/list'].includes(route)){
+   if (permissions?.addSeller) return true;
+  } else if (["/","/register","/dashboard","/account"].includes(route)){
     return true;
   } else
     return false;

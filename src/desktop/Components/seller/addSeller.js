@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Container, Form, Button, Row, Col, Spinner } from "react-bootstrap";
 import { useForm } from "react-hook-form";
@@ -33,6 +33,7 @@ export const AddSeller = () => {
     setValue,
     trigger,
     getValues,
+    reset,
     formState: { errors },
   } = useForm({
     mode: "all",
@@ -45,6 +46,29 @@ export const AddSeller = () => {
   const { loading: addSellerLoading, data: addSellerData } = useSelector(
     (state) => state.addSeller
   );
+  const { loading: getOldSellerLoading, data: oldSeller } = useSelector(
+    (state) => state.getSeller
+  );
+
+  useEffect(() => {
+    // if(getOldSellerLoading == false && oldSeller == undefined){
+    //   reset()
+    //   setSellerInfo({})
+    // }
+    if(getOldSellerLoading == false && oldSeller &&  Object.keys(oldSeller).length > 0 ){
+      setSellerInfo({
+        ...sellerInfo,
+        cardNumber: cc_format(oldSeller.cardNumber.toString()),
+      })
+      setValue('phone', oldSeller.phone , { shouldValidate: true })
+      setValue('family', oldSeller.family, { shouldValidate: true })
+      setValue('company', oldSeller.company, { shouldValidate: true })
+      setValue('address', oldSeller.address, { shouldValidate: true })
+      setValue('description', oldSeller.description)
+    }
+  
+  }, [getOldSellerLoading])
+
 
   const formHandler = async (e) => {
     e.preventDefault();
@@ -89,7 +113,16 @@ export const AddSeller = () => {
       return value;
     }
   }
-  console.log(addSellerLoading, addSellerData);
+  let handelOldSeller = async (e) => {
+    e.preventDefault();
+    const result = await trigger("mobile");
+    let sellerMobile;
+
+    if (result == false) {
+      return;
+    } else sellerMobile = getValues("mobile");
+    if (sellerMobile) dispatch(sellerActions.getSeller(sellerMobile));  
+  };
 
   return (
     <>
@@ -147,7 +180,7 @@ export const AddSeller = () => {
                         true
                       }
                     />
-                    {/* {loading ? (
+                    {getOldSellerLoading ? (
                       <Spinner
                         className="spinner--download--btn--desktop "
                         as="div"
@@ -155,15 +188,15 @@ export const AddSeller = () => {
                         animation="border"
                         size="sm"
                       />
-                    ) : ( */}
+                    ) : (
                     <img
                       src={downloadIcon}
                       className="m-0 p-0  spinner--download--btn--desktop"
-                      // onClick={(e) => handleOldCustomer(e)}
+                      onClick={handelOldSeller}
                       height="25px"
                       alt="down-icon"
                     />
-                    {/* )} */}
+                  )}
                   </Form.Group>
                 </Col>
                 <Col className="col-4 add-order-input--desktop ps-0">
