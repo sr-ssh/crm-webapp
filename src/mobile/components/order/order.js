@@ -48,7 +48,7 @@ export const Order = ({ order, refresh, setRefresh, deliveryShow, setDeliverySho
     const [financialCheckModal, setFinancialCheckModal] = useState(false)
     const [resultOrderModal, setResultOrderModal] = useState(false)
     const [freeStatus, setFreeStatus] = useState('')
-    let userInfo = useSelector(state => state.getUserInfo)
+    const {user : userInfo ,loading : userInfoLoading } = useSelector(state => state.appInfo)
 
 
     const [input, setInput] = useState('')
@@ -243,7 +243,7 @@ export const Order = ({ order, refresh, setRefresh, deliveryShow, setDeliverySho
                     </Table>
                 </Row>
                 <Row className="p-0 m-0 pb-3 w-100">
-                    {order.status === 0 &&
+                    {userInfo?.data.permission.financialConfirmationOrder && order.status === 0 && order.financialApproval.status == false &&
                         <Col xs={6} className="p-0 px-1 pb-3 ps-2">
                             <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setFinancialCheckModal(true); setActiveOrder(order) }}>
                                 <img src={financialCheckIcon} height="25px" alt="add-note-icon" className="col-3" />
@@ -323,7 +323,7 @@ export const Order = ({ order, refresh, setRefresh, deliveryShow, setDeliverySho
                         </Col>
                     }
                     {
-                        order.sellers.some(seller => seller.active === true) && order.status == 3 && order.sellers[order.sellers.length - 1].id?._id === userInfo.user?.id &&
+                        order.sellers.some(seller => seller.active === true) && order.status == 3 && order.sellers[order.sellers.length - 1].id?._id === userInfo.data._id &&
                         <Col xs={6} className="p-0 px-1 pb-3 ps-2">
                             <Button className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2" type="button" onClick={() => { setFreeModalShow(true); setFreeStatus('0')}}>
                                 <img src={freeIcon} height="25px" alt="print-icon" className="col-3" />
