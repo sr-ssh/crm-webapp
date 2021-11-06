@@ -64,6 +64,7 @@ import './mobile/assets/styles/factorStyle.css';
 import './mobile/assets/styles/receiptStyle.css';
 import './mobile/assets/styles/leadStyle.css'
 import './mobile/assets/styles/accountStyle.css'
+import './mobile/assets/styles/sellerStyle.css'
 
 
 // Helper

@@ -5,40 +5,33 @@ import "react-multi-date-picker/styles/layouts/mobile.css";
 import persianJs from "persianjs/persian.min";
 
 // Actions
-import { alertActions } from "../../../actions/alertActions";
-import { orderActions, customerActions } from "../../../actions";
+import { sellerActions } from "../../../actions";
 
 // Components
 import { Header } from "../base/header2";
 
 // Assets
 import downloadIcon from "../../assets/images/download.svg";
-import addIcon from "../../assets/images/order/add.svg";
+import deleteIcon from "../../assets/images/seller/delete.svg";
 
 export const AddSeller = (props) => {
   const [validated, setValidated] = useState(false);
   const [mobileValidated, setMobileValidated] = useState(false);
   const [nameValidated, setNameValidated] = useState(false);
-  const [modalContinueProcesses, setModalContinueProcesses] = useState(false);
-  const [order, insertOrder] = useState([]);
-  const [customer, setCustomer] = useState({
+  const [phoneValidated, setPhoneValidated] = useState(false);
+  const [seller, setSeller] = useState({
+    phone: "",
     mobile: "",
     family: "",
     company: "",
-    duration: "",
-    reminder: "",
+    cardNumber: "",
+    description: "",
     address: "",
   });
-  const [totalPrice, insertPrice] = useState("0");
-  const [selectedItem, setItem] = useState("");
-  const [quantity, setQuantity] = useState(1);
-  const [notes, setNotes] = useState([]);
-  const [showNotesModal, setShowNotesModal] = useState(false);
   const dispatch = useDispatch();
-  let oldCustomer = useSelector((state) => state.getCustomer.customer);
-  let { loading } = useSelector((state) => state.getCustomer);
-  let addOrderLoading = useSelector((state) => state.addOrder.loading);
-  let addOrder = useSelector((state) => state.addOrder);
+  let oldSeller = useSelector((state) => state.getSeller.data);
+  let { loading } = useSelector((state) => state.getSeller);
+  let addSellerLoading = useSelector((state) => state.addSeller.loading);
 
   let mobileHandler = (value) => {
     const number = value;
@@ -59,9 +52,10 @@ export const AddSeller = (props) => {
       return value;
     } else return undefined;
   };
-  let handleOldCustomer = (e) => {
+
+  let handelOldSeller = (e) => {
     e.preventDefault();
-    if (customer.mobile) dispatch(customerActions.getCustomer(customer.mobile));
+    if (seller.mobile) dispatch(sellerActions.getSeller(seller.mobile));
     else setMobileValidated(true);
   };
 
@@ -77,68 +71,53 @@ export const AddSeller = (props) => {
     if (name === "family") {
       value = nameHandler(value);
     }
-    setCustomer({ ...customer, [name]: value });
+    setSeller({ ...seller, [name]: value });
   };
 
   let formHandler = (e) => {
     e.preventDefault();
-    if (order.length && customer.family && customer.mobile) {
-      if (e.target.id === "saleOpprotunity")
-        dispatch(orderActions.addOrder(order, customer, notes, 3, 0));
-      else {
-        dispatch(orderActions.addOrder(order, customer, notes));
-      }
+    if (
+      seller.family &&
+      seller.mobile &&
+      seller.phone &&
+      seller.address &&
+      seller.cardNumber &&
+      seller.company
+    ) {
+      dispatch(sellerActions.addSeller(seller));
     } else {
-      if (customer.mobile && customer.family && !order.length)
-        dispatch(alertActions.error("لیست سفارشات خالی است"));
-      setTimeout(() => {
-        dispatch(alertActions.clear());
-      }, 1500);
-      console.log("empty order can not be sent");
       setValidated(true);
     }
   };
-  function clearInputes() {
-    setCustomer({
+
+  function clearInputs() {
+    setSeller({
+      phone: "",
       mobile: "",
-      address: "",
       family: "",
-      reminder: "",
-      duration: "",
       company: "",
-      lastAddress: "",
+      cardNumber: "",
+      description: "",
+      address: "",
     });
-    insertOrder([]);
-    setNotes([]);
-    insertPrice("0");
-    setItem("");
-    setQuantity(1);
-    oldCustomer = null;
+    oldSeller = null;
   }
 
   useEffect(() => {
-    if (oldCustomer?.mobile)
-      setCustomer({
-        ...customer,
-        ...oldCustomer,
-        address: oldCustomer.lastAddress,
+    if (oldSeller?.mobile)
+      setSeller({
+        ...seller,
+        ...oldSeller,
       });
-  }, [oldCustomer]);
+  }, [oldSeller]);
 
   useEffect(() => {
-    if (addOrderLoading == false && addOrder.error?.dialogTrigger == true) {
-      setModalContinueProcesses(true);
-    } else if (
-      addOrderLoading == false &&
-      addOrder.error?.dialogTrigger == undefined
-    ) {
-      clearInputes();
-    }
-  }, [addOrderLoading]);
+    addSellerLoading == false && clearInputs();
+  }, [addSellerLoading]);
 
   useEffect(() => {
     if (props.location?.state?.mobile) {
-      setCustomer({ ...customer, ...props.location.state });
+      setSeller({ ...seller, ...props.location.state });
     }
   }, []);
 
@@ -146,44 +125,71 @@ export const AddSeller = (props) => {
     <div className="order-page">
       <Header title="ثبت فروشنده" backLink="/dashboard" />
       <Container fluid className="pt-3 px-3 m-0">
-        <Form onSubmit={formHandler} noValidate>
+        <Form fluid onSubmit={formHandler} noValidate>
           <Row className="m-0 p-0 mt-2 order-inputs">
             <Col className="p-0 col-5 add-order-input">
               <Form.Group>
                 <Form.Label className="pe-2">تلفن</Form.Label>
                 <Form.Control
                   className="order-input"
-                  type="text"
-                  name="family"
+                  type="tel"
+                  inputMode="tel"
+                  pattern="[0-9 ۰-۹]*"
+                  name="phone"
                   onChange={handleChange}
                   isInvalid={
-                    (!customer.family && validated) || (nameValidated && true)
+                    (!seller.phone && validated) || (phoneValidated && true)
                   }
                   isValid={
-                    (customer.family && validated) ||
-                    (nameValidated && customer.family && true)
+                    (seller.phone && validated) ||
+                    (phoneValidated && seller.phone && true)
                   }
-                  value={customer.family}
+                  value={seller.phone}
                   required
+                />
+                <img
+                  src={deleteIcon}
+                  className="m-0 p-0 remove--btn--mobile"
+                  onClick={(e) => setSeller({...seller, phone: ""})}
+                  height="20px"
+                  alt="delete-icon"
                 />
               </Form.Group>
             </Col>
             <Col className="p-0 col-5 me-auto add-order-input">
-              <Form.Group controlId="birthday">
+              <Form.Group>
                 <Form.Label className="pe-2">همراه</Form.Label>
-
                 <Form.Control
                   className="order-input"
-                  type="text"
-                  name="company"
+                  type="tel"
+                  inputMode="tel"
+                  pattern="[0-9 ۰-۹]*"
+                  name="mobile"
                   onChange={handleChange}
-                  value={customer.company}
+                  value={seller.mobile}
                 />
+                {loading ? (
+                  <Spinner
+                    className="download--seller--btn--mobile "
+                    as="div"
+                    variant="primary"
+                    animation="border"
+                    size="sm"
+                  />
+                ) : (
+                  <img
+                    src={downloadIcon}
+                    className="m-0 p-0 download--seller--btn--mobile"
+                    onClick={(e) => handelOldSeller(e)}
+                    height="25px"
+                    alt="down-icon"
+                  />
+                )}
               </Form.Group>
             </Col>
           </Row>
 
-          <Row className="m-0 p-0 mt-2 order-inputs">
+          <Row className="m-0 p-0 mt-3 order-inputs">
             <Col className="p-0 col-5 add-order-input">
               <Form.Group>
                 <Form.Label className="pe-2">نام فروشنده</Form.Label>
@@ -193,90 +199,96 @@ export const AddSeller = (props) => {
                   name="family"
                   onChange={handleChange}
                   isInvalid={
-                    (!customer.family && validated) || (nameValidated && true)
+                    (!seller.family && validated) || (nameValidated && true)
                   }
                   isValid={
-                    (customer.family && validated) ||
-                    (nameValidated && customer.family && true)
+                    (seller.family && validated) ||
+                    (nameValidated && seller.family && true)
                   }
-                  value={customer.family}
+                  value={seller.family}
                   required
                 />
               </Form.Group>
             </Col>
             <Col className="p-0 col-5 me-auto add-order-input">
-              <Form.Group controlId="birthday">
+              <Form.Group>
                 <Form.Label className="pe-2">نام مجموعه</Form.Label>
-
                 <Form.Control
                   className="order-input"
                   type="text"
                   name="company"
                   onChange={handleChange}
-                  value={customer.company}
+                  value={seller.company}
                 />
               </Form.Group>
             </Col>
           </Row>
 
-
-          <Row className="m-0 p-0 mt-2 order-inputs">
+          <Row className="m-0 p-0 mt-3 order-inputs">
             <Col className="p-0 add-order-input">
-              <Form.Group controlId="address">
+              <Form.Group>
                 <Form.Label className="pe-2">شماره کارت</Form.Label>
                 <Form.Control
                   className="order-input"
-                  type="text"
-                  name="address"
+                  type="tel"
+                  inputMode="tel"
+                  pattern="[0-9 ۰-۹]*"
+                  name="cardNumber"
                   onChange={handleChange}
                   isInvalid={false}
                   isValid={false}
-                  value={customer.address}
+                  value={seller.cardNumber}
                 />
               </Form.Group>
             </Col>
           </Row>
 
-           
-          <Row className="m-0 p-0 mt-2 order-inputs">
+          <Row className="m-0 p-0 mt-3 order-inputs">
             <Col className="p-0 add-order-input">
-              <Form.Group controlId="address">
+              <Form.Group>
                 <Form.Label className="pe-2">آدرس</Form.Label>
                 <Form.Control
                   className="radius-10 border-0 h-100"
                   as="textarea"
                   rows="3"
+                  name="address"
                   onChange={handleChange}
                   isInvalid={false}
                   isValid={false}
-                  value={customer.address}
+                  value={seller.address}
                 />
               </Form.Group>
             </Col>
           </Row>
 
-
-          <Row className="m-0 p-0 mt-2 order-inputs">
+          <Row className="m-0 p-0 mt-3 order-inputs mb-4">
             <Col className="p-0 add-order-input">
-              <Form.Group controlId="address">
+              <Form.Group>
                 <Form.Label className="pe-2">توضیحات</Form.Label>
                 <Form.Control
                   className="radius-16 border-0 h-100"
                   as="textarea"
                   rows="3"
-                  name="address"
+                  name="description"
                   onChange={handleChange}
                   isInvalid={false}
                   isValid={false}
-                  value={customer.address}
+                  value={seller.description}
                 />
               </Form.Group>
             </Col>
           </Row>
 
-
-          <Row className="m-0 mt-4 justify-content-center w-100">
-            {addOrderLoading ? (
+          <Row
+            className="m-0 p-0 mt-4 justify-content-center"
+            style={{
+              position: "absolute",
+              bottom: "30px",
+              right: "13px",
+              left: "13px",
+            }}
+          >
+            {addSellerLoading ? (
               <Button
                 className="fw-bold order--btn order-submit border-0 w-100"
                 size="lg"
@@ -294,29 +306,18 @@ export const AddSeller = (props) => {
               </Button>
             ) : (
               <>
-              <Button
-                className="radius-10 fs-6 py-2 fw-bold backround--dark--blue border-0 w-100 mt-4"
-                size="lg"
-                type="submit"
-                block
-                onClick={formHandler}
-              >
-                ثبت
-              </Button>
+                <Button
+                  className="radius-10 fs-6 py-2 fw-bold backround--dark--blue border-0 mt-4"
+                  size="lg"
+                  type="submit"
+                  block
+                  onClick={formHandler}
+                >
+                  ثبت
+                </Button>
               </>
             )}
           </Row>
-          {/* {
-                        alertMessage &&
-                        <>
-                            <div className="modal-backdrop show"></div>
-                            <Row className="justify-content-center text-center ">
-                                <Alert variant={alerType}>
-                                    {alertMessage}
-                                </Alert>
-                            </Row>
-                        </>
-                    } */}
         </Form>
       </Container>
     </div>
