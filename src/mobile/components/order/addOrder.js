@@ -420,7 +420,6 @@ export const AddOrder = (props) => {
                     size="lg"
                     type="submit"
                     block
-                    onClick={formHandler}
                   >
                     پشتیبانی
                   </Button>
