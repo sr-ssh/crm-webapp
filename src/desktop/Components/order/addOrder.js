@@ -9,7 +9,17 @@ import {
   Alert,
   Spinner,
 } from "react-bootstrap";
+// Date Picker Components
+import DatePicker from "react-multi-date-picker";
+import TimePicker from "react-multi-date-picker/plugins/time_picker";
+
+import moment from "jalali-moment";
 import persianJs from "persianjs/persian.min";
+
+// Form Validator
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 // Actions
 import { alertActions } from "../../../actions/alertActions";
@@ -25,12 +35,42 @@ import { ModalContinueProcessesAddOrder } from "./modalContinueProcesses";
 import downloadIcon from "../../assets/images/download.svg";
 import addIcon from "../../assets/images/order/add.svg";
 
+// Validation Schema Form
+const validationSchema = yup.object().shape({
+  customer: yup.object({
+    family: yup.string().required(),
+    phoneNumber: yup.string().required().min(1),
+    company: yup.string(),
+  }),
+  seller: yup.object({
+    family: yup.string(),
+    mobile: yup.string(),
+  }),
+  address: yup.string(),
+  mobile: yup.string(),
+  duration: yup.date(),
+  reminder: yup.number(),
+});
+
 export const AddOrder = (props) => {
+  const {
+    register,
+    setValue,
+    getValues,
+    reset,
+    formState: { errors },
+  } = useForm({
+    mode: "all",
+    criteriaMode: "all",
+    resolver: yupResolver(validationSchema),
+  });
+
+  const refDatePicker = useRef();
   const [validated, setValidated] = useState(false);
   const [mobileValidated, setMobileValidated] = useState(false);
   const [nameValidated, setNameValidated] = useState(false);
   const [order, insertOrder] = useState([]);
-  const [customer, setCustomer] = useState({ birthday: "" });
+  const [customer, setCustomer] = useState({});
   const [totalPrice, insertPrice] = useState("0");
   const [selectedItem, setItem] = useState("");
   const [quantity, setQuantity] = useState(1);
@@ -71,8 +111,8 @@ export const AddOrder = (props) => {
 
   let handleChange = (e) => {
     e.preventDefault();
-    let value = e.target.value;
-    let name = e.target.name;
+    let { value, id, type, name } = e.target;
+
     if (name === "mobile") {
       value = value
         ? mobileHandler(persianJs(value).toEnglishNumber().toString())
@@ -84,20 +124,27 @@ export const AddOrder = (props) => {
     setCustomer({ ...customer, [name]: value });
   };
 
-  let formHandler = (e) => {
+  let formHandler = async (e) => {
     e.preventDefault();
-    debugger
-    if (order.length && customer.family && customer.mobile) {
-        dispatch(orderActions.addOrder(order, customer, notes, 3, 0));
-    } else {
-      if (customer.mobile && customer.family && !order.length)
-        dispatch(alertActions.error("لیست سفارشات خالی است"));
-      setTimeout(() => {
-        dispatch(alertActions.clear());
-      }, 1500);
-      console.log("empty order can not be sent");
-      setValidated(true);
+    let values = getValues();
+    if (values.customer.phoneNumber == "" || values.customer.family == "") {
+      return;
     }
+    for (let x in values) {
+      if (x == "customer") {
+        values[x].phoneNumber = values[x].phoneNumber.replaceAll(/\s/g, "");
+        values[x].phoneNumber = persianJs(values[x].phoneNumber).toEnglishNumber().toString();
+      } else if (x == "seller") {
+        values[x].mobile = values[x].mobile.replaceAll(/\s/g, "");
+        values[x].mobile = values[x].mobile ?  persianJs(values[x].mobile).toEnglishNumber().toString() : ""
+      } else if (x == "mobile") {
+        values[x] = values[x].replaceAll(/\s/g, "");
+        values[x] = values[x] ? persianJs(values[x]).toEnglishNumber().toString() : delete values[x] 
+      }
+    }
+    debugger;
+
+    dispatch()
   };
   let noteHandler = (e) => {
     if (notes.length > 0) {
@@ -152,6 +199,16 @@ export const AddOrder = (props) => {
     }
   }, []);
 
+  const submitCalendar = (value, name) => {
+    // debugger
+    let date = `${value.year}/${value.month.number}/${value.day}`;
+    date = moment
+      .from(date, "fa", "YYYY/MM/DD")
+      .locale("en")
+      .format("YYYY-MM-DD");
+    // setFilters({ ...filters, [name]: date })
+  };
+
   return (
     <>
       <Header isBTNSearch={false} isBTNRequest={false} />
@@ -173,7 +230,10 @@ export const AddOrder = (props) => {
                     <Form.Control
                       className="order-input notes-round"
                       type="tel"
-                      name="mobile"
+                      // id="customer"
+                      // name="phoneNumber"
+                      {...register("customer.phoneNumber")}
+                      inputMode="tel"
                       isInvalid={
                         (!customer.mobile && validated) ||
                         (mobileValidated && true)
@@ -182,9 +242,8 @@ export const AddOrder = (props) => {
                         (customer.mobile && validated) ||
                         (mobileValidated && customer.mobile && true)
                       }
-                      onChange={handleChange}
-                      value={customer.mobile}
-                      required
+                      // onChange={handleChange}
+                      // value={customer.mobile}
                     />
                     {loading ? (
                       <Spinner
@@ -212,19 +271,21 @@ export const AddOrder = (props) => {
                     </Form.Label>
                     <Form.Control
                       className="order-input notes-round"
-                      type="text"
-                      name="family"
-                      onChange={handleChange}
-                      isInvalid={
-                        (!customer.family && validated) ||
-                        (nameValidated && true)
-                      }
-                      isValid={
-                        (customer.family && validated) ||
-                        (nameValidated && customer.family && true)
-                      }
-                      value={customer.family}
-                      required
+                      type="tel"
+                      // inputMode="tel"
+                      // pattern="[۰۱۲۳۴۵۶۷۸۹0-9]*"
+                      // name="mobile"
+                      {...register("mobile")}
+                      // onChange={handleChange}
+                      // isInvalid={
+                      //   (!customer.family && validated) ||
+                      //   (nameValidated && true)
+                      // }
+                      // isValid={
+                      //   (customer.family && validated) ||
+                      //   (nameValidated && customer.family && true)
+                      // }
+                      // value={customer.family}
                     />
                   </Form.Group>
                 </Col>
@@ -234,9 +295,11 @@ export const AddOrder = (props) => {
                     <Form.Control
                       className="order-input notes-round"
                       type="text"
-                      name="company"
-                      onChange={handleChange}
-                      value={customer.company}
+                      id="customer"
+                      name="family"
+                      {...register("customer.family")}
+                      // onChange={handleChange}
+                      // value={customer.company}
                     />
                   </Form.Group>
                 </Col>
@@ -246,9 +309,11 @@ export const AddOrder = (props) => {
                     <Form.Control
                       className="order-input notes-round"
                       type="text"
+                      id="customer"
                       name="company"
-                      onChange={handleChange}
-                      value={customer.company}
+                      {...register("customer.company")}
+                      // onChange={handleChange}
+                      // value={customer.company}
                     />
                   </Form.Group>
                 </Col>
@@ -260,9 +325,11 @@ export const AddOrder = (props) => {
                     <Form.Control
                       className="order-input notes-round"
                       type="text"
-                      name="company"
-                      onChange={handleChange}
-                      value={customer.company}
+                      id="seller"
+                      name="mobile"
+                      {...register("seller.mobile")}
+                      // onChange={handleChange}
+                      // value={customer.company}
                     />
                   </Form.Group>
                 </Col>
@@ -272,9 +339,11 @@ export const AddOrder = (props) => {
                     <Form.Control
                       className="order-input notes-round"
                       type="text"
-                      name="company"
-                      onChange={handleChange}
-                      value={customer.company}
+                      id="seller"
+                      name="family"
+                      {...register("seller.family")}
+                      // onChange={handleChange}
+                      // value={customer.company}
                     />
                   </Form.Group>
                 </Col>
@@ -285,10 +354,11 @@ export const AddOrder = (props) => {
                       className="order-input notes-round"
                       type="text"
                       name="address"
+                      {...register("address")}
                       onChange={handleChange}
                       isInvalid={false}
                       isValid={false}
-                      value={customer.address}
+                      // value={address}
                     />
                   </Form.Group>
                 </Col>
@@ -344,16 +414,19 @@ export const AddOrder = (props) => {
                       <Form.Label className="pe-1 text-nowrap">
                         تاریخ استفاده (آماده سازی)
                       </Form.Label>
-                      <Form.Control
-                        className="order-input me-2 notes-round"
-                        type="number"
-                        min="0"
-                        name="duration"
-                        onChange={handleChange}
-                        isInvalid={false}
-                        isValid={false}
-                        value={customer.duration}
-                        required
+                      <DatePicker
+                        format="MM/DD/YYYY HH:mm:ss"
+                        // className="rmdp-mobile"
+                        inputClass="pick--date--order--input"
+                        // disabled={true}
+                        ref={refDatePicker}
+                        plugins={[<TimePicker position="bottom" hideSeconds />]}
+                        calendar="persian"
+                        locale="fa"
+                        editable={false}
+                        animation
+                        calendarPosition="bottom-right"
+                        // onChange={value => submitCalendar(value, 'duration')}
                       />
                     </Form.Group>
                   </Col>
@@ -370,10 +443,11 @@ export const AddOrder = (props) => {
                         type="number"
                         name="reminder"
                         min="0"
-                        onChange={handleChange}
-                        isInvalid={false}
-                        isValid={false}
-                        value={customer.reminder}
+                        {...register("reminder")}
+                        // onChange={handleChange}
+                        // isInvalid={false}
+                        // isValid={false}
+                        // value={customer.reminder}
                       />
                     </Form.Group>
                   </Col>
