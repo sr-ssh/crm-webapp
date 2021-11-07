@@ -128,7 +128,7 @@ export const AddSeller = (props) => {
         <Form fluid onSubmit={formHandler} noValidate>
           <Row className="m-0 p-0 mt-2 order-inputs">
             <Col className="p-0 col-5 add-order-input">
-              <Form.Group>
+              <Form.Group className="p--relative">
                 <Form.Label className="pe-2">تلفن</Form.Label>
                 <Form.Control
                   className="order-input"

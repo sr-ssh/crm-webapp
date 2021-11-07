@@ -6,7 +6,7 @@
 }
 .remove--btn--mobile{
   position: absolute;
-  right: 187px;
-  top: 118px;
+  left: 8px;
+  top: 32px;
   background-color: white;
 }
