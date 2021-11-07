@@ -186,27 +186,27 @@ function cancelProductOrder(orderId, productId) {
 
 }
 
-function addOrder(products, customer, notes, status , force) {
+function addOrder(products, info, seller, notes, force) {
     console.log("into orderService");
 
-    let reminder, address, duration;
-    if (!customer.address)
-        address = " ";
-    else address = customer.address
-    if (!customer.duration)
-        duration = -1;
-    else duration = customer.duration
-    if (!customer.reminder)
-        reminder = -1;
-    else reminder = customer.reminder
+    let reminder, address, duration, mobile;
+    if (info.address) address = info.address
+    if (info.duration) duration = info.duration
+    if (info.reminder) reminder = info.reminder
+    if (info.guestMobile) mobile = info.guestMobile
+    let customer = {
+        family: info.family,
+        phoneNumber: info.mobile,
+        company: info.company
+    }
 
     const requestOptions = {
         headers: authHeader(),
-        body: { products, customer, reminder, duration, address, notes, status  ,force }
+        body: { products, customer, seller, mobile, reminder, duration, address, notes, force }
     };
 
     return axios
-        .post(`${baseRoute}/order/v1`, requestOptions.body, { headers: requestOptions.headers })
+        .post(`${baseRoute}/order`, requestOptions.body, { headers: requestOptions.headers })
         .then(res => {
             console.log("res.user >> ");
             console.log(res.data);

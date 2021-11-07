@@ -103,11 +103,7 @@ export const AddOrder = (props) => {
   let formHandler = (e) => {
     e.preventDefault();
     if (order.length && customer.family && customer.mobile) {
-      if (e.target.id === "saleOpprotunity")
-        dispatch(orderActions.addOrder(order, customer, notes, 3, 0, seller));
-      else {
-        dispatch(orderActions.addOrder(order, customer, notes));
-      }
+        dispatch(orderActions.addOrder(order, customer, seller, notes, 0, seller));
     } else {
       if (customer.mobile && customer.family && !order.length)
         dispatch(alertActions.error("لیست سفارشات خالی است"));
