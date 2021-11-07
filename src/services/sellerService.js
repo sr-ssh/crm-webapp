@@ -67,7 +67,6 @@ function getSellers(filter = {}) {
   if (filter.phone === "" || !filter.phone) filter.phone = " ";
   if (filter.mobile === "" || !filter.mobile) filter.mobile = " ";
   if (filter.address === "" || !filter.address) filter.address = " ";
-  debugger;
   return axios
     .get(
       `${baseRoute}/seller/${encodeURI(filter.company)}/${encodeURI(

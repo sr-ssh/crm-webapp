@@ -13,7 +13,7 @@ export const Seller = ({ seller }) => {
             <Card.Body className="py-2 px-0">
               <Row>
                 <Col className="col-5 ps-0 ms-0">
-                  <Card.Text>ثبت شده توسط بازاریاب:</Card.Text>
+                  <Card.Text>ثبت شده توسط :</Card.Text>
                 </Col>
                 <Col dir="ltr" className="col-7">
                   <Card.Text>
