@@ -205,3 +205,7 @@ body {
   box-shadow: none;
   background-color: #c2ccd7 !important;
 }
+
+.cursor-pointer{
+  cursor: pointer !important;
+}

@@ -14,7 +14,22 @@ export const ModalContinueProcessesAddOrder = (props) => {
 
   const editHandler = (e) => {
     e.preventDefault();
-    dispatch(orderActions.addOrder(props.order , props.customer ,  props.notes, 3 , 1 ))
+    let {address ,mobile , reminder,seller, customer , duration} = props.customer
+    dispatch(
+      orderActions.addOrder(
+        props.order,
+        {
+          ...customer,
+          duration: duration ,
+          reminder: reminder,
+          address: address,
+          guestMobile: mobile,
+        },
+        seller,
+        props.notes,
+        1
+      )
+    );
     setTimeout(() => {
       props.onHide(false);
       props.clearInputes()
@@ -23,7 +38,6 @@ export const ModalContinueProcessesAddOrder = (props) => {
   return (
     <Modal
       {...props}
-      // size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
       backdrop="static"

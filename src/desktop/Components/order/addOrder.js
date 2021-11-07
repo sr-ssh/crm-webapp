@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Container,
@@ -34,6 +34,7 @@ import { ModalContinueProcessesAddOrder } from "./modalContinueProcesses";
 // Assets
 import downloadIcon from "../../assets/images/download.svg";
 import addIcon from "../../assets/images/order/add.svg";
+import closeDatePickerIcon from "../../assets/images/order/closeDatePicker.svg";
 
 // Validation Schema Form
 const validationSchema = yup.object().shape({
@@ -49,7 +50,7 @@ const validationSchema = yup.object().shape({
   address: yup.string(),
   mobile: yup.string(),
   duration: yup.date(),
-  reminder: yup.number(),
+  reminder: yup.string(),
 });
 
 export const AddOrder = (props) => {
@@ -58,6 +59,7 @@ export const AddOrder = (props) => {
     setValue,
     getValues,
     reset,
+    watch,
     formState: { errors },
   } = useForm({
     mode: "all",
@@ -83,7 +85,6 @@ export const AddOrder = (props) => {
   let addOrderLoading = useSelector((state) => state.addOrder.loading);
   let addOrder = useSelector((state) => state.addOrder);
   const sideBar = useSelector((state) => state.sideBar);
-
   let mobileHandler = (value) => {
     const number = value;
     // const patt = /^(09)(\d{9})/m;
@@ -127,10 +128,13 @@ export const AddOrder = (props) => {
   let formHandler = async (e) => {
     e.preventDefault();
     let values = getValues();
-    if (
-      (order.length && values.customer.phoneNumber == "") ||
-      values.customer.family == ""
-    ) {
+    if (values.customer.phoneNumber == "" || values.customer.family == "") {
+      return;
+    } else if (order.length < 1) {
+      dispatch(alertActions.error("لیست سفارشات خالی است"));
+      setTimeout(() => {
+        dispatch(alertActions.clear());
+      }, 1500);
       return;
     }
     for (let x in values) {
@@ -145,13 +149,14 @@ export const AddOrder = (props) => {
         values[x].mobile = values[x].mobile
           ? persianJs(values[x].mobile).toEnglishNumber().toString()
           : "";
-      } else if (x == "mobile") {
+      } else if (x == "mobile" || x == "reminder") {
         values[x] = values[x].replaceAll(/\s/g, "");
         values[x] = values[x]
           ? persianJs(values[x]).toEnglishNumber().toString()
           : "";
       }
     }
+
     dispatch(
       orderActions.addOrder(
         order,
@@ -167,7 +172,6 @@ export const AddOrder = (props) => {
         0
       )
     );
-    reset()
   };
   let noteHandler = (e) => {
     if (notes.length > 0) {
@@ -179,6 +183,7 @@ export const AddOrder = (props) => {
   };
 
   function clearInputes() {
+    reset();
     setCustomer({
       mobile: "",
       address: "",
@@ -218,19 +223,27 @@ export const AddOrder = (props) => {
 
   useEffect(() => {
     if (props.location?.state?.mobile) {
-      setCustomer({ ...customer, ...props.location.state });
+      setValue("customer.phoneNumber", props.location.state?.mobile, {
+        shouldValidate: true,
+      });
+      if (props.location?.state.family != "") {
+        setValue("customer.family", props.location.state?.family, {
+          shouldValidate: true,
+        });
+      }
     }
   }, []);
 
   const submitCalendar = (value, name) => {
-    // debugger
-    let date = `${value.year}/${value.month.number}/${value.day}`;
-    date = moment
-      .from(date, "fa", "YYYY/MM/DD")
-      .locale("en")
-      .format("YYYY-MM-DD");
-    // setFilters({ ...filters, [name]: date })
+    let date = `${value.year}/${value.month.number}/${value.day} ${value.hour}:${value.minute}`;
+    setValue(
+      "duration",
+      new Date(
+        moment.from(date, "fa", "YYYY/M/D HH:mm").format("YYYY-MM-D HH:mm:ss")
+      ).toISOString()
+    );
   };
+  // console.log(watch("duration"));
 
   return (
     <>
@@ -253,20 +266,14 @@ export const AddOrder = (props) => {
                     <Form.Control
                       className="order-input notes-round"
                       type="tel"
-                      // id="customer"
-                      // name="phoneNumber"
                       {...register("customer.phoneNumber")}
                       inputMode="tel"
-                      isInvalid={
-                        (!customer.mobile && validated) ||
-                        (mobileValidated && true)
-                      }
+                      isInvalid={errors?.customer?.phoneNumber ? true : false}
                       isValid={
-                        (customer.mobile && validated) ||
-                        (mobileValidated && customer.mobile && true)
+                        Object.keys(errors).length != 0 &&
+                        errors?.customer?.phoneNumber == undefined &&
+                        true
                       }
-                      // onChange={handleChange}
-                      // value={customer.mobile}
                     />
                     {loading ? (
                       <Spinner
@@ -280,7 +287,7 @@ export const AddOrder = (props) => {
                       <img
                         src={downloadIcon}
                         className="m-0 p-0  spinner--download--btn--desktop"
-                        onClick={(e) => handleOldCustomer(e)}
+                        // onClick={(e) => handleOldCustomer(e)}
                         height="25px"
                         alt="down-icon"
                       />
@@ -295,25 +302,12 @@ export const AddOrder = (props) => {
                     <Form.Control
                       className="order-input notes-round"
                       type="tel"
-                      // inputMode="tel"
-                      // pattern="[۰۱۲۳۴۵۶۷۸۹0-9]*"
-                      // name="mobile"
                       {...register("mobile")}
-                      // onChange={handleChange}
-                      // isInvalid={
-                      //   (!customer.family && validated) ||
-                      //   (nameValidated && true)
-                      // }
-                      // isValid={
-                      //   (customer.family && validated) ||
-                      //   (nameValidated && customer.family && true)
-                      // }
-                      // value={customer.family}
                     />
                   </Form.Group>
                 </Col>
                 <Col className=" col-3  add-order-input--desktop">
-                  <Form.Group controlId="birthday">
+                  <Form.Group>
                     <Form.Label className="me-3">نام مشتری </Form.Label>
                     <Form.Control
                       className="order-input notes-round"
@@ -321,13 +315,17 @@ export const AddOrder = (props) => {
                       id="customer"
                       name="family"
                       {...register("customer.family")}
-                      // onChange={handleChange}
-                      // value={customer.company}
+                      isInvalid={errors?.customer?.family ? true : false}
+                      isValid={
+                        Object.keys(errors).length != 0 &&
+                        errors?.customer?.family == undefined &&
+                        true
+                      }
                     />
                   </Form.Group>
                 </Col>
                 <Col className=" col-3 add-order-input--desktop">
-                  <Form.Group controlId="birthday">
+                  <Form.Group>
                     <Form.Label className="me-3">نام مجموعه</Form.Label>
                     <Form.Control
                       className="order-input notes-round"
@@ -335,15 +333,13 @@ export const AddOrder = (props) => {
                       id="customer"
                       name="company"
                       {...register("customer.company")}
-                      // onChange={handleChange}
-                      // value={customer.company}
                     />
                   </Form.Group>
                 </Col>
               </Row>
               <Row className="col-12 m-0 p-0 mt-5 order-inputs d-flex flex-row  align-items-center">
                 <Col className=" col-3 add-order-input--desktop">
-                  <Form.Group controlId="birthday">
+                  <Form.Group>
                     <Form.Label className="me-3">شماره فروشنده</Form.Label>
                     <Form.Control
                       className="order-input notes-round"
@@ -351,13 +347,11 @@ export const AddOrder = (props) => {
                       id="seller"
                       name="mobile"
                       {...register("seller.mobile")}
-                      // onChange={handleChange}
-                      // value={customer.company}
                     />
                   </Form.Group>
                 </Col>
                 <Col className=" col-3  add-order-input--desktop">
-                  <Form.Group controlId="birthday">
+                  <Form.Group>
                     <Form.Label className="me-3">نام فروشنده</Form.Label>
                     <Form.Control
                       className="order-input notes-round"
@@ -365,13 +359,11 @@ export const AddOrder = (props) => {
                       id="seller"
                       name="family"
                       {...register("seller.family")}
-                      // onChange={handleChange}
-                      // value={customer.company}
                     />
                   </Form.Group>
                 </Col>
                 <Col className="col-6  add-order-input--desktop">
-                  <Form.Group controlId="address">
+                  <Form.Group>
                     <Form.Label className="me-3">آدرس</Form.Label>
                     <Form.Control
                       className="order-input notes-round"
@@ -381,7 +373,6 @@ export const AddOrder = (props) => {
                       onChange={handleChange}
                       isInvalid={false}
                       isValid={false}
-                      // value={address}
                     />
                   </Form.Group>
                 </Col>
@@ -433,24 +424,40 @@ export const AddOrder = (props) => {
                   style={{ height: "fit-content" }}
                 >
                   <Col className="m-0 col-6 order-inputs">
-                    <Form.Group controlId="duration">
+                    <Form.Group className="p--relative">
                       <Form.Label className="pe-1 text-nowrap">
                         تاریخ استفاده (آماده سازی)
                       </Form.Label>
-                      <DatePicker
-                        format="MM/DD/YYYY HH:mm:ss"
-                        // className="rmdp-mobile"
-                        inputClass="pick--date--order--input"
-                        // disabled={true}
-                        ref={refDatePicker}
-                        plugins={[<TimePicker position="bottom" hideSeconds />]}
-                        calendar="persian"
-                        locale="fa"
-                        editable={false}
-                        animation
-                        calendarPosition="bottom-right"
-                        // onChange={value => submitCalendar(value, 'duration')}
-                      />
+                      <Col className="m-0 p-0 col-12 d-flex align-items-center bg-light notes-round">
+                        <DatePicker
+                          format="MM/DD/YYYY HH:mm:ss"
+                          inputClass="pick--date--order--input"
+                          {...register("duration")}
+                          ref={refDatePicker}
+                          plugins={[
+                            <TimePicker position="bottom" hideSeconds />,
+                          ]}
+                          calendar="persian"
+                          locale="fa"
+                          editable={false}
+                          animation
+                          minDate={new Date()}
+                          calendarPosition="bottom-right"
+                          value={getValues("duration")}
+                          onChange={(value) =>
+                            submitCalendar(value, "duration")
+                          }
+                        />
+                        <Col className="m-0 p-0 col-2">
+                          <img
+                            src={closeDatePickerIcon}
+                            className="m-0 p-0  cursor-pointer"
+                            onClick={(e) => reset({ duration: null })}
+                            height="20px"
+                            alt="down-icon"
+                          />
+                        </Col>
+                      </Col>
                     </Form.Group>
                   </Col>
                 </Col>
@@ -459,18 +466,13 @@ export const AddOrder = (props) => {
                   style={{ height: "fit-content" }}
                 >
                   <Col className="m-0 col-6 order-inputs">
-                    <Form.Group controlId="reminder">
+                    <Form.Group>
                       <Form.Label className="pe-1">تاریخ یادآوری</Form.Label>
                       <Form.Control
                         className="text-center order-input notes-round"
-                        type="number"
+                        type="tel"
                         name="reminder"
-                        min="0"
                         {...register("reminder")}
-                        // onChange={handleChange}
-                        // isInvalid={false}
-                        // isValid={false}
-                        // value={customer.reminder}
                       />
                     </Form.Group>
                   </Col>
@@ -478,9 +480,7 @@ export const AddOrder = (props) => {
                     xs={2}
                     className="align-self-center m-0 mt-4 col-2 text-center  order-input"
                   >
-                    <span className="reminder-span fs-7 text-muted fw-bold">
-                      روز دیگر
-                    </span>
+                    <span className="fs-7 text-muted fw-bold">روز دیگر</span>
                   </Col>
                 </Col>
               </Row>
@@ -548,7 +548,7 @@ export const AddOrder = (props) => {
             setModalContinueProcesses(false);
           }}
           order={order}
-          customer={customer}
+          customer={getValues()}
           notes={notes}
           clearInputes={clearInputes}
         />
