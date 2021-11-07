@@ -127,24 +127,47 @@ export const AddOrder = (props) => {
   let formHandler = async (e) => {
     e.preventDefault();
     let values = getValues();
-    if (values.customer.phoneNumber == "" || values.customer.family == "") {
+    if (
+      (order.length && values.customer.phoneNumber == "") ||
+      values.customer.family == ""
+    ) {
       return;
     }
     for (let x in values) {
       if (x == "customer") {
         values[x].phoneNumber = values[x].phoneNumber.replaceAll(/\s/g, "");
-        values[x].phoneNumber = persianJs(values[x].phoneNumber).toEnglishNumber().toString();
+        values[x].mobile = persianJs(values[x].phoneNumber)
+          .toEnglishNumber()
+          .toString();
+        delete values[x].phoneNumber;
       } else if (x == "seller") {
         values[x].mobile = values[x].mobile.replaceAll(/\s/g, "");
-        values[x].mobile = values[x].mobile ?  persianJs(values[x].mobile).toEnglishNumber().toString() : ""
+        values[x].mobile = values[x].mobile
+          ? persianJs(values[x].mobile).toEnglishNumber().toString()
+          : "";
       } else if (x == "mobile") {
         values[x] = values[x].replaceAll(/\s/g, "");
-        values[x] = values[x] ? persianJs(values[x]).toEnglishNumber().toString() : delete values[x] 
+        values[x] = values[x]
+          ? persianJs(values[x]).toEnglishNumber().toString()
+          : "";
       }
     }
-    debugger;
-
-    dispatch()
+    dispatch(
+      orderActions.addOrder(
+        order,
+        {
+          ...values.customer,
+          duration: "",
+          reminder: values.reminder,
+          address: values.address,
+          guestMobile: values.mobile,
+        },
+        values.seller,
+        notes,
+        0
+      )
+    );
+    reset()
   };
   let noteHandler = (e) => {
     if (notes.length > 0) {
