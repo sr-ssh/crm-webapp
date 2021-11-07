@@ -17,7 +17,7 @@ export const Seller = ({ seller }) => {
                 </Col>
                 <Col dir="ltr" className="col-7">
                   <Card.Text>
-                    <span>{seller.marketer.family}</span>
+                    <span>{seller.marketer?.family}</span>
                   </Card.Text>
                 </Col>
               </Row>

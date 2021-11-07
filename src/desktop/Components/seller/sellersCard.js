@@ -28,7 +28,7 @@ export const SellersCard = ({ data, ...props }) => {
                 <Col className="col-12 ps-0 ms-0 d-flex ">
                   ثبت شده توسط :{" "}
                   <span className="ms-3 me-auto align-self-end">
-                    {data.marketer.family}
+                    {data.marketer?.family}
                   </span>
                 </Col>
               </Row>

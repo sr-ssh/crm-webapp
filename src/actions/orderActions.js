@@ -217,10 +217,10 @@ function cancelProductOrder(orderId, productId) {
 
     }
 }
-function addOrder(products, customer, notes, status = '' , force = 0) {
+function addOrder(products, customer, seller, notes, force = 0) {
     return dispatch => {
         dispatch(request())
-        orderService.addOrder(products, customer, notes, status , force)
+        orderService.addOrder(products, customer, seller, notes , force)
             .then(
                 res => {
                     console.log(res)

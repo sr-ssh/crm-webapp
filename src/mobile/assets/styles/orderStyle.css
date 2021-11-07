@@ -9,6 +9,9 @@
 .add-order-download-btn {
   background-color: white;
   border-radius: 11px;
+  position: absolute;
+  top: 105px;
+  right: 169px;
 }
 
 .add-order-download-btn:active {
@@ -212,6 +215,9 @@
 }
 .reminder-span {
   font-size: 9px;
+  position: absolute;
+  top: 866px;
+  left: 37px;
 }
 
 .background-blue {
