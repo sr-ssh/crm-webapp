@@ -190,8 +190,6 @@ function addOrder(products, customer, notes, status , force) {
     console.log("into orderService");
 
     let reminder, address, duration;
-    if (!customer.birthday)
-        customer.birthday = "1900-01-01T05:42:13.845Z";
     if (!customer.address)
         address = " ";
     else address = customer.address
