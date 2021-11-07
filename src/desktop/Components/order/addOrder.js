@@ -9,9 +9,6 @@ import {
   Alert,
   Spinner,
 } from "react-bootstrap";
-import DatePicker from "react-multi-date-picker";
-import moment from "jalali-moment";
-import "react-multi-date-picker/styles/layouts/mobile.css";
 import persianJs from "persianjs/persian.min";
 
 // Actions
@@ -89,13 +86,9 @@ export const AddOrder = (props) => {
 
   let formHandler = (e) => {
     e.preventDefault();
-
+    debugger
     if (order.length && customer.family && customer.mobile) {
-      if (e.target.id === "saleOpprotunity") {
         dispatch(orderActions.addOrder(order, customer, notes, 3, 0));
-      } else {
-        dispatch(orderActions.addOrder(order, customer, notes));
-      }
     } else {
       if (customer.mobile && customer.family && !order.length)
         dispatch(alertActions.error("لیست سفارشات خالی است"));
@@ -133,7 +126,6 @@ export const AddOrder = (props) => {
     oldCustomer = null;
   }
 
-  
   useEffect(() => {
     if (oldCustomer?.mobile)
       setCustomer({
@@ -173,16 +165,13 @@ export const AddOrder = (props) => {
             noValidate
             className="d-flex flex-column align-items-center"
           >
-            <Row
-              className="d-flex flex-column"
-              style={{ width: "65%" }}
-            >
+            <Row className="d-flex flex-column mb-3" style={{ width: "90%" }}>
               <Row className="col-12 m-0 p-0 mt-2 order-inputs d-flex flex-row justify-content-between align-items-center">
-                <Col className="col-4 add-order-input--desktop">
+                <Col className="col-3 add-order-input--desktop">
                   <Form.Group className="p--relative">
-                    <Form.Label className="me-3">موبایل</Form.Label>
+                    <Form.Label className="me-3">شماره مشتری</Form.Label>
                     <Form.Control
-                      className="order-input"
+                      className="order-input notes-round"
                       type="tel"
                       name="mobile"
                       isInvalid={
@@ -216,11 +205,13 @@ export const AddOrder = (props) => {
                     )}
                   </Form.Group>
                 </Col>
-                <Col className=" col-4 add-order-input--desktop">
+                <Col className=" col-3 add-order-input--desktop">
                   <Form.Group>
-                    <Form.Label className="me-3">نام</Form.Label>
+                    <Form.Label className="me-3 text-nowrap">
+                      شماره همراه مشتری
+                    </Form.Label>
                     <Form.Control
-                      className="order-input"
+                      className="order-input notes-round"
                       type="text"
                       name="family"
                       onChange={handleChange}
@@ -237,11 +228,23 @@ export const AddOrder = (props) => {
                     />
                   </Form.Group>
                 </Col>
-                <Col className=" col-4  add-order-input--desktop">
+                <Col className=" col-3  add-order-input--desktop">
                   <Form.Group controlId="birthday">
-                    <Form.Label className="me-3">نام شرکت</Form.Label>
+                    <Form.Label className="me-3">نام مشتری </Form.Label>
                     <Form.Control
-                      className="order-input"
+                      className="order-input notes-round"
+                      type="text"
+                      name="company"
+                      onChange={handleChange}
+                      value={customer.company}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col className=" col-3 add-order-input--desktop">
+                  <Form.Group controlId="birthday">
+                    <Form.Label className="me-3">نام مجموعه</Form.Label>
+                    <Form.Control
+                      className="order-input notes-round"
                       type="text"
                       name="company"
                       onChange={handleChange}
@@ -250,12 +253,36 @@ export const AddOrder = (props) => {
                   </Form.Group>
                 </Col>
               </Row>
-              <Row className="col-12 m-0 pt-2 mt-4 order-inputs">
-                <Col className="p-0 add-order-input mt-3">
+              <Row className="col-12 m-0 p-0 mt-5 order-inputs d-flex flex-row  align-items-center">
+                <Col className=" col-3 add-order-input--desktop">
+                  <Form.Group controlId="birthday">
+                    <Form.Label className="me-3">شماره فروشنده</Form.Label>
+                    <Form.Control
+                      className="order-input notes-round"
+                      type="text"
+                      name="company"
+                      onChange={handleChange}
+                      value={customer.company}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col className=" col-3  add-order-input--desktop">
+                  <Form.Group controlId="birthday">
+                    <Form.Label className="me-3">نام فروشنده</Form.Label>
+                    <Form.Control
+                      className="order-input notes-round"
+                      type="text"
+                      name="company"
+                      onChange={handleChange}
+                      value={customer.company}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col className="col-6  add-order-input--desktop">
                   <Form.Group controlId="address">
                     <Form.Label className="me-3">آدرس</Form.Label>
                     <Form.Control
-                      className="order-input"
+                      className="order-input notes-round"
                       type="text"
                       name="address"
                       onChange={handleChange}
@@ -266,8 +293,8 @@ export const AddOrder = (props) => {
                   </Form.Group>
                 </Col>
               </Row>
-              <Row className="col-12 m-0 mt-4 basketContainer">
-                <Form.Label className="me-2 mt-1">سبد خرید</Form.Label>
+              <Row className="col-12 m-0 mt-5 basketContainer">
+                {/* <Form.Label className="me-2 mt-1">سبد خرید</Form.Label> */}
                 <Col>
                   <Basket
                     order={order}
@@ -284,7 +311,7 @@ export const AddOrder = (props) => {
               <Row className="m-0 p-0 mt-4">
                 <Col className="mt-3 w-100">
                   <Button
-                    className={`d-flex flex-row w-100 align-items-center justify-content-center btn--add--note--desktop  `}
+                    className={`d-flex flex-row w-100 align-items-center justify-content-center btn--add--note--desktop notes-round  `}
                     onClick={noteHandler}
                   >
                     {notes.length > 0 ? (
@@ -314,9 +341,11 @@ export const AddOrder = (props) => {
                 >
                   <Col className="m-0 col-6 order-inputs">
                     <Form.Group controlId="duration">
-                      <Form.Label className="pe-1"> آماده سازی</Form.Label>
+                      <Form.Label className="pe-1 text-nowrap">
+                        تاریخ استفاده (آماده سازی)
+                      </Form.Label>
                       <Form.Control
-                        className="order-input me-2"
+                        className="order-input me-2 notes-round"
                         type="number"
                         min="0"
                         name="duration"
@@ -328,19 +357,16 @@ export const AddOrder = (props) => {
                       />
                     </Form.Group>
                   </Col>
-                  <Col className="align-self-center m-0  mt-3 me-2 col-2 text-center  order-input">
-                    <span className="reminder-span fs-7 fw-bold">دقیقه</span>
-                  </Col>
                 </Col>
                 <Col
-                  className="d-flex flex-row align-items-center justify-content-end"
+                  className="d-flex flex-row align-items-center justify-content-start"
                   style={{ height: "fit-content" }}
                 >
                   <Col className="m-0 col-6 order-inputs">
                     <Form.Group controlId="reminder">
                       <Form.Label className="pe-1">تاریخ یادآوری</Form.Label>
                       <Form.Control
-                        className="text-center order-input"
+                        className="text-center order-input notes-round"
                         type="number"
                         name="reminder"
                         min="0"
@@ -353,34 +379,39 @@ export const AddOrder = (props) => {
                   </Col>
                   <Col
                     xs={2}
-                    className="align-self-center m-0  mt-3 me-2  col-2 text-center  order-input"
+                    className="align-self-center m-0 mt-4 col-2 text-center  order-input"
                   >
-                    <span className="reminder-span fs-7 fw-bold">روز دیگر</span>
+                    <span className="reminder-span fs-7 text-muted fw-bold">
+                      روز دیگر
+                    </span>
                   </Col>
                 </Col>
               </Row>
               <Row className="m-0 mt-4 justify-content-center w-100 pt-4">
                 {addOrderLoading ? (
-                  <Button
-                    className="fw-bold order--btn order-submit--desktop border-0 w-100"
-                    size="lg"
-                    type="submit"
-                    disabled
-                  >
-                    <Spinner
-                      as="span"
-                      animation="grow"
-                      size="sm"
-                      role="status"
-                      aria-hidden="true"
-                    />
-                    در حال ثبت ...
-                  </Button>
+                  <Col className="col-7 m-0 p-0 ps-3">
+                    <Button
+                      className="fw-bold order--btn order-submit--desktop border-0 w-100 notes-round d-flex justify-content-center align-items-center"
+                      size="lg"
+                      type="submit"
+                      disabled
+                    >
+                      <Spinner
+                        as="span"
+                        animation="grow"
+                        size="sm"
+                        role="status"
+                        aria-hidden="true"
+                        className="ms-3"
+                      />
+                      در حال ثبت ...
+                    </Button>
+                  </Col>
                 ) : (
                   <>
-                    <Col className="col-7 m-0 p-0 ps-1">
+                    <Col className="col-7 m-0 p-0 ps-3">
                       <Button
-                        className="fw-bold order--btn order-submit--desktop border-0 w-100"
+                        className="fw-bold order--btn order-submit--desktop border-0 w-100 notes-round"
                         size="lg"
                         type="submit"
                         block
@@ -389,20 +420,20 @@ export const AddOrder = (props) => {
                         ثبت
                       </Button>
                     </Col>
-                    <Col className="col-5 m-0 p-0 pe-1">
-                      <Button
-                        className="order--btn border-0 w-100 btn-secondary order--sale--opportunity"
-                        id="saleOpprotunity"
-                        size="lg"
-                        type="submit"
-                        block
-                        onClick={formHandler}
-                      >
-                        فرصت فروش
-                      </Button>
-                    </Col>
                   </>
                 )}
+                <Col className="col-5 m-0 p-0 pe-3">
+                  <Button
+                    className="order--btn border-0 w-100 btn-secondary order--sale--opportunity notes-round"
+                    id="saleOpprotunity"
+                    size="lg"
+                    type="submit"
+                    block
+                    // onClick={formHandler}
+                  >
+                    پشتیبانی
+                  </Button>
+                </Col>
               </Row>
             </Row>
           </Form>

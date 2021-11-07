@@ -165,8 +165,8 @@
   padding: 0.5rem 0;
   border: none;
   color: var(--button-color-one);
-  background-color: #fff;
-  border: 1px solid #c2ccd7;
+  background-color: var(--light-blue);
+  border: 1px solid #becfe7;
   margin-bottom: 0.7rem;
   border-radius: 8px;
 }
@@ -176,7 +176,7 @@
 .btn--add--note--desktop:focus:active,
 .btn--add--note--desktop:active:focus {
   color: var(--button-color-one);
-  background-color: #fff !important;
+  background-color: var(--light-blue) !important;
 }
 .share--link--order--desktop {
   background-color: var(--pages-background) !important;
