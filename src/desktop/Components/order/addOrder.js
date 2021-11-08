@@ -29,6 +29,7 @@ import { Basket } from "./basket";
 import { AddNotesModal } from "./addNotesModal";
 import { Header } from "../base/header";
 import { ModalContinueProcessesAddOrder } from "./modalContinueProcesses";
+import { SupportAddOrder } from '../support/supportAddOrder'
 
 // Assets
 import downloadIcon from "../../assets/images/download.svg";
@@ -78,6 +79,8 @@ export const AddOrder = (props) => {
   const [notes, setNotes] = useState([]);
   const [showNotesModal, setShowNotesModal] = useState(false);
   const [modalContinueProcesses, setModalContinueProcesses] = useState(false);
+  const [dialogSuppot, setDialogSuppot] = useState(false);
+
   const dispatch = useDispatch();
   let oldCustomer = useSelector((state) => state.getCustomer.customer);
   let { loading } = useSelector((state) => state.getCustomer);
@@ -524,7 +527,7 @@ export const AddOrder = (props) => {
                     size="lg"
                     type="submit"
                     block
-                    // onClick={formHandler}
+                    onClick={(e) => setDialogSuppot(true)}
                   >
                     پشتیبانی
                   </Button>
@@ -549,6 +552,10 @@ export const AddOrder = (props) => {
           customer={getValues()}
           notes={notes}
           clearInputes={clearInputes}
+        />
+        <SupportAddOrder
+        open={dialogSuppot}
+        handleClose={() => setDialogSuppot(false)}
         />
       </div>
     </>
