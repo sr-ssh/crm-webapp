@@ -6,7 +6,6 @@ import {
   Button,
   Row,
   Col,
-  Alert,
   Spinner,
 } from "react-bootstrap";
 // Date Picker Components
@@ -243,7 +242,6 @@ export const AddOrder = (props) => {
       ).toISOString()
     );
   };
-  // console.log(watch("duration"));
 
   return (
     <>

@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Container, Form, Button, Row, Col, Spinner } from "react-bootstrap";
 import "react-multi-date-picker/styles/layouts/mobile.css";
 import persianJs from "persianjs/persian.min";
+import DatePicker from "react-multi-date-picker";
+import TimePicker from "react-multi-date-picker/plugins/time_picker";
+import moment from "jalali-moment";
 
 // Actions
 import { alertActions } from "../../../actions/alertActions";
@@ -17,6 +20,7 @@ import { ModalContinueProcessesAddOrder } from "./modalContinueProcesses";
 // Assets
 import downloadIcon from "../../assets/images/download.svg";
 import addIcon from "../../assets/images/order/add.svg";
+import closeDatePickerIcon from "../../assets/images/order/closeDatePicker.svg";
 
 export const AddOrder = (props) => {
   const [validated, setValidated] = useState(false);
@@ -31,8 +35,9 @@ export const AddOrder = (props) => {
     duration: "",
     reminder: "",
     address: "",
+    guestMobile: ""
   });
-  const [seller, setSeller] = useState({ mobile: "", family: ""})
+  const [seller, setSeller] = useState({ mobile: "", family: "" });
   const [totalPrice, insertPrice] = useState("0");
   const [selectedItem, setItem] = useState("");
   const [quantity, setQuantity] = useState(1);
@@ -43,6 +48,17 @@ export const AddOrder = (props) => {
   let { loading } = useSelector((state) => state.getCustomer);
   let addOrderLoading = useSelector((state) => state.addOrder.loading);
   let addOrder = useSelector((state) => state.addOrder);
+  const refDatePicker = useRef();
+
+  const submitCalendar = (value, name) => {
+    let date = `${value.year}/${value.month.number}/${value.day} ${value.hour}:${value.minute}`;
+    setCustomer({
+      ...customer,
+      duration: new Date(
+        moment.from(date, "fa", "YYYY/M/D HH:mm").format("YYYY-MM-D HH:mm:ss")
+      ).toISOString(),
+    });
+  };
 
   let mobileHandler = (value) => {
     const number = value;
@@ -72,13 +88,12 @@ export const AddOrder = (props) => {
   };
 
   let handleChange = (e) => {
-
     e.preventDefault();
 
     let value = e.target.value;
     let name = e.target.name;
     let id = e.target.id;
-    
+
     if (name === "mobile") {
       value = value
         ? mobileHandler(persianJs(value).toEnglishNumber().toString())
@@ -87,23 +102,21 @@ export const AddOrder = (props) => {
     if (name === "family") {
       value = nameHandler(value);
     }
-    if(id === "seller"){
-        setSeller({ ...seller, [name]: value })
-    }else {
-        setCustomer({ ...customer, [name]: value });
+    if (id === "seller") {
+      setSeller({ ...seller, [name]: value });
+    } else {
+      setCustomer({ ...customer, [name]: value });
     }
-    
-
   };
 
   useEffect(() => {
-      console.log(seller, customer)
-  }, [seller, customer])
+    console.log(seller, customer);
+  }, [seller, customer]);
 
   let formHandler = (e) => {
     e.preventDefault();
     if (order.length && customer.family && customer.mobile) {
-        dispatch(orderActions.addOrder(order, customer, seller, notes, 0, seller));
+      dispatch(orderActions.addOrder(order, customer, seller, notes, 0));
     } else {
       if (customer.mobile && customer.family && !order.length)
         dispatch(alertActions.error("لیست سفارشات خالی است"));
@@ -123,7 +136,11 @@ export const AddOrder = (props) => {
       duration: "",
       company: "",
       lastAddress: "",
-      guestMobile: ""
+      guestMobile: "",
+    });
+    setSeller({
+      mobile: "",
+      family: "",
     });
     insertOrder([]);
     setNotes([]);
@@ -172,8 +189,7 @@ export const AddOrder = (props) => {
       <Header title="ثبت سفارش" backLink="/dashboard" />
       <Container fluid className="pt-3 px-3 m-0">
         <Form onSubmit={formHandler} noValidate>
-          <Row className="m-0 p-0 order-inputs">
-
+          <Row className="mx-0 p-0 order-inputs" style={{'marginBottom': '-34px'}}>
             <Col className="p-0 col-5 add-order-input">
               <Form.Group>
                 <Form.Label className="pe-2">شماره مشتری</Form.Label>
@@ -207,7 +223,7 @@ export const AddOrder = (props) => {
                   <img
                     src={downloadIcon}
                     className="add-order-download-btn p-1"
-                    onClick={(e) => handleOldCustomer(e)}
+                    // onClick={(e) => handleOldCustomer(e)}
                     height="33vh"
                     width="50vw"
                     alt="down-icon"
@@ -229,9 +245,7 @@ export const AddOrder = (props) => {
                 />
               </Form.Group>
             </Col>
-
           </Row>
-
 
           <Row className="m-0 p-0 mt-3 order-inputs">
             <Col className="p-0 col-5 add-order-input">
@@ -268,10 +282,9 @@ export const AddOrder = (props) => {
             </Col>
           </Row>
 
-
           <Row className="m-0 p-0 mt-3 order-inputs">
             <Col className="p-0 col-5 add-order-input">
-              <Form.Group  controlId="seller">
+              <Form.Group controlId="seller">
                 <Form.Label className="pe-2">شماره فروشنده</Form.Label>
                 <Form.Control
                   className="order-input"
@@ -309,7 +322,7 @@ export const AddOrder = (props) => {
                   name="address"
                   onChange={handleChange}
                   value={customer.address}
-                  style={{'height': 'auto'}}
+                  style={{ height: "auto" }}
                 />
               </Form.Group>
             </Col>
@@ -329,11 +342,10 @@ export const AddOrder = (props) => {
             </Col>
           </Row>
           <Row>
-            <Col className="mt-3 w-100">
+            <Col xs={12} className="mt-3 w-100 ">
               <Button
-                className={`d-flex flex-row ${
-                  notes.length > 0 ? "w-100" : "w-auto"
-                }  align-items-center btn--add--note `}
+                className="d-flex flex-row w-100
+                 align-items-center btn--add--note justify-content-center"
                 onClick={noteHandler}
               >
                 <img
@@ -348,11 +360,13 @@ export const AddOrder = (props) => {
               </Button>
             </Col>
           </Row>
-          <Row className="m-0 align-self-start flex-row">
-            <Col className=" mt-3 order-inputs">
-              <Form.Group controlId="duration"> 
-                <Form.Label className="pe-1">تاریخ استفاده<span className="fs-8 me-1">(آماده سازی)</span></Form.Label>
-                <Form.Control
+          <Row className="m-0 align-self-center flex-row">
+            <Col className=" mt-3 order-inputs align-self-center">
+              <Form.Group controlId="duration">
+                <Form.Label className="pe-1">
+                  تاریخ استفاده<span className="fs-8 me-1">(آماده سازی)</span>
+                </Form.Label>
+                {/* <Form.Control
                   className="order-input me-2"
                   type="date"
                   min="0"
@@ -362,6 +376,27 @@ export const AddOrder = (props) => {
                   isValid={false}
                   value={customer.duration}
                   required
+                /> */}
+                <DatePicker
+                  format="MM/DD/YYYY HH:mm:ss"
+                  inputClass="pick--date--order--input"
+                  ref={refDatePicker}
+                  plugins={[<TimePicker position="bottom" hideSeconds />]}
+                  calendar="persian"
+                  locale="fa"
+                  editable={false}
+                  animation
+                  minDate={new Date()}
+                  calendarPosition="bottom-right"
+                  value={customer.duration}
+                  onChange={(value) => submitCalendar(value, "duration")}
+                />
+                <img
+                  src={closeDatePickerIcon}
+                  className="m-0 p-0 cursor-pointer bin--order-icon"
+                  onClick={(e) => setCustomer({ ...customer, duration: "" })}
+                  height="20px"
+                  alt="down-icon"
                 />
               </Form.Group>
             </Col>

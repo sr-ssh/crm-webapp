@@ -9,9 +9,9 @@
 .add-order-download-btn {
   background-color: white;
   border-radius: 11px;
-  position: absolute;
-  top: 105px;
-  right: 169px;
+  position: relative;
+  top: -33px;
+  right: 28vw;
 }
 
 .add-order-download-btn:active {
@@ -628,4 +628,9 @@
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
+}
+.bin--order-icon{
+  position: relative;
+  top: -27px;
+  right: 29vw;
 }
