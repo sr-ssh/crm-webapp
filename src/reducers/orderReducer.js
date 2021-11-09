@@ -443,6 +443,7 @@ export function addTrackingCode(state = initialState, action) {
             }
         case orderConstants.ADD_ORDER_TRACKING_CODE_FAILURE:
             return {
+                loading: false,
                 err: action.error
             }
         default:
