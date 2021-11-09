@@ -27,7 +27,6 @@ export const Basket = ({
   const dispatch = useDispatch();
 
   let checkProductSupply = (product, prevQuantity) => {
-    return true;
     if (product.checkWareHouse) {
       let check = !product.ingredients.some(
         (stock) =>
