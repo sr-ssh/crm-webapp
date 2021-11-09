@@ -168,7 +168,7 @@
   left: 0px;
 }
 .modal-backdrop {
-  z-index: 1250;
+  z-index: 1500;
 }
 .modal {
   z-index: 1500;

@@ -30,6 +30,7 @@ import uploadIcon from "./../../assets/images/order/Upload-documents.svg";
 import resultIcon from "./../../assets/images/order/Result.svg";
 import waitingIcon from "../../assets/images/main/Waiting.svg";
 import freeIcon from "../../assets/images/order/free1.svg";
+import coodIcon from "../../assets/images/order/cood.svg";
 
 // Actions
 import { notesActions } from "../../../actions";
@@ -45,6 +46,7 @@ import { Note } from "./note";
 import { FinancialCheckModal } from "./financialCheckModal";
 import { ResultOrder } from "./resultOrder";
 import { FreeOrder } from "./freeOrder";
+import {CoodPeygiriAccept} from './coodPeygiriAccept'
 
 const useStyles = makeStyles((theme) => ({
   backdrop: {
@@ -94,12 +96,15 @@ export const Order = ({
   const [financialCheckModal, setFinancialCheckModal] = useState(false);
   const [resultOrderModal, setResultOrderModal] = useState(false);
   const [freeModalShow, setFreeModalShow] = useState(false);
+  const [coodPeygiriAcceptModalShow, setCoodPeygiriAcceptModalShow] = useState(false);
   const [freeStatus, setFreeStatus] = useState("");
 
   const [isPrivate, setIsPrivate] = useState(order.notes.isPrivate);
   // const [showDocModalShow, setShowDocModalShow] = useState(false)
   let editStatusNotesLoading = useSelector((state) => state.editStatusNotes);
-  const {user : userInfo ,loading : userInfoLoading } = useSelector(state => state.appInfo)
+  const { user: userInfo, loading: userInfoLoading } = useSelector(
+    (state) => state.appInfo
+  );
 
   const [input, setInput] = useState("");
   const [name, setName] = useState("");
@@ -144,7 +149,11 @@ export const Order = ({
     const month = new Intl.DateTimeFormat("fa-IR", option).format(now);
     const day = moment.from(date, "DD").locale("fa").format("DD");
     const year = moment.from(date, "YYYY").locale("fa").format("YYYY");
-    return `${persianJs(day).englishNumber().toString()}  ${month}  ${persianJs(year).englishNumber().toString()}`;
+    return `${persianJs(day).englishNumber().toString()}  ${month}  ${persianJs(
+      year
+    )
+      .englishNumber()
+      .toString()}`;
   };
 
   return (
@@ -153,13 +162,14 @@ export const Order = ({
         !print ? "noPrint" : ""
       } mx-1 ${classes.productCard}`}
     >
-      <Row className="m-0 mt-3 noPrint ">
+      <Row className="m-0 mt-3 noPrint">
         {order.sellers.some((seller) => seller.active === true) &&
           order.status == 3 &&
-          order.sellers[order.sellers.length - 1].id?._id === userInfo.data._id && (
-            <Col className="d-flex justify-content-end">
+          order.sellers[order.sellers.length - 1].id?._id ===
+            userInfo.data._id && (
+            <Col className="d-flex justify-content-end ">
               <Button
-                className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2"
+                className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 notes-round"
                 type="button"
                 onClick={() => {
                   setFreeModalShow(true);
@@ -176,29 +186,72 @@ export const Order = ({
               </Button>
             </Col>
           )}
-        {userInfo?.data?.permission.financialConfirmationOrder && order.status === 0 && order.financialApproval.status == false &&  (
-          <Col className="d-flex justify-content-center">
+        {
+          <Col className="d-flex justify-content-end">
             <Button
-              className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2"
+              className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 notes-round"
               type="button"
               onClick={() => {
-                setFinancialCheckModal(true);
+                setCoodPeygiriAcceptModalShow(true);
               }}
             >
               <img
-                src={financialCheckIcon}
-                height="25px"
-                alt="edit-order-icon"
-                className="col-3 py-1"
+                src={coodIcon}
+                height="30px"
+                width="45px"
+                alt="print-icon"
+                className="col-3"
               />
-              <span>تایید مالی</span>
+              <span className="noPrint me-1">کد پیگیری</span>
             </Button>
           </Col>
-        )}
+        }
+        <Col className="d-flex justify-content-center ">
+          <Button
+            className={`${
+              order.status == 2 ? "w-50" : "w-100"
+            } btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 notes-round`}
+            type="button"
+            onClick={() => {
+              setIsShareLinkOrder(true);
+            }}
+          >
+            <img
+              src={pishFactorIcon}
+              height="25px"
+              alt="edit-order-icon"
+              className="col-3 py-1"
+            />
+            <span className="me-2">
+              {order.status == 3 ? "پیش فاکتور" : "فاکتور"}
+            </span>
+          </Button>
+        </Col>
+        {userInfo?.data?.permission.financialConfirmationOrder &&
+          order.status === 0 &&
+          order.financialApproval.status == false && (
+            <Col className="d-flex justify-content-center">
+              <Button
+                className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 notes-round"
+                type="button"
+                onClick={() => {
+                  setFinancialCheckModal(true);
+                }}
+              >
+                <img
+                  src={financialCheckIcon}
+                  height="25px"
+                  alt="edit-order-icon"
+                  className="col-3 py-1"
+                />
+                <span>تایید مالی</span>
+              </Button>
+            </Col>
+          )}
         {order.status !== 2 && order.financialApproval.status === false && (
           <Col className="d-flex justify-content-center">
             <Button
-              className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2"
+              className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 notes-round"
               type="button"
               onClick={() => {
                 setEditOrder(true);
@@ -215,9 +268,90 @@ export const Order = ({
             </Button>
           </Col>
         )}
+        <Col className="d-flex justify-content-center">
+          <Button
+            className={`${
+              order.status == 2 ? "w-50" : "w-100"
+            } btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 notes-round`}
+            type="button"
+            onClick={() => {
+              setDeliveryShow(true);
+              setOrder(order.id);
+            }}
+          >
+            <img
+              src={deliveryIcon}
+              height="25px"
+              alt="delivery-icon"
+              className="col-3"
+            />
+            <span>پیک</span>
+          </Button>
+        </Col>
+
+        {/* <Col className="d-flex justify-content-center">
+          <Button
+            className={`${
+              order.status == 2 ? "w-50" : "w-100"
+            } btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2`}
+            type="button"
+            onClick={() => printWindow()}
+          >
+            <img
+              src={printIcon}
+              height="25px"
+              alt="submit-icon"
+              className="col-3 py-1"
+            />
+            <span>پیرینت</span>
+          </Button>
+        </Col> */}
+
+        {
+          // order.status === 0 && order.financialApproval.status === false && (
+          <Col className="d-flex justify-content-center">
+            <Button
+              className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 notes-round"
+              type="button"
+              onClick={() => {
+                setCancelOrderShow(true);
+                setActiveOrder(order);
+              }}
+            >
+              <img
+                src={cancelIcon}
+                height="25px"
+                alt="print-icon"
+                className="col-3"
+              />
+              <span>لغو سفارش</span>
+            </Button>
+          </Col>
+        }
+
+        {order.status === 3 && (
+          <Col className="d-flex justify-content-center">
+            <Button
+              className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 notes-round"
+              type="button"
+              onClick={() => {
+                setResultOrderModal(true);
+                setActiveOrder(order);
+              }}
+            >
+              <img
+                src={resultIcon}
+                height="25px"
+                alt="print-icon"
+                className="col-3"
+              />
+              <span>نتیجه</span>
+            </Button>
+          </Col>
+        )}
         <Col className="d-flex justify-content-end">
           <Button
-            className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2"
+            className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 notes-round"
             type="button"
             onClick={() => {
               setUploadModalShow(true);
@@ -235,7 +369,7 @@ export const Order = ({
         </Col>
         <Col className="d-flex justify-content-end">
           <Button
-            className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2"
+            className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 notes-round"
             type="button"
             onClick={() => {
               setShowDocModalShow(true);
@@ -251,106 +385,6 @@ export const Order = ({
             <span className="noPrint">مشاهده مدارک</span>
           </Button>
         </Col>
-
-        <Col className="d-flex justify-content-center ">
-          <Button
-            className={`${
-              order.status == 2 ? "w-50" : "w-100"
-            } btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2`}
-            type="button"
-            onClick={() => {
-              setIsShareLinkOrder(true);
-            }}
-          >
-            <img
-              src={pishFactorIcon}
-              height="25px"
-              alt="edit-order-icon"
-              className="col-3 py-1"
-            />
-            <span className="me-2">
-              {order.status == 3 ? "پیش فاکتور" : "فاکتور"}
-            </span>
-          </Button>
-        </Col>
-        <Col className="d-flex justify-content-center">
-          <Button
-            className={`${
-              order.status == 2 ? "w-50" : "w-100"
-            } btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2`}
-            type="button"
-            onClick={() => printWindow()}
-          >
-            <img
-              src={printIcon}
-              height="25px"
-              alt="submit-icon"
-              className="col-3 py-1"
-            />
-            <span>پیرینت</span>
-          </Button>
-        </Col>
-        <Col className="d-flex justify-content-center">
-          <Button
-            className={`${
-              order.status == 2 ? "w-50" : "w-100"
-            } btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2`}
-            type="button"
-            onClick={() => {
-              setDeliveryShow(true);
-              setOrder(order.id);
-            }}
-          >
-            <img
-              src={deliveryIcon}
-              height="25px"
-              alt="delivery-icon"
-              className="col-3"
-            />
-            <span>پیک</span>
-          </Button>
-        </Col>
-        {order.status === 0 && order.financialApproval.status === false && (
-          <Col className="d-flex justify-content-center">
-            <Button
-              className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2"
-              type="button"
-              onClick={() => {
-                setCancelOrderShow(true);
-                setActiveOrder(order);
-              }}
-            >
-              <img
-                src={cancelIcon}
-                height="25px"
-                alt="print-icon"
-                className="col-3"
-              />
-              <span>لغو سفارش</span>
-            </Button>
-          </Col>
-        )}
-
-        {order.status === 3 && (
-          <Col className="d-flex justify-content-center">
-            <Button
-              className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2"
-              type="button"
-              onClick={() => {
-                setResultOrderModal(true);
-                setActiveOrder(order);
-              }}
-            >
-              <img
-                src={resultIcon}
-                height="25px"
-                alt="print-icon"
-                className="col-3"
-              />
-              <span>نتیجه</span>
-            </Button>
-          </Col>
-        )}
       </Row>
       <Card.Body className="pb-0 ps-1 rounded-3 text-gray">
         <Row className="p-0 ps-2 m-0 ">
@@ -392,8 +426,7 @@ export const Order = ({
                     </Card.Text>
                   </Col>
                 )}
-
-                <Col className="p-0 d-flex justify-content-evenly">
+                <Col className="p-0 d-flex ">
                   <Card.Text className="d-flex justify-content-end p-0">
                     تاریخ و ساعت :
                     <span className="me-2">{getDate(order.createdAt)}</span>
@@ -410,7 +443,33 @@ export const Order = ({
                     </span>
                   </Card.Text>
                 </Col>
-                <Col className="p-0 d-flex justify-content-evenly ">
+                {order.support !== undefined && (
+                  <Col className="p-0 d-flex  ">
+                    <Card.Text>
+                      شماره مشتری:{" "}
+                      <span className="me-2">
+                        {order.support
+                          ? persianJs(order.customer.phoneNumber)
+                              .englishNumber()
+                              .toString()
+                          : persianJs(order.customer.mobile)
+                              .englishNumber()
+                              .toString()}
+                      </span>
+                    </Card.Text>
+                  </Col>
+                )}
+                <Col className="p-0 d-flex  ">
+                  <Card.Text>
+                    شماره همراه مشتری:{" "}
+                    <span className="me-2">
+                      {order.support === undefined ? null : order.mobile === undefined
+                        ? null
+                        : persianJs(order.mobile).englishNumber().toString()}
+                    </span>
+                  </Card.Text>
+                </Col>
+                <Col className="p-0 d-flex  ">
                   <Card.Text>
                     نام مشتری:{" "}
                     <span className="me-2">{order.customer.family}</span>
@@ -432,32 +491,66 @@ export const Order = ({
                                         })()}
                                     </Card.Text>
                                 </Col> */}
-
-                <Col className="p-0 d-flex justify-content-evenly">
-                  <Card.Text>
-                    موبایل:{" "}
-                    <span className="me-2">
-                      {order.customer.mobile &&
-                        persianJs(order.customer.mobile)
-                          .englishNumber()
-                          .toString()}
-                    </span>
-                  </Card.Text>
-                </Col>
               </Row>
               <Row className="flex-nowrap  mt-2 mx-2">
+                {order.support && (
+                  <Col className="p-0 d-flex ">
+                    <Card.Text>
+                      نام مجموعه:{" "}
+                      <span className="me-2">{order.customer.company}</span>
+                    </Card.Text>
+                  </Col>
+                )}
+                {order.support && (
+                  <Col className="p-0 d-flex justify-content-start">
+                    <Card.Text>
+                      شماره فروشنده:{" "}
+                      <span className="me-2">
+                        {order.seller === undefined
+                          ? null
+                          : persianJs(order.seller.mobile)
+                              .englishNumber()
+                              .toString()}
+                      </span>
+                    </Card.Text>
+                  </Col>
+                )}
+                {order.support && (
+                  <Col className="p-0 d-flex justify-content-start">
+                    <Card.Text>
+                      نام فروشنده:{" "}
+                      <span className="me-2">
+                        {order.seller === undefined
+                          ? null
+                          : order.seller.family}
+                      </span>
+                    </Card.Text>
+                  </Col>
+                )}
                 <Col className="p-0 d-flex justify-content-start">
                   <Card.Text>
-                    آدرس:{" "}
+                    آدرس :{" "}
                     <span className="me-2">
                       {order.address &&
                         persianJs(order.address).englishNumber().toString()}
                     </span>
                   </Card.Text>
                 </Col>
-                <Col className="p-0 d-flex justify-content-evenly">
+              </Row>
+              <Row className="flex-nowrap  mt-2 mx-2">
+                <Col className="p-0 d-flex ">
                   <Card.Text>
-                    اتمام آماده سازی:{" "}
+                    ثبت شده توسط:{" "}
+                    <span>
+                      {order.employee
+                        ? order.employee.family
+                        : order.sellers[0]?.id.family}
+                    </span>
+                  </Card.Text>
+                </Col>
+                <Col className="p-0 d-flex ">
+                  <Card.Text>
+                    تاریخ استفاده:{" "}
                     <span className="me-2">
                       {order.readyTime &&
                         persianJs(
@@ -471,18 +564,9 @@ export const Order = ({
                     </span>
                   </Card.Text>
                 </Col>
-                <Col className="p-0 d-flex justify-content-evenly">
-                  <Card.Text>
-                    ثبت شده توسط:{" "}
-                    <span>
-                      {order.employee
-                        ? order.employee.family
-                        : order.sellers[0]?.id.family}
-                    </span>
-                  </Card.Text>
-                </Col>
+
                 {order.sellers.length > 0 && (
-                  <Col className="p-0 d-flex justify-content-evenly">
+                  <Col className="p-0 d-flex">
                     <Card.Text>
                       دنبال کننده فعال:{" "}
                       <span>
@@ -491,6 +575,7 @@ export const Order = ({
                     </Card.Text>
                   </Col>
                 )}
+                <Col className="p-0 d-flex"></Col>
               </Row>
             </Card.Body>
           </Card>
@@ -509,9 +594,9 @@ export const Order = ({
               </thead>
               <tbody>
                 {order.products.length
-                  ? order.products.map((item) => {
+                  ? order.products.map((item, index) => {
                       return (
-                        <tr key={item.name}>
+                        <tr key={index}>
                           <td>
                             {item.name &&
                               persianJs(item.name).englishNumber().toString()}
@@ -574,7 +659,7 @@ export const Order = ({
                       className="fw-bold mx-4"
                       onChange={() => setIsPrivate(!isPrivate)}
                     >
-                      <label for="r1">
+                      <label htmlFor="r1">
                         {editStatusNotesLoading.loading &&
                         orderId == order.id ? (
                           <CircularProgress color="secondary" size={24} />
@@ -724,6 +809,15 @@ export const Order = ({
         }}
         order={order?.id}
         status={freeStatus}
+      />
+
+      <CoodPeygiriAccept
+      show={coodPeygiriAcceptModalShow}
+      onHide={() => {
+        setCoodPeygiriAcceptModalShow(false);
+        setRefresh(!refresh);
+      }}
+      order={order}
       />
       {/* <ShowDocuments show={showDocModalShow} onHide={() => setShowDocModalShow(false)} order={activeOrder} /> */}
     </Card>

@@ -4,12 +4,18 @@
   background: var(--pages-background);
   z-index: -1;
 }
-
 .order-page--desktop .form-control {
   height: 40px;
 }
 .order-page--desktop .card {
   background-color: var(--card-background);
+}
+
+.support--order-page--desktop {
+  height: 85vh;
+  min-height: 100vh;
+  background: var(--pages-background) !important;
+  z-index: -1;
 }
 
 .add-order-input--desktop {
@@ -157,8 +163,7 @@
 .customer-modal-close-svg--desktop {
   width: 24px;
 }
-
-.btn--add--note--desktop {
+.btn--add--note--desktop--addOrder {
   font-size: 14px;
   white-space: nowrap;
   overflow: hidden;
@@ -170,13 +175,34 @@
   margin-bottom: 0.7rem;
   border-radius: 8px;
 }
+.btn--add--note--desktop--addOrder:hover,
+.btn--add--note--desktop--addOrder:active,
+.btn--add--note--desktop--addOrder:focus,
+.btn--add--note--desktop--addOrder:focus:active,
+.btn--add--note--desktop--addOrder:active:focus {
+  color: var(--button-color-one);
+  background-color: var(--light-blue) !important;
+}
+
+.btn--add--note--desktop {
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  padding: 0.5rem 0;
+  border: none;
+  color: var(--button-color-one);
+  background-color: #fff;
+  border: 1px solid #becfe7;
+  margin-bottom: 0.7rem;
+  border-radius: 8px;
+}
 .btn--add--note--desktop:hover,
 .btn--add--note--desktop:active,
 .btn--add--note--desktop:focus,
 .btn--add--note--desktop:focus:active,
 .btn--add--note--desktop:active:focus {
   color: var(--button-color-one);
-  background-color: var(--light-blue) !important;
+  background-color: #fff !important;
 }
 .share--link--order--desktop {
   background-color: var(--pages-background) !important;

@@ -401,3 +401,51 @@ export function editSaleOpportunitySellerStatus(state = {}, action) {
             return state
     }
 }
+
+
+export function supportOrder(state = initialState, action) {
+    switch (action.type) {
+        case orderConstants.GET_SUPPORT_ORDER_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+        case orderConstants.GET_SUPPORT_ORDER_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                data: action.data
+            }
+        case orderConstants.GET_SUPPORT_ORDER_FAILURE:
+            return {
+                ...state ,
+                loading: false,
+                err: action.error
+            }
+        default:
+            return state
+    }
+}
+
+
+export function addTrackingCode(state = initialState, action) {
+    switch (action.type) {
+        case orderConstants.ADD_ORDER_TRACKING_CODE_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+        case orderConstants.ADD_ORDER_TRACKING_CODE_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                data: action.data
+            }
+        case orderConstants.ADD_ORDER_TRACKING_CODE_FAILURE:
+            return {
+                err: action.error
+            }
+        default:
+            return state
+    }
+}

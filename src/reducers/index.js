@@ -36,6 +36,8 @@ import {
   confirmFinancial,
   showDoc,
   editSaleOpportunitySellerStatus,
+  supportOrder,
+  addTrackingCode
 } from "./orderReducer";
 import { getReminders } from "./reminderReducer";
 import { getDiscounts } from "./discountReducer";
@@ -139,5 +141,7 @@ export default combineReducers({
   editReceiptNoteStatus,
   addSeller,
   getSeller,
-  getSellers
+  getSellers,
+  supportOrder,
+  addTrackingCode
 });

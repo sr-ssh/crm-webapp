@@ -29,6 +29,7 @@ import { Basket } from "./basket";
 import { AddNotesModal } from "./addNotesModal";
 import { Header } from "../base/header";
 import { ModalContinueProcessesAddOrder } from "./modalContinueProcesses";
+import { SupportAddOrder } from '../support/supportAddOrder'
 
 // Assets
 import downloadIcon from "../../assets/images/download.svg";
@@ -78,6 +79,8 @@ export const AddOrder = (props) => {
   const [notes, setNotes] = useState([]);
   const [showNotesModal, setShowNotesModal] = useState(false);
   const [modalContinueProcesses, setModalContinueProcesses] = useState(false);
+  const [dialogSuppot, setDialogSuppot] = useState(false);
+
   const dispatch = useDispatch();
   let oldCustomer = useSelector((state) => state.getCustomer.customer);
   let { loading } = useSelector((state) => state.getCustomer);
@@ -393,7 +396,7 @@ export const AddOrder = (props) => {
               <Row className="m-0 p-0 mt-4">
                 <Col className="mt-3 w-100">
                   <Button
-                    className={`d-flex flex-row w-100 align-items-center justify-content-center btn--add--note--desktop notes-round  `}
+                    className={`d-flex flex-row w-100 align-items-center justify-content-center btn--add--note--desktop--addOrder notes-round  `}
                     onClick={noteHandler}
                   >
                     {notes.length > 0 ? (
@@ -524,7 +527,7 @@ export const AddOrder = (props) => {
                     size="lg"
                     type="submit"
                     block
-                    // onClick={formHandler}
+                    onClick={(e) => setDialogSuppot(true)}
                   >
                     پشتیبانی
                   </Button>
@@ -549,6 +552,10 @@ export const AddOrder = (props) => {
           customer={getValues()}
           notes={notes}
           clearInputes={clearInputes}
+        />
+        <SupportAddOrder
+        open={dialogSuppot}
+        handleClose={() => setDialogSuppot(false)}
         />
       </div>
     </>

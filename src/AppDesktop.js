@@ -31,6 +31,8 @@ import './desktop/assets/styles/employeeStyle.css'
 import './desktop/assets/styles/financeStyle.css'
 import './desktop/assets/styles/leadStyle.css'
 import './desktop/assets/styles/sellerStyle.css'
+import './desktop/assets/styles/supportStyle.css'
+
 
 
 
