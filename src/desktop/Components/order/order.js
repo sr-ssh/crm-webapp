@@ -166,8 +166,8 @@ export const Order = ({
       <Row className="m-0 mt-3 noPrint">
         {order.sellers?.some((seller) => seller.active === true) &&
           order.status == 3 &&
-          order.sellers[order.sellers.length - 1].id?._id ===
-            userInfo.data._id && (
+          order.sellers[order.sellers.length - 1]?.id?._id ===
+            userInfo.data?._id && (
             <Col className="d-flex justify-content-end ">
               <Button
                 className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 notes-round"
@@ -564,7 +564,19 @@ export const Order = ({
                     </Card.Text>
                   </Col>
                 )}
-                <Col className="p-0 d-flex"></Col>
+
+                <Col className="p-0 d-flex">
+                  <Card.Text>
+                    کد پیگیری:{" "}
+                    <span>
+                      {order.trackingCode &&
+                        persianJs(order.trackingCode)
+                          .englishNumber()
+                          .toString()}
+                    </span>
+                  </Card.Text>
+                </Col>
+                
               </Row>
             </Card.Body>
           </Card>
