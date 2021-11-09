@@ -690,7 +690,7 @@ export const Order = ({
                 <Row>
                   <Col className="m-0 p-0">
                     {order.notes.Notes != undefined ? (
-                      order.notes.Notes?.map((note) => <Note note={note} />)
+                      order.notes.Notes?.map((note, index) => <Note key={index} note={note} />)
                     ) : (
                       <span> هنوز یادداشتی برای این سفارش ثبت نشده است</span>
                     )}
