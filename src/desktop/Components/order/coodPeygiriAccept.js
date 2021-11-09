@@ -9,7 +9,7 @@ import { orderActions } from "../../../actions/orderActions";
 import closeIcon from "../../assets/images/close.svg";
 
 export const CoodPeygiriAccept = (props) => {
-  const [deliveryMobile, setDeliveryMobile] = useState(false);
+  const [trackingCode, setTrackingCode] = useState("");
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
@@ -59,6 +59,8 @@ export const CoodPeygiriAccept = (props) => {
                   className="text-center order-input notes-round"
                   type="tel"
                   name="trackingCode"
+                  defaultValue={trackingCode}
+                  onChange={(e) => setTrackingCode(e.target.value)}
                 />
               </Form.Group>
             </Col>

@@ -255,9 +255,9 @@ export const SupportAddOrder = (props) => {
                 .sort(
                   (or1, or2) =>
                     Number(
-                      or2.sellers.some((seller) => seller.active === true)
+                      or2.sellers?.some((seller) => seller.active === true)
                     ) -
-                    Number(or1.sellers.some((seller) => seller.active === true))
+                    Number(or1.sellers?.some((seller) => seller.active === true))
                 )
                 .map((order, index) => {
                     return (

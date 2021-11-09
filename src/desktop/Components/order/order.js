@@ -163,7 +163,7 @@ export const Order = ({
       } mx-1 ${classes.productCard}`}
     >
       <Row className="m-0 mt-3 noPrint">
-        {order.sellers.some((seller) => seller.active === true) &&
+        {order.sellers?.some((seller) => seller.active === true) &&
           order.status == 3 &&
           order.sellers[order.sellers.length - 1].id?._id ===
             userInfo.data._id && (
@@ -443,16 +443,16 @@ export const Order = ({
                     </span>
                   </Card.Text>
                 </Col>
-                {order.support !== undefined && (
+                {order.support && order.support !== undefined && (
                   <Col className="p-0 d-flex  ">
                     <Card.Text>
                       شماره مشتری:{" "}
                       <span className="me-2">
-                        {order.support
-                          ? persianJs(order.customer.phoneNumber)
+                        {order.support 
+                          ? order.customer.phoneNumber && persianJs(order.customer.phoneNumber)
                               .englishNumber()
                               .toString()
-                          : persianJs(order.customer.mobile)
+                          : order.customer.mobile && persianJs(order.customer.mobile)
                               .englishNumber()
                               .toString()}
                       </span>
@@ -475,22 +475,6 @@ export const Order = ({
                     <span className="me-2">{order.customer.family}</span>
                   </Card.Text>
                 </Col>
-                {/* <Col className="col-5">
-                                    <Card.Text className="text-center">
-                                        وضعیت: {(() => {
-                                            switch (order.status) {
-                                                case 0:
-                                                    return <span>فعال</span>;
-                                                case 1:
-                                                    return <span>پایان یافته</span>;;
-                                                case 2:
-                                                    return <span>لغو شده</span>;;
-                                                default:
-                                                    return;
-                                            }
-                                        })()}
-                                    </Card.Text>
-                                </Col> */}
               </Row>
               <Row className="flex-nowrap  mt-2 mx-2">
                 {order.support && (
@@ -544,7 +528,7 @@ export const Order = ({
                     <span>
                       {order.employee
                         ? order.employee.family
-                        : order.sellers[0]?.id.family}
+                        : order.sellers && order.sellers[0]?.id.family}
                     </span>
                   </Card.Text>
                 </Col>
@@ -565,7 +549,7 @@ export const Order = ({
                   </Card.Text>
                 </Col>
 
-                {order.sellers.length > 0 && (
+                {order.sellers?.length > 0 && (
                   <Col className="p-0 d-flex">
                     <Card.Text>
                       دنبال کننده فعال:{" "}
@@ -757,7 +741,7 @@ export const Order = ({
         onHide={() => {
           setShowNotesModal(false);
         }}
-        permission={true}
+        permission="true"
         orderId={order.id}
         status={status}
       />
