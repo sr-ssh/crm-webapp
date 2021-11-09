@@ -154,6 +154,8 @@ export const Order = ({
       .toString()}`;
   };
 
+  console.log(order);
+  console.log(order.seller);
   return (
     <Card
       className={`m-auto mt-3 bg-light productCard border-0 lh-lg ${
@@ -442,16 +444,30 @@ export const Order = ({
                     </span>
                   </Card.Text>
                 </Col>
-                <Col className="p-0 d-flex  ">
-                  <Card.Text>
-                    شماره مشتری:{" "}
-                    <span className="me-2">{order.customer.family}</span>
-                  </Card.Text>
-                </Col>
+                {order.support !== undefined && (
+                  <Col className="p-0 d-flex  ">
+                    <Card.Text>
+                      شماره مشتری:{" "}
+                      <span className="me-2">
+                        {order.support
+                          ? persianJs(order.customer.phoneNumber)
+                              .englishNumber()
+                              .toString()
+                          : persianJs(order.customer.mobile)
+                              .englishNumber()
+                              .toString()}
+                      </span>
+                    </Card.Text>
+                  </Col>
+                )}
                 <Col className="p-0 d-flex  ">
                   <Card.Text>
                     شماره همراه مشتری:{" "}
-                    <span className="me-2">{order.customer.family}</span>
+                    <span className="me-2">
+                      {order.support === undefined ? null : order.mobile === undefined
+                        ? null
+                        : persianJs(order.mobile).englishNumber().toString()}
+                    </span>
                   </Card.Text>
                 </Col>
                 <Col className="p-0 d-flex  ">
@@ -478,35 +494,40 @@ export const Order = ({
                                 </Col> */}
               </Row>
               <Row className="flex-nowrap  mt-2 mx-2">
-                <Col className="p-0 d-flex ">
-                  <Card.Text>
-                    نام مجموعه:{" "}
-                    <span className="me-2">
-                      {order.customer.mobile &&
-                        persianJs(order.customer.mobile)
-                          .englishNumber()
-                          .toString()}
-                    </span>
-                  </Card.Text>
-                </Col>
-                <Col className="p-0 d-flex justify-content-start">
-                  <Card.Text>
-                    شماره فروشنده:{" "}
-                    <span className="me-2">
-                      {order.address &&
-                        persianJs(order.address).englishNumber().toString()}
-                    </span>
-                  </Card.Text>
-                </Col>
-                <Col className="p-0 d-flex justify-content-start">
-                  <Card.Text>
-                    نام فروشنده:{" "}
-                    <span className="me-2">
-                      {order.address &&
-                        persianJs(order.address).englishNumber().toString()}
-                    </span>
-                  </Card.Text>
-                </Col>
+                {order.support && (
+                  <Col className="p-0 d-flex ">
+                    <Card.Text>
+                      نام مجموعه:{" "}
+                      <span className="me-2">{order.customer.company}</span>
+                    </Card.Text>
+                  </Col>
+                )}
+                {order.support && (
+                  <Col className="p-0 d-flex justify-content-start">
+                    <Card.Text>
+                      شماره فروشنده:{" "}
+                      <span className="me-2">
+                        {order.seller === undefined
+                          ? null
+                          : persianJs(order.seller.mobile)
+                              .englishNumber()
+                              .toString()}
+                      </span>
+                    </Card.Text>
+                  </Col>
+                )}
+                {order.support && (
+                  <Col className="p-0 d-flex justify-content-start">
+                    <Card.Text>
+                      نام فروشنده:{" "}
+                      <span className="me-2">
+                        {order.seller === undefined
+                          ? null
+                          : order.seller.family}
+                      </span>
+                    </Card.Text>
+                  </Col>
+                )}
                 <Col className="p-0 d-flex justify-content-start">
                   <Card.Text>
                     آدرس :{" "}
@@ -518,7 +539,7 @@ export const Order = ({
                 </Col>
               </Row>
               <Row className="flex-nowrap  mt-2 mx-2">
-              <Col className="p-0 d-flex ">
+                <Col className="p-0 d-flex ">
                   <Card.Text>
                     ثبت شده توسط:{" "}
                     <span>
@@ -544,7 +565,7 @@ export const Order = ({
                     </span>
                   </Card.Text>
                 </Col>
-                
+
                 {order.sellers.length > 0 && (
                   <Col className="p-0 d-flex">
                     <Card.Text>
