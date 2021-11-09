@@ -307,7 +307,7 @@ export const Order = ({
         </Col> */}
 
         {
-        // order.status === 0 && order.financialApproval.status === false && (
+          // order.status === 0 && order.financialApproval.status === false && (
           <Col className="d-flex justify-content-center">
             <Button
               className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 notes-round"
@@ -425,8 +425,7 @@ export const Order = ({
                     </Card.Text>
                   </Col>
                 )}
-
-                <Col className="p-0 d-flex justify-content-evenly">
+                <Col className="p-0 d-flex ">
                   <Card.Text className="d-flex justify-content-end p-0">
                     تاریخ و ساعت :
                     <span className="me-2">{getDate(order.createdAt)}</span>
@@ -443,7 +442,19 @@ export const Order = ({
                     </span>
                   </Card.Text>
                 </Col>
-                <Col className="p-0 d-flex justify-content-evenly ">
+                <Col className="p-0 d-flex  ">
+                  <Card.Text>
+                    شماره مشتری:{" "}
+                    <span className="me-2">{order.customer.family}</span>
+                  </Card.Text>
+                </Col>
+                <Col className="p-0 d-flex  ">
+                  <Card.Text>
+                    شماره همراه مشتری:{" "}
+                    <span className="me-2">{order.customer.family}</span>
+                  </Card.Text>
+                </Col>
+                <Col className="p-0 d-flex  ">
                   <Card.Text>
                     نام مشتری:{" "}
                     <span className="me-2">{order.customer.family}</span>
@@ -465,10 +476,11 @@ export const Order = ({
                                         })()}
                                     </Card.Text>
                                 </Col> */}
-
-                <Col className="p-0 d-flex justify-content-evenly">
+              </Row>
+              <Row className="flex-nowrap  mt-2 mx-2">
+                <Col className="p-0 d-flex ">
                   <Card.Text>
-                    موبایل:{" "}
+                    نام مجموعه:{" "}
                     <span className="me-2">
                       {order.customer.mobile &&
                         persianJs(order.customer.mobile)
@@ -477,20 +489,48 @@ export const Order = ({
                     </span>
                   </Card.Text>
                 </Col>
-              </Row>
-              <Row className="flex-nowrap  mt-2 mx-2">
                 <Col className="p-0 d-flex justify-content-start">
                   <Card.Text>
-                    آدرس:{" "}
+                    شماره فروشنده:{" "}
                     <span className="me-2">
                       {order.address &&
                         persianJs(order.address).englishNumber().toString()}
                     </span>
                   </Card.Text>
                 </Col>
-                <Col className="p-0 d-flex justify-content-evenly">
+                <Col className="p-0 d-flex justify-content-start">
                   <Card.Text>
-                    اتمام آماده سازی:{" "}
+                    نام فروشنده:{" "}
+                    <span className="me-2">
+                      {order.address &&
+                        persianJs(order.address).englishNumber().toString()}
+                    </span>
+                  </Card.Text>
+                </Col>
+                <Col className="p-0 d-flex justify-content-start">
+                  <Card.Text>
+                    آدرس :{" "}
+                    <span className="me-2">
+                      {order.address &&
+                        persianJs(order.address).englishNumber().toString()}
+                    </span>
+                  </Card.Text>
+                </Col>
+              </Row>
+              <Row className="flex-nowrap  mt-2 mx-2">
+              <Col className="p-0 d-flex ">
+                  <Card.Text>
+                    ثبت شده توسط:{" "}
+                    <span>
+                      {order.employee
+                        ? order.employee.family
+                        : order.sellers[0]?.id.family}
+                    </span>
+                  </Card.Text>
+                </Col>
+                <Col className="p-0 d-flex ">
+                  <Card.Text>
+                    تاریخ استفاده:{" "}
                     <span className="me-2">
                       {order.readyTime &&
                         persianJs(
@@ -504,18 +544,9 @@ export const Order = ({
                     </span>
                   </Card.Text>
                 </Col>
-                <Col className="p-0 d-flex justify-content-evenly">
-                  <Card.Text>
-                    ثبت شده توسط:{" "}
-                    <span>
-                      {order.employee
-                        ? order.employee.family
-                        : order.sellers[0]?.id.family}
-                    </span>
-                  </Card.Text>
-                </Col>
+                
                 {order.sellers.length > 0 && (
-                  <Col className="p-0 d-flex justify-content-evenly">
+                  <Col className="p-0 d-flex">
                     <Card.Text>
                       دنبال کننده فعال:{" "}
                       <span>
@@ -524,6 +555,7 @@ export const Order = ({
                     </Card.Text>
                   </Col>
                 )}
+                <Col className="p-0 d-flex"></Col>
               </Row>
             </Card.Body>
           </Card>
