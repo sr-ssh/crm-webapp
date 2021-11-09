@@ -28,6 +28,7 @@ export const orderService = {
   showDoc,
   editSaleOpportunitySellerStatus,
   orderSupport,
+  addTrackingCode
 };
 
 function getOrders(filter = {}) {
@@ -466,6 +467,30 @@ function orderSupport(param) {
   };
   return axios
     .get(`${baseRoute}/order/${param.type}/${encodeURI(param.value)}`, {
+      headers: requestOptions.headers,
+    })
+    .then((res) => {
+      console.log("res >>");
+      console.log(res);
+      return res.data;
+    })
+    .catch((error) => {
+      if (error.response) {
+        console.log(error.response.data);
+        handleError(error.response.status);
+      }
+    });
+}
+
+function addTrackingCode(data) {
+  console.log("into orderService (addTrackingCode)");
+
+  const requestOptions = {
+    headers: authHeader(),
+  };
+
+  return axios
+    .post(`${baseRoute}/order/trackingcode`, data, {
       headers: requestOptions.headers,
     })
     .then((res) => {
