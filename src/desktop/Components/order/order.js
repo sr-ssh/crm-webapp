@@ -46,6 +46,7 @@ import { Note } from "./note";
 import { FinancialCheckModal } from "./financialCheckModal";
 import { ResultOrder } from "./resultOrder";
 import { FreeOrder } from "./freeOrder";
+import {CoodPeygiriAccept} from './coodPeygiriAccept'
 
 const useStyles = makeStyles((theme) => ({
   backdrop: {
@@ -95,6 +96,7 @@ export const Order = ({
   const [financialCheckModal, setFinancialCheckModal] = useState(false);
   const [resultOrderModal, setResultOrderModal] = useState(false);
   const [freeModalShow, setFreeModalShow] = useState(false);
+  const [coodPeygiriAcceptModalShow, setCoodPeygiriAcceptModalShow] = useState(false);
   const [freeStatus, setFreeStatus] = useState("");
 
   const [isPrivate, setIsPrivate] = useState(order.notes.isPrivate);
@@ -154,8 +156,6 @@ export const Order = ({
       .toString()}`;
   };
 
-  console.log(order);
-  console.log(order.seller);
   return (
     <Card
       className={`m-auto mt-3 bg-light productCard border-0 lh-lg ${
@@ -191,10 +191,9 @@ export const Order = ({
             <Button
               className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 notes-round"
               type="button"
-              // onClick={() => {
-              //   setFreeModalShow(true);
-              //   setFreeStatus("0");
-              // }}
+              onClick={() => {
+                setCoodPeygiriAcceptModalShow(true);
+              }}
             >
               <img
                 src={coodIcon}
@@ -810,6 +809,15 @@ export const Order = ({
         }}
         order={order?.id}
         status={freeStatus}
+      />
+
+      <CoodPeygiriAccept
+      show={coodPeygiriAcceptModalShow}
+      onHide={() => {
+        setCoodPeygiriAcceptModalShow(false);
+        setRefresh(!refresh);
+      }}
+      order={order}
       />
       {/* <ShowDocuments show={showDocModalShow} onHide={() => setShowDocModalShow(false)} order={activeOrder} /> */}
     </Card>
