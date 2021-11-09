@@ -24,6 +24,7 @@ import { FreeSaleOpportunity } from "../order/freeSaleOpportunity";
 // Icons
 import deleteIcon from "./../../assets/images/support/delete.svg";
 import SearchIcon from "@material-ui/icons/Search";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
 // Actions
 import { orderActions } from "../../../actions";
@@ -32,6 +33,16 @@ const useStyles = makeStyles((theme) => ({
   supportDialog_root: {
     height: "auto",
     backgroundColor: "transparent",
+  },
+  backIcon: {
+    transform: "rotate(180deg)",
+    position: "absolute",
+    backgroundColor: "#fff",
+    right: "10px",
+    top: "12px",
+    fontSize: "3rem",
+    borderRadius : "50%",
+    cursor : "pointer"
   },
 }));
 
@@ -104,7 +115,6 @@ export const SupportAddOrder = (props) => {
     fetchData();
   }, [refresh]);
 
-
   return (
     // TransitionComponent={Transition}
     <Dialog
@@ -113,11 +123,21 @@ export const SupportAddOrder = (props) => {
       onClose={handleClose}
       classes={{ paperFullScreen: classes.supportDialog_root }}
     >
-      <div className="support--order-page--desktop orders w-100 pt-2" style={{ zIndex: 1500  }}>
+      <div
+        className="support--order-page--desktop orders w-100 pt-2"
+        style={{ zIndex: 1500 }}
+      >
         <Container
           fluid
           className=" px-3 m-0 d-flex justify-content-center align-items-center flex-column  support--order-page--desktop"
         >
+          <Row>
+            <ArrowBackIcon
+              classes ={{ root: classes.backIcon }}
+              color="primary"
+              onClick={()=>props.handleClose()}
+            />
+          </Row>
           <Row className="mt-2 d-flex justify-content-center">
             <Col className=" pick--type--filter--support">
               <Col className="my-2 mx-2 d-flex align-items-center items-filter-support">
