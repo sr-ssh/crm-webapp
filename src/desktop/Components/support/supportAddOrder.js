@@ -260,10 +260,6 @@ export const SupportAddOrder = (props) => {
                     Number(or1.sellers.some((seller) => seller.active === true))
                 )
                 .map((order, index) => {
-                  if (
-                    order.sellers.some((seller) => seller.active === true) &&
-                    order.status == 3
-                  )
                     return (
                       <Order
                         key={index}
@@ -278,14 +274,6 @@ export const SupportAddOrder = (props) => {
                         setUploadModalShow={setUploadModalShow}
                         uploadModalShow={uploadModalShow}
                         setShowDocModalShow={setShowDocModalShow}
-                      />
-                    );
-                  else
-                    return (
-                      <FreeSaleOpportunity
-                        order={order}
-                        refresh={refresh}
-                        setRefresh={setRefresh}
                       />
                     );
                 })}
