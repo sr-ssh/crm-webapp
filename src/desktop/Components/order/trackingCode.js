@@ -8,20 +8,14 @@ import { orderActions } from "../../../actions/orderActions";
 // Icons
 import closeIcon from "../../assets/images/close.svg";
 
-export const CoodPeygiriAccept = (props) => {
+export const TrackingCode = (props) => {
   const [trackingCode, setTrackingCode] = useState("");
   const dispatch = useDispatch();
 
-  const handleChange = (e) => {
-    e.preventDefault();
-    // setDeliveryMobile({ ...deliveryMobile, [e.target.id]: e.target.value });
-  };
-
   const formHandler = (e) => {
     e.preventDefault();
-    console.log(1);
-    // dispatch(orderActions.sendDeliverySms(deliveryMobile));
-    // props.onHide(true);
+    trackingCode && dispatch(orderActions.addTrackingCode({orderId: props.orderId, customerId: props.customerId, trackingCode}));
+    props.onHide(true);
   };
 
   //   useEffect(() => {
