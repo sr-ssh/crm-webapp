@@ -21,7 +21,8 @@ export const orderActions = {
     uploadDoc,
     showDoc,
     editSaleOpportunitySellerStatus,
-    orderSupport
+    orderSupport,
+    addTrackingCode
 }
 
 function getOrders(filter) {
@@ -583,6 +584,36 @@ function orderSupport(params) {
                 },
                 error => {
                     dispatch(failure(orderConstants.GET_SUPPORT_ORDER_FAILURE, error.toString()));
+                    console.log("occure error");
+                    console.log(error.toString());
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+    };
+
+}
+
+
+function addTrackingCode(params) {
+    return dispatch => {
+        dispatch(request(orderConstants.ADD_ORDER_TRACKING_CODE_REQUEST))
+        orderService.addTrackingCode(params)
+            .then(
+                res => {
+                    if (res === undefined) {
+                        dispatch(alertActions.error('ارتباط با سرور برقرار نیست'));
+                        dispatch(failure(orderConstants.GET_SUPPORT_ORDERADD_ORDER_TRACKING_CODE_FAILURE, 'ارتباط با سرور برقرار نیست'))
+                    }
+                    else if (res.success) {
+                        console.log("order TRACKING CODE")
+                        dispatch(success(orderConstants.ADD_ORDER_TRACKING_CODE_SUCCESS, res.data));
+                    } else if (res.success == false) {
+                        dispatch(failure(orderConstants.ADD_ORDER_TRACKING_CODE_FAILURE, res.message))
+                        dispatch(alertActions.error(res.message));
+                    }
+                },
+                error => {
+                    dispatch(failure(orderConstants.ADD_ORDER_TRACKING_CODE_FAILURE, error.toString()));
                     console.log("occure error");
                     console.log(error.toString());
                     dispatch(alertActions.error(error.toString()));
