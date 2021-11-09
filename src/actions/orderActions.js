@@ -22,7 +22,8 @@ export const orderActions = {
     showDoc,
     editSaleOpportunitySellerStatus,
     orderSupport,
-    addTrackingCode
+    addTrackingCode,
+    orderSupportClear
 }
 
 function getOrders(filter) {
@@ -593,6 +594,12 @@ function orderSupport(params) {
 
 }
 
+
+function orderSupportClear() {
+    return dispatch => {
+        dispatch(request(orderConstants.CLEAR_SUPPORT_ORDER))
+    };
+}
 
 function addTrackingCode(params) {
     return dispatch => {

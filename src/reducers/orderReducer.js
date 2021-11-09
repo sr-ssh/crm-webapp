@@ -422,6 +422,12 @@ export function supportOrder(state = initialState, action) {
                 loading: false,
                 err: action.error
             }
+        case orderConstants.CLEAR_SUPPORT_ORDER:
+            return {
+                ...state,
+                loading: false,
+                data: []
+            }
         default:
             return state
     }

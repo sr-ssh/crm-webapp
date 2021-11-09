@@ -116,7 +116,6 @@ export const SupportAddOrder = (props) => {
   }, [refresh]);
 
   return (
-    // TransitionComponent={Transition}
     <Dialog
       fullScreen
       open={props.open}
@@ -136,7 +135,7 @@ export const SupportAddOrder = (props) => {
             <ArrowBackIcon
               classes ={{ root: classes.backIcon }}
               color="primary"
-              onClick={()=>props.handleClose()}
+              onClick={()=>{props.handleClose(); dispatch(orderActions.orderSupportClear()); setValue("value", null);}}
             />
           </Row>
           <Row className="mt-2 d-flex justify-content-center">

@@ -576,7 +576,7 @@ export const Order = ({
                     </span>
                   </Card.Text>
                 </Col>
-                <Col className="p-0 d-flex"></Col>
+                
               </Row>
             </Card.Body>
           </Card>
