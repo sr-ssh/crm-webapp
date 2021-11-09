@@ -122,6 +122,7 @@ export const SupportAddOrder = (props) => {
       open={props.open}
       onClose={handleClose}
       classes={{ paperFullScreen: classes.supportDialog_root }}
+      disableEnforceFocus={true}
     >
       <div
         className="support--order-page--desktop orders w-100 pt-2"
