@@ -46,7 +46,7 @@ import { Note } from "./note";
 import { FinancialCheckModal } from "./financialCheckModal";
 import { ResultOrder } from "./resultOrder";
 import { FreeOrder } from "./freeOrder";
-import {TrackingCode} from './trackingCode'
+import { TrackingCode } from "./trackingCode";
 
 const useStyles = makeStyles((theme) => ({
   backdrop: {
@@ -96,7 +96,8 @@ export const Order = ({
   const [financialCheckModal, setFinancialCheckModal] = useState(false);
   const [resultOrderModal, setResultOrderModal] = useState(false);
   const [freeModalShow, setFreeModalShow] = useState(false);
-  const [coodPeygiriAcceptModalShow, setCoodPeygiriAcceptModalShow] = useState(false);
+  const [coodPeygiriAcceptModalShow, setCoodPeygiriAcceptModalShow] =
+    useState(false);
   const [freeStatus, setFreeStatus] = useState("");
 
   const [isPrivate, setIsPrivate] = useState(order.notes.isPrivate);
@@ -186,7 +187,7 @@ export const Order = ({
               </Button>
             </Col>
           )}
-        {
+        {!order.trackingCode && (
           <Col className="d-flex justify-content-end">
             <Button
               className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 notes-round"
@@ -205,7 +206,7 @@ export const Order = ({
               <span className="noPrint me-1">کد پیگیری</span>
             </Button>
           </Col>
-        }
+        )}
         <Col className="d-flex justify-content-center ">
           <Button
             className={`${
@@ -448,11 +449,13 @@ export const Order = ({
                     <Card.Text>
                       شماره مشتری:{" "}
                       <span className="me-2">
-                        {order.support 
-                          ? order.customer.phoneNumber && persianJs(order.customer.phoneNumber)
+                        {order.support
+                          ? order.customer.phoneNumber &&
+                            persianJs(order.customer.phoneNumber)
                               .englishNumber()
                               .toString()
-                          : order.customer.mobile && persianJs(order.customer.mobile)
+                          : order.customer.mobile &&
+                            persianJs(order.customer.mobile)
                               .englishNumber()
                               .toString()}
                       </span>
@@ -463,7 +466,9 @@ export const Order = ({
                   <Card.Text>
                     شماره همراه مشتری:{" "}
                     <span className="me-2">
-                      {order.support === undefined ? null : order.mobile === undefined
+                      {order.support === undefined
+                        ? null
+                        : order.mobile === undefined
                         ? null
                         : persianJs(order.mobile).englishNumber().toString()}
                     </span>
@@ -559,6 +564,18 @@ export const Order = ({
                     </Card.Text>
                   </Col>
                 )}
+
+                <Col className="p-0 d-flex">
+                  <Card.Text>
+                    کد پیگیری:{" "}
+                    <span>
+                      {order.trackingCode &&
+                        persianJs(order.trackingCode)
+                          .englishNumber()
+                          .toString()}
+                    </span>
+                  </Card.Text>
+                </Col>
                 <Col className="p-0 d-flex"></Col>
               </Row>
             </Card.Body>
@@ -690,7 +707,9 @@ export const Order = ({
                 <Row>
                   <Col className="m-0 p-0">
                     {order.notes.Notes != undefined ? (
-                      order.notes.Notes?.map((note, index) => <Note key={index} note={note} />)
+                      order.notes.Notes?.map((note, index) => (
+                        <Note key={index} note={note} />
+                      ))
                     ) : (
                       <span> هنوز یادداشتی برای این سفارش ثبت نشده است</span>
                     )}
@@ -796,13 +815,13 @@ export const Order = ({
       />
 
       <TrackingCode
-      show={coodPeygiriAcceptModalShow}
-      onHide={() => {
-        setCoodPeygiriAcceptModalShow(false);
-        setRefresh(!refresh);
-      }}
-      orderId={order?.id}
-      customerId={order?.customer._id}
+        show={coodPeygiriAcceptModalShow}
+        onHide={() => {
+          setCoodPeygiriAcceptModalShow(false);
+          setRefresh(!refresh);
+        }}
+        orderId={order?.id}
+        customerId={order?.customer._id}
       />
       {/* <ShowDocuments show={showDocModalShow} onHide={() => setShowDocModalShow(false)} order={activeOrder} /> */}
     </Card>
