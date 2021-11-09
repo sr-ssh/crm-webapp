@@ -396,7 +396,7 @@ export const AddOrder = (props) => {
               <Row className="m-0 p-0 mt-4">
                 <Col className="mt-3 w-100">
                   <Button
-                    className={`d-flex flex-row w-100 align-items-center justify-content-center btn--add--note--desktop notes-round  `}
+                    className={`d-flex flex-row w-100 align-items-center justify-content-center btn--add--note--desktop--addOrder notes-round  `}
                     onClick={noteHandler}
                   >
                     {notes.length > 0 ? (
