@@ -309,7 +309,7 @@ export const Order = ({
         </Col> */}
 
         {
-          // order.status === 0 && order.financialApproval.status === false && (
+          order.status === 0 && order.financialApproval.status === false && (
           <Col className="d-flex justify-content-center">
             <Button
               className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 notes-round"
@@ -328,7 +328,7 @@ export const Order = ({
               <span>لغو سفارش</span>
             </Button>
           </Col>
-        }
+        )}
 
         {order.status === 3 && (
           <Col className="d-flex justify-content-center">
