@@ -8,10 +8,12 @@
 
 .add-order-download-btn {
   background-color: white;
-  border-radius: 11px;
-  position: relative;
-  top: -33px;
-  right: 28vw;
+  border-radius: 50px;
+  position: absolute;
+  top: 27px;
+  left: 1px;
+  width: 35px;
+  height: 32px;
 }
 
 .add-order-download-btn:active {
@@ -22,13 +24,13 @@
   border: 1px solid var(--text-color-two);
 }
 .add-order-download-btn-loading {
-  width: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 37px;
   background-color: white;
-  border-radius: 11px;
+  border-radius: 50px;
+  position: absolute;
+  top: 30px;
+  left: 8px;
+  width: 35px;
+  height: 32px;
 }
 .order-flex {
   top: 47px;
@@ -629,7 +631,7 @@
   overflow-y: auto;
   overflow-x: hidden;
 }
-.bin--order-icon{
+.bin--order-icon {
   position: relative;
   top: -27px;
   right: 29vw;
