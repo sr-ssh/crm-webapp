@@ -101,8 +101,12 @@ export const AddOrder = (props) => {
   };
   let handleOldCustomer = (e) => {
     e.preventDefault();
-    if (customer.mobile) dispatch(customerActions.getCustomer(customer.mobile));
-    else setMobileValidated(true);
+    if (getValues("customer.phoneNumber")) {
+      let phoneNumber = persianJs(getValues("customer.phoneNumber"))
+        .toEnglishNumber()
+        .toString();
+      dispatch(customerActions.getCustomer(phoneNumber));
+    }
   };
 
   let handleChange = (e) => {
@@ -197,12 +201,17 @@ export const AddOrder = (props) => {
   }
 
   useEffect(() => {
-    if (oldCustomer?.mobile)
-      setCustomer({
-        ...customer,
-        ...oldCustomer,
-        address: oldCustomer.lastAddress,
-      });
+      if(oldCustomer?.customer) {
+        oldCustomer.customer?.phoneNumber && setValue("customer.phoneNumber",oldCustomer.customer?.phoneNumber)
+        oldCustomer.customer?.mobile && setValue("mobile",oldCustomer.customer?.mobile)
+        oldCustomer.customer?.family && setValue("customer.family",oldCustomer.customer?.family)
+        oldCustomer.customer?.company && setValue("customer.company",oldCustomer.customer?.company)
+        oldCustomer.customer?.lastAddress && setValue("address",oldCustomer.customer?.lastAddress)
+      }
+      if(oldCustomer?.seller) {
+        setValue("seller.family",oldCustomer.seller?.family)
+        setValue("seller.mobile",oldCustomer.seller?.mobile)
+      }
   }, [oldCustomer]);
 
   useEffect(() => {
@@ -291,8 +300,8 @@ export const AddOrder = (props) => {
                     ) : (
                       <img
                         src={downloadIcon}
-                        className="m-0 p-0  spinner--download--btn--desktop"
-                        // onClick={(e) => handleOldCustomer(e)}
+                        className="m-0 p-0  spinner--download--btn--desktop cursor-pointer"
+                        onClick={(e) => handleOldCustomer(e)}
                         height="25px"
                         alt="down-icon"
                       />
