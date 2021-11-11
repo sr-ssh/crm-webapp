@@ -35,7 +35,7 @@ export const AddOrder = (props) => {
     duration: "",
     reminder: "",
     address: "",
-    guestMobile: ""
+    guestMobile: "",
   });
   const [seller, setSeller] = useState({ mobile: "", family: "" });
   const [totalPrice, insertPrice] = useState("0");
@@ -94,10 +94,8 @@ export const AddOrder = (props) => {
     let name = e.target.name;
     let id = e.target.id;
 
-    if (name === "mobile") {
-      value = value
-        ? mobileHandler(persianJs(value).toEnglishNumber().toString())
-        : undefined;
+    if (name === "mobile" || name === "guestMobile") {
+      value = value ? persianJs(value).toEnglishNumber().toString() : undefined;
     }
     if (name === "family") {
       value = nameHandler(value);
@@ -108,10 +106,20 @@ export const AddOrder = (props) => {
       setCustomer({ ...customer, [name]: value });
     }
   };
-
   useEffect(() => {
-    console.log(seller, customer);
-  }, [seller, customer]);
+    if (customer.mobile == undefined || customer.mobile == "") {
+      return;
+    }
+    const patt = /^((09)|(۰۹))[0123456789۰۱۲۳۴۵۶۷۸۹]{9}$/;
+    let res = patt.test(customer.mobile);
+    if (res) {
+      setCustomer({ ...customer, guestMobile: customer.mobile });
+    }
+  }, [customer.mobile]);
+
+  // useEffect(() => {
+  //   console.log(seller, customer);
+  // }, [seller, customer]);
 
   let formHandler = (e) => {
     e.preventDefault();
@@ -189,9 +197,12 @@ export const AddOrder = (props) => {
       <Header title="ثبت سفارش" backLink="/dashboard" />
       <Container fluid className="pt-3 px-3 m-0">
         <Form onSubmit={formHandler} noValidate>
-          <Row className="mx-0 p-0 order-inputs" style={{'marginBottom': '-34px'}}>
+          <Row
+            className="mx-0 p-0 order-inputs"
+            style={{ marginBottom: "-34px" }}
+          >
             <Col className="p-0 col-5 add-order-input">
-              <Form.Group>
+              <Form.Group className="p--relative">
                 <Form.Label className="pe-2">شماره مشتری</Form.Label>
                 <Form.Control
                   className="order-input"
@@ -211,14 +222,13 @@ export const AddOrder = (props) => {
                   required
                 />
                 {loading ? (
-                  <div className="add-order-download-btn-loading">
-                    <Spinner
-                      as="div"
-                      variant="primary"
-                      animation="border"
-                      size="sm"
-                    />
-                  </div>
+                  <Spinner
+                    as="div"
+                    variant="primary"
+                    animation="border"
+                    size="sm"
+                    className="add-order-download-btn-loading"
+                  />
                 ) : (
                   <img
                     src={downloadIcon}
@@ -242,12 +252,13 @@ export const AddOrder = (props) => {
                   pattern="[0-9]*"
                   name="guestMobile"
                   onChange={handleChange}
+                  value={customer.guestMobile}
                 />
               </Form.Group>
             </Col>
           </Row>
 
-          <Row className="m-0 p-0 mt-3 order-inputs">
+          <Row className="m-0 p-0 mt-5 order-inputs">
             <Col className="p-0 col-5 add-order-input">
               <Form.Group>
                 <Form.Label className="pe-2">نام مشتری</Form.Label>
