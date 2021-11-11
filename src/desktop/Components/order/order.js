@@ -308,8 +308,7 @@ export const Order = ({
           </Button>
         </Col> */}
 
-        {
-          order.status === 0 && order.financialApproval.status === false && (
+        {order.status === 0 && order.financialApproval.status === false && (
           <Col className="d-flex justify-content-center">
             <Button
               className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 notes-round"
@@ -467,9 +466,17 @@ export const Order = ({
                     شماره همراه مشتری:{" "}
                     <span className="me-2">
                       {order.support === undefined
-                        ? null
+                        ? order.customer.mobile === undefined
+                          ? null
+                          : persianJs(order.customer.mobile)
+                              .englishNumber()
+                              .toString()
                         : order.mobile === undefined
-                        ? null
+                        ? order.customer.mobile === undefined
+                          ? null
+                          : persianJs(order.customer.mobile)
+                              .englishNumber()
+                              .toString()
                         : persianJs(order.mobile).englishNumber().toString()}
                     </span>
                   </Card.Text>
@@ -576,7 +583,6 @@ export const Order = ({
                     </span>
                   </Card.Text>
                 </Col>
-                
               </Row>
             </Card.Body>
           </Card>

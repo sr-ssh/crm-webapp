@@ -45,12 +45,14 @@ export const AddOrder = (props) => {
   const [notes, setNotes] = useState([]);
   const [showNotesModal, setShowNotesModal] = useState(false);
   const dispatch = useDispatch();
-  let oldCustomer = useSelector((state) => state.getCustomer.customer);
-  let { loading } = useSelector((state) => state.getCustomer);
+  let { loading: getCustomerLoading, customer: oldCustomer } = useSelector(
+    (state) => state.getCustomer
+  );
   let addOrderLoading = useSelector((state) => state.addOrder.loading);
   const [dialogSupport, setDialogSupport] = useState(false);
   let addOrder = useSelector((state) => state.addOrder);
   const refDatePicker = useRef();
+  console.log(oldCustomer);
 
   const submitCalendar = (value, name) => {
     let date = `${value.year}/${value.month.number}/${value.day} ${value.hour}:${value.minute}`;
@@ -194,6 +196,34 @@ export const AddOrder = (props) => {
     }
   }, []);
 
+  useEffect(() => {
+    if (
+      getCustomerLoading == false &&
+      oldCustomer &&
+      (Object.keys(oldCustomer.customer).length > 0 ||
+        Object.keys(oldCustomer.seller).length > 0)
+    ) {
+      if (
+        oldCustomer.customer &&
+        Object.keys(oldCustomer.customer).length > 0
+      ) {
+        setCustomer({
+          ...customer,
+          family: oldCustomer.customer.family,
+          address: oldCustomer.customer.lastAddress,
+          company: oldCustomer.customer.company,
+        });
+      }
+      if (oldCustomer.seller && Object.keys(oldCustomer.seller).length > 0) {
+        setSeller({
+          ...seller,
+          family: oldCustomer.seller.family,
+          mobile: oldCustomer.seller.mobile,
+        });
+      }
+    }
+  }, [getCustomerLoading]);
+
   return (
     <div className="order-page">
       <Header title="ثبت سفارش" backLink="/dashboard" />
@@ -223,7 +253,7 @@ export const AddOrder = (props) => {
                   value={customer.mobile}
                   required
                 />
-                {loading ? (
+                {getCustomerLoading ? (
                   <Spinner
                     as="div"
                     variant="primary"
@@ -235,7 +265,7 @@ export const AddOrder = (props) => {
                   <img
                     src={downloadIcon}
                     className="add-order-download-btn p-1"
-                    // onClick={(e) => handleOldCustomer(e)}
+                    onClick={(e) => handleOldCustomer(e)}
                     height="33vh"
                     width="50vw"
                     alt="down-icon"
