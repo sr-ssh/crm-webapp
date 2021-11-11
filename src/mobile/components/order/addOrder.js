@@ -16,6 +16,7 @@ import { Header } from "../base/header2";
 import { Basket } from "./basket";
 import { AddNotesModal } from "./addNotesModal";
 import { ModalContinueProcessesAddOrder } from "./modalContinueProcesses";
+import { SupportAddOrder } from "../support/supportAddOrder";
 
 // Assets
 import downloadIcon from "../../assets/images/download.svg";
@@ -48,6 +49,7 @@ export const AddOrder = (props) => {
     (state) => state.getCustomer
   );
   let addOrderLoading = useSelector((state) => state.addOrder.loading);
+  const [dialogSupport, setDialogSupport] = useState(false);
   let addOrder = useSelector((state) => state.addOrder);
   const refDatePicker = useRef();
   console.log(oldCustomer);
@@ -494,8 +496,9 @@ export const AddOrder = (props) => {
                     className="order--btn border-0 w-100 btn-secondary order--sale--opportunity"
                     id="saleOpprotunity"
                     size="lg"
-                    type="submit"
+                    type="button"
                     block
+                    onClick={(e) => setDialogSupport(true)}
                   >
                     پشتیبانی
                   </Button>
@@ -521,6 +524,10 @@ export const AddOrder = (props) => {
         customer={customer}
         notes={notes}
         clearInputes={clearInputes}
+      />
+      <SupportAddOrder
+        open={dialogSupport}
+        handleClose={() => setDialogSupport(false)}
       />
     </div>
   );
