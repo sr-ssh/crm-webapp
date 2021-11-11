@@ -300,7 +300,7 @@ export const AddOrder = (props) => {
                     ) : (
                       <img
                         src={downloadIcon}
-                        className="m-0 p-0  spinner--download--btn--desktop"
+                        className="m-0 p-0  spinner--download--btn--desktop cursor-pointer"
                         onClick={(e) => handleOldCustomer(e)}
                         height="25px"
                         alt="down-icon"
