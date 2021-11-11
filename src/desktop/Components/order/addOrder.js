@@ -1,13 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  Container,
-  Form,
-  Button,
-  Row,
-  Col,
-  Spinner,
-} from "react-bootstrap";
+import { Container, Form, Button, Row, Col, Spinner } from "react-bootstrap";
 // Date Picker Components
 import DatePicker from "react-multi-date-picker";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
@@ -29,7 +22,7 @@ import { Basket } from "./basket";
 import { AddNotesModal } from "./addNotesModal";
 import { Header } from "../base/header";
 import { ModalContinueProcessesAddOrder } from "./modalContinueProcesses";
-import { SupportAddOrder } from '../support/supportAddOrder'
+import { SupportAddOrder } from "../support/supportAddOrder";
 
 // Assets
 import downloadIcon from "../../assets/images/download.svg";
@@ -245,6 +238,17 @@ export const AddOrder = (props) => {
       ).toISOString()
     );
   };
+
+  useMemo(() => {
+    let phoneNumberCustomer = watch("customer.phoneNumber");
+    let regEx = /^[۰۱۲۳۴۵۶۷۸۹0123456789]{11}$/;
+    let res = regEx.test(phoneNumberCustomer);
+    if (res) {
+      setValue("mobile", phoneNumberCustomer, {
+        shouldValidate: true,
+      });
+    }
+  }, [watch("customer.phoneNumber")]);
 
   return (
     <>
@@ -554,8 +558,8 @@ export const AddOrder = (props) => {
           clearInputes={clearInputes}
         />
         <SupportAddOrder
-        open={dialogSuppot}
-        handleClose={() => setDialogSuppot(false)}
+          open={dialogSuppot}
+          handleClose={() => setDialogSuppot(false)}
         />
       </div>
     </>
