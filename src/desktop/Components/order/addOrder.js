@@ -442,7 +442,7 @@ export const AddOrder = (props) => {
                       <Form.Label className="pe-1 text-nowrap">
                         تاریخ استفاده (آماده سازی)
                       </Form.Label>
-                      <Col className="m-0 p-0 col-12 d-flex align-items-center bg-light notes-round">
+                      <Col className="m-0 p-0 col-12 d-flex align-items-center justify-content-between notes-round date--picker--desktop--addOrder">
                         <DatePicker
                           format="MM/DD/YYYY HH:mm:ss"
                           inputClass="pick--date--order--input"
@@ -461,13 +461,15 @@ export const AddOrder = (props) => {
                           onChange={(value) =>
                             submitCalendar(value, "duration")
                           }
+                          className=""
                         />
-                        <Col className="m-0 p-0 col-2">
+                        <Col className="m-0 p-0 col-2 d-flex align-items-center justify-content-end">
                           <img
                             src={closeDatePickerIcon}
                             className="m-0 p-0  cursor-pointer"
                             onClick={(e) => reset({ duration: null })}
                             height="20px"
+                            className="ps-2"
                             alt="down-icon"
                           />
                         </Col>

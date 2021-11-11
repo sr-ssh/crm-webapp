@@ -151,7 +151,10 @@
   background-color: rgb(10, 88, 202) !important;
   border-radius: 13px;
 }
-.customer-modal-close--desktop .products-add:focus + .customer-modal-close--desktop .btn-primary,
+.customer-modal-close--desktop
+  .products-add:focus
+  + .customer-modal-close--desktop
+  .btn-primary,
 .customer-modal-close--desktop .products-add:focus {
   background-color: var(--dager-color);
 }
@@ -339,12 +342,20 @@
   color: #fff;
   border-color: var(--note-border);
 }
+.date--picker--desktop--addOrder {
+  background-color: #fff;
+}
+.date--picker--desktop--addOrder .rmdp-container {
+  width: 100%;
+}
 
 .pick--date--order--input {
   width: 100%;
+  height: 40px !important;
   padding-right: 10px;
   height: calc(1.5em + 0.75rem + 1px);
   font-size: 14px;
   border-radius: 10px;
   border: none;
+  outline: none;
 }
