@@ -86,13 +86,13 @@ export const SaleOpprotunity = () => {
                 .sort(
                   (or1, or2) =>
                     Number(
-                      or2.sellers.some((seller) => seller.active === true)
+                      or2.sellers && or2.sellers.some((seller) => seller.active === true)
                     ) -
-                    Number(or1.sellers.some((seller) => seller.active === true))
+                    or1.sellers && Number(or1.sellers.some((seller) => seller.active === true))
                 )
                 .map((order, index) => {
                   if (
-                    order.sellers.some((seller) => seller.active === true) &&
+                    order.sellers?.some((seller) => seller.active === true) &&
                     order.status == 3
                   )
                     return (

@@ -52,7 +52,7 @@ function getOrders(filter = {}) {
   };
   return axios
     .get(
-      `${baseRoute}/order/v1/${encodeURI(status)}/${encodeURI(
+      `${baseRoute}/order/${encodeURI(status)}/${encodeURI(
         customerName
       )}/${customerMobile}/${startDate}/${endDate}`,
       requestOptions
