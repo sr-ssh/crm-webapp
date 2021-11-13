@@ -133,7 +133,7 @@ export const SupportAddOrder = (props) => {
     >
       <div
         className="support--order-page--desktop orders w-100"
-        style={{ zIndex: 1500 }}
+        style={{ zIndex: 1500 , overflowY : "hidden" }}
       >
         <Header
           title="پشتیبانی"
@@ -146,7 +146,7 @@ export const SupportAddOrder = (props) => {
 
         <Container
           fluid
-          className="px-3 m-0 d-flex justify-content-center align-items-center flex-column  support--order-page--desktop"
+          className="px-3 m-0 d-flex justify-content-around align-items-center flex-column  support--order-page--desktop"
         >
           {/* <Row className="mt-2 d-flex justify-content-center">
             <Col className=" pick--type--filter--support">
@@ -197,19 +197,22 @@ export const SupportAddOrder = (props) => {
               </Col>
             </Col>
           </Row> */}
-          <Row className="mt-0 mb-4 d-flex justify-content-center w-100">
+          <Row className="mt-0 mt-3 mb-3 d-flex justify-content-center w-100">
             <Col className="pick--type--filter--support justify-content-between py-1 px-1">
-              <Col className="col-5 pe-2">
-                <Dropdown onToggle={(e) => setDimStatus(!dimStatus)}>
-                  <Dropdown.Toggle
-                    className={`d-flex order-filter-input border `}
-                  >
-                    {selectedItem !== "" ? <span>{selectedItem}</span> : null}
+              <Col className="p-0 px-1 col-4 d-flex justify-content-center ">
+                <Dropdown
+                  className="w-100 ms-2"
+                  onToggle={(e) => setDimStatus(!dimStatus)}
+                >
+                  <Dropdown.Toggle className={`d-flex justify-content-center align-items-center w-100 btn-drop--down--support--addOrder  `}>
+                    {selectedItem !== "" ? <span style={{color : "#FFF"}}>{selectedItem}</span> : <span style={{color : "#FFF"}}>شماره مشتری</span>}
                   </Dropdown.Toggle>
                   <Dropdown.Menu
                     className={`${dimStatus ? "dim" : ""} dropdownProductMenu`}
+                    style={{ maxWidth: "8rem" }}
                   >
                     <Dropdown.Item
+                    
                       onClick={() => handleDropdown(1, "شماره مشتری")}
                     >
                       <Col className="text-end pe-1 order-filter-input">
@@ -217,25 +220,33 @@ export const SupportAddOrder = (props) => {
                       </Col>
                     </Dropdown.Item>
                     <Dropdown.Divider />
-                    <Dropdown.Item onClick={() => handleDropdown(2, "نام مشتری")}>
+                    <Dropdown.Item
+                      onClick={() => handleDropdown(2, "نام مشتری")}
+                    >
                       <Col className="text-end pe-1 order-filter-input">
                         نام مشتری
                       </Col>
                     </Dropdown.Item>
                     <Dropdown.Divider />
-                    <Dropdown.Item onClick={() => handleDropdown(3, "نام مجموعه")}>
+                    <Dropdown.Item
+                      onClick={() => handleDropdown(3, "نام مجموعه")}
+                    >
                       <Col className="text-end pe-1 order-filter-input">
                         نام مجموعه
                       </Col>
                     </Dropdown.Item>
                     <Dropdown.Divider />
-                    <Dropdown.Item onClick={() => handleDropdown(4, "شماره فروشنده")}>
+                    <Dropdown.Item
+                      onClick={() => handleDropdown(4, "شماره فروشنده")}
+                    >
                       <Col className="text-end pe-1 order-filter-input">
                         شماره فروشنده
                       </Col>
                     </Dropdown.Item>
                     <Dropdown.Divider />
-                    <Dropdown.Item onClick={() => handleDropdown(5, "نام فروشنده")}>
+                    <Dropdown.Item
+                      onClick={() => handleDropdown(5, "نام فروشنده")}
+                    >
                       <Col className="text-end pe-1 order-filter-input">
                         نام فروشنده
                       </Col>
@@ -257,6 +268,7 @@ export const SupportAddOrder = (props) => {
                   inputMode="tel"
                 />
               </Col>
+              {/* style={{width: "21%"}} */}
               <Col className="d-flex align-items-center justify-content-end col-3">
                 <img
                   src={deleteIcon}
@@ -281,6 +293,7 @@ export const SupportAddOrder = (props) => {
                     <Button
                       className="fw-bold order--btn order-submit--desktop border-0 notes-round p-1 d-flex align-items-center justify-content-center"
                       type="submit"
+                      style={{ width: "45px" }}
                       onClick={(e) => formHandler(e)}
                     >
                       <SearchIcon fontSize="medium" className="fs-1" />
@@ -318,16 +331,16 @@ export const SupportAddOrder = (props) => {
                 .map((orderr, index) => {
                   return (
                     <Order
-                    key={index}
-                    order={orderr}
-                    deliveryShow={deliveryShow}
-                    setDeliveryShow={setDeliveryShow}
-                    cancelOrderShow={cancelOrderShow}
-                    setCancelOrderShow={setCancelOrderShow}
-                    setActiveOrder={setActiveOrder}
-                    setOrder={setOrder}
-                    setUploadModalShow={setUploadModalShow}
-                    setShowDocModalShow={setShowDocModalShow}
+                      key={index}
+                      order={orderr}
+                      deliveryShow={deliveryShow}
+                      setDeliveryShow={setDeliveryShow}
+                      cancelOrderShow={cancelOrderShow}
+                      setCancelOrderShow={setCancelOrderShow}
+                      setActiveOrder={setActiveOrder}
+                      setOrder={setOrder}
+                      setUploadModalShow={setUploadModalShow}
+                      setShowDocModalShow={setShowDocModalShow}
                     />
                   );
                 })}

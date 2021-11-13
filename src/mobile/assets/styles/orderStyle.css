@@ -636,3 +636,15 @@
   top: -27px;
   right: 29vw;
 }
+
+.show > .btn-primary.btn-drop--down--support--addOrder,
+.btn-drop--down--support--addOrder {
+  background-color: #0a58ca !important;
+}
+.btn-drop--down--support--addOrder::after {
+  right: 8% !important;
+  color: #fff !important;
+  border-top: 0.5em solid;
+  border-right: 0.4em solid transparent;
+  border-left: 0.4em solid transparent;
+}
