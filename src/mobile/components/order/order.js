@@ -283,6 +283,28 @@ export const Order = ({
                   </Col>
                 </Row>
               )}
+               <Row className="d-flex justify-content-between align-items-center my-1">
+                  <Col className="lable--order p-0">کد پیگیری:</Col>
+                  {order.status ==3 ?
+                  <Col className="d-flex justify-content-end align-items-center text--factor p-0 ">
+                      <img
+                        src={closeIcon}
+                        alt="tick-icon"
+                        className="m-0 p-0 ms-1 p-1 icon--tick--confirm "
+                      />
+                      <span>ثبت نشده</span>
+                    </Col>
+                     : 
+                     <Col className="d-flex justify-content-end align-items-center text--factor p-0 ">
+                      <img
+                        src={tickIcon}
+                        alt="tick-icon"
+                        className="m-0 p-0 ms-1 p-1 icon--tick--confirm "
+                      />
+                      <span></span>
+                    </Col>
+}
+                </Row>
             </Card.Body>
           </Card>
         </Row>
