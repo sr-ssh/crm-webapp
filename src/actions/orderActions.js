@@ -614,10 +614,15 @@ function addTrackingCode(params) {
                     else if (res.success) {
                         console.log("order TRACKING CODE")
                         dispatch(success(orderConstants.ADD_ORDER_TRACKING_CODE_SUCCESS, res.data));
+                        setTimeout(() => {
+                            dispatch(clear(orderConstants.ADD_ORDER_TRACKING_CODE_CLEAR ));
+                        }, 1500);
                     } else if (res.success == false) {
                         dispatch(failure(orderConstants.ADD_ORDER_TRACKING_CODE_FAILURE, res.message))
                         dispatch(alertActions.error(res.message));
                     }
+
+                    
                 },
                 error => {
                     dispatch(failure(orderConstants.ADD_ORDER_TRACKING_CODE_FAILURE, error.toString()));
@@ -641,3 +646,7 @@ function success(type, data) {
 function failure(type, error) {
     return { type: type, error }
 }
+
+function clear(type) {
+    return { type: type };
+  }

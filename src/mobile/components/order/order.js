@@ -22,6 +22,7 @@ import uploadIcon from "./../../assets/images/order/Upload-documents.svg";
 import viewDocumentsIcon from "../../assets/images/order/View-documents.svg";
 import waitingIcon from "../../assets/images/main/Waiting.svg";
 import freeIcon from "../../assets/images/order/free1.svg";
+import coodIcon from "../../assets/images/order/cood.svg";
 
 //components
 import { AddNotesModal } from "./addNotesModal";
@@ -33,6 +34,7 @@ import { ShareLinkModal } from "./shareLinkModal";
 import { FinancialCheckModal } from "./financialCheckModal";
 import { ResultOrder } from "./resultOrder";
 import { FreeOrder } from "./freeOrder";
+import { TrackingCodeModal } from "./trackingCode";
 
 export const Order = ({
   order,
@@ -70,7 +72,7 @@ export const Order = ({
   const [productId, setProductId] = useState("");
   const [editProductOrder, setEditProductOrder] = useState("");
   const [shareLinkOrder, setShareLinkOrder] = useState("");
-
+  const [trackingCodeModal, setTrackingCodeModal] = useState(false);
   const getTotalPrice = (order) => {
     let total = 0;
     order.map((item) => {
@@ -186,19 +188,21 @@ export const Order = ({
               <Row className="d-flex justify-content-between align-items-center my-1">
                 <Col className="lable--order p-0">شماره همراه مشتری:</Col>
                 <Col className="d-flex justify-content-end text--factor p-0">
-                  <span>{order.support === undefined
-                        ? order.customer.mobile === undefined
-                          ? null
-                          : persianJs(order.customer.mobile)
-                              .englishNumber()
-                              .toString()
-                        : order.mobile === undefined
-                        ? order.customer.mobile === undefined
-                          ? null
-                          : persianJs(order.customer.mobile)
-                              .englishNumber()
-                              .toString()
-                        : persianJs(order.mobile).englishNumber().toString()}</span>
+                  <span>
+                    {order.support === undefined
+                      ? order.customer.mobile === undefined
+                        ? null
+                        : persianJs(order.customer.mobile)
+                            .englishNumber()
+                            .toString()
+                      : order.mobile === undefined
+                      ? order.customer.mobile === undefined
+                        ? null
+                        : persianJs(order.customer.mobile)
+                            .englishNumber()
+                            .toString()
+                      : persianJs(order.mobile).englishNumber().toString()}
+                  </span>
                 </Col>
               </Row>
               <Row className="d-flex justify-content-between align-items-center my-1">
@@ -216,19 +220,21 @@ export const Order = ({
               <Row className="d-flex justify-content-between align-items-center my-1">
                 <Col className="lable--order p-0">شماره فروشنده:</Col>
                 <Col className="d-flex justify-content-end text--factor p-0">
-                  <span>{order.seller === undefined
-                          ? null
-                          : persianJs(order.seller.mobile)
-                              .englishNumber()
-                              .toString()}</span>
+                  <span>
+                    {order.seller === undefined
+                      ? null
+                      : persianJs(order.seller.mobile)
+                          .englishNumber()
+                          .toString()}
+                  </span>
                 </Col>
               </Row>
               <Row className="d-flex justify-content-between align-items-center my-1">
                 <Col className="lable--order p-0">نام فروشنده:</Col>
                 <Col className="d-flex justify-content-end text--factor p-0">
-                  <span>{order.seller === undefined
-                          ? null
-                          : order.seller.family}</span>
+                  <span>
+                    {order.seller === undefined ? null : order.seller.family}
+                  </span>
                 </Col>
               </Row>
               <Row className="d-flex justify-content-between align-items-center my-1">
@@ -343,7 +349,7 @@ export const Order = ({
           </Table>
         </Row>
         <Row className="p-0 m-0 pb-3 w-100">
-          {userInfo?.data.permission.financialConfirmationOrder &&
+          {userInfo?.data?.permission?.financialConfirmationOrder &&
             order.status === 0 &&
             order.financialApproval.status == false && (
               <Col xs={6} className="p-0 px-1 pb-3 ps-2">
@@ -365,27 +371,51 @@ export const Order = ({
                 </Button>
               </Col>
             )}
-          <Col xs={6} className="p-0 px-1 pb-3 ps-2">
-            <Button
-              className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2"
-              type="button"
-              onClick={() => {
-                setIsShareLinkOrder(true);
-                setShareLinkOrder(order);
-              }}
-            >
-              <img
-                src={prevFactorIcon}
-                height="26px"
-                alt="prev-factor-icon"
-                className="col-3 py-1 me-1"
-              />
+          {order.sellers &&
+            order.sellers.some((seller) => seller.active === true) &&
+            order.status == 3 &&
+            order.sellers[order.sellers.length - 1].id?._id ===
+              userInfo.data._id && (
+              <Col xs={6} className="p-0 px-1 pb-3 ps-2">
+                <Button
+                  className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2"
+                  type="button"
+                  onClick={() => {
+                    setFreeModalShow(true);
+                    setFreeStatus("0");
+                  }}
+                >
+                  <img
+                    src={freeIcon}
+                    height="25px"
+                    alt="print-icon"
+                    className="col-3"
+                  />
+                  <span className="pe-1">آزاد کردن</span>
+                </Button>
+              </Col>
+            )}
+          {order.status == 3 && (
+            <Col xs={6} className="p-0 px-1 pb-3 ps-2">
+              <Button
+                className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2"
+                type="button"
+                onClick={() => {
+                  setTrackingCodeModal(true);
+                }}
+              >
+                <img
+                  src={coodIcon}
+                  height="25px"
+                  width="50px"
+                  alt="tracking-code-icon"
+                  className="col-3"
+                />
+                <span className="pe-1">کد پیگیری</span>
+              </Button>
+            </Col>
+          )}
 
-              <span className="me-2">
-                {order.status == 3 ? "پیش فاکتور" : "فاکتور"}
-              </span>
-            </Button>
-          </Col>
           <Col xs={6} className="p-0 px-1 pb-3 ps-2">
             <Button
               className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2"
@@ -443,6 +473,27 @@ export const Order = ({
             <Button
               className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2"
               type="button"
+              onClick={() => {
+                setIsShareLinkOrder(true);
+                setShareLinkOrder(order);
+              }}
+            >
+              <img
+                src={prevFactorIcon}
+                height="26px"
+                alt="prev-factor-icon"
+                className="col-3 py-1 me-1"
+              />
+
+              <span className="me-2">
+                {order.status == 3 ? "پیش فاکتور" : "فاکتور"}
+              </span>
+            </Button>
+          </Col>
+          {/* <Col xs={6} className="p-0 px-1 pb-3 ps-2">
+            <Button
+              className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2"
+              type="button"
               onClick={() => printWindow()}
             >
               <img
@@ -453,7 +504,7 @@ export const Order = ({
               />
               <span className="pe-1">پرینت</span>
             </Button>
-          </Col>
+          </Col> */}
           {order.status !== 3 && order.status !== 2 && (
             <Col xs={6} className="p-0 px-1 pb-3 ps-2">
               <Button
@@ -550,30 +601,6 @@ export const Order = ({
               </Button>
             </Col>
           )}
-          {order.sellers &&
-            order.sellers.some((seller) => seller.active === true) &&
-            order.status == 3 &&
-            order.sellers[order.sellers.length - 1].id?._id ===
-              userInfo.data._id && (
-              <Col xs={6} className="p-0 px-1 pb-3 ps-2">
-                <Button
-                  className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2"
-                  type="button"
-                  onClick={() => {
-                    setFreeModalShow(true);
-                    setFreeStatus("0");
-                  }}
-                >
-                  <img
-                    src={freeIcon}
-                    height="25px"
-                    alt="print-icon"
-                    className="col-3"
-                  />
-                  <span className="pe-1">آزاد کردن</span>
-                </Button>
-              </Col>
-            )}
         </Row>
       </Card.Body>
       <EditField
@@ -634,6 +661,13 @@ export const Order = ({
         }}
         order={order?.id}
         status={freeStatus}
+      />
+      <TrackingCodeModal
+        show={trackingCodeModal}
+        onHide={() => {
+          setTrackingCodeModal(false);
+        }}
+        order={order}
       />
     </Card>
   );

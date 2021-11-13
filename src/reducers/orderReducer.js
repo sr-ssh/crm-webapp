@@ -452,6 +452,13 @@ export function addTrackingCode(state = initialState, action) {
                 loading: false,
                 err: action.error
             }
+        case orderConstants.ADD_ORDER_TRACKING_CODE_CLEAR:
+            return {
+                loading: false,
+                data: null,
+                err: null
+            }
+            
         default:
             return state
     }
