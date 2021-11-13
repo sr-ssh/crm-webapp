@@ -648,3 +648,8 @@
   border-right: 0.4em solid transparent;
   border-left: 0.4em solid transparent;
 }
+.lable--order {
+  color: var(--text-color-four);
+  font-size: 13px;
+  font-weight: 600;
+}
