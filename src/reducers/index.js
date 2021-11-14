@@ -39,7 +39,8 @@ import {
   supportOrder,
   addTrackingCode,
   getFailureReasons,
-  failSaleOpportunity
+  failSaleOpportunity,
+  editPriority
 } from "./orderReducer";
 import { getReminders } from "./reminderReducer";
 import { getDiscounts } from "./discountReducer";
@@ -147,5 +148,6 @@ export default combineReducers({
   supportOrder,
   addTrackingCode,
   getFailureReasons,
-  failSaleOpportunity
+  failSaleOpportunity,
+  editPriority
 });

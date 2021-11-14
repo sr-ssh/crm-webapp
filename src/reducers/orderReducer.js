@@ -510,4 +510,28 @@ export function getFailureReasons(state = {}, action) {
         return state;
     }
   }
+
+
+export function editPriority(state = {}, action) {
+  switch (action.type) {
+    case orderConstants.EDIT_PRIORITY_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case orderConstants.EDIT_PRIORITY_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        data: action.data,
+      };
+    case orderConstants.EDIT_PRIORITY_FAILURE:
+      return {
+        err: action.err,
+        loading: false,
+      };
+    default:
+      return state;
+  }
+}
   

@@ -30,7 +30,8 @@ export const orderService = {
   orderSupport,
   addTrackingCode,
   failSaleOpportunity,
-  getFailureReasons
+  getFailureReasons,
+  editPriority
 };
 
 function getOrders(filter = {}) {
@@ -551,7 +552,31 @@ function getFailureReasons(data) {
     .catch((error) => {
       if (error.response) {
         console.log(error.response.data);
-        // handleError(error.response.status);
+        handleError(error.response.status);
+      }
+    });
+}
+
+function editPriority(data) {
+  console.log("into orderService (editPriority)");
+
+  const requestOptions = {
+    headers: authHeader(),
+  };
+
+  return axios
+    .put(`${baseRoute}/order/priority`, data, priority{
+      headers: requestOptions.headers,
+    })
+    .then((res) => {
+      console.log("res >>");
+      console.log(res);
+      return res.data;
+    })
+    .catch((error) => {
+      if (error.response) {
+        console.log(error.response.data);
+        handleError(error.response.status);
       }
     });
 }

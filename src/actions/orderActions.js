@@ -25,7 +25,8 @@ export const orderActions = {
     addTrackingCode,
     orderSupportClear,
     failSaleOpportunity,
-    getFailureReasons
+    getFailureReasons,
+    editPriority
 }
 
 function getOrders(filter) {
@@ -706,6 +707,40 @@ function getFailureReasons() {
     );
   };
 }
+
+function editPriority(body) {
+    return (dispatch) => {
+      dispatch(request(orderConstants.EDIT_PRIORITY_REQUEST));
+      orderService.editPriority(body).then(
+        (res) => {
+          if (res === undefined) {
+            dispatch(alertActions.error("ارتباط با سرور برقرار نیست"));
+            dispatch(
+              failure(
+                orderConstants.EDIT_PRIORITY_FAILURE,
+                "ارتباط با سرور برقرار نیست"
+              )
+            );
+          } else if (res.success) {
+            dispatch(success(orderConstants.EDIT_PRIORITY_SUCCESS, res.data));
+          } else if (res.success == false) {
+            dispatch(
+              failure(orderConstants.EDIT_PRIORITY_FAILURE, res.message)
+            );
+            dispatch(alertActions.error(res.message));
+          }
+        },
+        (error) => {
+          dispatch(
+            failure(orderConstants.GET_FAIL_REASONS_FAILURE, error.toString())
+          );
+          console.log("occure error");
+          console.log(error.toString());
+          dispatch(alertActions.error(error.toString()));
+        }
+      );
+    };
+  }
 
 function request(type) {
     return { type: type }
