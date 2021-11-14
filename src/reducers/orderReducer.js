@@ -486,3 +486,28 @@ export function failSaleOpportunity(state = {}, action) {
       return state;
   }
 }
+
+
+export function getFailureReasons(state = {}, action) {
+    switch (action.type) {
+      case orderConstants.GET_FAIL_REASONS_REQUEST:
+        return {
+          ...state,
+          loading: true,
+        };
+      case orderConstants.GET_FAIL_REASONS_SUCCESS:
+        return {
+          ...state,
+          loading: false,
+          data: action.data,
+        };
+      case orderConstants.GET_FAIL_REASONS_FAILURE:
+        return {
+          err: action.err,
+          loading: false,
+        };
+      default:
+        return state;
+    }
+  }
+  

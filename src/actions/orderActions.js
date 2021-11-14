@@ -24,7 +24,8 @@ export const orderActions = {
     orderSupport,
     addTrackingCode,
     orderSupportClear,
-    failSaleOpportunity
+    failSaleOpportunity,
+    getFailureReasons
 }
 
 function getOrders(filter) {
@@ -646,7 +647,7 @@ function addTrackingCode(params) {
                 res => {
                     if (res === undefined) {
                         dispatch(alertActions.error('ارتباط با سرور برقرار نیست'));
-                        dispatch(failure(orderConstants.GET_SUPPORT_ORDERADD_ORDER_TRACKING_CODE_FAILURE, 'ارتباط با سرور برقرار نیست'))
+                        dispatch(failure(orderConstants.ADD_ORDER_TRACKING_CODE_FAILURE, 'ارتباط با سرور برقرار نیست'))
                     }
                     else if (res.success) {
                         console.log("order TRACKING CODE")
@@ -670,6 +671,40 @@ function addTrackingCode(params) {
             );
     };
 
+}
+
+function getFailureReasons() {
+  return (dispatch) => {
+    dispatch(request(orderConstants.GET_FAIL_REASONS_REQUEST));
+    orderService.getFailureReasons().then(
+      (res) => {
+        if (res === undefined) {
+          dispatch(alertActions.error("ارتباط با سرور برقرار نیست"));
+          dispatch(
+            failure(
+              orderConstants.GET_FAIL_REASONS_FAILURE,
+              "ارتباط با سرور برقرار نیست"
+            )
+          );
+        } else if (res.success) {
+          dispatch(success(orderConstants.GET_FAIL_REASONS_SUCCESS, res.data));
+        } else if (res.success == false) {
+          dispatch(
+            failure(orderConstants.GET_FAIL_REASONS_FAILURE, res.message)
+          );
+          dispatch(alertActions.error(res.message));
+        }
+      },
+      (error) => {
+        dispatch(
+          failure(orderConstants.GET_FAIL_REASONS_FAILURE, error.toString())
+        );
+        console.log("occure error");
+        console.log(error.toString());
+        dispatch(alertActions.error(error.toString()));
+      }
+    );
+  };
 }
 
 function request(type) {

@@ -29,7 +29,8 @@ export const orderService = {
   editSaleOpportunitySellerStatus,
   orderSupport,
   addTrackingCode,
-  failSaleOpportunity
+  failSaleOpportunity,
+  getFailureReasons
 };
 
 function getOrders(filter = {}) {
@@ -516,6 +517,30 @@ function failSaleOpportunity(data) {
 
   return axios
     .delete(`${baseRoute}/order/opportunity`, {data,
+      headers: requestOptions.headers,
+    })
+    .then((res) => {
+      console.log("res >>");
+      console.log(res);
+      return res.data;
+    })
+    .catch((error) => {
+      if (error.response) {
+        console.log(error.response.data);
+        handleError(error.response.status);
+      }
+    });
+}
+
+function getFailureReasons(data) {
+  console.log("into orderService (getFailureReasons)");
+
+  const requestOptions = {
+    headers: authHeader(),
+  };
+
+  return axios
+    .get(`${baseRoute}/order/failurereasons`, {
       headers: requestOptions.headers,
     })
     .then((res) => {
