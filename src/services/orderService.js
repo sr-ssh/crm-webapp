@@ -28,7 +28,8 @@ export const orderService = {
   showDoc,
   editSaleOpportunitySellerStatus,
   orderSupport,
-  addTrackingCode
+  addTrackingCode,
+  failSaleOpportunity
 };
 
 function getOrders(filter = {}) {
@@ -502,6 +503,30 @@ function addTrackingCode(data) {
       if (error.response) {
         console.log(error.response.data);
         handleError(error.response.status);
+      }
+    });
+}
+
+function failSaleOpportunity(data) {
+  console.log("into orderService (failSaleOpportunity)");
+
+  const requestOptions = {
+    headers: authHeader(),
+  };
+
+  return axios
+    .delete(`${baseRoute}/order/opportunity`, {data,
+      headers: requestOptions.headers,
+    })
+    .then((res) => {
+      console.log("res >>");
+      console.log(res);
+      return res.data;
+    })
+    .catch((error) => {
+      if (error.response) {
+        console.log(error.response.data);
+        // handleError(error.response.status);
       }
     });
 }

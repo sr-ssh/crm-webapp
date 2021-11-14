@@ -23,7 +23,8 @@ export const orderActions = {
     editSaleOpportunitySellerStatus,
     orderSupport,
     addTrackingCode,
-    orderSupportClear
+    orderSupportClear,
+    failSaleOpportunity
 }
 
 function getOrders(filter) {
@@ -593,6 +594,42 @@ function orderSupport(params) {
     };
 
 }
+
+function failSaleOpportunity(params) {
+  return (dispatch) => {
+    dispatch(request(orderConstants.FAIL_SALE_OPPORTUNITY_REQUEST));
+    orderService.failSaleOpportunity(params).then(
+      (res) => {
+        if (res === undefined) {
+          dispatch(alertActions.error("ارتباط با سرور برقرار نیست"));
+          dispatch(
+            failure(
+              orderConstants.FAIL_SALE_OPPORTUNITY_FAILURE,
+              "ارتباط با سرور برقرار نیست"
+            )
+          );
+        } else if (res.success) {
+          console.log("order financial confirmed");
+          dispatch(success(orderConstants.FAIL_SALE_OPPORTUNITY_SUCCESS, res.data));
+        } else if (res.success == false) {
+          dispatch(
+            failure(orderConstants.FAIL_SALE_OPPORTUNITY_FAILURE, res.message)
+          );
+          dispatch(alertActions.error(res.message));
+        }
+      },
+      (error) => {
+        dispatch(
+          failure(orderConstants.FAIL_SALE_OPPORTUNITY_FAILURE, error.toString())
+        );
+        console.log("occure error");
+        console.log(error.toString());
+        dispatch(alertActions.error(error.toString()));
+      }
+    );
+  };
+}
+
 
 
 function orderSupportClear() {
