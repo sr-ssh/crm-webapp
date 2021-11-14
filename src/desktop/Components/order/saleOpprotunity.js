@@ -41,11 +41,14 @@ export const SaleOpprotunity = () => {
     const sideBar = useSelector(state => state.sideBar)
 
 
-    useEffect(() => {
-        !recordOrderShow && dispatch(orderActions.getOrders({ status: 3 }))
-    }, [dispatch, recordOrderShow])
+    // useEffect(() => {
+    //   console.log("_______________________________________________________________________Sale Opprotunity 1 _______________________________________________________________________")
+    //     !recordOrderShow && dispatch(orderActions.getOrders({ status: 3 }))
+    // }, [dispatch, recordOrderShow])
+
 
     useEffect(() => {
+      console.log("_______________________________________________________________________Sale Opprotunity 2 _______________________________________________________________________")
         dispatch(orderActions.getOrders({ status: 3 }))
     }, [refresh])
 

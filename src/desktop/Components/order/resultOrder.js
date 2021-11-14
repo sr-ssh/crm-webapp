@@ -42,7 +42,7 @@ export const ResultOrder = (props) => {
             centered
             className="mx-3 order-serach-modal"
         >
-            <Modal.Body className="add-product px-4 my-2">
+            <Modal.Body className="add-product px-4">
                 <Button className="border-0 customer-modal-close--desktop" type="button" onClick={e => props.onHide(false)}>
                     <img className="d-flex m-auto customer-modal-close-svg--desktop" src={closeIcon} alt="close-btn" />
                 </Button>
@@ -54,7 +54,7 @@ export const ResultOrder = (props) => {
                         </Button>
                     </Col>
                     <Col className="d-flex justify-content-center">
-                        <Button className="fw-bold order-submit border-0 bg-danger text-light w-75 mt-4 fs-6 bg-danger d-flex align-items-center" size="lg"
+                        <Button className="fw-bold order-submit border-0 bg-danger text-light w-75 mt-4 mb-3 fs-6 bg-danger d-flex align-items-center" size="lg"
                             onClick={e => { failure() }}
                             type="submit" block>
                             <img src={cancelIcon} height="28px" alt="edit-order-icon" className="mx-2" />
