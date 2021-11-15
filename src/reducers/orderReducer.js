@@ -463,3 +463,75 @@ export function addTrackingCode(state = initialState, action) {
             return state
     }
 }
+
+export function failSaleOpportunity(state = {}, action) {
+  switch (action.type) {
+    case orderConstants.FAIL_SALE_OPPORTUNITY_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case orderConstants.FAIL_SALE_OPPORTUNITY_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        data: action.data,
+      };
+    case orderConstants.FAIL_SALE_OPPORTUNITY_FAILURE:
+      return {
+        err: action.err,
+        loading: false,
+      };
+    default:
+      return state;
+  }
+}
+
+
+export function getFailureReasons(state = {}, action) {
+    switch (action.type) {
+      case orderConstants.GET_FAIL_REASONS_REQUEST:
+        return {
+          ...state,
+          loading: true,
+        };
+      case orderConstants.GET_FAIL_REASONS_SUCCESS:
+        return {
+          ...state,
+          loading: false,
+          data: action.data,
+        };
+      case orderConstants.GET_FAIL_REASONS_FAILURE:
+        return {
+          err: action.err,
+          loading: false,
+        };
+      default:
+        return state;
+    }
+  }
+
+
+export function editPriority(state = {}, action) {
+  switch (action.type) {
+    case orderConstants.EDIT_PRIORITY_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case orderConstants.EDIT_PRIORITY_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        data: action.data,
+      };
+    case orderConstants.EDIT_PRIORITY_FAILURE:
+      return {
+        err: action.err,
+        loading: false,
+      };
+    default:
+      return state;
+  }
+}
+  

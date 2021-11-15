@@ -37,7 +37,10 @@ import {
   showDoc,
   editSaleOpportunitySellerStatus,
   supportOrder,
-  addTrackingCode
+  addTrackingCode,
+  getFailureReasons,
+  failSaleOpportunity,
+  editPriority
 } from "./orderReducer";
 import { getReminders } from "./reminderReducer";
 import { getDiscounts } from "./discountReducer";
@@ -143,5 +146,8 @@ export default combineReducers({
   getSeller,
   getSellers,
   supportOrder,
-  addTrackingCode
+  addTrackingCode,
+  getFailureReasons,
+  failSaleOpportunity,
+  editPriority
 });

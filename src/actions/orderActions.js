@@ -23,7 +23,10 @@ export const orderActions = {
     editSaleOpportunitySellerStatus,
     orderSupport,
     addTrackingCode,
-    orderSupportClear
+    orderSupportClear,
+    failSaleOpportunity,
+    getFailureReasons,
+    editPriority
 }
 
 function getOrders(filter) {
@@ -594,6 +597,42 @@ function orderSupport(params) {
 
 }
 
+function failSaleOpportunity(params) {
+  return (dispatch) => {
+    dispatch(request(orderConstants.FAIL_SALE_OPPORTUNITY_REQUEST));
+    orderService.failSaleOpportunity(params).then(
+      (res) => {
+        if (res === undefined) {
+          dispatch(alertActions.error("ارتباط با سرور برقرار نیست"));
+          dispatch(
+            failure(
+              orderConstants.FAIL_SALE_OPPORTUNITY_FAILURE,
+              "ارتباط با سرور برقرار نیست"
+            )
+          );
+        } else if (res.success) {
+          console.log("order financial confirmed");
+          dispatch(success(orderConstants.FAIL_SALE_OPPORTUNITY_SUCCESS, res.data));
+        } else if (res.success == false) {
+          dispatch(
+            failure(orderConstants.FAIL_SALE_OPPORTUNITY_FAILURE, res.message)
+          );
+          dispatch(alertActions.error(res.message));
+        }
+      },
+      (error) => {
+        dispatch(
+          failure(orderConstants.FAIL_SALE_OPPORTUNITY_FAILURE, error.toString())
+        );
+        console.log("occure error");
+        console.log(error.toString());
+        dispatch(alertActions.error(error.toString()));
+      }
+    );
+  };
+}
+
+
 
 function orderSupportClear() {
     return dispatch => {
@@ -609,7 +648,7 @@ function addTrackingCode(params) {
                 res => {
                     if (res === undefined) {
                         dispatch(alertActions.error('ارتباط با سرور برقرار نیست'));
-                        dispatch(failure(orderConstants.GET_SUPPORT_ORDERADD_ORDER_TRACKING_CODE_FAILURE, 'ارتباط با سرور برقرار نیست'))
+                        dispatch(failure(orderConstants.ADD_ORDER_TRACKING_CODE_FAILURE, 'ارتباط با سرور برقرار نیست'))
                     }
                     else if (res.success) {
                         console.log("order TRACKING CODE")
@@ -634,6 +673,74 @@ function addTrackingCode(params) {
     };
 
 }
+
+function getFailureReasons() {
+  return (dispatch) => {
+    dispatch(request(orderConstants.GET_FAIL_REASONS_REQUEST));
+    orderService.getFailureReasons().then(
+      (res) => {
+        if (res === undefined) {
+          dispatch(alertActions.error("ارتباط با سرور برقرار نیست"));
+          dispatch(
+            failure(
+              orderConstants.GET_FAIL_REASONS_FAILURE,
+              "ارتباط با سرور برقرار نیست"
+            )
+          );
+        } else if (res.success) {
+          dispatch(success(orderConstants.GET_FAIL_REASONS_SUCCESS, res.data));
+        } else if (res.success == false) {
+          dispatch(
+            failure(orderConstants.GET_FAIL_REASONS_FAILURE, res.message)
+          );
+          dispatch(alertActions.error(res.message));
+        }
+      },
+      (error) => {
+        dispatch(
+          failure(orderConstants.GET_FAIL_REASONS_FAILURE, error.toString())
+        );
+        console.log("occure error");
+        console.log(error.toString());
+        dispatch(alertActions.error(error.toString()));
+      }
+    );
+  };
+}
+
+function editPriority(body) {
+    return (dispatch) => {
+      dispatch(request(orderConstants.EDIT_PRIORITY_REQUEST));
+      orderService.editPriority(body).then(
+        (res) => {
+          if (res === undefined) {
+            dispatch(alertActions.error("ارتباط با سرور برقرار نیست"));
+            dispatch(
+              failure(
+                orderConstants.EDIT_PRIORITY_FAILURE,
+                "ارتباط با سرور برقرار نیست"
+              )
+            );
+          } else if (res.success) {
+            dispatch(success(orderConstants.EDIT_PRIORITY_SUCCESS, res.data));
+          } else if (res.success == false) {
+            dispatch(
+              failure(orderConstants.EDIT_PRIORITY_FAILURE, res.message)
+            );
+            dispatch(alertActions.error(res.message));
+          }
+        },
+        (error) => {
+          dispatch(
+            failure(orderConstants.GET_FAIL_REASONS_FAILURE, error.toString())
+          );
+          console.log("occure error");
+          console.log(error.toString());
+          dispatch(alertActions.error(error.toString()));
+        }
+      );
+    };
+  }
 
 function request(type) {
     return { type: type }

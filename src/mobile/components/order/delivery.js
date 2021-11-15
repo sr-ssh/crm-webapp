@@ -17,8 +17,9 @@ export const Delivery = (props) => {
 
   const formHandler = (e) => {
     e.preventDefault();
-    dispatch(orderActions.sendDeliverySms(deliveryMobile));
-    props.onHide(true);
+    // dispatch(orderActions.sendDeliverySms(deliveryMobile));
+    // props.onHide(true);
+    dispatch(orderActions.editPriority({orderId: "618cd0068a6eb5e63801bd6e", priority: 1}))
   };
 
   useEffect(() => {

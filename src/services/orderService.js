@@ -28,7 +28,10 @@ export const orderService = {
   showDoc,
   editSaleOpportunitySellerStatus,
   orderSupport,
-  addTrackingCode
+  addTrackingCode,
+  failSaleOpportunity,
+  getFailureReasons,
+  editPriority
 };
 
 function getOrders(filter = {}) {
@@ -491,6 +494,78 @@ function addTrackingCode(data) {
 
   return axios
     .post(`${baseRoute}/order/trackingcode`, data, {
+      headers: requestOptions.headers,
+    })
+    .then((res) => {
+      console.log("res >>");
+      console.log(res);
+      return res.data;
+    })
+    .catch((error) => {
+      if (error.response) {
+        console.log(error.response.data);
+        handleError(error.response.status);
+      }
+    });
+}
+
+function failSaleOpportunity(data) {
+  console.log("into orderService (failSaleOpportunity)");
+
+  const requestOptions = {
+    headers: authHeader(),
+  };
+
+  return axios
+    .delete(`${baseRoute}/order/opportunity`, {data,
+      headers: requestOptions.headers,
+    })
+    .then((res) => {
+      console.log("res >>");
+      console.log(res);
+      return res.data;
+    })
+    .catch((error) => {
+      if (error.response) {
+        console.log(error.response.data);
+        handleError(error.response.status);
+      }
+    });
+}
+
+function getFailureReasons(data) {
+  console.log("into orderService (getFailureReasons)");
+
+  const requestOptions = {
+    headers: authHeader(),
+  };
+
+  return axios
+    .get(`${baseRoute}/order/failurereasons`, {
+      headers: requestOptions.headers,
+    })
+    .then((res) => {
+      console.log("res >>");
+      console.log(res);
+      return res.data;
+    })
+    .catch((error) => {
+      if (error.response) {
+        console.log(error.response.data);
+        handleError(error.response.status);
+      }
+    });
+}
+
+function editPriority(data) {
+  console.log("into orderService (editPriority)");
+
+  const requestOptions = {
+    headers: authHeader(),
+  };
+
+  return axios
+    .put(`${baseRoute}/order/priority`, data, priority{
       headers: requestOptions.headers,
     })
     .then((res) => {
