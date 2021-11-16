@@ -31,7 +31,7 @@ export const orderService = {
   addTrackingCode,
   failSaleOpportunity,
   getFailureReasons,
-  editPriority
+  editPriority,
 };
 
 function getOrders(filter = {}) {
@@ -40,6 +40,10 @@ function getOrders(filter = {}) {
   if (filter.customerMobile === "") filter.customerMobile = "0";
   if (filter.startDate === "") filter.startDate = "1900-01-01T05:42:13.845Z";
   if (filter.endDate === "") filter.endDate = "1900-01-01T05:42:13.845Z";
+  if (filter.startTrackingTime === "")
+    filter.startTrackingTime = "1900-01-01T05:42:13.845Z";
+  if (filter.endTrackingTime === "")
+    filter.endTrackingTime = "1900-01-01T05:42:13.845Z";
   if (filter.status === "") filter.status = " ";
 
   let {
@@ -48,6 +52,8 @@ function getOrders(filter = {}) {
     customerMobile = "0",
     startDate = "1900-01-01T05:42:13.845Z",
     endDate = "1900-01-01T05:42:13.845Z",
+    startTrackingTime = "1900-01-01T05:42:13.845Z",
+    endTrackingTime = "1900-01-01T05:42:13.845Z",
   } = filter;
 
   const requestOptions = {
@@ -57,7 +63,9 @@ function getOrders(filter = {}) {
     .get(
       `${baseRoute}/order/${encodeURI(status)}/${encodeURI(
         customerName
-      )}/${customerMobile}/${startDate}/${endDate}`,
+      )}/${customerMobile}/${startDate}/${endDate}/${encodeURIComponent(
+        startTrackingTime
+      )}/${encodeURIComponent(endTrackingTime)}`,
       requestOptions
     )
     .then((res) => {
@@ -517,7 +525,8 @@ function failSaleOpportunity(data) {
   };
 
   return axios
-    .delete(`${baseRoute}/order/opportunity`, {data,
+    .delete(`${baseRoute}/order/opportunity`, {
+      data,
       headers: requestOptions.headers,
     })
     .then((res) => {
