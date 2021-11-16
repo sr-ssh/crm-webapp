@@ -16,49 +16,57 @@ import { CancelOrder } from "./cancelOrder";
 import { UploadDocuments } from "./uploadDoc";
 import { FreeSaleOpportunity } from "./freeSaleOpportunity";
 import { ShowDocuments } from "./showDoc";
+import { Prioritize } from "./prioritize";
 
 export const SaleOpprotunity = () => {
+  const [recordOrderShow, setRecordOrderShow] = useState(false);
+  const [modalShow, setModalShow] = useState(false);
+  const [deliveryShow, setDeliveryShow] = useState(false);
+  const [activeOrder, setActiveOrder] = useState({});
+  const [order, setOrder] = useState("");
+  const [cancelOrderShow, setCancelOrderShow] = useState(false);
+  const [uploadModalShow, setUploadModalShow] = useState(false);
+  const [showDocModalShow, setShowDocModalShow] = useState(false);
+  const [prioritizeModalShow, setPrioritizeModalShow] = useState(false);
 
+  const [customerInfoShow, setCustomerInfoShow] = useState(false);
+  const [refresh, setRefresh] = useState(false);
 
+  const dispatch = useDispatch();
 
-    const [recordOrderShow, setRecordOrderShow] = useState(false)
-    const [modalShow, setModalShow] = useState(false)
-    const [deliveryShow, setDeliveryShow] = useState(false)
-    const [activeOrder, setActiveOrder] = useState({})
-    const [order, setOrder] = useState('')
-    const [cancelOrderShow, setCancelOrderShow] = useState(false)
-    const [uploadModalShow, setUploadModalShow] = useState(false)
-    const [showDocModalShow, setShowDocModalShow] = useState(false)
+  const orders = useSelector((state) => state.getOrders.orders);
+  let orderLoading = useSelector((state) => state.getOrders.loading);
+  const sideBar = useSelector((state) => state.sideBar);
 
-    const [customerInfoShow, setCustomerInfoShow] = useState(false)
-    const [refresh, setRefresh] = useState(false)
+  // useEffect(() => {
+  //   console.log("_______________________________________________________________________Sale Opprotunity 1 _______________________________________________________________________")
+  //     !recordOrderShow && dispatch(orderActions.getOrders({ status: 3 }))
+  // }, [dispatch, recordOrderShow])
 
-    const dispatch = useDispatch()
+  useEffect(() => {
+    console.log(
+      "_______________________________________________________________________Sale Opprotunity 2 _______________________________________________________________________"
+    );
+    dispatch(orderActions.getOrders({ status: 3 }));
+  }, [refresh]);
 
+  return (
+    <>
+      <Header
+        isBTNSearch={true}
+        searchModalShow={() => setModalShow(true)}
+        isBTNRequest={false}
+      />
 
-    const orders = useSelector(state => state.getOrders.orders)
-    let orderLoading = useSelector(state => state.getOrders.loading)
-    const sideBar = useSelector(state => state.sideBar)
-
-
-    // useEffect(() => {
-    //   console.log("_______________________________________________________________________Sale Opprotunity 1 _______________________________________________________________________")
-    //     !recordOrderShow && dispatch(orderActions.getOrders({ status: 3 }))
-    // }, [dispatch, recordOrderShow])
-
-
-    useEffect(() => {
-      console.log("_______________________________________________________________________Sale Opprotunity 2 _______________________________________________________________________")
-        dispatch(orderActions.getOrders({ status: 3 }))
-    }, [refresh])
-
-    return (
-        <>
-            <Header isBTNSearch={true} searchModalShow={() => setModalShow(true)} isBTNRequest={false} />
-
-            <div className="product-page orders w-100 margin--top--header mb-5" style={{ paddingRight: sideBar.open ? "250px" : 0 }}>
-                <Container fluid className="m-0 mt-5 w-100 d-flex justify-content-center flex-wrap " >
-                    {/* {
+      <div
+        className="product-page orders w-100 margin--top--header mb-5"
+        style={{ paddingRight: sideBar.open ? "250px" : 0 }}
+      >
+        <Container
+          fluid
+          className="m-0 mt-5 w-100 d-flex justify-content-center flex-wrap "
+        >
+          {/* {
                         orderLoading &&
                         <Col className="col-3 mt-5 m-auto d-block align-self-center w-100 mb-4 ">
                             <Spinner className="m-auto d-block" animation="border" />
@@ -75,9 +83,10 @@ export const SaleOpprotunity = () => {
                 .sort(
                   (or1, or2) =>
                     Number(
-                      or2.sellers && or2.sellers.some((seller) => seller.active === true)
-                    ) -
-                    or1.sellers && Number(or1.sellers.some((seller) => seller.active === true))
+                      or2.sellers &&
+                        or2.sellers.some((seller) => seller.active === true)
+                    ) - or1.sellers &&
+                    Number(or1.sellers.some((seller) => seller.active === true))
                 )
                 .map((order, index) => {
                   if (
@@ -103,6 +112,7 @@ export const SaleOpprotunity = () => {
                         uploadModalShow={uploadModalShow}
                         setCustomerInfoShow={setCustomerInfoShow}
                         setShowDocModalShow={setShowDocModalShow}
+                        setPrioritizeModalShow={setPrioritizeModalShow}
                       />
                     );
                   else
@@ -151,6 +161,13 @@ export const SaleOpprotunity = () => {
               setActiveOrder={setActiveOrder}
             />
           )}
+          <Prioritize
+            show={prioritizeModalShow}
+            onHide={() => {
+              setPrioritizeModalShow(false);
+            }}
+            order={activeOrder}
+          />
         </Container>
       </div>
     </>
