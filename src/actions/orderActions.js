@@ -757,7 +757,7 @@ function editPriority(body) {
               )
             );
           } else if (res.success) {
-            dispatch(success(orderConstants.EDIT_TRACKING_TIME_REQUEST, res.data));
+            dispatch(success(orderConstants.EDIT_TRACKING_TIME_SUCCESS, res));
           } else if (res.success == false) {
             dispatch(
               failure(orderConstants.EDIT_TRACKING_TIME_SUCCESS, res.message)

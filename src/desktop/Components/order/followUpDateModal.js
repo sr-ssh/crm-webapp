@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   Modal,
   Row,
@@ -72,14 +72,15 @@ export const FollowUpDateModal = (props) => {
       orderId: props.order.id,
       trackingTime: paramsForm.trackingTime,
     };
-
     dispatch(orderActions.editTrackingTime(param));
-    setTimeout(() => {
+  };
+
+  useEffect(() => {
+    if (editTrackingTimeLoading == false && editTrackingTimeData.success) {
       dispatch(orderActions.getOrders({ status: 3 }));
       props.onHide(false);
-    }, 1500);
-
-  };
+    }
+  }, [editTrackingTimeLoading]);
 
   return (
     <Modal
