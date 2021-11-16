@@ -359,3 +359,92 @@
   border: none;
   outline: none;
 }
+
+.modal--result--Order .modal-dialog-centered {
+  justify-content: center;
+}
+.modal--result--Order .modal-content {
+  width: 400px;
+  height: 325px;
+}
+.modal--result--Order--failure .modal-content {
+  width: 500px;
+  height: 250px;
+}
+
+.btn--result--order {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+}
+.btn--result--order--success {
+  margin-bottom: 2rem;
+  background-color: var(--button-color-two);
+}
+.btn--result--order--success:focus,
+.btn--result--order--success:hover,
+.btn--result--order--success:active,
+.btn--result--order--success:focus:active,
+.btn--result--order--success:active:focus {
+  box-shadow: none;
+  background-color: var(--button-color-two);
+}
+.btn--result--order--danger {
+  margin-top: 2rem;
+  background-color: var(--dager-color);
+}
+.btn--result--order--danger:focus,
+.btn--result--order--danger:hover,
+.btn--result--order--danger:active,
+.btn--result--order--danger:focus:active,
+.btn--result--order--danger:active:focus {
+  box-shadow: none;
+  background-color: var(--dager-color);
+}
+.text--failure--result--order {
+  font-size: 17px;
+  color: var(--dager-color);
+  margin-right: 0.5rem;
+}
+.input--failur--result--order {
+  border-radius: 15px;
+  height: 50px;
+  border: none;
+}
+
+.btn--more--faile--reason {
+  position: absolute;
+  left: 7px;
+  bottom: 4px;
+  width: 43px;
+  height: 41px;
+  background-color: var(--dark-blue) !important;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  padding: 0;
+}
+.btn--more--faile--reason:active,
+.btn--more--faile--reason:focus,
+.btn--more--faile--reason:hover,
+.btn--more--faile--reason:focus:active,
+.btn--more--faile--reason:active:focus {
+  background-color: var(--dark-blue);
+  box-shadow: none;
+}
+.btn--more--faile--reason::after {
+  border-top: 1em solid;
+  border-right: 0.7em solid transparent;
+  border-bottom: 0;
+  border-left: 0.7em solid transparent;
+  border-radius: 5px;
+  color: #fff !important;
+  top: 35%;
+  position: absolute;
+  right: 26%;
+}
+
+.dropdownFailureReasonsMenu {
+  transform: translate(0px, 1px) !important;
+}
