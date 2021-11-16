@@ -31,6 +31,9 @@ import resultIcon from "./../../assets/images/order/Result.svg";
 import waitingIcon from "../../assets/images/main/Waiting.svg";
 import freeIcon from "../../assets/images/order/free1.svg";
 import coodIcon from "../../assets/images/order/cood.svg";
+import lowPriorityIcon from "./../../assets/images/order/priority/low.svg";
+import mediumPriorityIcon from "./../../assets/images/order/priority/medium.svg";
+import highPriorityIcon from "./../../assets/images/order/priority/high.svg";
 
 // Actions
 import { notesActions } from "../../../actions";
@@ -159,11 +162,34 @@ export const Order = ({
 
   return (
     <Card
-      className={`m-auto mt-3 bg-light productCard border-0 lh-lg ${
+      className={`m-auto mt-3 mb-4 pb-3 bg-light productCard border-0 lh-lg ${
         !print ? "noPrint" : ""
       } mx-1 ${classes.productCard}`}
     >
-      <Row className="m-0 mt-3 noPrint">
+      <Row className="m-0 mt-3 noPrint justify-content-end ps-4">
+        {order.status == 3 && order.priority ? (
+          <Col
+            xs={1}
+            className="py-2 px-0 d-flex justify-content-center btn--sale--opprotunity ms-4 priority-badge"
+          >
+            <img
+              src={
+                order.priority == 1
+                  ? lowPriorityIcon
+                  : order.priority == 2
+                  ? mediumPriorityIcon
+                  : order.priority == 3
+                  ? highPriorityIcon
+                  : ""
+              }
+              height="25px"
+              alt="print-icon"
+            />
+          </Col>
+        ) : null}
+      </Row>
+
+      <Row className="m-0 mt-0 noPrint">
         {order.sellers?.some((seller) => seller.active === true) &&
           order.status == 3 &&
           order.sellers[order.sellers.length - 1]?.id?._id ===
