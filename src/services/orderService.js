@@ -45,6 +45,8 @@ function getOrders(filter = {}) {
   if (filter.endTrackingTime === "")
     filter.endTrackingTime = "1900-01-01T05:42:13.845Z";
   if (filter.status === "") filter.status = " ";
+  if (filter.sort === "") filter.sort = "0";
+
 
   let {
     status = " ",
@@ -54,6 +56,7 @@ function getOrders(filter = {}) {
     endDate = "1900-01-01T05:42:13.845Z",
     startTrackingTime = "1900-01-01T05:42:13.845Z",
     endTrackingTime = "1900-01-01T05:42:13.845Z",
+    sort = "0"
   } = filter;
 
   const requestOptions = {
@@ -63,9 +66,7 @@ function getOrders(filter = {}) {
     .get(
       `${baseRoute}/order/${encodeURI(status)}/${encodeURI(
         customerName
-      )}/${customerMobile}/${startDate}/${endDate}/${encodeURIComponent(
-        startTrackingTime
-      )}/${encodeURIComponent(endTrackingTime)}`,
+      )}/${customerMobile}/${startDate}/${endDate}/${startTrackingTime}/${endTrackingTime}/${sort}`,
       requestOptions
     )
     .then((res) => {
