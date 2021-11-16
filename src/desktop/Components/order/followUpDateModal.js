@@ -9,6 +9,8 @@ import {
   Alert,
 } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
+// Actions
+import { orderActions } from "../../../actions";
 // Form Validator
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -22,10 +24,12 @@ import persianJs from "persianjs/persian.min";
 // Icons
 import closeIcon from "../../assets/images/close.svg";
 import followUpDateBlueIcon from "../../assets/images/order/follow-up-date-blue.svg";
+// Components
+import { CircularProgress } from "@material-ui/core";
 
 // Validation Schema Form
 const validationSchema = yup.object().shape({
-  trackingTime: yup.date().min(new Date()) ,
+  trackingTime: yup.date().min(new Date()),
 });
 
 export const FollowUpDateModal = (props) => {
@@ -35,15 +39,19 @@ export const FollowUpDateModal = (props) => {
     getValues,
     reset,
     watch,
+    trigger,
     formState: { errors },
   } = useForm({
     mode: "all",
     criteriaMode: "all",
     resolver: yupResolver(validationSchema),
   });
+  const dispatch = useDispatch();
 
   const refDatePicker = useRef();
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
+  const { loading: editTrackingTimeLoading, data: editTrackingTimeData } =
+    useSelector((state) => state.editTrackingTime);
 
   const submitCalendar = (value, name) => {
     let date = `${value.year}/${value.month.number}/${value.day} ${value.hour}:${value.minute}`;
@@ -54,7 +62,24 @@ export const FollowUpDateModal = (props) => {
       ).toISOString()
     );
   };
-console.log(watch("trackingTime"))
+  let formHandler = async () => {
+    let result = await trigger();
+    if (result == false) {
+      return;
+    }
+    let paramsForm = getValues();
+    let param = {
+      orderId: props.order.id,
+      trackingTime: paramsForm.trackingTime,
+    };
+
+    dispatch(orderActions.editTrackingTime(param));
+    setTimeout(() => {
+      dispatch(orderActions.getOrders({ status: 3 }));
+      props.onHide(false);
+    }, 1500);
+
+  };
 
   return (
     <Modal
@@ -63,9 +88,6 @@ console.log(watch("trackingTime"))
       centered
       className={` mx-3 follow--up--date--modal `}
     >
-      {/*  ${
-          failureReason ? "modal--result--Order--failure" : null
-        } */}
       <Modal.Body className="add-product px-4">
         <Button
           className="border-0 customer-modal-close--desktop"
@@ -88,20 +110,15 @@ console.log(watch("trackingTime"))
                 <DatePicker
                   format="DD/MMMM/YYYY"
                   inputClass="pick--date--order--input"
-                    {...register("trackingTime")}
+                  {...register("trackingTime")}
                   ref={refDatePicker}
-                //   plugins={[<TimePicker position="bottom" hideSeconds />]}
                   calendar="persian"
                   locale="fa"
                   editable={false}
                   animation
-                  minDate={new Date()}
+                  minDate={new Date().setDate(new Date().getDate() + 1)}
                   calendarPosition="top"
-                  //   fixMainPosition="top"
-                  //   value={getValues("duration")}
-                    onChange={(value) =>
-                      submitCalendar(value, "duration")
-                    }
+                  onChange={(value) => submitCalendar(value, "duration")}
                   className=""
                 />
                 <Col className="m-0 p-0 col-2 d-flex align-items-center justify-content-end">
@@ -123,15 +140,27 @@ console.log(watch("trackingTime"))
             </Form.Group>
           </Col>
           <Col className="m-0 p-0 d-flex justify-content-center align-items-end mb-2">
-            <Button
-              className="fw-bold order--btn order-submit--desktop border-0 w-100 "
-              size="lg"
-              type="submit"
-              block
-              //   onClick={() => failure()}
-            >
-              ثبت
-            </Button>
+            {editTrackingTimeLoading ? (
+              <Button
+                className="fw-bold order--btn order-submit--desktop border-0 w-100  d-flex justify-content-center align-items-center"
+                size="lg"
+                type="submit"
+                disabled
+              >
+                <CircularProgress className="text-light" size="25px" />
+                <span className="me-3"> در حال ثبت ...</span>
+              </Button>
+            ) : (
+              <Button
+                className="fw-bold order--btn order-submit--desktop border-0 w-100 "
+                size="lg"
+                type="submit"
+                block
+                onClick={() => formHandler()}
+              >
+                ثبت
+              </Button>
+            )}
           </Col>
         </Row>
       </Modal.Body>

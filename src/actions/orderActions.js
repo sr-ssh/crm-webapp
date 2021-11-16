@@ -746,7 +746,7 @@ function editPriority(body) {
   function editTrackingTime(param) {
     return (dispatch) => {
       dispatch(request(orderConstants.EDIT_TRACKING_TIME_REQUEST));
-      orderService.editPriority(param).then(
+      orderService.editTrackingTime(param).then(
         (res) => {
             debugger;
           if (res === undefined) {
@@ -761,7 +761,7 @@ function editPriority(body) {
             dispatch(success(orderConstants.EDIT_TRACKING_TIME_REQUEST, res.data));
           } else if (res.success == false) {
             dispatch(
-              failure(orderConstants.EDIT_TRACKING_TIME_FAILURE, res.message)
+              failure(orderConstants.EDIT_TRACKING_TIME_SUCCESS, res.message)
             );
             dispatch(alertActions.error(res.message));
           }
