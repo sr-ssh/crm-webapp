@@ -565,7 +565,7 @@ function editPriority(data) {
   };
 
   return axios
-    .put(`${baseRoute}/order/priority`, data, priority{
+    .put(`${baseRoute}/order/priority`, data, {
       headers: requestOptions.headers,
     })
     .then((res) => {
