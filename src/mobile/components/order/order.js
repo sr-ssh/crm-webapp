@@ -23,6 +23,8 @@ import viewDocumentsIcon from "../../assets/images/order/View-documents.svg";
 import waitingIcon from "../../assets/images/main/Waiting.svg";
 import freeIcon from "../../assets/images/order/free1.svg";
 import coodIcon from "../../assets/images/order/cood.svg";
+import followUpDateIcon from "../../assets/images/order/follow-up-date.svg";
+
 
 //components
 import { AddNotesModal } from "./addNotesModal";
@@ -35,6 +37,8 @@ import { FinancialCheckModal } from "./financialCheckModal";
 import { ResultOrder } from "./resultOrder";
 import { FreeOrder } from "./freeOrder";
 import { TrackingCodeModal } from "./trackingCode";
+import { FollowUpDateModal } from "./followUpDateModal";
+
 
 export const Order = ({
   order,
@@ -61,6 +65,7 @@ export const Order = ({
   const [isShareLinkOrder, setIsShareLinkOrder] = useState(false);
   const [financialCheckModal, setFinancialCheckModal] = useState(false);
   const [resultOrderModal, setResultOrderModal] = useState(false);
+  const [followUpDateModal, setFollowUpDateModal] = useState(false);
   const [freeStatus, setFreeStatus] = useState("");
   const { user: userInfo, loading: userInfoLoading } = useSelector(
     (state) => state.appInfo
@@ -623,6 +628,25 @@ export const Order = ({
               </Button>
             </Col>
           )}
+          {order.status == 3 && order.trackingTime == undefined &&  (
+            <Col xs={6} className="p-0 px-1 pb-3 ps-2">
+              <Button
+                className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2"
+                type="button"
+                onClick={() => {
+                  setFollowUpDateModal(true);
+                }}
+              >
+                <img
+                  src={followUpDateIcon}
+                  height="28px"
+                  alt="print-icon"
+                  className="col-3"
+                />
+                <span className="pe-1">پیگیری شد </span>
+              </Button>
+            </Col>
+          )}
         </Row>
       </Card.Body>
       <EditField
@@ -688,6 +712,13 @@ export const Order = ({
         show={trackingCodeModal}
         onHide={() => {
           setTrackingCodeModal(false);
+        }}
+        order={order}
+      />
+      <FollowUpDateModal
+        show={followUpDateModal}
+        onHide={() => {
+          setFollowUpDateModal(false);
         }}
         order={order}
       />
