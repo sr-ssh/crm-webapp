@@ -359,3 +359,7 @@
   border: none;
   outline: none;
 }
+
+.priority-drop.dropdown-toggle:after {
+  display: none;
+}
