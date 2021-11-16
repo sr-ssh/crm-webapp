@@ -748,7 +748,6 @@ function editPriority(body) {
       dispatch(request(orderConstants.EDIT_TRACKING_TIME_REQUEST));
       orderService.editTrackingTime(param).then(
         (res) => {
-            debugger;
           if (res === undefined) {
             dispatch(alertActions.error("ارتباط با سرور برقرار نیست"));
             dispatch(
