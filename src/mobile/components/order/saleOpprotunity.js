@@ -36,6 +36,7 @@ export const SaleOpprotunity = () => {
   const dispatch = useDispatch();
 
   const orders = useSelector((state) => state.getOrders.orders);
+  const sort = useSelector((state) => state.getOrders.sort);
   let alert = useSelector((state) => state.alert);
 
   let orderLoading = useSelector((state) => state.getOrders.loading);
@@ -56,6 +57,7 @@ export const SaleOpprotunity = () => {
         modalShow={modalShow}
         setModalShow={setModalShow}
         setSortModalShow={setSortModalShow}
+        sort={sort}
       />
       {alert.message && (
         <>
@@ -78,7 +80,7 @@ export const SaleOpprotunity = () => {
         </Container>
       )}
       <Container
-        className={`m-auto  `}
+        className={`m-auto mt-3`}
         style={{ height: "90vh", position: "fixed", top: "64px" }}
       >
         {orders.length === 0 && !orderLoading ? (

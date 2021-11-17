@@ -1,21 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
-import { Modal, Button, Row, Col, Form } from "react-bootstrap";
-//import { DatePicker } from "jalali-react-datepicker";
-import DatePicker from "react-multi-date-picker";
-import moment from "jalali-moment";
-import persianJs from "persianjs/persian.min";
+import { Modal, Button, Row, Col } from "react-bootstrap";
 
 // Actions
 import { orderActions } from "../../../actions";
+
 // Icons
-import closeIcon from "../../assets/images/close.svg";
 import registerDateIcon from "./../../assets/images/order/sort/Registered-date.svg";
 import trackingDateIcon from "./../../assets/images/order/sort/Follow-up-date.svg";
 import priorityIcon from "./../../assets/images/order/sort/attention.svg";
 
 export const Sort = (props) => {
-  const [filters, setFilters] = useState({ status: "" });
   const dispatch = useDispatch();
 
   const handleClick = (e, n) => {
