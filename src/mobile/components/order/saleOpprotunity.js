@@ -15,9 +15,8 @@ import { UploadDocuments } from "./uploadDoc";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { CancelOrder } from "./cancelOrder";
 import { FreeSaleOpportunity } from "./freeSaleOpportunity";
-import { ShowDocuments } from './showDoc'
+import { ShowDocuments } from "./showDoc";
 import { Prioritize } from "./prioritize";
-
 
 export const SaleOpprotunity = () => {
   const [recordOrderShow, setRecordOrderShow] = useState(false);
@@ -38,9 +37,9 @@ export const SaleOpprotunity = () => {
 
   let orderLoading = useSelector((state) => state.getOrders.loading);
 
-  useEffect(() => {
-    !recordOrderShow && dispatch(orderActions.getOrders({ status: 3 }));
-  }, [dispatch, recordOrderShow]);
+  // useEffect(() => {
+  //   !recordOrderShow && dispatch(orderActions.getOrders({ status: 3 }));
+  // }, [dispatch, recordOrderShow]);
 
   useEffect(() => {
     dispatch(orderActions.getOrders({ status: 3 }));
@@ -83,14 +82,18 @@ export const SaleOpprotunity = () => {
           className="m-0 p-0 w-100 h-100"
           style={{ overflowX: "hidden", overflowY: "scroll" }}
         >
-          {!orderLoading && orders.length > 0
-            ? orders
+          {!orderLoading &&
+          orders &&
+          orders.orders &&
+          orders?.orders?.length > 0
+            ? orders.orders
                 .sort(
                   (or1, or2) =>
                     Number(
-                      or2.sellers && or2.sellers.some((seller) => seller.active === true)
-                    ) -
-                    or1.sellers && Number(or1.sellers.some((seller) => seller.active === true))
+                      or2.sellers &&
+                        or2.sellers.some((seller) => seller.active === true)
+                    ) - or1.sellers &&
+                    Number(or1.sellers.some((seller) => seller.active === true))
                 )
                 .map((order, index) => {
                   if (
