@@ -98,6 +98,17 @@ export const Header = (props) => {
                         </>
                         : null
                     }
+                    {props.isBTNSort ?
+                        <>
+                            <Button className="btn--search--desktop d-flex justify-content-center ff-iranSans p-2 me-auto"
+                                onClick={() => props.sortModalShow(true)}
+                            >
+                                <SearchIcon className="me-2 col-3" />
+                                <span className="col-8 text-light">مرتب کردن</span>
+                            </Button>
+                        </>
+                        : null
+                    }
                 </Toolbar>
                 <Logout show={showLogout} onHide={() => setShowLogout(false)}/>
             </AppBar>

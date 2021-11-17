@@ -17,6 +17,7 @@ import { UploadDocuments } from "./uploadDoc";
 import { FreeSaleOpportunity } from "./freeSaleOpportunity";
 import { ShowDocuments } from "./showDoc";
 import { Prioritize } from "./prioritize";
+import { Sort } from "./sort";
 
 export const SaleOpprotunity = () => {
   const [recordOrderShow, setRecordOrderShow] = useState(false);
@@ -28,6 +29,8 @@ export const SaleOpprotunity = () => {
   const [uploadModalShow, setUploadModalShow] = useState(false);
   const [showDocModalShow, setShowDocModalShow] = useState(false);
   const [prioritizeModalShow, setPrioritizeModalShow] = useState(false);
+  const [sortModalShow, setSortModalShow] = useState(false);
+  const [sort, setSort] = useState(0);
 
   const [customerInfoShow, setCustomerInfoShow] = useState(false);
   const [refresh, setRefresh] = useState(false);
@@ -56,6 +59,8 @@ export const SaleOpprotunity = () => {
         isBTNSearch={true}
         searchModalShow={() => setModalShow(true)}
         isBTNRequest={false}
+        isBTNSort={true}
+        sortModalShow={() => setSortModalShow(true)}
       />
 
       <div
@@ -167,6 +172,13 @@ export const SaleOpprotunity = () => {
               setPrioritizeModalShow(false);
             }}
             order={activeOrder}
+          />
+          <Sort
+            show={sortModalShow}
+            onHide={() => {
+              setSortModalShow(false);
+            }}
+            setSort={setSort}
           />
         </Container>
       </div>
