@@ -536,3 +536,31 @@ export function editPriority(state = {}, action) {
   }
 }
   
+export function editTrackingTime(state = {}, action) {
+    switch (action.type) {
+      case orderConstants.EDIT_TRACKING_TIME_REQUEST:
+        return {
+          ...state,
+          loading: true,
+        };
+      case orderConstants.EDIT_TRACKING_TIME_SUCCESS:
+        return {
+          ...state,
+          loading: false,
+          data: action.data,
+        };
+      case orderConstants.EDIT_TRACKING_TIME_FAILURE:
+        return {
+          err: action.err,
+          loading: false,
+        };
+        case orderConstants.EDIT_TRACKING_TIME_CLEAR:
+            return {
+                loading: false,
+                err: null,
+                data: []
+            };
+      default:
+        return state;
+    }
+  }

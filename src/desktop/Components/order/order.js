@@ -32,6 +32,7 @@ import waitingIcon from "../../assets/images/main/Waiting.svg";
 import freeIcon from "../../assets/images/order/free1.svg";
 import coodIcon from "../../assets/images/order/cood.svg";
 import lowWhitePriorityIcon from "./../../assets/images/order/priority/low-white.svg";
+import followUpDateIcon from "../../assets/images/order/follow-up-date.svg";
 
 // Actions
 import { notesActions } from "../../../actions";
@@ -49,6 +50,7 @@ import { ResultOrder } from "./resultOrder";
 import { FreeOrder } from "./freeOrder";
 import { TrackingCodeModal } from "./trackingCode";
 import { PriorityBadge } from "./priorityBadge";
+import { FollowUpDateModal } from "./followUpDateModal";
 
 const useStyles = makeStyles((theme) => ({
   backdrop: {
@@ -99,6 +101,7 @@ export const Order = ({
   const [financialCheckModal, setFinancialCheckModal] = useState(false);
   const [resultOrderModal, setResultOrderModal] = useState(false);
   const [freeModalShow, setFreeModalShow] = useState(false);
+  const [followUpDateModal, setFollowUpDateModal] = useState(false);
   const [coodPeygiriAcceptModalShow, setCoodPeygiriAcceptModalShow] =
     useState(false);
   const [freeStatus, setFreeStatus] = useState("");
@@ -408,6 +411,25 @@ export const Order = ({
             <span className="noPrint">مشاهده مدارک</span>
           </Button>
         </Col>
+        {order.status == 3 && order.trackingTime == undefined && (
+          <Col className="d-flex justify-content-center">
+            <Button
+              className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 notes-round"
+              type="button"
+              onClick={() => {
+                setFollowUpDateModal(true);
+              }}
+            >
+              <img
+                src={followUpDateIcon}
+                height="25px"
+                alt="edit-order-icon"
+                className="col-3 ms-1 "
+              />
+              <span>پیگیری شد</span>
+            </Button>
+          </Col>
+        )}
       </Row>
       <Card.Body className="pb-0 ps-1 rounded-3 text-gray">
         <Row className="p-0 ps-2 m-0 ">
@@ -847,6 +869,13 @@ export const Order = ({
         show={coodPeygiriAcceptModalShow}
         onHide={() => {
           setCoodPeygiriAcceptModalShow(false);
+        }}
+        order={order}
+      />
+      <FollowUpDateModal
+        show={followUpDateModal}
+        onHide={() => {
+          setFollowUpDateModal(false);
         }}
         order={order}
       />

@@ -41,9 +41,9 @@ export const SaleOpprotunity = () => {
 
   let orderLoading = useSelector((state) => state.getOrders.loading);
 
-  useEffect(() => {
-    !recordOrderShow && dispatch(orderActions.getOrders({ status: 3 }));
-  }, [dispatch, recordOrderShow]);
+  // useEffect(() => {
+  //   !recordOrderShow && dispatch(orderActions.getOrders({ status: 3 }));
+  // }, [dispatch, recordOrderShow]);
 
   useEffect(() => {
     dispatch(orderActions.getOrders({ status: 3 }));
@@ -94,8 +94,11 @@ export const SaleOpprotunity = () => {
           className="m-0 p-0 w-100 h-100"
           style={{ overflowX: "hidden", overflowY: "scroll" }}
         >
-          {!orderLoading && orders.length > 0
-            ? orders
+          {!orderLoading &&
+          orders &&
+          orders.orders &&
+          orders?.orders?.length > 0
+            ? orders.orders
                 .sort(
                   (or1, or2) =>
                     Number(
