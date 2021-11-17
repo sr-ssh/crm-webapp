@@ -32,6 +32,7 @@ export const orderService = {
   failSaleOpportunity,
   getFailureReasons,
   editPriority,
+  editTrackingTime,
 };
 
 function getOrders(filter = {}) {
@@ -591,3 +592,29 @@ function editPriority(data) {
       }
     });
 }
+
+function editTrackingTime(data) {
+  console.log("into orderService (editTrackingTime)");
+
+  const requestOptions = {
+    headers: authHeader(),
+  };
+
+  return axios
+    .put(`${baseRoute}/order/trackingTime`, data, {
+      headers: requestOptions.headers,
+    })
+    .then((res) => {
+      console.log("res >>");
+      console.log(res);
+      return res.data;
+    })
+    .catch((error) => {
+      if (error.response) {
+        console.log(error.response.data);
+        handleError(error.response.status);
+      }
+    });
+}
+
+

@@ -26,7 +26,8 @@ export const orderActions = {
     orderSupportClear,
     failSaleOpportunity,
     getFailureReasons,
-    editPriority
+    editPriority,
+    editTrackingTime
 }
 
 function getOrders(filter) {
@@ -741,6 +742,42 @@ function editPriority(body) {
       );
     };
   }
+
+  function editTrackingTime(param) {
+    return (dispatch) => {
+      dispatch(request(orderConstants.EDIT_TRACKING_TIME_REQUEST));
+      orderService.editTrackingTime(param).then(
+        (res) => {
+          if (res === undefined) {
+            dispatch(alertActions.error("ارتباط با سرور برقرار نیست"));
+            dispatch(
+              failure(
+                orderConstants.EDIT_TRACKING_TIME_FAILURE,
+                "ارتباط با سرور برقرار نیست"
+              )
+            );
+          } else if (res.success) {
+            dispatch(success(orderConstants.EDIT_TRACKING_TIME_SUCCESS, res));
+          } else if (res.success == false) {
+            dispatch(
+              failure(orderConstants.EDIT_TRACKING_TIME_SUCCESS, res.message)
+            );
+            dispatch(alertActions.error(res.message));
+          }
+        },
+        (error) => {
+          dispatch(
+            failure(orderConstants.EDIT_TRACKING_TIME_FAILURE, error.toString())
+          );
+          console.log("occure error");
+          console.log(error.toString());
+          dispatch(alertActions.error(error.toString()));
+        }
+      );
+    };
+  }
+
+  
 
 function request(type) {
     return { type: type }

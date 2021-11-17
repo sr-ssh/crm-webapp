@@ -458,3 +458,10 @@
   left: 6vw;
   width: 5%;
 }
+.follow--up--date--modal .modal-dialog-centered {
+  justify-content: center;
+}
+.follow--up--date--modal .modal-content {
+  width: 400px;
+  height: 285px;
+}
