@@ -231,6 +231,7 @@ function addOrder(products, info, seller, notes, force) {
       address,
       notes,
       force,
+      priority: info.priority || 0
     },
   };
 

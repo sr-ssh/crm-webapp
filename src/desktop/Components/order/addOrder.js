@@ -1,6 +1,14 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Container, Form, Button, Row, Col, Spinner } from "react-bootstrap";
+import {
+  Container,
+  Form,
+  Button,
+  Row,
+  Col,
+  Spinner,
+  Dropdown,
+} from "react-bootstrap";
 // Date Picker Components
 import DatePicker from "react-multi-date-picker";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
@@ -28,6 +36,10 @@ import { SupportAddOrder } from "../support/supportAddOrder";
 import downloadIcon from "../../assets/images/download.svg";
 import addIcon from "../../assets/images/order/add.svg";
 import closeDatePickerIcon from "../../assets/images/order/closeDatePicker.svg";
+import spinnerIcon from "./../../assets/images/sppiner.svg";
+import lowPriorityIcon from "./../../assets/images/order/priority/low.svg";
+import mediumPriorityIcon from "./../../assets/images/order/priority/medium.svg";
+import highPriorityIcon from "./../../assets/images/order/priority/high.svg";
 
 // Validation Schema Form
 const validationSchema = yup.object().shape({
@@ -61,7 +73,6 @@ export const AddOrder = (props) => {
   });
 
   const refDatePicker = useRef();
-  const [validated, setValidated] = useState(false);
   const [mobileValidated, setMobileValidated] = useState(false);
   const [nameValidated, setNameValidated] = useState(false);
   const [order, insertOrder] = useState([]);
@@ -73,6 +84,8 @@ export const AddOrder = (props) => {
   const [showNotesModal, setShowNotesModal] = useState(false);
   const [modalContinueProcesses, setModalContinueProcesses] = useState(false);
   const [dialogSuppot, setDialogSuppot] = useState(false);
+  const [dimStatus, setDimStatus] = useState(false);
+  const [priSselectedItem, setPrioItem] = useState("");
 
   const dispatch = useDispatch();
   let oldCustomer = useSelector((state) => state.getCustomer.customer);
@@ -80,6 +93,12 @@ export const AddOrder = (props) => {
   let addOrderLoading = useSelector((state) => state.addOrder.loading);
   let addOrder = useSelector((state) => state.addOrder);
   const sideBar = useSelector((state) => state.sideBar);
+
+  const handleDropdown = (n, name) => {
+    setValue("priority", n);
+    setPrioItem(name);
+  };
+
   let mobileHandler = (value) => {
     const number = value;
     // const patt = /^(09)(\d{9})/m;
@@ -99,6 +118,7 @@ export const AddOrder = (props) => {
       return value;
     } else return undefined;
   };
+
   let handleOldCustomer = (e) => {
     e.preventDefault();
     if (getValues("customer.phoneNumber")) {
@@ -127,6 +147,7 @@ export const AddOrder = (props) => {
   let formHandler = async (e) => {
     e.preventDefault();
     let values = getValues();
+    console.log(values);
     if (values.customer.phoneNumber == "" || values.customer.family == "") {
       return;
     } else if (order.length < 1) {
@@ -165,6 +186,7 @@ export const AddOrder = (props) => {
           reminder: values.reminder,
           address: values.address,
           guestMobile: values.mobile,
+          priority: values.priority || 0,
         },
         values.seller,
         notes,
@@ -198,20 +220,26 @@ export const AddOrder = (props) => {
     setItem("");
     setQuantity(1);
     oldCustomer = null;
+    setPrioItem("")
   }
 
   useEffect(() => {
-      if(oldCustomer?.customer) {
-        oldCustomer.customer?.phoneNumber && setValue("customer.phoneNumber",oldCustomer.customer?.phoneNumber)
-        oldCustomer.customer?.mobile && setValue("mobile",oldCustomer.customer?.mobile)
-        oldCustomer.customer?.family && setValue("customer.family",oldCustomer.customer?.family)
-        oldCustomer.customer?.company && setValue("customer.company",oldCustomer.customer?.company)
-        oldCustomer.customer?.lastAddress && setValue("address",oldCustomer.customer?.lastAddress)
-      }
-      if(oldCustomer?.seller) {
-        setValue("seller.family",oldCustomer.seller?.family)
-        setValue("seller.mobile",oldCustomer.seller?.mobile)
-      }
+    if (oldCustomer?.customer) {
+      oldCustomer.customer?.phoneNumber &&
+        setValue("customer.phoneNumber", oldCustomer.customer?.phoneNumber);
+      oldCustomer.customer?.mobile &&
+        setValue("mobile", oldCustomer.customer?.mobile);
+      oldCustomer.customer?.family &&
+        setValue("customer.family", oldCustomer.customer?.family);
+      oldCustomer.customer?.company &&
+        setValue("customer.company", oldCustomer.customer?.company);
+      oldCustomer.customer?.lastAddress &&
+        setValue("address", oldCustomer.customer?.lastAddress);
+    }
+    if (oldCustomer?.seller) {
+      setValue("seller.family", oldCustomer.seller?.family);
+      setValue("seller.mobile", oldCustomer.seller?.mobile);
+    }
   }, [oldCustomer]);
 
   useEffect(() => {
@@ -437,7 +465,7 @@ export const AddOrder = (props) => {
                   className="d-flex flex-row align-items-center"
                   style={{ height: "fit-content" }}
                 >
-                  <Col className="m-0 col-6 order-inputs">
+                  <Col className="m-0 col-7 order-inputs">
                     <Form.Group className="p--relative">
                       <Form.Label className="pe-1 text-nowrap">
                         تاریخ استفاده (آماده سازی)
@@ -478,10 +506,10 @@ export const AddOrder = (props) => {
                   </Col>
                 </Col>
                 <Col
-                  className="d-flex flex-row align-items-center justify-content-start"
+                  className="d-flex flex-row align-items-center justify-content-center"
                   style={{ height: "fit-content" }}
                 >
-                  <Col className="m-0 col-6 order-inputs">
+                  <Col className="m-0 col-7 order-inputs">
                     <Form.Group>
                       <Form.Label className="pe-1">تاریخ یادآوری</Form.Label>
                       <Form.Control
@@ -497,6 +525,128 @@ export const AddOrder = (props) => {
                     className="align-self-center m-0 mt-4 col-2 text-center  order-input"
                   >
                     <span className="fs-7 text-muted fw-bold">روز دیگر</span>
+                  </Col>
+                </Col>
+
+                <Col
+                  className="d-flex flex-row align-items-center justify-content-end "
+                  style={{ height: "fit-content" }}
+                >
+                  <Col className="basket-flex--desktop m-0 col-6 order-inputs w-75 justify-content-end ">
+                    <Form.Group dir="ltr">
+                      <Form.Label
+                        dir="rtl"
+                        className="pe-1"
+                        style={{ width: "70%" }}
+                      >
+                        اولویت
+                      </Form.Label>
+                      <Dropdown
+                        className="order-input"
+                        onToggle={(e) => setDimStatus(!dimStatus)}
+                      >
+                        <Dropdown.Toggle
+                          style={{ width: "70%" }}
+                          dir="rtl"
+                          className="radius-16 d-flex justify-content-center align-items-center priority-drop"
+                        >
+                          <Row className="text-end pe-2 order-filter-input">
+                            <Col xs={4}>
+                              {priSselectedItem !== "" ? (
+                                <span>{priSselectedItem}</span>
+                              ) : (
+                                <span>هیچکدام</span>
+                              )}
+                            </Col>
+                            <Col>
+                              {getValues("priority") && (
+                                <img
+                                  className="me-auto"
+                                  src={`${
+                                    getValues("priority") === 1
+                                      ? lowPriorityIcon
+                                      : getValues("priority") === 2
+                                      ? mediumPriorityIcon
+                                      : getValues("priority") === 3
+                                      ? highPriorityIcon
+                                      : ""
+                                  }`}
+                                  height="20px"
+                                  alt="spinner-icon"
+                                />
+                              )}
+                            </Col>
+                          </Row>
+
+                          <img
+                            className="me-auto"
+                            src={spinnerIcon}
+                            height="20px"
+                            alt="spinner-icon"
+                          />
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu
+                          className={`${dimStatus ? "dim" : ""}`}
+                          style={{ width: "70%" }}
+                        >
+                          <Dropdown.Item
+                            onClick={() => handleDropdown(0, "هیچکدام")}
+                          >
+                            <Col className="text-end pe-1 order-filter-input">
+                              هیچکدام
+                            </Col>
+                          </Dropdown.Item>
+                          <Dropdown.Divider />
+                          <Dropdown.Item
+                            onClick={() => handleDropdown(1, "کم")}
+                          >
+                            <Row className="text-end pe-2 order-filter-input">
+                              <Col>
+                                <img
+                                  className="me-auto"
+                                  src={lowPriorityIcon}
+                                  height="20px"
+                                  alt="spinner-icon"
+                                />
+                              </Col>
+                              <Col xs={3}>کم</Col>
+                            </Row>
+                          </Dropdown.Item>
+                          <Dropdown.Divider />
+                          <Dropdown.Item
+                            onClick={() => handleDropdown(2, "متوسط")}
+                          >
+                            <Row className="text-end pe-2 order-filter-input">
+                              <Col>
+                                <img
+                                  className="me-auto"
+                                  src={mediumPriorityIcon}
+                                  height="20px"
+                                  alt="spinner-icon"
+                                />
+                              </Col>
+                              <Col xs={3}>متوسط</Col>
+                            </Row>
+                          </Dropdown.Item>
+                          <Dropdown.Divider />
+                          <Dropdown.Item
+                            onClick={() => handleDropdown(3, "زیاد")}
+                          >
+                            <Row className="text-end pe-2 order-filter-input">
+                              <Col>
+                                <img
+                                  className="me-auto"
+                                  src={highPriorityIcon}
+                                  height="20px"
+                                  alt="spinner-icon"
+                                />
+                              </Col>
+                              <Col xs={3}>زیاد</Col>
+                            </Row>
+                          </Dropdown.Item>
+                        </Dropdown.Menu>
+                      </Dropdown>
+                    </Form.Group>
                   </Col>
                 </Col>
               </Row>

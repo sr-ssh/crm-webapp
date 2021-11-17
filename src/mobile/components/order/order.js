@@ -23,6 +23,7 @@ import viewDocumentsIcon from "../../assets/images/order/View-documents.svg";
 import waitingIcon from "../../assets/images/main/Waiting.svg";
 import freeIcon from "../../assets/images/order/free1.svg";
 import coodIcon from "../../assets/images/order/cood.svg";
+import lowWhitePriorityIcon from "./../../assets/images/order/priority/low-white.svg";
 
 //components
 import { AddNotesModal } from "./addNotesModal";
@@ -35,6 +36,7 @@ import { FinancialCheckModal } from "./financialCheckModal";
 import { ResultOrder } from "./resultOrder";
 import { FreeOrder } from "./freeOrder";
 import { TrackingCodeModal } from "./trackingCode";
+import { PriorityBadge } from "./priorityBadge";
 
 export const Order = ({
   order,
@@ -51,6 +53,7 @@ export const Order = ({
   setUploadModalShow,
   setShowDocModalShow,
   freeSaleOpportunity,
+  setPrioritizeModalShow
 }) => {
   let [print, setPrint] = useState(false);
   const [editModalShow, setEditModalShow] = useState(false);
@@ -110,11 +113,12 @@ export const Order = ({
 
   return (
     <Card
-      className={`m-auto mt-3 px-2 bg-light productCard border-0 lh-lg ${
+      className={`m-auto mt-3 px-2 mb-4 bg-light productCard border-0 lh-lg ${
         !print ? "noPrint" : ""
       }`}
     >
-      <Card.Body className="pb-0 px-1 rounded-3 text-gray">
+      <PriorityBadge order={order} />
+      <Card.Body className="pb-0 px-1 rounded-3 text-gray pt-0">
         <Row className="p-0 m-0 ">
           <Card className="factor--blue--section border-0">
             <Card.Body className="m-0 p-0 py-2 mx-3 ">
@@ -283,28 +287,28 @@ export const Order = ({
                   </Col>
                 </Row>
               )}
-               <Row className="d-flex justify-content-between align-items-center my-1">
-                  <Col className="lable--order p-0">کد پیگیری:</Col>
-                  {order.status ==3 ?
+              <Row className="d-flex justify-content-between align-items-center my-1">
+                <Col className="lable--order p-0">کد پیگیری:</Col>
+                {order.status == 3 ? (
                   <Col className="d-flex justify-content-end align-items-center text--factor p-0 ">
-                      <img
-                        src={closeIcon}
-                        alt="tick-icon"
-                        className="m-0 p-0 ms-1 p-1 icon--tick--confirm "
-                      />
-                      <span>ثبت نشده</span>
-                    </Col>
-                     : 
-                     <Col className="d-flex justify-content-end align-items-center text--factor p-0 ">
-                      <img
-                        src={tickIcon}
-                        alt="tick-icon"
-                        className="m-0 p-0 ms-1 p-1 icon--tick--confirm "
-                      />
-                      <span></span>
-                    </Col>
-}
-                </Row>
+                    <img
+                      src={closeIcon}
+                      alt="tick-icon"
+                      className="m-0 p-0 ms-1 p-1 icon--tick--confirm "
+                    />
+                    <span>ثبت نشده</span>
+                  </Col>
+                ) : (
+                  <Col className="d-flex justify-content-end align-items-center text--factor p-0 ">
+                    <img
+                      src={tickIcon}
+                      alt="tick-icon"
+                      className="m-0 p-0 ms-1 p-1 icon--tick--confirm "
+                    />
+                    <span></span>
+                  </Col>
+                )}
+              </Row>
             </Card.Body>
           </Card>
         </Row>
@@ -417,6 +421,26 @@ export const Order = ({
                 </Button>
               </Col>
             )}
+          {order.status == 3 && !order.priority && (
+            <Col xs={6} className="p-0 px-1 pb-3 ps-2">
+              <Button
+                className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2"
+                type="button"
+                onClick={() => {
+                  setPrioritizeModalShow(true);
+                  setActiveOrder(order);
+                }}
+              >
+                <img
+                  src={lowWhitePriorityIcon}
+                  height="25px"
+                  alt="print-icon"
+                  className="col-3"
+                />
+                <span className="noPrint">اولویت</span>
+              </Button>
+            </Col>
+          )}
           {order.status == 3 && (
             <Col xs={6} className="p-0 px-1 pb-3 ps-2">
               <Button

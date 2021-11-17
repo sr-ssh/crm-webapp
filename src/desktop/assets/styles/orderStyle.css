@@ -448,3 +448,13 @@
 .dropdownFailureReasonsMenu {
   transform: translate(0px, 1px) !important;
 }
+.priority-drop.dropdown-toggle:after {
+  display: none;
+}
+
+.priority-badge {
+  position: relative;
+  top: -33px;
+  left: 6vw;
+  width: 5%;
+}

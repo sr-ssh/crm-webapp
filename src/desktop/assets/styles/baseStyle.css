@@ -152,6 +152,9 @@ body {
 .radius-10{
   border-radius: 10px;
 }
+.radius-10-im{
+  border-radius: 10px !important;
+}
 .text--color--disabled {
   color: var(--text-color-four);
 }
