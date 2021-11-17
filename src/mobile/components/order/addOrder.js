@@ -1,6 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Container, Form, Button, Row, Col, Spinner } from "react-bootstrap";
+import {
+  Container,
+  Form,
+  Button,
+  Row,
+  Col,
+  Spinner,
+  Dropdown,
+} from "react-bootstrap";
 import "react-multi-date-picker/styles/layouts/mobile.css";
 import persianJs from "persianjs/persian.min";
 import DatePicker from "react-multi-date-picker";
@@ -22,6 +30,11 @@ import { SupportAddOrder } from "../support/supportAddOrder";
 import downloadIcon from "../../assets/images/download.svg";
 import addIcon from "../../assets/images/order/add.svg";
 import closeDatePickerIcon from "../../assets/images/order/closeDatePicker.svg";
+import lowPriorityIcon from "./../../assets/images/order/priority/low.svg";
+import mediumPriorityIcon from "./../../assets/images/order/priority/medium.svg";
+import highPriorityIcon from "./../../assets/images/order/priority/high.svg";
+import spinnerIcon from "./../../assets/images/sppiner.svg";
+import { PriorityDropdown } from "./priorityDropdown";
 
 export const AddOrder = (props) => {
   const [validated, setValidated] = useState(false);
@@ -53,6 +66,13 @@ export const AddOrder = (props) => {
   let addOrder = useSelector((state) => state.addOrder);
   const refDatePicker = useRef();
   console.log(oldCustomer);
+  const [dimStatus, setDimStatus] = useState(false);
+  const [priSselectedItem, setPrioItem] = useState("");
+
+  const handleDropdown = (n, name) => {
+    setCustomer({ ...customer, priority: n });
+    setPrioItem(name);
+  };
 
   const submitCalendar = (value, name) => {
     let date = `${value.year}/${value.month.number}/${value.day} ${value.hour}:${value.minute}`;
@@ -62,17 +82,6 @@ export const AddOrder = (props) => {
         moment.from(date, "fa", "YYYY/M/D HH:mm").format("YYYY-MM-D HH:mm:ss")
       ).toISOString(),
     });
-  };
-
-  let mobileHandler = (value) => {
-    const number = value;
-    // const patt = /^(09)(\d{9})/m;
-    // patt.test(number) &&
-    let res = number.length === 11;
-    if (res) {
-      setMobileValidated(false);
-      return value;
-    } else return undefined;
   };
 
   let nameHandler = (value) => {
@@ -121,10 +130,6 @@ export const AddOrder = (props) => {
     }
   }, [customer.mobile]);
 
-  // useEffect(() => {
-  //   console.log(seller, customer);
-  // }, [seller, customer]);
-
   let formHandler = (e) => {
     e.preventDefault();
     if (order.length && customer.family && customer.mobile) {
@@ -149,6 +154,7 @@ export const AddOrder = (props) => {
       company: "",
       lastAddress: "",
       guestMobile: "",
+      priority: 0,
     });
     setSeller({
       mobile: "",
@@ -160,6 +166,7 @@ export const AddOrder = (props) => {
     setItem("");
     setQuantity(1);
     oldCustomer = null;
+    setPrioItem("");
   }
   let noteHandler = (e) => {
     if (notes.length > 0) {
@@ -460,7 +467,13 @@ export const AddOrder = (props) => {
               </Form.Group>
             </Col>
           </Row>
-
+          <PriorityDropdown
+            priSselectedItem={priSselectedItem}
+            customer={customer}
+            setDimStatus={setDimStatus}
+            dimStatus={dimStatus}
+            handleDropdown={handleDropdown}
+          />
           <Row className="m-0 mt-4 justify-content-center w-100">
             {addOrderLoading ? (
               <Button
