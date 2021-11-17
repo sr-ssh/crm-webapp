@@ -35,6 +35,7 @@ import { FinancialCheckModal } from "./financialCheckModal";
 import { ResultOrder } from "./resultOrder";
 import { FreeOrder } from "./freeOrder";
 import { TrackingCodeModal } from "./trackingCode";
+import { PriorityBadge } from "./priorityBadge";
 
 export const Order = ({
   order,
@@ -110,11 +111,12 @@ export const Order = ({
 
   return (
     <Card
-      className={`m-auto mt-3 px-2 bg-light productCard border-0 lh-lg ${
+      className={`m-auto mt-3 px-2 mb-4 bg-light productCard border-0 lh-lg ${
         !print ? "noPrint" : ""
       }`}
-    >
-      <Card.Body className="pb-0 px-1 rounded-3 text-gray">
+    > 
+    <PriorityBadge order={order} />
+      <Card.Body className="pb-0 px-1 rounded-3 text-gray pt-0">
         <Row className="p-0 m-0 ">
           <Card className="factor--blue--section border-0">
             <Card.Body className="m-0 p-0 py-2 mx-3 ">

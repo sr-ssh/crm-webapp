@@ -653,3 +653,9 @@
   font-size: 13px;
   font-weight: 600;
 }
+.priority-badge--mobile {
+  position: relative;
+  top: -33px;
+  left: 3vw;
+  width: 19%;
+}
