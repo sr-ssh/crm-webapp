@@ -149,6 +149,9 @@ body {
 .backgound--dark--blue{
   background-color: var(--dark-blue);
 }
+.backgound--white{
+  background-color: var(--body-bachground);
+}
 .radius-10{
   border-radius: 10px;
 }

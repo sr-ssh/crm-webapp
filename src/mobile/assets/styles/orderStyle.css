@@ -659,3 +659,11 @@
   left: 3vw;
   width: 19%;
 }
+.sort-modal .modal-content {
+  position: absolute;
+  top: 10px;
+  width: 140px;
+}
+.box-shadow-light {
+  box-shadow: 0 0 5px 1px var(--card-color);
+}

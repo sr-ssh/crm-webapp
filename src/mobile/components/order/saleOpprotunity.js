@@ -3,11 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { Container, Row, Col, Alert } from "react-bootstrap";
 
 // Actions
-
 import { orderActions } from "../../../actions";
 
 //components
-import { Header } from "../base/header2";
+import { Header } from "../base/serachHeader";
 import { Order } from "./order";
 import { Delivery } from "./delivery";
 import { RecordOrder } from "./recordOrder";
@@ -15,9 +14,10 @@ import { UploadDocuments } from "./uploadDoc";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { CancelOrder } from "./cancelOrder";
 import { FreeSaleOpportunity } from "./freeSaleOpportunity";
-import { ShowDocuments } from './showDoc'
+import { ShowDocuments } from "./showDoc";
 import { Prioritize } from "./prioritize";
-
+import { OrderSearch } from "./search";
+import { Sort } from "./sort";
 
 export const SaleOpprotunity = () => {
   const [recordOrderShow, setRecordOrderShow] = useState(false);
@@ -30,6 +30,8 @@ export const SaleOpprotunity = () => {
   const [showDocModalShow, setShowDocModalShow] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [prioritizeModalShow, setPrioritizeModalShow] = useState(false);
+  const [modalShow, setModalShow] = useState(false);
+  const [sortModalShow, setSortModalShow] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -48,7 +50,13 @@ export const SaleOpprotunity = () => {
 
   return (
     <div className="product-page orders ">
-      <Header className="noPrint" title="فرصت فروش" backLink="/" />
+      <Header
+        className="noPrint"
+        title="فرصت فروش"
+        modalShow={modalShow}
+        setModalShow={setModalShow}
+        setSortModalShow={setSortModalShow}
+      />
       {alert.message && (
         <>
           <div className="modal-backdrop show"></div>
@@ -88,9 +96,10 @@ export const SaleOpprotunity = () => {
                 .sort(
                   (or1, or2) =>
                     Number(
-                      or2.sellers && or2.sellers.some((seller) => seller.active === true)
-                    ) -
-                    or1.sellers && Number(or1.sellers.some((seller) => seller.active === true))
+                      or2.sellers &&
+                        or2.sellers.some((seller) => seller.active === true)
+                    ) - or1.sellers &&
+                    Number(or1.sellers.some((seller) => seller.active === true))
                 )
                 .map((order, index) => {
                   if (
@@ -129,7 +138,9 @@ export const SaleOpprotunity = () => {
             : null}
         </Row>
 
-        {/* <OrderSearch show={modalShow} onHide={() => setModalShow(false)} /> */}
+        <OrderSearch show={modalShow} onHide={() => setModalShow(false)} />
+        <Sort show={sortModalShow} onHide={() => setSortModalShow(false)} />
+
         <Delivery
           show={deliveryShow}
           onHide={() => setDeliveryShow(false)}
