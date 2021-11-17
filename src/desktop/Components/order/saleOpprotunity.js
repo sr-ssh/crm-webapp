@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Spinner } from "react-bootstrap";
 
 // Actions
 
@@ -30,7 +30,9 @@ export const SaleOpprotunity = () => {
   const [showDocModalShow, setShowDocModalShow] = useState(false);
   const [prioritizeModalShow, setPrioritizeModalShow] = useState(false);
   const [sortModalShow, setSortModalShow] = useState(false);
-  const [sort, setSort] = useState(0);
+  const [sort, setSort] = useState(
+    useSelector((state) => state.getOrders.sort)
+  );
 
   const [customerInfoShow, setCustomerInfoShow] = useState(false);
   const [refresh, setRefresh] = useState(false);
@@ -38,6 +40,8 @@ export const SaleOpprotunity = () => {
   const dispatch = useDispatch();
 
   const orders = useSelector((state) => state.getOrders.orders);
+  const sortOrders = useSelector((state) => state.getOrders.sort);
+
   let orderLoading = useSelector((state) => state.getOrders.loading);
   const sideBar = useSelector((state) => state.sideBar);
 
@@ -50,7 +54,7 @@ export const SaleOpprotunity = () => {
     console.log(
       "_______________________________________________________________________Sale Opprotunity 2 _______________________________________________________________________"
     );
-    dispatch(orderActions.getOrders({ status: 3 }));
+    dispatch(orderActions.getOrders({ status: 3, sort }));
   }, [refresh]);
 
   return (
@@ -61,6 +65,7 @@ export const SaleOpprotunity = () => {
         isBTNRequest={false}
         isBTNSort={true}
         sortModalShow={() => setSortModalShow(true)}
+        sort={sortOrders}
       />
 
       <div
@@ -71,12 +76,11 @@ export const SaleOpprotunity = () => {
           fluid
           className="m-0 mt-5 w-100 d-flex justify-content-center flex-wrap "
         >
-          {/* {
-                        orderLoading &&
-                        <Col className="col-3 mt-5 m-auto d-block align-self-center w-100 mb-4 ">
-                            <Spinner className="m-auto d-block" animation="border" />
-                        </Col>
-                    } */}
+          {orderLoading && (
+            <Col className="col-3 mt-5 m-auto d-block align-self-center w-100 mb-4 ">
+              <Spinner className="m-auto d-block" animation="border" />
+            </Col>
+          )}
           {orders.length === 0 && !orderLoading ? (
             <Row className="justify-content-center align-items-center no-result-filter">
               <Col className="col-8 text-center">هیج نتیجه ای یافت نشد!</Col>
@@ -173,13 +177,17 @@ export const SaleOpprotunity = () => {
             }}
             order={activeOrder}
           />
-          <Sort
-            show={sortModalShow}
-            onHide={() => {
-              setSortModalShow(false);
-            }}
-            setSort={setSort}
-          />
+          {sortOrders !== undefined && (
+            <Sort
+              show={sortModalShow}
+              onHide={() => {
+                setSortModalShow(false);
+              }}
+              setSort={setSort}
+              sort={sortOrders}
+              sort1={sort}
+            />
+          )}
         </Container>
       </div>
     </>

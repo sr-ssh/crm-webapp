@@ -17,7 +17,8 @@ export function getOrders(state = initialState, action) {
             return {
                 ...state,
                 loading: false,
-                orders: action.data
+                orders: action.data.orders,
+                sort: action.data.sort
             }
         case orderConstants.GET_ORDERS_FAILURE:
             return {

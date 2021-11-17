@@ -32,12 +32,12 @@ export const Sort = (props) => {
       setCheck2(false);
       setCheck3(false);
     } else if (e.target.id === "active2") {
-      setPriority(2);
+      props.setSort(2);
       setCheck1(false);
       setCheck2(true);
       setCheck3(false);
     } else if (e.target.id === "active3") {
-      setPriority(3);
+      props.setSort(3);
       setCheck1(false);
       setCheck2(false);
       setCheck3(true);
@@ -48,20 +48,35 @@ export const Sort = (props) => {
 
   const handleClick = (e) => {
     e.preventDefault();
-    dispatch(
-      orderActions.editPriority({ orderId: props.order.id, priority: priority })
-    );
-    setTimeout(() => {
-      dispatch(orderActions.getOrders({ status: 3 }));
-      props.onHide(false);
-    }, 1500);
+    dispatch(orderActions.getOrders({ status: 3, sort: props.sort1 }));
+    props.onHide(false);
   };
 
   useEffect(() => {
-    setCheck1(false);
-    setCheck2(false);
-    setCheck3(false);
-  }, [props.order, props.show]);
+    switch (parseInt(props.sort)) {
+      case 1:
+        setCheck1(true);
+        setCheck2(false);
+        setCheck3(false);
+        break;
+      case 2:
+        setCheck1(false);
+        setCheck2(true);
+        setCheck3(false);
+        break;
+      case 3:
+        setCheck1(false);
+        setCheck2(false);
+        setCheck3(true);
+        break;
+
+      default:
+        setCheck1(false);
+        setCheck2(false);
+        setCheck3(false);
+        break;
+    }
+  }, [props.order, props.show, props.sort]);
 
   return (
     <Modal
@@ -72,9 +87,7 @@ export const Sort = (props) => {
       backdrop="static"
       className="mx-3 order-serach-modal--medium"
     >
-      <Modal.Body
-        className="add-product px-4"
-      >
+      <Modal.Body className="add-product px-4">
         <Button
           className="border-0 customer-modal-close--desktop"
           type="button"
@@ -96,9 +109,7 @@ export const Sort = (props) => {
             className="card--body--show--doc--mobile p-3 px-4 mx-4 rounded-3 fs-5
               "
           >
-            <Row className="fw-bold">
-              مرتب سازی بر اساس
-            </Row>
+            <Row className="fw-bold">مرتب سازی بر اساس</Row>
             <Form>
               <Col className="my-3 justify-content-center">
                 <Row>
@@ -108,7 +119,7 @@ export const Sort = (props) => {
                         <Form.Check.Input
                           name="activity"
                           id="active1"
-                          defaultChecked={check1}
+                          defaultChecked={props.sort == 1}
                           inline
                           type="radio"
                         />
@@ -138,8 +149,8 @@ export const Sort = (props) => {
                       <Col xs={1}>
                         <Form.Check.Input
                           name="activity"
-                          id="active2"
-                          defaultChecked={check2}
+                          id="active3"
+                          defaultChecked={props.sort == 3}
                           inline
                           type="radio"
                         />
@@ -153,7 +164,7 @@ export const Sort = (props) => {
                       </Col>
                       <Col>
                         <Form.Check.Label
-                          htmlFor="active2"
+                          htmlFor="active3"
                           inline
                           className="me-1"
                         >
@@ -169,8 +180,8 @@ export const Sort = (props) => {
                       <Col xs={1}>
                         <Form.Check.Input
                           name="activity"
-                          id="active3"
-                          defaultChecked={check3}
+                          id="active2"
+                          defaultChecked={props.sort == 2}
                           inline
                           type="radio"
                         />
@@ -184,7 +195,7 @@ export const Sort = (props) => {
                       </Col>
                       <Col xs={3}>
                         <Form.Check.Label
-                          htmlFor="active3"
+                          htmlFor="active2"
                           inline
                           className="me-1"
                         >
