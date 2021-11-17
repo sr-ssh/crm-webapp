@@ -9,32 +9,44 @@ import registerDateIcon from "./../../assets/images/order/sort/Registered-date-w
 import trackingDateIcon from "./../../assets/images/order/sort/Follow-up-date-white.svg";
 import priorityIcon from "./../../assets/images/order/sort/attention-white.svg";
 
-export const Header = ({ title, modalShow, setModalShow, sort, setSortModalShow={} }) => {
+export const Header = ({
+  title,
+  modalShow,
+  setModalShow,
+  sort,
+  setSortModalShow = {},
+  isSort = false,
+}) => {
   return (
     <>
       <Navbar variant="dark" sticky="top" className="py-2 my-nav noPrint">
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="align-items-center w-100">
-            <Nav.Link
-              className="ms-3 px-1 py-1 me-4 backgound--dark--blue radius-10"
-              onClick={() => setSortModalShow(true)}
-            >
-              <img
-                src={
-                  sort == 1
-                    ? registerDateIcon
-                    : sort == 2
-                    ? priorityIcon
-                    : trackingDateIcon
-                }
-                height="30px"
-                alt="plus-icon"
-                className="noPrint"
-              />
-            </Nav.Link>
+            {isSort && (
+              <Nav.Link
+                className="ms-4 px-1 py-1 me-4 backgound--dark--blue radius-10"
+                onClick={() => setSortModalShow(true)}
+              >
+                <img
+                  src={
+                    sort == 1
+                      ? registerDateIcon
+                      : sort == 2
+                      ? priorityIcon
+                      : trackingDateIcon
+                  }
+                  height="30px"
+                  alt="plus-icon"
+                  className="noPrint"
+                />
+              </Nav.Link>
+            )}
 
-            <Nav.Link className="ms-4 pe-4 " onClick={() => setModalShow(true)}>
+            <Nav.Link
+              className={`${isSort ? "ms-4  me-2" : "ms-auto"} pe-4`}
+              onClick={() => setModalShow(true)}
+            >
               <img
                 src={searchIcon}
                 height="40px"

@@ -58,6 +58,7 @@ export const SaleOpprotunity = () => {
         setModalShow={setModalShow}
         setSortModalShow={setSortModalShow}
         sort={sort}
+        isSort={true}
       />
       {alert.message && (
         <>
