@@ -16,6 +16,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { CancelOrder } from "./cancelOrder";
 import { FreeSaleOpportunity } from "./freeSaleOpportunity";
 import { ShowDocuments } from './showDoc'
+import { Prioritize } from "./prioritize";
 
 
 export const SaleOpprotunity = () => {
@@ -28,6 +29,7 @@ export const SaleOpprotunity = () => {
   const [customerInfoShow, setCustomerInfoShow] = useState(false);
   const [showDocModalShow, setShowDocModalShow] = useState(false);
   const [refresh, setRefresh] = useState(false);
+  const [prioritizeModalShow, setPrioritizeModalShow] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -112,6 +114,7 @@ export const SaleOpprotunity = () => {
                         setUploadModalShow={setUploadModalShow}
                         setCustomerInfoShow={setCustomerInfoShow}
                         setShowDocModalShow={setShowDocModalShow}
+                        setPrioritizeModalShow={setPrioritizeModalShow}
                       />
                     );
                   else
@@ -156,6 +159,13 @@ export const SaleOpprotunity = () => {
             UploadModalShow={() => setUploadModalShow(true)}
           />
         )}
+        <Prioritize
+          show={prioritizeModalShow}
+          onHide={() => {
+            setPrioritizeModalShow(false);
+          }}
+          order={activeOrder}
+        />
       </Container>
     </div>
   );

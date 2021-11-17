@@ -31,7 +31,6 @@ import resultIcon from "./../../assets/images/order/Result.svg";
 import waitingIcon from "../../assets/images/main/Waiting.svg";
 import freeIcon from "../../assets/images/order/free1.svg";
 import coodIcon from "../../assets/images/order/cood.svg";
-import lowPriorityIcon from "./../../assets/images/order/priority/low.svg";
 import lowWhitePriorityIcon from "./../../assets/images/order/priority/low-white.svg";
 
 // Actions
