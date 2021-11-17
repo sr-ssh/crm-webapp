@@ -402,7 +402,7 @@ export const Order = ({
           {order.sellers &&
             order.sellers.some((seller) => seller.active === true) &&
             order.status == 3 &&
-            order.sellers[order.sellers.length - 1].id._id &&
+            order.sellers[order.sellers.length - 1].id?._id &&
             userInfo?.data &&
             order.sellers[order.sellers.length - 1]?.id?._id ===
               userInfo?.data._id && (

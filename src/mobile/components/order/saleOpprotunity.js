@@ -96,9 +96,9 @@ export const SaleOpprotunity = () => {
         >
           {!orderLoading &&
           orders &&
-          orders.orders &&
-          orders?.orders?.length > 0
-            ? orders.orders
+          orders &&
+          orders?.length > 0
+            ? orders
                 .sort(
                   (or1, or2) =>
                     Number(
@@ -108,6 +108,7 @@ export const SaleOpprotunity = () => {
                     Number(or1.sellers.some((seller) => seller.active === true))
                 )
                 .map((order, index) => {
+                  console.log("order", order)
                   if (
                     order.sellers?.some((seller) => seller.active === true) &&
                     order.status == 3
