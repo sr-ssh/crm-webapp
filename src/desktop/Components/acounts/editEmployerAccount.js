@@ -43,6 +43,7 @@ export const EditEmployerAccount = (props) => {
         nationalIDCode: user.nationalIDCode,
         voipNumbers: user.voipNumbers,
         sip: user.voipNumber,
+        paymentGateway: user.paymentGateway
       });
     console.log(inputs);
   }, [props.show]);
@@ -143,6 +144,21 @@ export const EditEmployerAccount = (props) => {
                     defaultValue={inputs.address}
                     onChange={companyNameInputHandler}
                     name="address"
+                  />
+                </Card>
+              </Col>
+            </Row>
+
+            <Row className="m-0 p-0 mt-1">
+              <Col className="m-0 p-0 ">
+                <Card className="border-0 bg-transparent text-light">
+                  <Form.Label className="pe-3">درگاه پرداخت</Form.Label>
+                  <Form.Control
+                    className="order-input py-2"
+                    type="text"
+                    defaultValue={inputs.paymentGateway}
+                    onChange={companyNameInputHandler}
+                    name="paymentGateway"
                   />
                 </Card>
               </Col>
