@@ -65,41 +65,48 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const Factor = ({ factor, setCancelFactorShow, setDeliveryShow, cancelOrderShow, setCancelOrderShow, recordOrderShow = '', setRecordOrderShow = {}, setActiveFactor, setOrder, status }) => {
+export const Factor = ({
+  factor,
+  setCancelFactorShow,
+  setDeliveryShow,
+  cancelOrderShow,
+  setCancelOrderShow,
+  recordOrderShow = "",
+  setRecordOrderShow = {},
+  setActiveFactor,
+  setOrder,
+  status,
+  ...props
+}) => {
+  const classes = useStyles();
+  const dispatch = useDispatch();
+  let [print, setPrint] = useState(false);
+  const [editModalShow, setEditModalShow] = useState(false);
+  const [cancelModalShow, setCancelModalShow] = useState(false);
+  const [editFactorModalShow, setEditFactorModalShow] = useState(false);
+  const [showNotesModal, setShowNotesModal] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [isShareLinkOrder, setIsShareLinkOrder] = useState(false);
+  const [isPrivate, setIsPrivate] = useState(factor?.note?.isPrivate);
+  const [financialCheckModal, setFinancialCheckModal] = useState(false);
+  const { user: userInfo, loading: userInfoLoading } = useSelector(
+    (state) => state.appInfo
+  );
 
-    const classes = useStyles();
-    const dispatch = useDispatch()
-    let [print, setPrint] = useState(false)
-    const [editModalShow, setEditModalShow] = useState(false)
-    const [cancelModalShow, setCancelModalShow] = useState(false);
-    const [editFactorModalShow, setEditFactorModalShow] = useState(false)
-    const [showNotesModal, setShowNotesModal] = useState(false)
-    const [open, setOpen] = useState(false);
-    const [isShareLinkOrder, setIsShareLinkOrder] = useState(false)
-    const [isPrivate, setIsPrivate] = useState(factor?.note?.isPrivate);
-    const [financialCheckModal, setFinancialCheckModal] = useState(false)
-    const {user : userInfo ,loading : userInfoLoading } = useSelector(state => state.appInfo)
+  let editStatusNotesLoading = useSelector((state) => state.editStatusNotes);
+  const [input, setInput] = useState("");
+  const [name, setName] = useState("");
+  const [factorId, setFactorId] = useState("");
+  const [productId, setProductId] = useState("");
+  const [editFactor, setEditFactor] = useState("");
 
-
-
-    let editStatusNotesLoading = useSelector(state => state.editStatusNotes)
-    console.log(isPrivate)
-    const [input, setInput] = useState('')
-    const [name, setName] = useState('')
-    const [factorId, setFactorId] = useState("")
-    const [productId, setProductId] = useState("")
-    const [editFactor, setEditFactor] = useState("");
-
-
-
-    const edit = (value, name, factorId, productId) => {
-        setInput(value)
-        setName(name)
-        setProductId(productId)
-        setFactorId(factorId)
-        setEditModalShow(true);
-    }
-
+  const edit = (value, name, factorId, productId) => {
+    setInput(value);
+    setName(name);
+    setProductId(productId);
+    setFactorId(factorId);
+    setEditModalShow(true);
+  };
 
   const getTotalPrice = (factor) => {
     let total = 0;
@@ -108,15 +115,16 @@ export const Factor = ({ factor, setCancelFactorShow, setDeliveryShow, cancelOrd
     });
     return total;
   };
-  
+
   let toggleHanler = (e, id) => {
     if (e.target.checked === true) {
-        dispatch(receiptActions.editReceiptNoteStatus(id, '1'))
+      dispatch(receiptActions.editReceiptNoteStatus(id, "1"));
+    } else if (e.target.checked === false) {
+      dispatch(receiptActions.editReceiptNoteStatus(id, "0"));
     }
-    else if (e.target.checked === false) {
-        dispatch(receiptActions.editReceiptNoteStatus(id, '0'))
-    }
-    setTimeout(() => { setFactorId("") }, 1000)
+    setTimeout(() => {
+      setFactorId("");
+    }, 1000);
   };
 
   const printWindow = async () => {
@@ -142,36 +150,37 @@ export const Factor = ({ factor, setCancelFactorShow, setDeliveryShow, cancelOrd
   };
 
   useEffect(() => {
-    setIsPrivate(factor.note?.private || false)
-  }, [factor])
-
+    setIsPrivate(factor.note?.private || false);
+  }, [factor]);
 
   return (
     <Card
+      ref={factor.id == props?.keyRef ? props.refFactor : null}
       className={`m-auto mt-3 bg-light productCard border-0 lh-lg ${
         !print ? "noPrint" : ""
       } mx-1 ${classes.productCard}`}
     >
       <Row className="mx-2 mt-3 noPrint d-flex justify-content-between">
-        {userInfo?.data.permission.purchaseConfirmationInvoice && factor.shopApproval.status === 0  && (
-          <Col className="d-flex justify-content-end col-2">
-            <Button
-              className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 justify-content-center"
-              type="button"
-              onClick={() => {
-                setFinancialCheckModal(true);
-              }}
-            >
-              <img
-                src={financialCheckIcon}
-                height="25px"
-                alt="print-icon"
-                className="ms-3"
-              />
-              <span className="noPrint">تایید خرید</span>
-            </Button>
-          </Col>
-        )}
+        {userInfo?.data?.permission?.purchaseConfirmationInvoice &&
+          factor.shopApproval.status === 0 && (
+            <Col className="d-flex justify-content-end col-2">
+              <Button
+                className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 justify-content-center"
+                type="button"
+                onClick={() => {
+                  setFinancialCheckModal(true);
+                }}
+              >
+                <img
+                  src={financialCheckIcon}
+                  height="25px"
+                  alt="print-icon"
+                  className="ms-3"
+                />
+                <span className="noPrint">تایید خرید</span>
+              </Button>
+            </Col>
+          )}
         {parseInt(factor.shopApproval.status) !== 1 && (
           <Col className="d-flex justify-content-start col-2">
             <Button
@@ -418,7 +427,7 @@ export const Factor = ({ factor, setCancelFactorShow, setDeliveryShow, cancelOrd
                 style={{ height: "calc(100% - 50px)", overflow: "auto" }}
               >
                 <Row style={{ height: "100%" }}>
-                  {(factor.note && factor.note.text )? (
+                  {factor.note && factor.note.text ? (
                     <Note note={factor.note} />
                   ) : (
                     <Col className="m-0 p-0 d-flex justify-content-center align-items-center">
