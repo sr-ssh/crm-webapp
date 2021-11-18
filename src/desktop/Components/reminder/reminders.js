@@ -1,59 +1,68 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Card, Table, Row, Col, Container, Button, Spinner } from 'react-bootstrap';
-import moment from 'jalali-moment';
-import persianJs from 'persianjs/persian.min';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  Card,
+  Table,
+  Row,
+  Col,
+  Container,
+  Button,
+  Spinner,
+} from "react-bootstrap";
+import moment from "jalali-moment";
+import persianJs from "persianjs/persian.min";
 
 // Actions
-import { reminderActions } from '../../../actions';
+import { reminderActions } from "../../../actions";
 // Components
-import { Reminder } from './reminder'
-import { Header } from '../base/header'
-
+import { Reminder } from "./reminder";
+import { Header } from "../base/header";
+import { CircularProgress } from "@material-ui/core";
 
 export const Reminders = () => {
+  let { loading: reminderLoading, reminders: reminders } = useSelector(
+    (state) => state.getReminders
+  );
+  const sideBar = useSelector((state) => state.sideBar);
 
-    let reminders = useSelector(state => state.getReminders.reminders)
-    let reminderLoading = useSelector(state => state.getReminders.loading)
-    const sideBar = useSelector(state => state.sideBar)
+  const dispatch = useDispatch();
 
-    const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(reminderActions.getReminders());
+  }, []);
 
-    useEffect(() => {
-        dispatch(reminderActions.getReminders());
-    }, [dispatch])
+  console.log(reminderLoading, reminders);
 
-    console.log(reminders);
+  return (
+    <>
+      <Header isBTNSearch={false} isBTNRequest={false} />
 
-    return (
-        <>
-            <Header isBTNSearch={false} isBTNRequest={false} />
-
-            <div className="product-page orders margin--top--header" style={{ paddingRight: sideBar.open ? "250px" : 0 }}>
-                <Container fluid className="m-0 w-100 d-flex justify-content-center flex-wrap ">
-                    {
-                        reminderLoading &&
-                        <Col className="col-3 mt-2 m-auto d-block align-self-center w-100 mb-4 ">
-                            <Spinner className="m-auto d-block" animation="border" />
-                        </Col>
-                    }
-                    {
-                        (reminders.length === 0 && !reminderLoading) ? (
-                            <Row className="justify-content-center align-items-center no-result-filter">
-                                <Col className="col-8 text-center">
-                                    هیچ یادآوری موجود نمی باشد!
-                                </Col>
-                            </Row>
-                        ) : null
-                    }
-                    {reminders.length > 0 ?
-                        reminders?.map((reminder, index) =>
-                            <Reminder keyitem={index} reminder={reminder} />
-                        )
-                        : null
-                    }
-                </Container>
-            </div >
-        </>
-    )
-}
+      <div
+        className="product-page orders margin--top--header"
+        style={{ paddingRight: sideBar.open ? "250px" : 0 }}
+      >
+        <Container
+          fluid
+          className={` m-0 w-100 flex-wrap  d-flex justify-content-center ${
+            reminderLoading && "align-items-center"
+          } `}
+          style={{ height: reminderLoading && "80vh" }}
+        >
+          {reminderLoading && <CircularProgress />}
+          {!reminderLoading && reminders && reminders.length === 0 ? (
+            <Row className="justify-content-center align-items-center no-result-filter">
+              <Col className="col-8 text-center">
+                هیچ یادآوری موجود نمی باشد!
+              </Col>
+            </Row>
+          ) : null}
+          {!reminderLoading && reminders && reminders.length > 0
+            ? reminders?.map((reminder, index) => (
+                <Reminder key={index} reminder={reminder} />
+              ))
+            : null}
+        </Container>
+      </div>
+    </>
+  );
+};

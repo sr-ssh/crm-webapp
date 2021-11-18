@@ -1,23 +1,93 @@
-import React from 'react';
-import { Card, Table, Row, Col, Container, Button, Spinner } from 'react-bootstrap';
-import moment from 'jalali-moment';
-import persianJs from 'persianjs/persian.min';
+import React from "react";
+import { Card, Table, Row, Col, Container, Spinner } from "react-bootstrap";
+import moment from "jalali-moment";
+import persianJs from "persianjs/persian.min";
+import { Button } from "@material-ui/core";
+// Helpers
+import { history } from "../../../helpers";
 
+export const Reminder = ({ reminder, ...props }) => {
+  const getTotalPrice = (order) => {
+    let total = 0;
+    order.map((item) => {
+      total += item.sellingPrice * item.quantity;
+    });
+    return total;
+  };
+  let typeReminder = (param) => {
+    let res;
+    for (const x in param) {
+      // if (Object.hasOwnProperty.call(object, key)) {
+      //     const element = object[key];
 
-export const Reminder = ({ keyitem, reminder }) => {
-
-    const getTotalPrice = (order) => {
-        let total = 0
-        order.map(item => {
-            total += item.sellingPrice * item.quantity
-        })
-        return total
+      // }
+      if (x === "factorReference") {
+        res = (
+          <Button
+            onClick={() =>
+              history.push("/factor", { id: reminder.factorReference })
+            }
+          >
+            برو به فاکتور
+          </Button>
+        );
+      }
+      if (x === "orderReference") {
+        if (reminder.orderReference.status == 0) {
+          res = (
+            <Button
+              onClick={() =>
+                history.push("/orders", { id: reminder.orderReference._id })
+              }
+            >
+              برو به سفارش
+            </Button>
+          );
+        }
+        if (reminder.orderReference.status == 3) {
+          res = (
+            <Button
+              onClick={() =>
+                history.push("/saleopprotunity", {
+                  id: reminder.orderReference._id,
+                })
+              }
+            >
+              برو به فرصت فروش
+            </Button>
+          );
+        }
+      }
+      if (x === "leadReference") {
+        res = (
+          <Button
+            onClick={() =>
+              history.push("/lead", { id: reminder.leadReference })
+            }
+          >
+            برو به سرنخ
+          </Button>
+        );
+      }
     }
+    return res;
+  };
 
-    return (
-        <Card key={keyitem} className="m-auto mt-3 bg-light productCard border-0 lh-lg col-3" >
-            <Card.Body className="pb-0 ps-1 rounded-3 text-gray">
-                <Row className="p-0 ps-2 m-0 ">
+  return (
+    <Card className="m-auto mt-3 bg-light productCard border-0 lh-lg col-3">
+      <Card.Body className="pb-0 ps-1 rounded-3 text-gray">
+        <span>نام</span> : {reminder.name}
+        <br />
+        <span>توضیحات</span> : {reminder.description}
+        <br />
+        <span>تاریخ یادآور</span> : {reminder.date}
+        <br />
+        <span>تاریخ ایجاد</span> : {reminder.createdAt}
+        <br />
+        <span>تاریخ آخرین آپدیت</span> : {reminder.updatedAt}
+        <br />
+        {typeReminder(reminder)}
+        {/* <Row className="p-0 ps-2 m-0 ">
                     <Card className="background-blue border-0 customer-round">
                         <Card.Body className="pe-0 ps-0">
                             <Row >
@@ -95,8 +165,8 @@ export const Reminder = ({ keyitem, reminder }) => {
                             sms
                         </Button>
                     </Col>
-                </Row>
-            </Card.Body>
-        </Card>
-    )
-}
+                </Row> */}
+      </Card.Body>
+    </Card>
+  );
+};
