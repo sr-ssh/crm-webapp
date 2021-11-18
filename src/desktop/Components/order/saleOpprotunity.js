@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Container, Row, Col } from "react-bootstrap";
 
@@ -18,7 +18,8 @@ import { FreeSaleOpportunity } from "./freeSaleOpportunity";
 import { ShowDocuments } from "./showDoc";
 import { Prioritize } from "./prioritize";
 
-export const SaleOpprotunity = () => {
+export const SaleOpprotunity = (props) => {
+  const refOrder = useRef(null);
   const [recordOrderShow, setRecordOrderShow] = useState(false);
   const [modalShow, setModalShow] = useState(false);
   const [deliveryShow, setDeliveryShow] = useState(false);
@@ -49,6 +50,25 @@ export const SaleOpprotunity = () => {
     );
     dispatch(orderActions.getOrders({ status: 3 }));
   }, [refresh]);
+
+  useEffect(() => {
+    window.history.scrollRestoration = "manual";
+  }, []);
+
+  useEffect(() => {
+    if (
+      orderLoading == false &&
+      orders &&
+      orders?.orders?.length > 0 &&
+      props.location.state != null &&
+      refOrder.current != null
+    ) {
+      refOrder.current.scrollIntoView();
+    }
+    return () => {
+      window.history.replaceState({}, document.title);
+    };
+  }, [props.location.state, orderLoading]);
 
   return (
     <>
@@ -113,6 +133,8 @@ export const SaleOpprotunity = () => {
                         setCustomerInfoShow={setCustomerInfoShow}
                         setShowDocModalShow={setShowDocModalShow}
                         setPrioritizeModalShow={setPrioritizeModalShow}
+                        refFactor={refOrder}
+                        keyRef={props.location?.state?.id}
                       />
                     );
                   else

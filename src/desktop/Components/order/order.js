@@ -87,7 +87,8 @@ export const Order = ({
   setUploadModalShow,
   setShowDocModalShow,
   setCustomerInfoShow,
-  setPrioritizeModalShow
+  setPrioritizeModalShow,
+  ...props
 }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -165,9 +166,10 @@ export const Order = ({
 
   return (
     <Card
+      ref={order.id == props?.keyRef ? props.refFactor : null}
       className={`m-auto mt-3 mb-4 pb-3 bg-light productCard border-0 lh-lg ${
         !print ? "noPrint" : ""
-      } mx-1 ${classes.productCard}`}
+      } mx-1 ${classes.productCard} `}
     >
       <PriorityBadge order={order} />
 
@@ -195,24 +197,26 @@ export const Order = ({
               </Button>
             </Col>
           )}
-          {order.status == 3 && !order.priority && <Col className="d-flex justify-content-end">
-          <Button
-            className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 notes-round"
-            type="button"
-            onClick={() => {
-              setPrioritizeModalShow(true);
-              setActiveOrder(order);
-            }}
-          >
-            <img
-              src={lowWhitePriorityIcon}
-              height="25px"
-              alt="low-priority-icon"
-              className="col-3"
-            />
-            <span className="noPrint">اولویت</span>
-          </Button>
-        </Col>}
+        {order.status == 3 && !order.priority && (
+          <Col className="d-flex justify-content-end">
+            <Button
+              className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 notes-round"
+              type="button"
+              onClick={() => {
+                setPrioritizeModalShow(true);
+                setActiveOrder(order);
+              }}
+            >
+              <img
+                src={lowWhitePriorityIcon}
+                height="25px"
+                alt="low-priority-icon"
+                className="col-3"
+              />
+              <span className="noPrint">اولویت</span>
+            </Button>
+          </Col>
+        )}
         {order.status == 0 ? null : (
           <Col className="d-flex justify-content-end">
             <Button

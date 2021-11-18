@@ -34,6 +34,7 @@ body {
   background-color: var(--pages-background);
   margin: 0;
   padding: 0;
+  scroll-behavior: smooth;
 }
 .w-40 {
   width: 40% !important;
