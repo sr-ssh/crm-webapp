@@ -26,3 +26,27 @@ export function getReminders(state = initialState, action) {
             return state
     }
 }
+
+export function addReminder(state = initialState, action) {
+    switch (action.type) {
+        case reminderConstants.ADD_REMINDER_REQUEST:
+            return {
+                loading: true
+            }
+        case reminderConstants.ADD_REMINDER_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                err: null,
+                data: action.data
+            }
+        case reminderConstants.ADD_REMINDER_FAILURE:
+            return {
+                err: action.error,
+                data:null,
+                loading: false,
+            }
+        default:
+            return state
+    }
+}

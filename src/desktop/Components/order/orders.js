@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col, Container, Spinner } from "react-bootstrap";
 
@@ -13,7 +13,8 @@ import { Header } from "../base/header";
 import { UploadDocuments } from "./uploadDoc";
 import { ShowDocuments } from "./showDoc";
 
-export const Orders = () => {
+export const Orders = (props) => {
+  const refOrder = useRef(null);
   let alertMessage = useSelector((state) => state.alert.message);
   let alerType = useSelector((state) => state.alert.type);
   const [modalShow, setModalShow] = useState(false);
@@ -33,6 +34,27 @@ export const Orders = () => {
   useEffect(() => {
     !cancelOrderShow && dispatch(orderActions.getOrders({ status: " " }));
   }, [dispatch, cancelOrderShow]);
+
+
+  useEffect(() => {
+    window.history.scrollRestoration = 'manual'
+  }, []);
+
+  useEffect(() => {
+    if (
+      orderLoading == false &&
+      orders &&
+      orders?.orders?.length > 0 &&
+      props.location.state != null &&
+      refOrder.current != null
+    ) {
+      refOrder.current.scrollIntoView();
+    }
+    return () => {
+      window.history.replaceState({}, document.title);
+    };
+  }, [props.location.state, orderLoading]);
+
 
   return (
     <>
@@ -77,6 +99,8 @@ export const Orders = () => {
                   setUploadModalShow={setUploadModalShow}
                   uploadModalShow={uploadModalShow}
                   setShowDocModalShow={setShowDocModalShow}
+                  refFactor={refOrder}
+                  keyRef={props.location?.state?.id}
                 />
               ))
             : null}

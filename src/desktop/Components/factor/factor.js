@@ -32,6 +32,7 @@ import cancelIcon from "../../assets/images/order/cancel.svg";
 import pishFactorIcon from "../../assets/images/order/pish-factor.svg";
 import financialCheckIcon from "./../../assets/images/order/financial-check.svg";
 import waitingIcon from "../../assets/images/main/Waiting.svg";
+import AddIcon from "@material-ui/icons/Add";
 
 // Actions
 import { notesActions, orderActions, receiptActions } from "../../../actions";
@@ -45,6 +46,7 @@ import { EditFactor } from "./editFactor";
 import { Notes } from "./notes";
 import { Note } from "./note";
 import { FinancialCheckModal } from "./financialCheckModal";
+import { AddReminder } from "../reminder/addReminder";
 
 const useStyles = makeStyles((theme) => ({
   backdrop: {
@@ -63,43 +65,54 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "15px",
     overflowY: "visible",
   },
+  btnAddReminder: {
+    color: "#fff",
+  },
 }));
 
-export const Factor = ({ factor, setCancelFactorShow, setDeliveryShow, cancelOrderShow, setCancelOrderShow, recordOrderShow = '', setRecordOrderShow = {}, setActiveFactor, setOrder, status }) => {
+export const Factor = ({
+  factor,
+  setCancelFactorShow,
+  setDeliveryShow,
+  cancelOrderShow,
+  setCancelOrderShow,
+  recordOrderShow = "",
+  setRecordOrderShow = {},
+  setActiveFactor,
+  setOrder,
+  status,
+  ...props
+}) => {
+  const classes = useStyles();
+  const dispatch = useDispatch();
+  let [print, setPrint] = useState(false);
+  const [editModalShow, setEditModalShow] = useState(false);
+  const [cancelModalShow, setCancelModalShow] = useState(false);
+  const [editFactorModalShow, setEditFactorModalShow] = useState(false);
+  const [showNotesModal, setShowNotesModal] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [isShareLinkOrder, setIsShareLinkOrder] = useState(false);
+  const [isPrivate, setIsPrivate] = useState(factor?.note?.isPrivate);
+  const [financialCheckModal, setFinancialCheckModal] = useState(false);
+  const { user: userInfo, loading: userInfoLoading } = useSelector(
+    (state) => state.appInfo
+  );
+  const [addReminderModal, setAddReminderModal] = useState(false);
 
-    const classes = useStyles();
-    const dispatch = useDispatch()
-    let [print, setPrint] = useState(false)
-    const [editModalShow, setEditModalShow] = useState(false)
-    const [cancelModalShow, setCancelModalShow] = useState(false);
-    const [editFactorModalShow, setEditFactorModalShow] = useState(false)
-    const [showNotesModal, setShowNotesModal] = useState(false)
-    const [open, setOpen] = useState(false);
-    const [isShareLinkOrder, setIsShareLinkOrder] = useState(false)
-    const [isPrivate, setIsPrivate] = useState(factor?.note?.isPrivate);
-    const [financialCheckModal, setFinancialCheckModal] = useState(false)
-    const {user : userInfo ,loading : userInfoLoading } = useSelector(state => state.appInfo)
+  let editStatusNotesLoading = useSelector((state) => state.editStatusNotes);
+  const [input, setInput] = useState("");
+  const [name, setName] = useState("");
+  const [factorId, setFactorId] = useState("");
+  const [productId, setProductId] = useState("");
+  const [editFactor, setEditFactor] = useState("");
 
-
-
-    let editStatusNotesLoading = useSelector(state => state.editStatusNotes)
-    console.log(isPrivate)
-    const [input, setInput] = useState('')
-    const [name, setName] = useState('')
-    const [factorId, setFactorId] = useState("")
-    const [productId, setProductId] = useState("")
-    const [editFactor, setEditFactor] = useState("");
-
-
-
-    const edit = (value, name, factorId, productId) => {
-        setInput(value)
-        setName(name)
-        setProductId(productId)
-        setFactorId(factorId)
-        setEditModalShow(true);
-    }
-
+  const edit = (value, name, factorId, productId) => {
+    setInput(value);
+    setName(name);
+    setProductId(productId);
+    setFactorId(factorId);
+    setEditModalShow(true);
+  };
 
   const getTotalPrice = (factor) => {
     let total = 0;
@@ -108,15 +121,16 @@ export const Factor = ({ factor, setCancelFactorShow, setDeliveryShow, cancelOrd
     });
     return total;
   };
-  
+
   let toggleHanler = (e, id) => {
     if (e.target.checked === true) {
-        dispatch(receiptActions.editReceiptNoteStatus(id, '1'))
+      dispatch(receiptActions.editReceiptNoteStatus(id, "1"));
+    } else if (e.target.checked === false) {
+      dispatch(receiptActions.editReceiptNoteStatus(id, "0"));
     }
-    else if (e.target.checked === false) {
-        dispatch(receiptActions.editReceiptNoteStatus(id, '0'))
-    }
-    setTimeout(() => { setFactorId("") }, 1000)
+    setTimeout(() => {
+      setFactorId("");
+    }, 1000);
   };
 
   const printWindow = async () => {
@@ -142,36 +156,37 @@ export const Factor = ({ factor, setCancelFactorShow, setDeliveryShow, cancelOrd
   };
 
   useEffect(() => {
-    setIsPrivate(factor.note?.private || false)
-  }, [factor])
-
+    setIsPrivate(factor.note?.private || false);
+  }, [factor]);
 
   return (
     <Card
+      ref={factor.id == props?.keyRef ? props.refFactor : null}
       className={`m-auto mt-3 bg-light productCard border-0 lh-lg ${
         !print ? "noPrint" : ""
       } mx-1 ${classes.productCard}`}
     >
       <Row className="mx-2 mt-3 noPrint d-flex justify-content-between">
-        {userInfo?.data.permission.purchaseConfirmationInvoice && factor.shopApproval.status === 0  && (
-          <Col className="d-flex justify-content-end col-2">
-            <Button
-              className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 justify-content-center"
-              type="button"
-              onClick={() => {
-                setFinancialCheckModal(true);
-              }}
-            >
-              <img
-                src={financialCheckIcon}
-                height="25px"
-                alt="print-icon"
-                className="ms-3"
-              />
-              <span className="noPrint">تایید خرید</span>
-            </Button>
-          </Col>
-        )}
+        {userInfo?.data?.permission?.purchaseConfirmationInvoice &&
+          factor.shopApproval.status === 0 && (
+            <Col className="d-flex justify-content-end col-2">
+              <Button
+                className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 justify-content-center"
+                type="button"
+                onClick={() => {
+                  setFinancialCheckModal(true);
+                }}
+              >
+                <img
+                  src={financialCheckIcon}
+                  height="25px"
+                  alt="print-icon"
+                  className="ms-3"
+                />
+                <span className="noPrint">تایید خرید</span>
+              </Button>
+            </Col>
+          )}
         {parseInt(factor.shopApproval.status) !== 1 && (
           <Col className="d-flex justify-content-start col-2">
             <Button
@@ -227,6 +242,19 @@ export const Factor = ({ factor, setCancelFactorShow, setDeliveryShow, cancelOrd
             </Button>
           </Col>
         )}
+        <Col className="d-flex justify-content-end col-2">
+          <Button
+            className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 justify-content-center"
+            type="button"
+            onClick={() => {
+              setAddReminderModal(true);
+            }}
+          >
+                
+            <AddIcon className="ms-3" classes={{ root: classes.btnAddReminder }} />
+            <span>یادآوری</span>
+          </Button>
+        </Col>
       </Row>
       <Card.Body className="pb-0 ps-1 rounded-3 text-gray">
         <Row className="p-0 ps-2 m-0 ">
@@ -418,7 +446,7 @@ export const Factor = ({ factor, setCancelFactorShow, setDeliveryShow, cancelOrd
                 style={{ height: "calc(100% - 50px)", overflow: "auto" }}
               >
                 <Row style={{ height: "100%" }}>
-                  {(factor.note && factor.note.text )? (
+                  {factor.note && factor.note.text ? (
                     <Note note={factor.note} />
                   ) : (
                     <Col className="m-0 p-0 d-flex justify-content-center align-items-center">
@@ -442,6 +470,12 @@ export const Factor = ({ factor, setCancelFactorShow, setDeliveryShow, cancelOrd
         show={financialCheckModal}
         onHide={() => setFinancialCheckModal(false)}
         factor={financialCheckModal ? factor : null}
+      />
+      <AddReminder
+        show={addReminderModal}
+        onHide={() => setAddReminderModal(false)}
+        isPersonal={false}
+        aditional={{ typeReminder: 3, referenceId: factor.id }}
       />
     </Card>
   );
