@@ -3,7 +3,8 @@ import { reminderService } from '../services';
 import { alertActions } from './alertActions';
 
 export const reminderActions = {
-    getReminders
+    getReminders,
+    addReminder
 };
 
 function getReminders() {
@@ -40,6 +41,41 @@ function getReminders() {
     };
 
 }
+
+function addReminder() {
+    return dispatch => {
+        dispatch(request(reminderConstants.ADD_REMINDER_REQUEST))
+        reminderService.addReminder()
+            .then(
+                res => {
+                    debugger
+                    console.log("user into reminderActions(addReminder)");
+                    if (res === undefined) {
+                        dispatch(alertActions.error('ارتباط با سرور برقرار نیست'));
+                        dispatch(failure(reminderConstants.ADD_REMINDER_FAILURE, "ارتباط با سرور برقرار نیست"))
+                    } else if (res.success) {
+                        console.log("*********reminders received**********")
+                        console.log(res)
+                        dispatch(success(reminderConstants.ADD_REMINDER_SUCCESS, res.data));
+                    } else if (res.success === false) {
+                        dispatch(alertActions.error(res.message));
+                        dispatch(failure(reminderConstants.ADD_REMINDER_FAILURE, res.message.toString()));
+                    }
+
+                },
+                error => {
+                    dispatch(failure(reminderConstants.ADD_REMINDER_FAILURE, error.toString()));
+                    console.log("occure error");
+                    console.log(error.toString());
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+    };
+
+}
+
+
+
 
 function request(type) {
     return { type: type }

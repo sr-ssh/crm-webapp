@@ -43,7 +43,7 @@ import {
   editPriority,
   editTrackingTime
 } from "./orderReducer";
-import { getReminders } from "./reminderReducer";
+import { getReminders , addReminder } from "./reminderReducer";
 import { getDiscounts } from "./discountReducer";
 import { addDiscount } from "./discountReducer";
 import {
@@ -151,5 +151,6 @@ export default combineReducers({
   getFailureReasons,
   failSaleOpportunity,
   editPriority,
-  editTrackingTime
+  editTrackingTime,
+  addReminder
 });
