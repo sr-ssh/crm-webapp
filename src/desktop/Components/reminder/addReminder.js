@@ -77,7 +77,6 @@ export const AddReminder = ({ isPersonal, isCallBack = false, ...props }) => {
       description: paramsForm.description,
       date: paramsForm.date,
     };
-    debugger
     if (isPersonal == true) {
       param.typeReminder = 0;
     } else if (isPersonal == false) {
@@ -108,7 +107,14 @@ export const AddReminder = ({ isPersonal, isCallBack = false, ...props }) => {
         <Button
           className="border-0 customer-modal-close--desktop"
           type="button"
-          onClick={(e) => props.onHide(false)}
+          onClick={() => {
+            reset({
+              name: null ,
+              description: null,
+              date: null
+            });
+            props.onHide(false);
+          }}
         >
           <img
             className="d-flex m-auto customer-modal-close-svg--desktop"
@@ -178,12 +184,6 @@ export const AddReminder = ({ isPersonal, isCallBack = false, ...props }) => {
               type="text"
               name="description"
               {...register("description")}
-              isInvalid={errors?.description ? true : false}
-              isValid={
-                Object.keys(errors).length != 0 &&
-                errors?.description == undefined &&
-                true
-              }
             />
           </Form.Group>
           <Form.Group>

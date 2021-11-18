@@ -32,6 +32,7 @@ import cancelIcon from "../../assets/images/order/cancel.svg";
 import pishFactorIcon from "../../assets/images/order/pish-factor.svg";
 import financialCheckIcon from "./../../assets/images/order/financial-check.svg";
 import waitingIcon from "../../assets/images/main/Waiting.svg";
+import AddIcon from "@material-ui/icons/Add";
 
 // Actions
 import { notesActions, orderActions, receiptActions } from "../../../actions";
@@ -45,6 +46,7 @@ import { EditFactor } from "./editFactor";
 import { Notes } from "./notes";
 import { Note } from "./note";
 import { FinancialCheckModal } from "./financialCheckModal";
+import { AddReminder } from "../reminder/addReminder";
 
 const useStyles = makeStyles((theme) => ({
   backdrop: {
@@ -62,6 +64,9 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "700px",
     borderRadius: "15px",
     overflowY: "visible",
+  },
+  btnAddReminder: {
+    color: "#fff",
   },
 }));
 
@@ -92,6 +97,7 @@ export const Factor = ({
   const { user: userInfo, loading: userInfoLoading } = useSelector(
     (state) => state.appInfo
   );
+  const [addReminderModal, setAddReminderModal] = useState(false);
 
   let editStatusNotesLoading = useSelector((state) => state.editStatusNotes);
   const [input, setInput] = useState("");
@@ -236,6 +242,19 @@ export const Factor = ({
             </Button>
           </Col>
         )}
+        <Col className="d-flex justify-content-end col-2">
+          <Button
+            className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 justify-content-center"
+            type="button"
+            onClick={() => {
+              setAddReminderModal(true);
+            }}
+          >
+                
+            <AddIcon className="ms-3" classes={{ root: classes.btnAddReminder }} />
+            <span>یادآوری</span>
+          </Button>
+        </Col>
       </Row>
       <Card.Body className="pb-0 ps-1 rounded-3 text-gray">
         <Row className="p-0 ps-2 m-0 ">
@@ -451,6 +470,12 @@ export const Factor = ({
         show={financialCheckModal}
         onHide={() => setFinancialCheckModal(false)}
         factor={financialCheckModal ? factor : null}
+      />
+      <AddReminder
+        show={addReminderModal}
+        onHide={() => setAddReminderModal(false)}
+        isPersonal={false}
+        aditional={{ typeReminder: 3, referenceId: factor.id }}
       />
     </Card>
   );

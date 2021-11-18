@@ -56,7 +56,6 @@ function addReminder(param) {
     dispatch(request(reminderConstants.ADD_REMINDER_REQUEST));
     reminderService.addReminder(param).then(
       (res) => {
-        debugger;
         console.log("user into reminderActions(addReminder)");
         if (res === undefined) {
           dispatch(alertActions.error("ارتباط با سرور برقرار نیست"));

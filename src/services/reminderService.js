@@ -41,7 +41,6 @@ function addReminder(param) {
   return axios
     .post(`${baseRoute}/reminder`, param, { headers: requestOptions.headers })
     .then((res) => {
-        debugger
       console.log("res.customers >> ");
       console.log(res.data.data);
       return res.data;
