@@ -6,6 +6,7 @@ import commaNumber from 'comma-number'
 
 // Icons
 import logo from '../../../assets/images/crm-dark-blue.svg'
+import { PayButton } from './payButton';
 
 
 export const InformalFactor = ({ order }) => {
@@ -124,6 +125,7 @@ export const InformalFactor = ({ order }) => {
                     </Row>
                 </Card.Body>
             </Card>
+            <PayButton factor={order} />
         </Container >
     )
 }

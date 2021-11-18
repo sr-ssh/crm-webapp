@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import persianJs from 'persianjs/persian.min';
 import moment from 'jalali-moment';
 import { Col, Container, Row, Card, Table } from 'react-bootstrap'
@@ -7,6 +7,7 @@ import commaNumber from 'comma-number'
 
 // Icons
 import logo from '../../../assets/images/crm.svg'
+import { PayButton } from './payButton';
 
 export const FormalFactor = ({ factor }) => {
 
@@ -197,6 +198,7 @@ export const FormalFactor = ({ factor }) => {
                     </Table>
                 </Col>
             </Row>
+            <PayButton factor={factor} />
         </Container >
     )
 }
