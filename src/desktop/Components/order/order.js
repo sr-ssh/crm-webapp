@@ -33,6 +33,7 @@ import freeIcon from "../../assets/images/order/free1.svg";
 import coodIcon from "../../assets/images/order/cood.svg";
 import lowWhitePriorityIcon from "./../../assets/images/order/priority/low-white.svg";
 import followUpDateIcon from "../../assets/images/order/follow-up-date.svg";
+import AddIcon from "@material-ui/icons/Add";
 
 // Actions
 import { notesActions } from "../../../actions";
@@ -51,6 +52,7 @@ import { FreeOrder } from "./freeOrder";
 import { TrackingCodeModal } from "./trackingCode";
 import { PriorityBadge } from "./priorityBadge";
 import { FollowUpDateModal } from "./followUpDateModal";
+import { AddReminder } from "../reminder/addReminder";
 
 const useStyles = makeStyles((theme) => ({
   backdrop: {
@@ -68,6 +70,9 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "700px",
     borderRadius: "15px",
     overflowY: "visible",
+  },
+  btnAddReminder: {
+    color: "#fff",
   },
 }));
 
@@ -105,6 +110,7 @@ export const Order = ({
   const [followUpDateModal, setFollowUpDateModal] = useState(false);
   const [coodPeygiriAcceptModalShow, setCoodPeygiriAcceptModalShow] =
     useState(false);
+  const [addReminderModal, setAddReminderModal] = useState(false);
   const [freeStatus, setFreeStatus] = useState("");
 
   const [isPrivate, setIsPrivate] = useState(order.notes.isPrivate);
@@ -434,6 +440,20 @@ export const Order = ({
             </Button>
           </Col>
         )}
+        {
+          <Col className="d-flex justify-content-center">
+            <Button
+              className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 notes-round"
+              type="button"
+              onClick={() => {
+                setAddReminderModal(true);
+              }}
+            >
+              <AddIcon classes={{ root: classes.btnAddReminder }} />
+              <span>یادآوری</span>
+            </Button>
+          </Col>
+        }
       </Row>
       <Card.Body className="pb-0 ps-1 rounded-3 text-gray">
         <Row className="p-0 ps-2 m-0 ">
@@ -882,6 +902,12 @@ export const Order = ({
           setFollowUpDateModal(false);
         }}
         order={order}
+      />
+      <AddReminder
+        show={addReminderModal}
+        onHide={() => setAddReminderModal(false)}
+        isPersonal={false}
+        aditional={{ typeReminder: 2, referenceId: order.id }}
       />
       {/* <ShowDocuments show={showDocModalShow} onHide={() => setShowDocModalShow(false)} order={activeOrder} /> */}
     </Card>

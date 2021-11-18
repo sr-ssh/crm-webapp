@@ -51,9 +51,7 @@ export const Lead = ({
     activeId === item?._id && editLoading && dispatch(leadActions.getLeads());
   }, [editLoading]);
 
-  console.log(item);
-  console.log(props.glowingCard);
-  console.log(props.keyRef);
+
   return (
     <>
       <Card
