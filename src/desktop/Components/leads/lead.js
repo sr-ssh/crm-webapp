@@ -14,6 +14,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { leadActions } from "../../../actions";
 // Icons
 import phoneIcon from "./../../assets/images/lead/call.svg";
+import AddIcon from "@material-ui/icons/Add";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,6 +40,7 @@ export const Lead = ({
   acceptLead,
   addOrder,
   failLead,
+  setAddReminderModal,
   ...props
 }) => {
   const classes = useStyles();
@@ -139,6 +141,18 @@ export const Lead = ({
                 block
               >
                 قبول
+              </Button>
+            )}
+            {item?.accepted && (
+              <Button
+                onClick={() => setAddReminderModal(item._id)}
+                className="me-2 d-flex justify-content-center align-items-center button--green fs-6 fw-bold background--green border-0 w-100 mt-3"
+                size="lg"
+                type="submit"
+                block
+              >
+                <AddIcon className="mx-1 col-3" />
+                یادآوری
               </Button>
             )}
           </Card.Text>

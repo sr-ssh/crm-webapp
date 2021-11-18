@@ -35,7 +35,7 @@ const validationSchema = yup.object().shape({
   description: yup.string(),
 });
 
-export const AddReminder = ({ isPersonal, ...props }) => {
+export const AddReminder = ({ isPersonal, isCallBack = false, ...props }) => {
   const {
     register,
     setValue,
@@ -77,6 +77,7 @@ export const AddReminder = ({ isPersonal, ...props }) => {
       description: paramsForm.description,
       date: paramsForm.date,
     };
+    debugger
     if (isPersonal == true) {
       param.typeReminder = 0;
     } else if (isPersonal == false) {
@@ -89,7 +90,9 @@ export const AddReminder = ({ isPersonal, ...props }) => {
 
   useEffect(() => {
     if (addReminderLoading == false && addReminderData.success) {
-      props.dispatchCallBack();
+      if (isCallBack) {
+        props.dispatchCallBack();
+      }
       props.onHide(false);
     }
   }, [addReminderLoading]);

@@ -9,12 +9,14 @@ import { productActions, employeeActions, leadActions } from "../../../actions";
 import { AddLead } from "./addLead";
 import { Header } from "../base/headerExcel2";
 import { Lead } from "./lead";
+import { AddReminder } from "../reminder/addReminder";
 
 export const Leads = (props) => {
   const refLead = useRef(null);
 
   const [addModalShow, setAddModalShow] = useState(false);
   const [glowingCard, setglowingCard] = useState(false);
+  const [addReminderModal, setAddReminderModal] = useState(false);
   const dispatch = useDispatch();
   const { leads: leads, loading: loading } = useSelector(
     (state) => state.getLeads
@@ -58,6 +60,7 @@ export const Leads = (props) => {
     formData.append("excel", e.target.files[0]);
     dispatch(leadActions.uploadExcel(formData));
   };
+  console.log(activeId);
 
   useEffect(() => {
     if (
@@ -76,7 +79,6 @@ export const Leads = (props) => {
     }
   }, [props.location.state, loading]);
 
-
   return (
     <>
       <Header
@@ -93,13 +95,13 @@ export const Leads = (props) => {
       >
         <Container
           fluid
-          className="m-0 px-4 w-100 d-flex justify-content-evenly flex-wrap "
+          className="m-0 px-4 w-100 d-flex flex-wrap "
         >
           {!loading && leads && leads.length > 0
             ? leads.map((item, index) => (
                 <Col
                   key={index}
-                  xs={4}
+                  xs={sideBar.open ? 6 : 4 }
                   ref={item._id == props?.location?.state?.id ? refLead : null}
                 >
                   <Lead
@@ -111,11 +113,21 @@ export const Leads = (props) => {
                     failLead={failLead}
                     glowingCard={glowingCard}
                     keyRef={props.location?.state?.id}
+                    setAddReminderModal={(e) => {
+                      setAddReminderModal(true);
+                      setActiveId({ idLead: e });
+                    }}
                   />
                 </Col>
               ))
             : null}
           <AddLead show={addModalShow} onHide={() => setAddModalShow(false)} />
+          <AddReminder
+            show={addReminderModal}
+            onHide={() => setAddReminderModal(false)}
+            isPersonal={false}
+            aditional={{ typeReminder: 1, referenceId: activeId.idLead }}
+          />
         </Container>
       </div>
     </>
