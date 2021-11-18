@@ -16,10 +16,11 @@ import persianJs from "persianjs/persian.min";
 import { reminderActions } from "../../../actions";
 // Components
 import { Reminder } from "./reminder";
-import { Header } from "../base/header";
+import { Header } from "../base/headerExcel";
 import { CircularProgress } from "@material-ui/core";
-
+import { AddReminder } from "./addReminder";
 export const Reminders = () => {
+  const [addReminderModal, setAddReminderModal] = useState(false);
   let { loading: reminderLoading, reminders: reminders } = useSelector(
     (state) => state.getReminders
   );
@@ -35,7 +36,12 @@ export const Reminders = () => {
 
   return (
     <>
-      <Header isBTNSearch={false} isBTNRequest={false} />
+      <Header
+        isBTNSearch={false}
+        isGetExcel={false}
+        isBtnAdd={"یادآوری"}
+        btnAdd={() => setAddReminderModal(true)}
+      />
 
       <div
         className="product-page orders margin--top--header"
@@ -62,6 +68,12 @@ export const Reminders = () => {
               ))
             : null}
         </Container>
+        <AddReminder
+          show={addReminderModal}
+          onHide={() => setAddReminderModal(false)}
+          isPersonal={true}
+          dispatchCallBack={() => dispatch(reminderActions.getReminders())}
+        />
       </div>
     </>
   );
