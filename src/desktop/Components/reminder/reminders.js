@@ -49,7 +49,7 @@ export const Reminders = () => {
       >
         <Container
           fluid
-          className={` m-0 w-100 flex-wrap  d-flex justify-content-center ${
+          className={` m-0 w-100 flex-wrap  d-flex  ${
             reminderLoading && "align-items-center"
           } `}
           style={{ height: reminderLoading && "80vh" }}
@@ -72,6 +72,7 @@ export const Reminders = () => {
           show={addReminderModal}
           onHide={() => setAddReminderModal(false)}
           isPersonal={true}
+          isCallBack={true}
           dispatchCallBack={() => dispatch(reminderActions.getReminders())}
         />
       </div>

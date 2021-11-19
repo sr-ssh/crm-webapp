@@ -101,6 +101,7 @@ export const AddReminder = ({ isPersonal, isCallBack = false, ...props }) => {
       {...props}
       aria-labelledby="contained-modal-title-vcenter"
       centered
+      backdrop="static"
       className={` mx-3 follow--up--date--modal `}
     >
       <Modal.Body className="add-product px-4">
@@ -197,7 +198,8 @@ export const AddReminder = ({ isPersonal, isCallBack = false, ...props }) => {
               locale="fa"
               editable={false}
               animation
-              // minDate={new Date().setDate(new Date().getDate() + 1)}
+              // .setDate(new Date().getDate() + 1)
+              minDate={new Date()}
               calendarPosition="top"
               onChange={(value) => submitCalendar(value)}
               className=""

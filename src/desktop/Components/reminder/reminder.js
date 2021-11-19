@@ -74,17 +74,44 @@ export const Reminder = ({ reminder, ...props }) => {
   };
 
   return (
-    <Card className="m-auto mt-3 bg-light productCard border-0 lh-lg col-3">
+    <Card className="m-0 mt-3 mx-3 bg-light productCard border-0 lh-lg col-3">
       <Card.Body className="pb-0 ps-1 rounded-3 text-gray">
         <span>نام</span> : {reminder.name}
         <br />
         <span>توضیحات</span> : {reminder.description}
         <br />
-        <span>تاریخ یادآور</span> : {reminder.date}
+        <span>تاریخ یادآور</span> :
+        {reminder.date &&
+          persianJs(
+            moment
+              .from(reminder.date, "YYYY/MM/DD HH:mm")
+              .locale("fa")
+              .format("HH:mm DD MMMM YYYY")
+          )
+            .englishNumber()
+            .toString()}
         <br />
-        <span>تاریخ ایجاد</span> : {reminder.createdAt}
+        <span>تاریخ ایجاد</span> :
+        {reminder.createdAt &&
+          persianJs(
+            moment
+              .from(reminder.createdAt, "YYYY/MM/DD HH:mm")
+              .locale("fa")
+              .format("HH:mm DD MMMM YYYY")
+          )
+            .englishNumber()
+            .toString()}
         <br />
-        <span>تاریخ آخرین آپدیت</span> : {reminder.updatedAt}
+        <span>تاریخ آخرین آپدیت</span> :
+        {reminder.updatedAt &&
+          persianJs(
+            moment
+              .from(reminder.updatedAt, "YYYY/MM/DD HH:mm")
+              .locale("fa")
+              .format("HH:mm DD MMMM YYYY")
+          )
+            .englishNumber()
+            .toString()}
         <br />
         {typeReminder(reminder)}
         {/* <Row className="p-0 ps-2 m-0 ">
