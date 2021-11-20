@@ -203,7 +203,7 @@ export const Order = ({
               </Button>
             </Col>
           )}
-        {order.status == 3 && !order.priority && (
+        {order.status == 3 && order.support == undefined && !order.priority && (
           <Col className="d-flex justify-content-end">
             <Button
               className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2 notes-round"

@@ -426,7 +426,7 @@ export const Order = ({
                 </Button>
               </Col>
             )}
-          {order.status == 3 && !order.priority && (
+          {order.status == 3 && order.support == undefined && !order.priority && (
             <Col xs={6} className="p-0 px-1 pb-3 ps-2">
               <Button
                 className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2"
