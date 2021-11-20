@@ -52,6 +52,7 @@ export const Order = ({
   setRecordOrderShow = {},
   setActiveOrder,
   setOrder,
+  status,
   setUploadModalShow,
   setShowDocModalShow,
   freeSaleOpportunity,
@@ -706,6 +707,8 @@ export const Order = ({
         }}
         permission={true}
         orderId={order.id}
+        status={status}
+
       />
       <ShareLinkModal
         show={isShareLinkOrder}

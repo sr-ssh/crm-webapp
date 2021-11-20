@@ -1,40 +1,81 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { Modal, Row, Col, Form, Button, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 //Assets
 import closeIcon from "../../assets/images/close.svg";
 
 // Actions
-import { notesActions } from "../../../actions";
+import { notesActions, orderActions } from "../../../actions";
+
+// Form Validator
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+const validationSchema = yup.object().shape({
+  noteText: yup.string().required(),
+});
 
 export const AddNotesModal = (props) => {
-  const [notesText, setNotesText] = useState("");
-  const loading = useSelector((state) => state.addNotes.loading) || false;
-  const handleChange = (e) => {
-    const value = e.target.value;
-    setNotesText(value);
-  };
+  const {
+    register,
+    getValues,
+    formState: { errors },
+    trigger,
+    reset,
+  } = useForm({
+    mode: "all",
+    criteriaMode: "all",
+    resolver: yupResolver(validationSchema),
+  });
+
+  const { loading: addNotesLoading, notes: addNoteData } = useSelector(
+    (state) => state.addNotes
+  );
+
   const dispatch = useDispatch();
-  const formHandler = (e) => {
+  const formHandler = async (e) => {
     e.preventDefault();
-    const now = new Date();
-    let createdAt = now.toISOString();
-    if (!notesText == "") {
-      let notes = {
-        text: notesText,
-        createdAt: createdAt,
-      };
-      if (props.permission === true)
-        dispatch(notesActions.addNotes(props?.orderId, [notes]));
-      else props.setNotes((prevNotesState) => [...prevNotesState, notes]);
+
+    let result = await trigger();
+    if (result == false) {
+      return;
+    }
+    let params = getValues();
+    const now = new Date().toISOString();
+    if (props.permission == true) {
+      dispatch(
+        notesActions.addNotes({
+          orderId: props.orderId,
+          notes: [{ text: params.noteText, createdAt: now }],
+        })
+      );
+    } else {
+      props.setNotes((prevNotesState) => [
+        ...prevNotesState,
+        { text: params.noteText, createdAt: now },
+      ]);
       props.onHide(false);
-    } else props.onHide(false);
+      reset("noteText");
+    }
   };
+
+  useEffect(() => {
+    if (
+      props.show &&
+      props.permission == true &&
+      addNotesLoading == false &&
+      addNoteData.success == true
+    ) {
+      // dispatch(orderActions.getOrders({ status: props.status || " " }));
+      props.onHide(false);
+    }
+  }, [addNotesLoading]);
 
   return (
     <Modal
-      show = {props.show}
-      onHide = {props.onHide}
+      show={props.show}
+      onHide={props.onHide}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
@@ -61,13 +102,19 @@ export const AddNotesModal = (props) => {
                   <Form.Control
                     as="textarea"
                     className="notes--input"
-                    onChange={handleChange}
+                    {...register("noteText")}
+                    isInvalid={errors?.noteText ? true : false}
+                    isValid={
+                      Object.keys(errors).length != 0 &&
+                      errors?.noteText == undefined &&
+                      true
+                    }
                     style={{ height: "100px" }}
                   />
                 </Form.Group>
               </Col>
             </Row>
-            {loading ? (
+            {addNotesLoading ? (
               <Button
                 className="fw-bold btn--notes--submit border-0 w-100 mt-4"
                 size="lg"

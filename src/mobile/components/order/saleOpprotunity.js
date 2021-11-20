@@ -125,6 +125,7 @@ export const SaleOpprotunity = () => {
                         setRecordOrderShow={setRecordOrderShow}
                         setActiveOrder={setActiveOrder}
                         setOrder={setOrder}
+                        status={3}
                         cancelOrderShow={cancelOrderShow}
                         setCancelOrderShow={setCancelOrderShow}
                         setUploadModalShow={setUploadModalShow}

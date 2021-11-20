@@ -398,15 +398,22 @@ export const AddOrder = (props) => {
                  align-items-center btn--add--note justify-content-center"
                 onClick={noteHandler}
               >
-                <img
-                  className="me-3"
-                  src={addIcon}
-                  height="25px"
-                  alt="edit-icon"
-                />
-                <span className="me-1 fw-bold ms-3">
-                  {notes.length > 0 ? notes[0].text : <>اضافه یادداشت</>}
-                </span>
+                {notes.length > 0 ? (
+                  <span className="me-1 fw-bold ms-3">{notes[0].text}</span>
+                ) : (
+                  <>
+                    <img
+                      className="me-3"
+                      src={addIcon}
+                      height="25px"
+                      alt="edit-icon"
+                    />
+
+                    <span className="me-1 fw-bold ms-3">
+                      <>اضافه یادداشت</>
+                    </span>
+                  </>
+                )}
               </Button>
             </Col>
           </Row>
