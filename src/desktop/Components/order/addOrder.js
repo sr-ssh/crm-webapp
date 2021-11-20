@@ -505,7 +505,7 @@ export const AddOrder = (props) => {
                     </Form.Group>
                   </Col>
                 </Col>
-                <Col
+                {/* <Col
                   className="d-flex flex-row align-items-center justify-content-center"
                   style={{ height: "fit-content" }}
                 >
@@ -526,7 +526,7 @@ export const AddOrder = (props) => {
                   >
                     <span className="fs-7 text-muted fw-bold">روز دیگر</span>
                   </Col>
-                </Col>
+                </Col> */}
 
                 <Col
                   className="d-flex flex-row align-items-center justify-content-end "

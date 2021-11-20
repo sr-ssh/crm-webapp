@@ -419,7 +419,7 @@ export const AddOrder = (props) => {
           </Row>
           <Row className="m-0 align-self-center flex-row">
             <Col className=" mt-3 order-inputs align-self-center">
-              <Form.Group controlId="duration">
+              <Form.Group className="p--relative" controlId="duration">
                 <Form.Label className="pe-1">
                   تاریخ استفاده<span className="fs-8 me-1">(آماده سازی)</span>
                 </Form.Label>
@@ -457,7 +457,7 @@ export const AddOrder = (props) => {
                 />
               </Form.Group>
             </Col>
-            <Col className=" mt-3 order-inputs">
+            {/* <Col className=" mt-3 order-inputs">
               <Form.Group controlId="reminder">
                 <Form.Label className="pe-1">تاریخ یادآوری</Form.Label>
                 <Form.Control
@@ -472,7 +472,7 @@ export const AddOrder = (props) => {
                 />
                 <span className="reminder-span">روز دیگر</span>
               </Form.Group>
-            </Col>
+            </Col> */}
           </Row>
           <PriorityDropdown
             priSselectedItem={priSselectedItem}
