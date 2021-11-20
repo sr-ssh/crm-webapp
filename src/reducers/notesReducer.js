@@ -35,7 +35,6 @@ export function addNotes(state = initialState, action) {
     switch (action.type) {
         case notesConstants.ADD_NOTES_REQUEST:
             return {
-                ...state,
                 loading: true
             }
         case notesConstants.ADD_NOTES_SUCCESS:

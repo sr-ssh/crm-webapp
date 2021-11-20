@@ -835,7 +835,7 @@ export const Order = ({
         onHide={() => {
           setShowNotesModal(false);
         }}
-        permission="true"
+        permission={true}
         orderId={order.id}
         status={status}
       />
