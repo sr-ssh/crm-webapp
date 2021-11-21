@@ -1,5 +1,11 @@
 import React, { useEffect } from "react";
 import { Form, Button, Row, Col, Spinner, Image } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+
+
+// Actions 
+import { userActions } from "../../../actions";
+
 
 // Form Validator
 import { useForm } from "react-hook-form";
@@ -38,6 +44,8 @@ export const AuthForgetPassword = ({
     criteriaMode: "all",
     resolver: yupResolver(validationSchema),
   });
+  const dispatch = useDispatch();
+
 
   useEffect(() => {
     if (
@@ -48,6 +56,7 @@ export const AuthForgetPassword = ({
       setValue("phoneNumber", triggerSendCode.phone, {
         shouldValidate: true,
       });
+      dispatch(userActions.verificationCode(triggerSendCode.phone));
     }
   }, [forgotPassword]);
   return (
