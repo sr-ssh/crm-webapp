@@ -76,3 +76,26 @@ export function appInfo(state = initialState, action) {
             return state;
     }
 }
+
+
+export function passwordForgetting(state = {}, action) {
+    switch (action.type) {
+        case userConstants.PASSWORD_RESET_REQUEST:
+            return {
+                loading : true,
+            }
+        case userConstants.PASSWORD_RESET_SUCCESS:
+            return {
+                loading : false,
+                data: action.data
+            }
+        case userConstants.PASSWORD_RESET_FAILURE:
+            return {
+                loading : false,
+                error: action.error
+            }
+    
+        default:
+            return state;
+    }
+}

@@ -41,9 +41,9 @@ import {
   getFailureReasons,
   failSaleOpportunity,
   editPriority,
-  editTrackingTime
+  editTrackingTime,
 } from "./orderReducer";
-import { getReminders , addReminder } from "./reminderReducer";
+import { getReminders, addReminder } from "./reminderReducer";
 import { getDiscounts } from "./discountReducer";
 import { addDiscount } from "./discountReducer";
 import {
@@ -55,7 +55,12 @@ import {
   addApplication,
 } from "./employeeReducer";
 import { getPermissions } from "./employeeReducer";
-import { getUserInfo, editUserInfo, appInfo } from "./userReducer";
+import {
+  getUserInfo,
+  editUserInfo,
+  appInfo,
+  passwordForgetting,
+} from "./userReducer";
 import { getNotes, addNotes, editStatusNotes } from "./notesReducer";
 import { getSettingOrder, editSettingOrder } from "./settingReducer";
 import { getStock, addStock, editStock } from "./stockReducer";
@@ -152,5 +157,6 @@ export default combineReducers({
   failSaleOpportunity,
   editPriority,
   editTrackingTime,
-  addReminder
+  addReminder,
+  passwordForgetting,
 });
