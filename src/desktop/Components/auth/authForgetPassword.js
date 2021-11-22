@@ -69,7 +69,10 @@ export const AuthForgetPassword = ({
       return;
     }
     let paramsFormPhoneNumber = getValues("phoneNumber");
-    dispatch(userActions.verificationCode(paramsFormPhoneNumber));
+    let endDate = localStorage.getItem("end_date");
+    if (endDate == null) {
+      dispatch(userActions.verificationCode(paramsFormPhoneNumber));
+    }
     setCountDown(true);
   };
   let formHandler = async (e) => {
@@ -109,10 +112,13 @@ export const AuthForgetPassword = ({
       triggerSendCode.status == true &&
       triggerSendCode.phone != null
     ) {
+      let endDate = localStorage.getItem("end_date");
       setValue("phoneNumber", triggerSendCode.phone, {
         shouldValidate: true,
       });
-      dispatch(userActions.verificationCode(triggerSendCode.phone));
+      if (endDate == null) {
+        dispatch(userActions.verificationCode(triggerSendCode.phone));
+      }
       setCountDown(true);
     }
   }, [forgotPassword]);
@@ -125,7 +131,6 @@ export const AuthForgetPassword = ({
       force={true}
     />;
   }, []);
-
 
   return (
     <Row className="d-flex justify-content-center ">
@@ -178,10 +183,11 @@ export const AuthForgetPassword = ({
               </Col>
               <Col>
                 <Button
-                  className="login--btn--desktop w-100"
+                  className="login--btn--desktop login--btn--desktop--disabled  w-100"
                   style={{ height: "35px" }}
                   onClick={authCodeHandler}
                   disabled={isCountDown ? true : false}
+                  // disabled={true}
                 >
                   {isCountDown ? (
                     <CountDownFunc

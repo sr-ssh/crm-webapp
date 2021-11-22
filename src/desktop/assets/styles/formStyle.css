@@ -100,6 +100,10 @@
 .col--btn--login--desktop {
   width: 225px;
 }
+.login--btn--desktop--disabled:disabled{
+  background-color: var(--button-color-one) !important;
+  opacity: 1 !important;
+}
 @media (max-width: 960px) {
   .col--login--desktop {
     width: 90%;
