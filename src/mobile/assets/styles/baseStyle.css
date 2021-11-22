@@ -138,3 +138,6 @@ body {
   background-color: var(--dager-color);
   box-shadow: 0px 0px 6px 0px var(--dager-color);
 }
+.p--relative {
+  position: relative !important;
+}
