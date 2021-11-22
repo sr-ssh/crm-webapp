@@ -186,3 +186,26 @@
 .login--btn--mobile {
   border-radius: 10px !important;
 }
+.login--btn--mobile {
+  background-color: var(--dark-blue);
+  border: none;
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: bold;
+  position: relative;
+  height: 40px;
+  color: #fff;
+  font-family: "IranSans";
+}
+.login--btn--mobile:hover,
+.login--btn--mobile:active,
+.login--btn--mobile:focus,
+.login--btn--mobile:active:focus,
+.login--btn--mobile:focus:active {
+  background-color: var(--dark-blue);
+  color: #fff;
+  box-shadow: none;
+}
+.text--sendCode--resetPassword{
+  font-size: 82%;
+}

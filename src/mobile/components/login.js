@@ -13,7 +13,7 @@ import {
 import persianJs from "persianjs/persian.min";
 
 // Actions
-import { userActions } from "../../actions/userActions";
+import { userActions } from "../../actions";
 
 // Assets
 import logo from "./../assets/images/crm-dark.svg";
@@ -65,6 +65,17 @@ export const Login = (props) => {
       return;
     }
   }, [dispatch]);
+
+  let handleForgotPassword = (e) => {
+    e.preventDefault();
+    let regEx = /^[۰۱۲۳۴۵۶۷۸۹0123456789]{11}$/;
+    let res = regEx.test(mobileOrEmail);
+    if (res) {
+      props.history.push("/password/reset" , { status: true, phone: mobileOrEmail } )
+    }else{
+      props.history.push("/password/reset" , { status: false, phone: null } )
+    }
+  };
 
   return (
     <div className="factors--page">
@@ -151,7 +162,7 @@ export const Login = (props) => {
               >
                 <a
                   className="text--dark--blue cursor-pointer"
-                  // onClick={(e) => handleForgotPassword()}
+                  onClick={(e) => handleForgotPassword(e)}
                 >
                   فراموشی رمز عبور
                 </a>
