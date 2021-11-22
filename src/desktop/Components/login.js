@@ -62,7 +62,6 @@ export const Login = (props) => {
 
   let handleForgotPassword = () => {
     console.log(mobileOrEmail);
-    debugger;
     let regEx = /^[۰۱۲۳۴۵۶۷۸۹0123456789]{11}$/;
     let res = regEx.test(mobileOrEmail);
     if (res) {
