@@ -10,6 +10,7 @@ import {
   Spinner,
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import persianJs from "persianjs/persian.min";
 
 // Actions
 import { userActions } from "../../../actions";
@@ -83,10 +84,19 @@ export const ResetPassword = ({
     }
     let paramsFormPhoneNumber = getValues("phoneNumber");
     let endDate = localStorage.getItem("end_date");
-    if (endDate == null) {
-      dispatch(userActions.verificationCode(paramsFormPhoneNumber));
+    let regEx = /^[۰۱۲۳۴۵۶۷۸۹0123456789]{11}$/;
+    let res = regEx.test(paramsFormPhoneNumber);
+    if (endDate == null && res) {
+      dispatch(
+        userActions.verificationCode(
+          persianJs(paramsFormPhoneNumber).toEnglishNumber().toString()
+        )
+      );
+    } else if (res == false) {
+      setError("phoneNumber", { type: "focus" });
+    } else if (endDate != null) {
+      isCodeHaveBeenSent(paramsFormPhoneNumber);
     }
-    setCountDown(true);
   };
   let formHandler = async (e) => {
     e.preventDefault();
@@ -99,9 +109,9 @@ export const ResetPassword = ({
       }
       dispatch(
         userActions.passwordForgetting({
-          password: paramsForm.newPassword,
-          mobile: paramsForm.phoneNumber,
-          code: paramsForm.authCode,
+          password: persianJs(paramsForm.newPassword).toEnglishNumber().toString(),
+          mobile: persianJs(paramsForm.phoneNumber).toEnglishNumber().toString(),
+          code: persianJs(paramsForm.authCode).toEnglishNumber().toString()
         })
       );
     }
@@ -129,9 +139,10 @@ export const ResetPassword = ({
         shouldValidate: true,
       });
       if (endDate == null) {
-        dispatch(userActions.verificationCode(props.history.location.state.phone));
+        dispatch(
+          userActions.verificationCode(props.history.location.state.phone)
+        );
       }
-      setCountDown(true);
     }
   }, [props.history.location.state]);
 
@@ -143,6 +154,21 @@ export const ResetPassword = ({
       force={true}
     />;
   }, []);
+
+  let isCodeHaveBeenSent = (paramsFormPhoneNumber) => {
+    let endDate = localStorage.getItem("end_date");
+    if (
+      (paramsFormPhoneNumber != undefined &&
+        paramsFormPhoneNumber.length == 11) ||
+      (verificationCodeLoading == false && endDate == null)
+    ) {
+      let paramsFormPhoneNumber = getValues("phoneNumber");
+      setCountDown(true);
+    }
+  };
+  useEffect(() => {
+    isCodeHaveBeenSent();
+  }, [verificationCodeLoading]);
 
   return (
     <div className="factors--page">
