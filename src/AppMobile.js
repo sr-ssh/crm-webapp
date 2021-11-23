@@ -40,6 +40,8 @@ import { Suppliers } from './mobile/components/suppliers/suppliers';
 import { Stock } from './mobile/components/stock/stock';
 import { Leads } from './mobile/components/leads/leads';
 import { AddSeller } from './mobile/components/seller/addSeller';
+import { ResetPassword } from './mobile/components/auth/authForgetPassword';
+
 
 
 // Styles 
@@ -152,6 +154,7 @@ function AppMobile() {
         <PrivateRoute path="/seller/add" component={AddSeller} ></PrivateRoute>
         <PrivateRoute path="/seller" component={Sellers} ></PrivateRoute>
         <PrivateRoute path="/lead" component={Leads} ></PrivateRoute>
+        <Route path="/password/reset" component={ResetPassword} ></Route>
 
         <Redirect from="*" to="/" />
       </Switch>

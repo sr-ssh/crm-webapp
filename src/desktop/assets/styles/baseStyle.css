@@ -216,6 +216,3 @@ body {
 .cursor-pointer{
   cursor: pointer !important;
 }
-.text--dark--blue{
-  color: var(--dark-blue) !important;
-}

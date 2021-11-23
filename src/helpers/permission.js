@@ -40,7 +40,11 @@ export function isPermitted(route) {
     if (permissions?.addSeller) return true;
   } else if (route === "/seller") {
     if (permissions?.getSellers) return true;
-  } else if (["/","/register","/dashboard","/account"].includes(route)){
+  } else if (
+    ["/", "/register", "/dashboard", "/account", "/password/reset"].includes(
+      route
+    )
+  ) {
     return true;
   } else return false;
 }
