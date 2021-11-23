@@ -92,7 +92,8 @@ export function passwordForgetting(state = {}, action) {
         case userConstants.PASSWORD_RESET_FAILURE:
             return {
                 loading : false,
-                error: action.error
+                error: action.error,
+                data: ''
             }
     
         default:

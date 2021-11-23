@@ -394,11 +394,11 @@ function passwordForgetting(param) {
         if (res === undefined) {
           dispatch(alertActions.error("ارتباط با سرور برقرار نیست"));
           dispatch(failure("ارتباط با سرور برقرار نیست"));
-        } else if (res.success) {
+        } else if (res.success && res.data.status) {
           dispatch(success(res));
           localStorage.setItem("user", JSON.stringify(res.data));
           history.replace("/dashboard");
-        } else if (res.success === false) {
+        } else if (res.success && res.data.status === false) {
           dispatch(alertActions.error(res.message));
           dispatch(failure(res));
         }
