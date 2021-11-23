@@ -91,7 +91,6 @@ export const ResetPassword = ({
   let formHandler = async (e) => {
     e.preventDefault();
     let result = await trigger();
-    debugger
     if (result == true) {
       let paramsForm = getValues();
 
@@ -108,20 +107,18 @@ export const ResetPassword = ({
     }
   };
 
-  // useEffect(() => {
-  //   if (
-  //     forgotPassword == true &&
-  //     resetPasswordLoading == false &&
-  //     resetPasswordData.status == true &&
-  //     resetPasswordData.data.status == undefined
-  //   ) {
-  //     localStorage.removeItem("end_date");
-  //     history.push("/dashboard");
-  //   }
-  // }, [resetPasswordLoading]);
+  useEffect(() => {
+    if (
+      resetPasswordLoading == false &&
+      resetPasswordData.success == true &&
+      resetPasswordData.data.status == undefined
+    ) {
+      localStorage.removeItem("end_date");
+      history.push("/dashboard");
+    }
+  }, [resetPasswordLoading]);
 
   useEffect(() => {
-    debugger;
     if (
       props.history.location.state &&
       props.history.location.state.status == true &&
@@ -132,7 +129,7 @@ export const ResetPassword = ({
         shouldValidate: true,
       });
       if (endDate == null) {
-        // dispatch(userActions.verificationCode(props.history.location.state.phone));
+        dispatch(userActions.verificationCode(props.history.location.state.phone));
       }
       setCountDown(true);
     }
@@ -203,7 +200,9 @@ export const ResetPassword = ({
                 className="col--login--desktop d-flex justify-content-center align-items-end"
                 style={{ width: "80%" }}
               >
-                <Form.Group style={{ display: "flex", alignItems: "end" , width: "237px" }}>
+                <Form.Group
+                  style={{ display: "flex", alignItems: "end", width: "237px" }}
+                >
                   <Col className="col-9 ps-1">
                     <Form.Group controlId="mobileOrEmail">
                       <Col className="mb-2">
@@ -214,7 +213,7 @@ export const ResetPassword = ({
                         className="order-input login-input"
                         type="text"
                         {...register("authCode")}
-                        isInvalid={errors?.authCode ? true : false}
+                        isInvalid={errors.authCode ? true : false}
                         isValid={
                           Object.keys(errors).length != 0 &&
                           errors?.authCode == undefined &&
@@ -270,11 +269,11 @@ export const ResetPassword = ({
                     type={`${showPassword ? "text" : "password"}`}
                     {...register("newPassword")}
                     isInvalid={errors?.newPassword ? true : false}
-                  isValid={
-                    Object.keys(errors).length != 0 &&
-                    errors?.newPassword == undefined &&
-                    true
-                  }
+                    isValid={
+                      Object.keys(errors).length != 0 &&
+                      errors?.newPassword == undefined &&
+                      true
+                    }
                   />
                 </Form.Group>
               </Col>
@@ -304,8 +303,8 @@ export const ResetPassword = ({
                     }
                   />
                   <Form.Control.Feedback className="me-2" type="invalid">
-                  رمز عبور یکسان نیست!
-                </Form.Control.Feedback>
+                    رمز عبور یکسان نیست!
+                  </Form.Control.Feedback>
                 </Form.Group>
               </Col>
             </Row>
@@ -324,7 +323,6 @@ export const ResetPassword = ({
                     className=" login--btn--desktop login--btn--mobile w-100 me-auto d-block"
                     type="submit"
                     onClick={(e) => formHandler(e)}
-                  
                   >
                     ورود
                   </Button>
