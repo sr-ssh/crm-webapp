@@ -1,0 +1,17 @@
+.input--half--addReminder--desktop {
+  width: 65%;
+  height: 45px;
+}
+.input--text--area--add--reminder--desktop {
+  border-radius: 10px;
+  color: var(--text-color-two);
+  font-size: 14px;
+  border: none;
+  max-height: 250px;
+}
+.add--reminder--desktop--modal .modal-dialog-centered {
+  justify-content: center;
+}
+.add--reminder--desktop--modal .modal-content {
+  width: 400px;
+}

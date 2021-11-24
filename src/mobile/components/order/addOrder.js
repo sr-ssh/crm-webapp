@@ -25,15 +25,18 @@ import { Basket } from "./basket";
 import { AddNotesModal } from "./addNotesModal";
 import { ModalContinueProcessesAddOrder } from "./modalContinueProcesses";
 import { SupportAddOrder } from "../support/supportAddOrder";
+import { AddReminder } from "../reminder/addReminder";
 
 // Assets
 import downloadIcon from "../../assets/images/download.svg";
-import addIcon from "../../assets/images/order/add.svg";
+import addIcon from "../../assets/images/order/add-blue.svg";
 import closeDatePickerIcon from "../../assets/images/order/closeDatePicker.svg";
 import lowPriorityIcon from "./../../assets/images/order/priority/low.svg";
 import mediumPriorityIcon from "./../../assets/images/order/priority/medium.svg";
 import highPriorityIcon from "./../../assets/images/order/priority/high.svg";
 import spinnerIcon from "./../../assets/images/sppiner.svg";
+import reminderIcon from "./../../assets/images/reminder.svg";
+
 import { PriorityDropdown } from "./priorityDropdown";
 
 export const AddOrder = (props) => {
@@ -68,6 +71,8 @@ export const AddOrder = (props) => {
   console.log(oldCustomer);
   const [dimStatus, setDimStatus] = useState(false);
   const [priSselectedItem, setPrioItem] = useState("");
+  const [addReminderModal, setAddReminderModal] = useState(false);
+  const [reminderInfo, setReminderInfo] = useState();
 
   const handleDropdown = (n, name) => {
     setCustomer({ ...customer, priority: n });
@@ -133,7 +138,7 @@ export const AddOrder = (props) => {
   let formHandler = (e) => {
     e.preventDefault();
     if (order.length && customer.family && customer.mobile) {
-      dispatch(orderActions.addOrder(order, customer, seller, notes, 0));
+      dispatch(orderActions.addOrder(order, customer, seller, notes, 0 , { ...reminderInfo }));
     } else {
       if (customer.mobile && customer.family && !order.length)
         dispatch(alertActions.error("لیست سفارشات خالی است"));
@@ -167,6 +172,7 @@ export const AddOrder = (props) => {
     setQuantity(1);
     oldCustomer = null;
     setPrioItem("");
+    setReminderInfo()
   }
   let noteHandler = (e) => {
     if (notes.length > 0) {
@@ -392,10 +398,9 @@ export const AddOrder = (props) => {
             </Col>
           </Row>
           <Row>
-            <Col xs={12} className="mt-3 w-100 ">
+            <Col className="mt-3 col-6">
               <Button
-                className="d-flex flex-row w-100
-                 align-items-center btn--add--note justify-content-center"
+                className="d-flex flex-row w-100 align-items-center justify-content-center btn--add--note--desktop--addOrder notes-round"
                 onClick={noteHandler}
               >
                 {notes.length > 0 ? (
@@ -403,27 +408,50 @@ export const AddOrder = (props) => {
                 ) : (
                   <>
                     <img
-                      className="me-3"
+                      className="pe-2 me-2"
                       src={addIcon}
                       height="25px"
                       alt="edit-icon"
                     />
 
-                    <span className="me-1 fw-bold ms-3">
+                    <span className="pe-1 fw-bold ps-3">
                       <>اضافه یادداشت</>
                     </span>
                   </>
                 )}
               </Button>
             </Col>
+            <Col className="mt-3 col-6">
+              <Button
+                className="d-flex flex-row w-100 align-items-center justify-content-center btn--add--note--desktop--addOrder notes-round"
+                onClick={() => setAddReminderModal(true)}
+              >
+                {reminderInfo && Object.keys(reminderInfo).length > 0 ? (
+                  <span className="m-0 px-2 my-1 fw-bold text--reminder--description--addOrder">
+                    {reminderInfo.description}
+                  </span>
+                ) : (
+                  <>
+                    <img
+                      className="me-3"
+                      src={reminderIcon}
+                      height="25px"
+                      alt="edit-icon"
+                    />
+                    <span className="me-1 fw-bold ms-3">یادآوری</span>
+                  </>
+                )}
+              </Button>
+            </Col>
           </Row>
-          <Row className="m-0 align-self-center flex-row">
-            <Col className=" mt-3 order-inputs align-self-center">
-              <Form.Group className="p--relative" controlId="duration">
-                <Form.Label className="pe-1">
-                  تاریخ استفاده<span className="fs-8 me-1">(آماده سازی)</span>
-                </Form.Label>
-                {/* <Form.Control
+          <Row className="m-0 align-items-center flex-row col-12">
+            <Row className="m-0 px-0 align-self-center flex-row col-6">
+              <Col className="m-0 p-0 mt-3 order-inputs align-self-center">
+                <Form.Group className="p--relative" controlId="duration">
+                  <Form.Label className="pe-1">
+                    تاریخ استفاده<span className="fs-8 me-1">(آماده سازی)</span>
+                  </Form.Label>
+                  {/* <Form.Control
                   className="order-input me-2"
                   type="date"
                   min="0"
@@ -434,30 +462,30 @@ export const AddOrder = (props) => {
                   value={customer.duration}
                   required
                 /> */}
-                <DatePicker
-                  format="MM/DD/YYYY HH:mm:ss"
-                  inputClass="pick--date--order--input"
-                  ref={refDatePicker}
-                  plugins={[<TimePicker position="bottom" hideSeconds />]}
-                  calendar="persian"
-                  locale="fa"
-                  editable={false}
-                  animation
-                  minDate={new Date()}
-                  calendarPosition="bottom-right"
-                  value={customer.duration}
-                  onChange={(value) => submitCalendar(value, "duration")}
-                />
-                <img
-                  src={closeDatePickerIcon}
-                  className="m-0 p-0 cursor-pointer bin--order-icon"
-                  onClick={(e) => setCustomer({ ...customer, duration: "" })}
-                  height="20px"
-                  alt="down-icon"
-                />
-              </Form.Group>
-            </Col>
-            {/* <Col className=" mt-3 order-inputs">
+                  <DatePicker
+                    format="MM/DD/YYYY HH:mm:ss"
+                    inputClass="pick--date--order--input"
+                    ref={refDatePicker}
+                    plugins={[<TimePicker position="bottom" hideSeconds />]}
+                    calendar="persian"
+                    locale="fa"
+                    editable={false}
+                    animation
+                    minDate={new Date()}
+                    calendarPosition="bottom-right"
+                    value={customer.duration}
+                    onChange={(value) => submitCalendar(value, "duration")}
+                  />
+                  <img
+                    src={closeDatePickerIcon}
+                    className="m-0 p-0 cursor-pointer bin--order-icon"
+                    onClick={(e) => setCustomer({ ...customer, duration: "" })}
+                    height="20px"
+                    alt="down-icon"
+                  />
+                </Form.Group>
+              </Col>
+              {/* <Col className=" mt-3 order-inputs">
               <Form.Group controlId="reminder">
                 <Form.Label className="pe-1">تاریخ یادآوری</Form.Label>
                 <Form.Control
@@ -473,14 +501,16 @@ export const AddOrder = (props) => {
                 <span className="reminder-span">روز دیگر</span>
               </Form.Group>
             </Col> */}
+            </Row>
+            <PriorityDropdown
+              priSselectedItem={priSselectedItem}
+              customer={customer}
+              setDimStatus={setDimStatus}
+              dimStatus={dimStatus}
+              handleDropdown={handleDropdown}
+            />
           </Row>
-          <PriorityDropdown
-            priSselectedItem={priSselectedItem}
-            customer={customer}
-            setDimStatus={setDimStatus}
-            dimStatus={dimStatus}
-            handleDropdown={handleDropdown}
-          />
+
           <Row className="m-0 mt-4 justify-content-center w-100">
             {addOrderLoading ? (
               <Button
@@ -548,6 +578,18 @@ export const AddOrder = (props) => {
       <SupportAddOrder
         open={dialogSupport}
         handleClose={() => setDialogSupport(false)}
+      />
+      <AddReminder
+        show={addReminderModal}
+        onHide={() => setAddReminderModal(false)}
+        isIndividualState={true}
+        setIndividualState={(date, description) =>
+          setReminderInfo({
+            date: date,
+            description: description,
+          })
+        }
+        individualState={reminderInfo}
       />
     </div>
   );

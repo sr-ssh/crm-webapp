@@ -137,9 +137,9 @@ export const AddReminder = ({
       aria-labelledby="contained-modal-title-vcenter"
       centered
       backdrop="static"
-      className={` mx-3 add--reminder--desktop--modal  `}
+      className={` px-3 add--reminder--desktop--modal  `}
     >
-      <Modal.Body className="add-product px-4">
+      <Modal.Body className="add-product px-2">
         <Button
           className="border-0 customer-modal-close--desktop"
           type="button"

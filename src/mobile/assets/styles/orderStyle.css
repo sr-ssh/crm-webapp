@@ -632,9 +632,9 @@
   overflow-x: hidden;
 }
 .bin--order-icon {
-  position: relative;
-  top: 0px;
-  left: 30px;
+  position: absolute;
+  bottom: 10px;
+  left: 7px;
 }
 
 .show > .btn-primary.btn-drop--down--support--addOrder,

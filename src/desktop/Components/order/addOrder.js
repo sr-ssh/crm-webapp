@@ -31,6 +31,7 @@ import { AddNotesModal } from "./addNotesModal";
 import { Header } from "../base/header";
 import { ModalContinueProcessesAddOrder } from "./modalContinueProcesses";
 import { SupportAddOrder } from "../support/supportAddOrder";
+import { AddReminder } from "../reminder/addReminder";
 
 // Assets
 import downloadIcon from "../../assets/images/download.svg";
@@ -40,7 +41,7 @@ import spinnerIcon from "./../../assets/images/sppiner.svg";
 import lowPriorityIcon from "./../../assets/images/order/priority/low.svg";
 import mediumPriorityIcon from "./../../assets/images/order/priority/medium.svg";
 import highPriorityIcon from "./../../assets/images/order/priority/high.svg";
-
+import reminderIcon from "./../../assets/images/reminder.svg";
 // Validation Schema Form
 const validationSchema = yup.object().shape({
   customer: yup.object({
@@ -86,6 +87,8 @@ export const AddOrder = (props) => {
   const [dialogSuppot, setDialogSuppot] = useState(false);
   const [dimStatus, setDimStatus] = useState(false);
   const [priSselectedItem, setPrioItem] = useState("");
+  const [addReminderModal, setAddReminderModal] = useState(false);
+  const [reminderInfo, setReminderInfo] = useState();
 
   const dispatch = useDispatch();
   let oldCustomer = useSelector((state) => state.getCustomer.customer);
@@ -147,7 +150,6 @@ export const AddOrder = (props) => {
   let formHandler = async (e) => {
     e.preventDefault();
     let values = getValues();
-    console.log(values);
     if (values.customer.phoneNumber == "" || values.customer.family == "") {
       return;
     } else if (order.length < 1) {
@@ -183,14 +185,14 @@ export const AddOrder = (props) => {
         {
           ...values.customer,
           duration: "",
-          reminder: values.reminder,
           address: values.address,
           guestMobile: values.mobile,
           priority: values.priority || 0,
         },
         values.seller,
         notes,
-        0
+        0,
+        { ...reminderInfo }
       )
     );
   };
@@ -220,7 +222,7 @@ export const AddOrder = (props) => {
     setItem("");
     setQuantity(1);
     oldCustomer = null;
-    setPrioItem("")
+    setPrioItem("");
   }
 
   useEffect(() => {
@@ -286,6 +288,8 @@ export const AddOrder = (props) => {
       });
     }
   }, [watch("customer.phoneNumber")]);
+
+  console.log(reminderInfo);
 
   return (
     <>
@@ -455,6 +459,30 @@ export const AddOrder = (props) => {
                           alt="edit-icon"
                         />
                         <span className="me-1 fw-bold ms-3">اضافه یادداشت</span>
+                      </>
+                    )}
+                  </Button>
+                </Col>
+                <Col className="mt-3  col-6">
+                  <Button
+                    className={`d-flex flex-row w-100 align-items-center justify-content-center btn--add--note--desktop--addOrder notes-round  `}
+                    onClick={() => setAddReminderModal(true)}
+                  >
+                    {reminderInfo && Object.keys(reminderInfo).length > 0 ? (
+                      <>
+                        <span className="m-0 px-2 my-1 fw-bold text--reminder--description--addOrder">
+                          {reminderInfo.description}
+                        </span>
+                      </>
+                    ) : (
+                      <>
+                        <img
+                          className="me-3"
+                          src={reminderIcon}
+                          height="25px"
+                          alt="edit-icon"
+                        />
+                        <span className="me-1 fw-bold ms-3">یادآوری</span>
                       </>
                     )}
                   </Button>
@@ -721,6 +749,18 @@ export const AddOrder = (props) => {
         <SupportAddOrder
           open={dialogSuppot}
           handleClose={() => setDialogSuppot(false)}
+        />
+        <AddReminder
+          show={addReminderModal}
+          onHide={() => setAddReminderModal(false)}
+          isIndividualState={true}
+          setIndividualState={(date, description) =>
+            setReminderInfo({
+              date: date,
+              description: description,
+            })
+          }
+          individualState={reminderInfo}
         />
       </div>
     </>
