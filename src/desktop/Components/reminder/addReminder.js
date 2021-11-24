@@ -30,12 +30,18 @@ import { CircularProgress } from "@material-ui/core";
 // Validation Schema Form
 const validationSchema = yup.object().shape({
   // .min(new Date())
-  date: yup.date(),
-  name: yup.string().required(),
+  date: yup.date().required(),
+  title: yup.string().required(),
   description: yup.string(),
 });
 
-export const AddReminder = ({ isPersonal, isCallBack = false, ...props }) => {
+export const AddReminder = ({
+  isPersonal,
+  isCallBack = false,
+  isTitle = false,
+  isIndividualState = false,
+  ...props
+}) => {
   const {
     register,
     setValue,
@@ -52,6 +58,7 @@ export const AddReminder = ({ isPersonal, isCallBack = false, ...props }) => {
   const dispatch = useDispatch();
 
   const refDatePicker = useRef();
+  const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
 
   const { loading: addReminderLoading, data: addReminderData } = useSelector(
     (state) => state.addReminder
@@ -67,26 +74,43 @@ export const AddReminder = ({ isPersonal, isCallBack = false, ...props }) => {
     );
   };
   let formHandler = async () => {
-    let result = await trigger();
+    let result;
+    if (isTitle) {
+      result = await trigger();
+    } else {
+      result = await trigger(["date", "description"]);
+    }
     if (result == false) {
       return;
     }
     let paramsForm = getValues();
-    let param = {
-      name: paramsForm.name,
-      description: paramsForm.description,
-      date: paramsForm.date,
-    };
-    if (isPersonal == true) {
-      param.typeReminder = 0;
-    } else if (isPersonal == false) {
-      param.typeReminder = props.aditional.typeReminder;
-      param.referenceId = props.aditional.referenceId;
+    if (isIndividualState) {
+      props.setIndividualState(paramsForm.date, paramsForm.description);
+      props.onHide(false);
+    } else {
+      let param = {
+        title: paramsForm.title,
+        description: paramsForm.description,
+        date: paramsForm.date,
+      };
+      if (isPersonal == true) {
+        param.typeReminder = 0;
+      } else if (isPersonal == false) {
+        param.typeReminder = props.aditional.typeReminder;
+        param.referenceId = props.aditional.referenceId;
+      }
+      dispatch(reminderActions.addReminder(param));
     }
-
-    dispatch(reminderActions.addReminder(param));
   };
 
+  let handleClose = () => {
+    reset({
+      name: null,
+      description: null,
+      date: null,
+    });
+    props.onHide(false);
+  };
   useEffect(() => {
     if (addReminderLoading == false && addReminderData.success) {
       if (isCallBack) {
@@ -96,26 +120,30 @@ export const AddReminder = ({ isPersonal, isCallBack = false, ...props }) => {
     }
   }, [addReminderLoading]);
 
+  useEffect(() => {
+    if (
+      props.show == true &&
+      isIndividualState == true &&
+      props.individualState
+    ) {
+      setValue("date", props.individualState.date);
+      setValue("description", props.individualState.description);
+    }
+  }, [props.show]);
+
   return (
     <Modal
       {...props}
       aria-labelledby="contained-modal-title-vcenter"
       centered
       backdrop="static"
-      className={` mx-3 follow--up--date--modal `}
+      className={` mx-3 add--reminder--desktop--modal  `}
     >
       <Modal.Body className="add-product px-4">
         <Button
           className="border-0 customer-modal-close--desktop"
           type="button"
-          onClick={() => {
-            reset({
-              name: null ,
-              description: null,
-              date: null
-            });
-            props.onHide(false);
-          }}
+          onClick={handleClose}
         >
           <img
             className="d-flex m-auto customer-modal-close-svg--desktop"
@@ -123,94 +151,82 @@ export const AddReminder = ({ isPersonal, isCallBack = false, ...props }) => {
             alt="close-btn"
           />
         </Button>
-        <Row className="h-100 d-flex flex-column justify-content-center align-items-center ">
-          {/* <Col className=" add-order-input--desktop d-flex justify-content-center align-items-end ">
-            <Form.Group className="p--relative" style={{ width: "65%" }}>
-              <Form.Label className="pb-3 " style={{ fontSize: "15px" }}>
-                تاریخ پیگیری بعدی
-              </Form.Label>
-              <Col className="m-0 p-0 col-12 d-flex align-items-center justify-content-between notes-round date--picker--desktop--addOrder">
-                <DatePicker
-                  format="DD/MMMM/YYYY"
-                  inputClass="pick--date--order--input"
-                  {...register("trackingTime")}
-                  ref={refDatePicker}
-                  calendar="persian"
-                  locale="fa"
-                  editable={false}
-                  animation
-                  minDate={new Date().setDate(new Date().getDate() + 1)}
-                  calendarPosition="top"
-                  onChange={(value) => submitCalendar(value, "duration")}
-                  className=""
+        <Row className="h-100 d-flex flex-column justify-content-center align-items-center px-2 ">
+          {isTitle ? (
+            <>
+              <Form.Group>
+                <Form.Label className="pe-3">عنوان</Form.Label>
+                <Form.Control
+                  className="order-input notes-round input--half--addReminder--desktop"
+                  type="text"
+                  name="name"
+                  {...register("title")}
+                  isInvalid={errors?.title ? true : false}
+                  isValid={
+                    Object.keys(errors).length != 0 &&
+                    errors?.title == undefined &&
+                    true
+                  }
                 />
-                <Col className="m-0 p-0 col-2 d-flex align-items-center justify-content-end">
-                  <img
-                    src={followUpDateBlueIcon}
-                    className="m-0 p-0  cursor-pointer"
-                    onClick={(e) => {
-                      isDatePickerOpen
-                        ? refDatePicker.current.closeCalendar()
-                        : refDatePicker.current.openCalendar();
-                      setIsDatePickerOpen(!isDatePickerOpen);
-                    }}
-                    height="30px"
-                    className="ps-2 cursor-pointer"
-                    alt="down-icon"
-                  />
-                </Col>
+              </Form.Group>
+            </>
+          ) : null}
+          <Form.Group className="p--relative mt-3">
+            <Form.Label className="pe-3">تاریخ یادآوری</Form.Label>
+            <Col
+              className="m-0 p-0 d-flex align-items-center justify-content-between notes-round date--picker--desktop--addOrder"
+              style={{ width: "65%" }}
+            >
+              <DatePicker
+                format="DD/MMMM/YYYY"
+                inputClass="pick--date--order--input input--half--addReminder--desktop"
+                {...register("date")}
+                ref={refDatePicker}
+                calendar="persian"
+                locale="fa"
+                editable={false}
+                animation
+                value={getValues("date")}
+                // .setDate(new Date().getDate() + 1)
+                minDate={new Date()}
+                calendarPosition="top"
+                onChange={(value) => submitCalendar(value)}
+                className=""
+              />
+              <Col className="m-0 p-0 col-2 d-flex align-items-center justify-content-end">
+                <img
+                  src={followUpDateBlueIcon}
+                  className="m-0 p-0  cursor-pointer"
+                  onClick={(e) => {
+                    isDatePickerOpen
+                      ? refDatePicker.current.closeCalendar()
+                      : refDatePicker.current.openCalendar();
+                    setIsDatePickerOpen(!isDatePickerOpen);
+                  }}
+                  height="30px"
+                  className="ps-2 cursor-pointer"
+                  alt="down-icon"
+                />
               </Col>
-            </Form.Group>
-          </Col> */}
-
-          <Form.Group>
-            <Form.Label className="me-3">نام</Form.Label>
-            <Form.Control
-              className="order-input notes-round"
-              type="text"
-              name="name"
-              {...register("name")}
-              isInvalid={errors?.name ? true : false}
-              isValid={
-                Object.keys(errors).length != 0 &&
-                errors?.name == undefined &&
-                true
-              }
-            />
+            </Col>
           </Form.Group>
-          <Form.Group>
-            <Form.Label className="me-3">توضیحات</Form.Label>
+
+          <Form.Group className="mt-3">
+            <Form.Label className="pe-3">توضیحات</Form.Label>
             <Form.Control
-              className="order-input notes-round"
-              type="text"
+              className=" input--text--area--add--reminder--desktop notes-round "
+              as="textarea"
+              rows="4"
               name="description"
               {...register("description")}
             />
           </Form.Group>
-          <Form.Group>
-            <Form.Label className="me-3">تاریخ یادآور</Form.Label>
-            <DatePicker
-              format="DD/MMMM/YYYY"
-              inputClass="pick--date--order--input"
-              {...register("date")}
-              ref={refDatePicker}
-              calendar="persian"
-              locale="fa"
-              editable={false}
-              animation
-              // .setDate(new Date().getDate() + 1)
-              minDate={new Date()}
-              calendarPosition="top"
-              onChange={(value) => submitCalendar(value)}
-              className=""
-            />
-          </Form.Group>
-
-          <Col className="m-0 p-0 d-flex justify-content-center align-items-end mb-2">
+          <Col className="m-0 d-flex justify-content-center align-items-end mt-3 mb-2">
             {addReminderLoading ? (
               <Button
                 className="fw-bold order--btn order-submit--desktop border-0 w-100  d-flex justify-content-center align-items-center"
                 size="lg"
+                style={{ height: "50px" }}
                 type="submit"
                 disabled
               >
@@ -220,6 +236,7 @@ export const AddReminder = ({ isPersonal, isCallBack = false, ...props }) => {
             ) : (
               <Button
                 className="fw-bold order--btn order-submit--desktop border-0 w-100 "
+                style={{ height: "50px" }}
                 size="lg"
                 type="submit"
                 block

@@ -48,7 +48,6 @@ function getOrders(filter = {}) {
   if (filter.status === "") filter.status = " ";
   if (filter.sort === "") filter.sort = "0";
 
-
   let {
     status = " ",
     customerName = " ",
@@ -57,7 +56,7 @@ function getOrders(filter = {}) {
     endDate = "1900-01-01T05:42:13.845Z",
     startTrackingTime = "1900-01-01T05:42:13.845Z",
     endTrackingTime = "1900-01-01T05:42:13.845Z",
-    sort = "0"
+    sort = "0",
   } = filter;
 
   const requestOptions = {
@@ -206,13 +205,12 @@ function cancelProductOrder(orderId, productId) {
     });
 }
 
-function addOrder(products, info, seller, notes, force) {
+function addOrder(products, info, seller, notes, force, reminderInfo) {
   console.log("into orderService");
 
-  let reminder, address, duration, mobile;
+  let address, duration, mobile;
   if (info.address) address = info.address;
   if (info.duration) duration = info.duration;
-  if (info.reminder) reminder = info.reminder;
   if (info.guestMobile) mobile = info.guestMobile;
   let customer = {
     family: info.family,
@@ -227,15 +225,15 @@ function addOrder(products, info, seller, notes, force) {
       customer,
       seller,
       mobile,
-      reminder,
       duration,
       address,
       notes,
       force,
-      priority: info.priority || 0
+      reminder: reminderInfo,
+      priority: info.priority || 0,
     },
   };
-
+  debugger;
   return axios
     .post(`${baseRoute}/order`, requestOptions.body, {
       headers: requestOptions.headers,
@@ -616,5 +614,3 @@ function editTrackingTime(data) {
       }
     });
 }
-
-

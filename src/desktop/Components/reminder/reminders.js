@@ -56,7 +56,7 @@ export const Reminders = () => {
         >
           {reminderLoading && <CircularProgress />}
           {!reminderLoading && reminders && reminders.length === 0 ? (
-            <Row className="justify-content-center align-items-center no-result-filter">
+            <Row className="justify-content-center align-items-center no-result-filter w-100">
               <Col className="col-8 text-center">
                 هیچ یادآوری موجود نمی باشد!
               </Col>
@@ -73,6 +73,7 @@ export const Reminders = () => {
           onHide={() => setAddReminderModal(false)}
           isPersonal={true}
           isCallBack={true}
+          isTitle={true}
           dispatchCallBack={() => dispatch(reminderActions.getReminders())}
         />
       </div>

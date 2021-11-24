@@ -465,3 +465,11 @@
   width: 400px;
   height: 285px;
 }
+
+.text--reminder--description--addOrder {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 20rem;
+  height: 1.2em;
+  white-space: nowrap;
+}
