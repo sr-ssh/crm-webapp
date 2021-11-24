@@ -41,7 +41,8 @@ import { Stock } from './mobile/components/stock/stock';
 import { Leads } from './mobile/components/leads/leads';
 import { AddSeller } from './mobile/components/seller/addSeller';
 import { ResetPassword } from './mobile/components/auth/authForgetPassword';
-
+import { SuccessfulPayment } from './mobile/components/payment/successfulPayment'
+import { UnSuccessfulPayment } from './mobile/components/payment/unsuccessfulPayment'
 
 
 // Styles 
@@ -67,7 +68,7 @@ import './mobile/assets/styles/receiptStyle.css';
 import './mobile/assets/styles/leadStyle.css'
 import './mobile/assets/styles/accountStyle.css'
 import './mobile/assets/styles/sellerStyle.css'
-
+import './mobile/assets/styles/paymentStyle.css'
 
 // Helper
 import { socket } from './helpers/socketIo';
@@ -155,7 +156,8 @@ function AppMobile() {
         <PrivateRoute path="/seller" component={Sellers} ></PrivateRoute>
         <PrivateRoute path="/lead" component={Leads} ></PrivateRoute>
         <Route path="/password/reset" component={ResetPassword} ></Route>
-
+        <Route path="/payment/successful" component={SuccessfulPayment} />
+        <Route path="/payment/unsuccessful" component={UnSuccessfulPayment} />
         <Redirect from="*" to="/" />
       </Switch>
       <NotificationCallIncoming incomCall={incomCall} setIncomCall={setIncomCall} incomCallMessage={incomCallMessage} setIncomCallMessage={setIncomCallMessage} />

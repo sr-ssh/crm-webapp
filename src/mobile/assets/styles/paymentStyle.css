@@ -1,0 +1,29 @@
+.wrapper--payment--result--mobile {
+  justify-content: center;
+  align-items: center;
+  height: 95vh;
+}
+.payment--img--mobile {
+  width: 100% !important;
+}
+.btn--return--back--payment--mobile {
+  color: #fff;
+  width: 50%;
+  background-color: var(--dark-blue);
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  height: 40px;
+  font-family: "IranSans";
+  margin-top: 50px;
+}
+.btn--return--back--payment--mobile:hover,
+.btn--return--back--payment--mobile:active,
+.btn--return--back--payment--mobile:focus,
+.btn--return--back--payment--mobile:focus:active,
+.btn--return--back--payment--mobile:active:focus {
+  color: #fff;
+  background-color: var(--dark-blue);
+  box-shadow: none;
+}
