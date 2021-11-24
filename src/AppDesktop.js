@@ -10,6 +10,8 @@ import { Determine } from './desktop/Components/determine'
 import { Dashboard } from './desktop/Components/main/dashboard'
 import { Factor } from './desktop/Components/order/factor/factor'
 import { SuccessfulPayment } from './desktop/Components/payment/successfulPayment'
+import { UnSuccessfulPayment } from './desktop/Components/payment/unsuccessfulPayment'
+
 
 
 
@@ -51,7 +53,7 @@ function AppDesktop() {
                     <Route path="/register" component={Determine} />
                     <Route path="/order/factor/:orderId/:keyLink" component={Factor} />
                     <Route path="/payment/successful" component={SuccessfulPayment} />
-                    {/* <Route path="/payment/unsuccessful" component={Factor} /> */}
+                    <Route path="/payment/unsuccessful" component={UnSuccessfulPayment} />
                     <Route path="/" render={(props) => <Dashboard {...props} />} />
                     <Redirect from="*" to="/" />
                 </Switch>
