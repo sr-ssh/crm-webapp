@@ -16,15 +16,14 @@ export const PriorityDropdown = (props) => {
     props;
 
   return (
-    <Row className="m-0 align-self-center flex-row">
+    <Row className="m-0 px-0 align-self-center flex-row col-6">
       <Col
-        className="d-flex flex-row align-items-center justify-content-start"
-        style={{ height: "fit-content" }}
-        xs={11}
+        className="d-flex flex-row align-items-center justify-content-start ps-0 mt-3"
+        style={{ height: "fit-content" }} 
       >
-        <Col className="basket-flex--desktop m-0 col-6 order-inputs w-75 justify-content-start">
+        <Col className="basket-flex--desktop m-0  order-inputs w-75 justify-content-start">
           <Form.Group>
-            <Form.Label className="pe-1" style={{ width: "70%" }}>
+            <Form.Label className="pe-1">
               اولویت
             </Form.Label>
             <Dropdown
@@ -32,7 +31,6 @@ export const PriorityDropdown = (props) => {
               onToggle={(e) => setDimStatus(!dimStatus)}
             >
               <Dropdown.Toggle
-                style={{ width: "70%" }}
                 className="radius-16 d-flex justify-content-center align-items-center priority-drop"
               >
                 <Row className="text-end pe-2 order-filter-input">
