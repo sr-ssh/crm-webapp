@@ -9,6 +9,7 @@ import { Login } from './desktop/Components/login'
 import { Determine } from './desktop/Components/determine'
 import { Dashboard } from './desktop/Components/main/dashboard'
 import { Factor } from './desktop/Components/order/factor/factor'
+import { SuccessfulPayment } from './desktop/Components/payment/successfulPayment'
 
 
 
@@ -33,6 +34,8 @@ import './desktop/assets/styles/leadStyle.css'
 import './desktop/assets/styles/sellerStyle.css'
 import './desktop/assets/styles/supportStyle.css'
 import './desktop/assets/styles/reminderStyle.css'
+import './desktop/assets/styles/paymentStyle.css'
+
 
 
 
@@ -47,6 +50,8 @@ function AppDesktop() {
                     <Route exact path="/" component={Login} />
                     <Route path="/register" component={Determine} />
                     <Route path="/order/factor/:orderId/:keyLink" component={Factor} />
+                    <Route path="/payment/successful" component={SuccessfulPayment} />
+                    {/* <Route path="/payment/unsuccessful" component={Factor} /> */}
                     <Route path="/" render={(props) => <Dashboard {...props} />} />
                     <Redirect from="*" to="/" />
                 </Switch>

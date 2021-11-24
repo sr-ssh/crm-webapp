@@ -1,0 +1,36 @@
+.payment--successful {
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 25px;
+}
+.successful--img {
+  width: 600px;
+}
+.wrapper--btn--turn--back--payment{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.btn--return--back--payment{
+    color: #fff;
+    width: 130px;
+    background-color: var(--dark-blue);
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    height:50px;
+    font-family: "IranSans";
+    padding: 11px;
+}
+.btn--return--back--payment:hover , 
+.btn--return--back--payment:active , 
+.btn--return--back--payment:focus ,
+.btn--return--back--payment:focus:active , 
+.btn--return--back--payment:active:focus{
+    color: #fff;
+    background-color: var(--dark-blue);
+    box-shadow: none;
+}
