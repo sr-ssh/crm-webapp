@@ -233,7 +233,6 @@ function addOrder(products, info, seller, notes, force, reminderInfo) {
       priority: info.priority || 0,
     },
   };
-  debugger;
   return axios
     .post(`${baseRoute}/order`, requestOptions.body, {
       headers: requestOptions.headers,
