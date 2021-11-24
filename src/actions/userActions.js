@@ -402,6 +402,9 @@ function passwordForgetting(param) {
           dispatch(alertActions.error(res.message));
           dispatch(failure(res));
         }
+        setTimeout(() => {
+          dispatch(alertActions.clear());
+        }, 1500);
       },
       (error) => {
         dispatch(failure(error.toString()));
