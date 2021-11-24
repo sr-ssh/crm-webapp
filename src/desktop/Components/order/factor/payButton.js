@@ -10,16 +10,14 @@ export const PayButton = ({ factor }) => {
   return (
     <>
       {factor.payStatus == 100 && factor.payURL && factor.status == 3 ? (
-        <Row className="m-0 p-0 w-100 mt-4 justify-content-center">
+        <Row className="m-0 p-0 w-100 mt-4 mb-5 justify-content-center">
           <Col xs={3}>
             <Button
-              className="py-3 order-submit btn-dark-blue border-0 w-100 mt-4 notes-round"
-              size="lg"
+              className="btn--checkout--order--desktop"
               type="submit"
-              block
               onClick={payHandle}
             >
-              پرداخت
+              پرداخت آنلاین
             </Button>
           </Col>
         </Row>

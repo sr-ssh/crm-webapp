@@ -57,3 +57,24 @@
 .notes--factor--page--dektop::-webkit-scrollbar {
   width: 0;
 }
+.btn--checkout--order--desktop{
+  color: #fff;
+  width: 100%;
+  background-color: var(--dark-blue);
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  height:50px;
+  font-family: "IranSans";
+  padding: 11px;
+}
+.btn--checkout--order--desktop:hover , 
+.btn--checkout--order--desktop:active , 
+.btn--checkout--order--desktop:focus ,
+.btn--checkout--order--desktop:focus:active , 
+.btn--checkout--order--desktop:active:focus{
+  color: #fff;
+  background-color: var(--dark-blue);
+  box-shadow: none;
+}

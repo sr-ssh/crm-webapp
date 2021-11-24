@@ -34,7 +34,28 @@
   height: 30px;
   width: 30px;
 }
-
+.btn--checkout--order--mobile{
+  color: #fff;
+  width: 100%;
+  background-color: var(--dark-blue);
+  border: none;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: bold;
+  height:45px;
+  font-family: "IranSans";
+  padding: 11px;
+  margin-top: 85px;
+}
+.btn--checkout--order--mobile:hover , 
+.btn--checkout--order--mobile:active , 
+.btn--checkout--order--mobile:focus ,
+.btn--checkout--order--mobile:focus:active , 
+.btn--checkout--order--mobile:active:focus{
+  color: #fff;
+  background-color: var(--dark-blue);
+  box-shadow: none;
+}
 @media only screen and (max-width: 350px) {
   .lable--factor {
     font-size: 10px;
