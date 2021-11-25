@@ -20,6 +20,7 @@ import { ShowDocuments } from "../order/showDoc";
 import { CancelOrder } from "../order/cancelOrder";
 import { Delivery } from "../order/delivery";
 import { FreeSaleOpportunity } from "../order/freeSaleOpportunity";
+import { Prioritize } from "../order/prioritize";
 
 // Icons
 import deleteIcon from "./../../assets/images/support/delete.svg";
@@ -77,6 +78,7 @@ export const SupportAddOrder = (props) => {
   const [cancelOrderShow, setCancelOrderShow] = useState(false);
   const [uploadModalShow, setUploadModalShow] = useState(false);
   const [showDocModalShow, setShowDocModalShow] = useState(false);
+  const [prioritizeModalShow, setPrioritizeModalShow] = useState(false);
   const [refresh, setRefresh] = useState(false);
 
   const handleClose = () => {
@@ -273,6 +275,7 @@ export const SupportAddOrder = (props) => {
                         setOrder={setOrder}
                         setUploadModalShow={setUploadModalShow}
                         uploadModalShow={uploadModalShow}
+                        setPrioritizeModalShow={setPrioritizeModalShow}
                         setShowDocModalShow={setShowDocModalShow}
                       />
                     );
@@ -306,6 +309,13 @@ export const SupportAddOrder = (props) => {
               setActiveOrder={setActiveOrder}
             />
           )}
+          <Prioritize
+            show={prioritizeModalShow}
+            onHide={() => {
+              setPrioritizeModalShow(false);
+            }}
+            order={activeOrder}
+          />
         </Container>
       </div>
     </Dialog>
