@@ -52,8 +52,8 @@ function AppDesktop() {
                     <Route exact path="/" component={Login} />
                     <Route path="/register" component={Determine} />
                     <Route path="/order/factor/:orderId/:keyLink" component={Factor} />
-                    <Route path="/payment/successful" component={SuccessfulPayment} />
-                    <Route path="/payment/unsuccessful" component={UnSuccessfulPayment} />
+                    <Route path="/payment/successful/:orderId/:keyLink" component={SuccessfulPayment} />
+                    <Route path="/payment/unsuccessful/:orderId/:keyLink" component={UnSuccessfulPayment} />
                     <Route path="/" render={(props) => <Dashboard {...props} />} />
                     <Redirect from="*" to="/" />
                 </Switch>

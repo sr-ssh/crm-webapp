@@ -1,9 +1,16 @@
 import React from "react";
 import { Button } from "react-bootstrap";
+import { history } from "../../../helpers";
 // Assets
 import successfulIcon from "../../assets/images/payment/successful.png";
 
-export const SuccessfulPayment = () => {
+export const SuccessfulPayment = (props) => {
+
+  const handleClick = () => {
+    if (props.match.params.orderId && props.match.params.keyLink)
+      history.push(`/order/factor/${props.match.params.orderId}/${props.match.params.keyLink}`)
+  }
+
   return (
     <>
       <div className="wrapper d-flex flex-column  ">
@@ -20,6 +27,7 @@ export const SuccessfulPayment = () => {
             size="lg"
             type="submit"
             block
+            onClick={() => handleClick()}
           >
             بازگشت
           </Button>
