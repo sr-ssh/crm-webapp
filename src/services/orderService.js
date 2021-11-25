@@ -33,7 +33,7 @@ export const orderService = {
   getFailureReasons,
   editPriority,
   editTrackingTime,
-  getPaymentlink
+  getPaymentlink,
 };
 
 function getOrders(filter = {}) {
@@ -617,11 +617,9 @@ function editTrackingTime(data) {
 
 function getPaymentlink(params) {
   console.log("into orderService (editTrackingTime)");
-
   return axios
-    .put(`${baseRoute}/payment/${params.orderId}/${params.keylink}`)
+    .get(`${baseRoute}/order/payment/${params.orderId}/${params.keylink}`)
     .then((res) => {
-      debugger
       console.log("res >>");
       console.log(res);
       return res.data;
