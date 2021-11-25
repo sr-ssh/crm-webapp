@@ -156,8 +156,8 @@ function AppMobile() {
         <PrivateRoute path="/seller" component={Sellers} ></PrivateRoute>
         <PrivateRoute path="/lead" component={Leads} ></PrivateRoute>
         <Route path="/password/reset" component={ResetPassword} ></Route>
-        <Route path="/payment/successful" component={SuccessfulPayment} />
-        <Route path="/payment/unsuccessful" component={UnSuccessfulPayment} />
+        <Route path="/payment/successful/:orderId/:keyLink" component={SuccessfulPayment} />
+        <Route path="/payment/unsuccessful/:orderId/:keyLink" component={UnSuccessfulPayment} />
         <Redirect from="*" to="/" />
       </Switch>
       <NotificationCallIncoming incomCall={incomCall} setIncomCall={setIncomCall} incomCallMessage={incomCallMessage} setIncomCallMessage={setIncomCallMessage} />
