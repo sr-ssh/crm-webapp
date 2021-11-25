@@ -476,6 +476,8 @@ export const Factor = ({
         onHide={() => setAddReminderModal(false)}
         isPersonal={false}
         aditional={{ typeReminder: 3, referenceId: factor.id }}
+        title={factor.supplier.family}
+
       />
     </Card>
   );

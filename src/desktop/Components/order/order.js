@@ -917,6 +917,7 @@ export const Order = ({
         onHide={() => setAddReminderModal(false)}
         isPersonal={false}
         aditional={{ typeReminder: 2, referenceId: order.id }}
+        title={order.customer.family}
       />
       {/* <ShowDocuments show={showDocModalShow} onHide={() => setShowDocModalShow(false)} order={activeOrder} /> */}
     </Card>

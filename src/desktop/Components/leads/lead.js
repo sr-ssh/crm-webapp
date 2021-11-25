@@ -51,7 +51,6 @@ export const Lead = ({
     activeId === item?._id && editLoading && dispatch(leadActions.getLeads());
   }, [editLoading]);
 
-
   return (
     <>
       <Card
@@ -143,7 +142,7 @@ export const Lead = ({
             )}
             {item?.accepted && (
               <Button
-                onClick={() => setAddReminderModal(item._id)}
+                onClick={() => setAddReminderModal(item._id, item.family)}
                 className="me-2 d-flex justify-content-center align-items-center button--green fs-6 fw-bold background--green border-0 w-100 mt-3"
                 size="lg"
                 type="submit"
