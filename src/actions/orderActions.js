@@ -27,7 +27,8 @@ export const orderActions = {
     failSaleOpportunity,
     getFailureReasons,
     editPriority,
-    editTrackingTime
+    editTrackingTime,
+    getPaymentlink
 }
 
 function getOrders(filter) {
@@ -777,6 +778,44 @@ function editPriority(body) {
     };
   }
 
+
+  function getPaymentlink(param) {
+    return (dispatch) => {
+      dispatch(request(orderConstants.GET_PAYMENT_LINK_REQUEST));
+      orderService.getPaymentlink(param).then(
+        (res) => {
+            debugger
+          if (res === undefined) {
+            dispatch(alertActions.error("ارتباط با سرور برقرار نیست"));
+            dispatch(
+              failure(
+                orderConstants.GET_PAYMENT_LINK_FAILURE,
+                "ارتباط با سرور برقرار نیست"
+              )
+            );
+          } else if (res.success) {
+            dispatch(success(orderConstants.GET_PAYMENT_LINK_SUCCESS, res));
+          } else if (res.success == false) {
+            dispatch(
+              failure(orderConstants.GET_PAYMENT_LINK_FAILURE, res.message)
+            );
+            dispatch(alertActions.error(res.message));
+          }
+        },
+        (error) => {
+          dispatch(
+            failure(orderConstants.GET_PAYMENT_LINK_FAILURE, error.toString())
+          );
+          console.log("occure error");
+          console.log(error.toString());
+          dispatch(alertActions.error(error.toString()));
+        }
+      );
+    };
+  }
+
+
+  
   
 
 function request(type) {

@@ -42,6 +42,7 @@ import {
   failSaleOpportunity,
   editPriority,
   editTrackingTime,
+  getPaymentlink
 } from "./orderReducer";
 import { getReminders, addReminder } from "./reminderReducer";
 import { getDiscounts } from "./discountReducer";
@@ -159,4 +160,5 @@ export default combineReducers({
   editTrackingTime,
   addReminder,
   passwordForgetting,
+  getPaymentlink
 });

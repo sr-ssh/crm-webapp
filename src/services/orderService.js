@@ -33,6 +33,7 @@ export const orderService = {
   getFailureReasons,
   editPriority,
   editTrackingTime,
+  getPaymentlink
 };
 
 function getOrders(filter = {}) {
@@ -602,6 +603,25 @@ function editTrackingTime(data) {
       headers: requestOptions.headers,
     })
     .then((res) => {
+      console.log("res >>");
+      console.log(res);
+      return res.data;
+    })
+    .catch((error) => {
+      if (error.response) {
+        console.log(error.response.data);
+        handleError(error.response.status);
+      }
+    });
+}
+
+function getPaymentlink(params) {
+  console.log("into orderService (editTrackingTime)");
+
+  return axios
+    .put(`${baseRoute}/payment/${params.orderId}/${params.keylink}`)
+    .then((res) => {
+      debugger
       console.log("res >>");
       console.log(res);
       return res.data;

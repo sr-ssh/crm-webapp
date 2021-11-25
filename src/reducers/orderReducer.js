@@ -564,3 +564,32 @@ export function editTrackingTime(state = {}, action) {
         return state;
     }
   }
+
+
+  export function getPaymentlink(state = {}, action) {
+    switch (action.type) {
+        case orderConstants.GET_PAYMENT_LINK_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+        case orderConstants.GET_PAYMENT_LINK_SUCCESS:
+            return {
+                loading: false,
+                data: action.data,
+            }
+        case orderConstants.GET_PAYMENT_LINK_FAILURE:
+            return {
+                err: action.error,
+                loading: false,
+            }
+            case orderConstants.GET_PAYMENT_LINK_CLEAR:
+            return {
+                err: null , 
+                data : null , 
+                loading : false
+            }
+        default:
+            return state
+    }
+}
