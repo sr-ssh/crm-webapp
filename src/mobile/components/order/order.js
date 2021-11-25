@@ -146,6 +146,15 @@ export const Order = ({
                       />
                       <span>{order.financialApproval.acceptedBy}</span>
                     </Col>
+                  ) : order.financialApproval.status === 3 ? (
+                    <Col className="d-flex justify-content-end align-items-center text--factor p-0 ">
+                      <img
+                        src={tickIcon}
+                        alt="tick-icon"
+                        className="m-0 p-0 ms-1 p-1 icon--tick--confirm "
+                      />
+                      <span>پرداخت آنلاین</span>
+                    </Col>
                   ) : (
                     <Col className="d-flex justify-content-end align-items-center text--factor p-0 ">
                       <img
@@ -708,7 +717,6 @@ export const Order = ({
         permission={true}
         orderId={order.id}
         status={status}
-
       />
       <ShareLinkModal
         show={isShareLinkOrder}

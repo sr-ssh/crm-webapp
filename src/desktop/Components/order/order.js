@@ -482,6 +482,15 @@ export const Order = ({
                           />
                           <span>{order.financialApproval.acceptedBy}</span>
                         </>
+                      ) : order.financialApproval.status === 3 ? (
+                          <>
+                          <img
+                            src={tickIcon}
+                            alt="tick-icon"
+                            className="m-0 p-0 ms-1 p-1 icon--tick--confirm "
+                          />
+                          <span>پرداخت آنلاین</span>
+                          </>
                       ) : (
                         <>
                           <img
