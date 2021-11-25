@@ -1,3 +1,9 @@
+.reminderCard{
+  width: 30%;
+  border-radius: 10px;
+}
+
+
 .input--half--addReminder--desktop {
   width: 65%;
   height: 45px;
