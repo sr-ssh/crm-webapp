@@ -9,7 +9,7 @@ export const PayButton = ({ factor }) => {
 
   return (
     <>
-      {factor.payStatus == 100 && factor.payURL && factor.status == 3 ? (
+      {factor.btnPayOnline  ? (
         <Row className="m-0 p-0 w-100 mt-4 justify-content-center">
           <Col xs={7}>
             <Button

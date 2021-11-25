@@ -7,9 +7,11 @@ export const PayButton = ({ factor }) => {
     window.open(factor.payURL, "_blank");
   };
 
+  console.log(factor)
+
   return (
     <>
-      {factor.payStatus == 100 && factor.payURL && factor.status == 3 ? (
+      {factor.btnPayOnline ? (
         <Row className="m-0 p-0 w-100 mt-4 mb-5 justify-content-center">
           <Col xs={3}>
             <Button
