@@ -32,7 +32,7 @@ export const Reminder = ({ reminder, ...props }) => {
     }
   };
   let titleReminder = (param) => {
-    for (const x in param) {
+    for (let x in param) {
       switch (x) {
         case "factorReference":
           return "فاکتور";
@@ -52,13 +52,14 @@ export const Reminder = ({ reminder, ...props }) => {
       }
     }
   };
+  console.log(reminder);
   return (
     <Card className="m-0 mt-3 mx-3 bg-light reminderCard border-0 lh-lg col-4">
       <Card.Body className="rounded-3 text-gray d-flex justify-content-between flex-column ">
         <Row className="p-0 m-0 w-100 d-flex justify-content-center ">
           <Row className="d-flex justify-content-between align-items-center w-100 p-0">
             <Col>
-              <span>{titleReminder(reminder)}</span>
+              <span>{titleReminder(reminder) || "شخصی"}</span>
               <span className="px-2">/</span>
               <span>{reminder.title}</span>
             </Col>
@@ -89,18 +90,20 @@ export const Reminder = ({ reminder, ...props }) => {
         </Row>
         <Row className="m-0 w-100 d-flex justify-content-end mt-3 ">
           <Col xs={7} className="px-0">
-            <Button
-              className="fw-bold order--btn order-submit--desktop border-0 w-100  d-flex justify-content-center align-items-center p-0"
-              style={{ height: "30px" }}
-              size="lg"
-              type="submit"
-              block
-              onClick={(e) => handleBtnRedirect(e, reminder)}
-            >
-              رفتن به
-              <> </>
-              {titleReminder(reminder)}
-            </Button>
+            {titleReminder(reminder) ? (
+              <Button
+                className="fw-bold order--btn order-submit--desktop border-0 w-100  d-flex justify-content-center align-items-center p-0"
+                style={{ height: "30px" }}
+                size="lg"
+                type="submit"
+                block
+                onClick={(e) => handleBtnRedirect(e, reminder)}
+              >
+                رفتن به
+                <> </>
+                {titleReminder(reminder)}
+              </Button>
+            ) : null}
           </Col>
         </Row>
         {/* <Row className="p-0 ps-2 m-0 ">

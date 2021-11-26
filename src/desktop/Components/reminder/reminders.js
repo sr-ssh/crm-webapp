@@ -51,7 +51,7 @@ export const Reminders = () => {
         <Container
           fluid
           className={` m-0 w-100 flex-wrap d-flex justify-content-between;  ${
-            reminderLoading && "align-items-center"
+            reminderLoading && "align-items-center justify-content-center"
           } `}
           style={{ height: reminderLoading && "80vh" }}
         >
