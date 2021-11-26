@@ -15,6 +15,7 @@ import { leadActions } from "../../../actions";
 // Icons
 import phoneIcon from "./../../assets/images/lead/call.svg";
 import AddIcon from "@material-ui/icons/Add";
+import reminderIcon from "./../../assets/images/reminder.svg";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -60,7 +61,7 @@ export const Lead = ({
           "lead--glowing--animate"
         }`}
       >
-        <Card.Body className="pb-3 ps-1 rounded-3">
+        <Card.Body className="pb-3  rounded-3">
           <Card.Text className="pt-1">
             <span className="text-gray fw-bold">نام : </span>
             <span className="fs-6 me-2 fw-bold">
@@ -94,18 +95,35 @@ export const Lead = ({
                 <span className="text-gray fw-bold text--description--product">
                   توضیحات :
                 </span>
-                <span className="fs-6 me-2 fw-bold text--breake--dscription">
+                <span className="fs-6 me-2 fw-bold ">
                   {item.description &&
                     persianJs(item.description).englishNumber().toString()}
                 </span>
               </Card.Text>
             </>
           )}
+          {item?.accepted && (
+            <Card.Text className="d-flex justify-content-end ">
+              <Button
+                className={`d-flex flex-row align-items-center justify-content-center btn--add--note--desktop--addOrder m-0 `}
+                style={{ width: "42%" }}
+                onClick={() => setAddReminderModal(item._id, item.family)}
+              >
+                <img
+                  className="me-3"
+                  src={reminderIcon}
+                  height="25px"
+                  alt="edit-icon"
+                />
+                <span className="me-1 fw-bold ms-3">یادآوری</span>
+              </Button>
+            </Card.Text>
+          )}
 
-          <Card.Text className="m-0 p-0 pt-1 d-flex align-items-start ms-2 w-50">
+          <Card.Text className="m-0 p-0 d-flex align-items-start w-100">
             {activeId === item._id && editLoading ? (
               <Button
-                className="button--green fs-6-sm fw-bold background--green border-0 w-100 mt-3"
+                className="button--green fs-6-sm fw-bold background--green border-0 w-100 "
                 size="lg"
                 type="submit"
                 disabled
@@ -122,7 +140,7 @@ export const Lead = ({
             ) : item?.accepted ? (
               <Button
                 onClick={(e) => failLead(e, item?._id)}
-                className="button--red fs-6 fw-bold background--red border-0 w-100 mt-3"
+                className="button--red fs-6 fw-bold background--red border-0 w-100 "
                 size="lg"
                 type="submit"
                 block
@@ -138,18 +156,6 @@ export const Lead = ({
                 block
               >
                 قبول
-              </Button>
-            )}
-            {item?.accepted && (
-              <Button
-                onClick={() => setAddReminderModal(item._id, item.family)}
-                className="me-2 d-flex justify-content-center align-items-center button--green fs-6 fw-bold background--green border-0 w-100 mt-3"
-                size="lg"
-                type="submit"
-                block
-              >
-                <AddIcon className="mx-1 col-3" />
-                یادآوری
               </Button>
             )}
           </Card.Text>

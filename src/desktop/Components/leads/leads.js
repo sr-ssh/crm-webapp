@@ -60,7 +60,7 @@ export const Leads = (props) => {
     formData.append("excel", e.target.files[0]);
     dispatch(leadActions.uploadExcel(formData));
   };
-  console.log(activeId);
+
 
   useEffect(() => {
     if (
