@@ -84,7 +84,6 @@ export const AddReminder = ({
       return;
     }
     let paramsForm = getValues();
-    debugger
     if (isIndividualState) {
       props.setIndividualState(paramsForm.date, paramsForm.description);
       props.onHide(false);

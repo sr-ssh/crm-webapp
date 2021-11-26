@@ -1,44 +1,34 @@
-import React, { useEffect } from "react";
+import React, { useEffect , useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  Card,
-  Table,
   Row,
   Col,
-  Container,
-  Button,
-  Spinner,
+  Container
 } from "react-bootstrap";
-import moment from "jalali-moment";
-import persianJs from "persianjs/persian.min";
 
 // Actions
 import { reminderActions } from "../../../actions";
 // Components
-import { Header } from "./../base/header2";
+import { Header } from "./../base/employeeHeader";
 import { Reminder } from "./reminder";
 import { CircularProgress } from "@material-ui/core";
+import { AddReminder } from "./addReminder";
+
 
 export const Reminders = () => {
   let reminders = useSelector((state) => state.getReminders.reminders);
   let reminderLoading = useSelector((state) => state.getReminders.loading);
   const dispatch = useDispatch();
 
-  const getTotalPrice = (order) => {
-    let total = 0;
-    order.map((item) => {
-      total += item.sellingPrice * item.quantity;
-    });
-    return total;
-  };
+  const [addReminderModal, setAddReminderModal] = useState(false);
 
   useEffect(() => {
     dispatch(reminderActions.getReminders());
-  }, [dispatch]);
+  }, []);
 
   return (
     <div className="product-page reminders">
-      <Header title="یادآوری" backLink="/dashboard" />
+      <Header title="یادآوری" backLink="/dashboard" setModalShow={()=> setAddReminderModal(true)} />
       <Container fluid className="m-0 ">
         {reminderLoading && (
           <Container
@@ -70,6 +60,14 @@ export const Reminders = () => {
             ))
           : null}
       </Container>
+      <AddReminder
+          show={addReminderModal}
+          onHide={() => setAddReminderModal(false)}
+          isPersonal={true}
+          isCallBack={true}
+          isTitle={true}
+          dispatchCallBack={() => dispatch(reminderActions.getReminders())}
+        />
     </div>
   );
 };
