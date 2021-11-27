@@ -25,7 +25,7 @@ import freeIcon from "../../assets/images/order/free1.svg";
 import coodIcon from "../../assets/images/order/cood.svg";
 import lowWhitePriorityIcon from "./../../assets/images/order/priority/low-white.svg";
 import followUpDateIcon from "../../assets/images/order/follow-up-date.svg";
-
+import reminderIcon from "../../assets/images/reminder−white.svg";
 //components
 import { AddNotesModal } from "./addNotesModal";
 import { EditField } from "./editField";
@@ -39,6 +39,8 @@ import { FreeOrder } from "./freeOrder";
 import { TrackingCodeModal } from "./trackingCode";
 import { PriorityBadge } from "./priorityBadge";
 import { FollowUpDateModal } from "./followUpDateModal";
+import { AddReminder } from "../reminder/addReminder";
+
 
 export const Order = ({
   order,
@@ -57,6 +59,7 @@ export const Order = ({
   setShowDocModalShow,
   freeSaleOpportunity,
   setPrioritizeModalShow,
+  ...props
 }) => {
   let [print, setPrint] = useState(false);
   const [editModalShow, setEditModalShow] = useState(false);
@@ -72,6 +75,7 @@ export const Order = ({
   const { user: userInfo, loading: userInfoLoading } = useSelector(
     (state) => state.appInfo
   );
+  const [addReminderModal, setAddReminderModal] = useState(false);
 
   const [input, setInput] = useState("");
   const [name, setName] = useState("");
@@ -116,6 +120,7 @@ export const Order = ({
   };
   return (
     <Card
+    ref={order.id == props.refKey ? props.orderRef : null}
       className={`m-auto mt-3 px-2 mb-4 bg-light productCard border-0 lh-lg ${
         !print ? "noPrint" : ""
       }`}
@@ -680,6 +685,25 @@ export const Order = ({
               </Button>
             </Col>
           )}
+          
+            <Col xs={6} className="p-0 px-1 pb-3 ps-2">
+              <Button
+                className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2"
+                type="button"
+                onClick={() => {
+                  setAddReminderModal(true);
+                }}
+              >
+                <img
+                  src={reminderIcon}
+                  height="28px"
+                  alt="print-icon"
+                  className="col-3 p-1"
+                />
+                <span className="pe-1">یادآوری</span>
+              </Button>
+            </Col>
+          
         </Row>
       </Card.Body>
       <EditField
@@ -755,6 +779,13 @@ export const Order = ({
           setFollowUpDateModal(false);
         }}
         order={order}
+      />
+      <AddReminder
+        show={addReminderModal}
+        onHide={() => setAddReminderModal(false)}
+        isPersonal={false}
+        aditional={{ typeReminder: 2, referenceId: order.id }}
+        title={order.customer.family}
       />
     </Card>
   );

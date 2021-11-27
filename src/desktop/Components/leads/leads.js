@@ -60,7 +60,7 @@ export const Leads = (props) => {
     formData.append("excel", e.target.files[0]);
     dispatch(leadActions.uploadExcel(formData));
   };
-  console.log(activeId);
+
 
   useEffect(() => {
     if (
@@ -113,9 +113,9 @@ export const Leads = (props) => {
                     failLead={failLead}
                     glowingCard={glowingCard}
                     keyRef={props.location?.state?.id}
-                    setAddReminderModal={(e) => {
+                    setAddReminderModal={(e , title) => {
                       setAddReminderModal(true);
-                      setActiveId({ idLead: e });
+                      setActiveId({ idLead: e  , title :  title});
                     }}
                   />
                 </Col>
@@ -127,6 +127,7 @@ export const Leads = (props) => {
             onHide={() => setAddReminderModal(false)}
             isPersonal={false}
             aditional={{ typeReminder: 1, referenceId: activeId.idLead }}
+            title={activeId.title}
           />
         </Container>
       </div>

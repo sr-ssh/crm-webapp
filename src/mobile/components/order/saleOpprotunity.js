@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Container, Row, Col, Alert } from "react-bootstrap";
 
@@ -19,7 +19,7 @@ import { Prioritize } from "./prioritize";
 import { OrderSearch } from "./search";
 import { Sort } from "./sort";
 
-export const SaleOpprotunity = () => {
+export const SaleOpprotunity = (props) => {
   const [recordOrderShow, setRecordOrderShow] = useState(false);
   const [deliveryShow, setDeliveryShow] = useState(false);
   const [activeOrder, setActiveOrder] = useState({});
@@ -32,6 +32,7 @@ export const SaleOpprotunity = () => {
   const [prioritizeModalShow, setPrioritizeModalShow] = useState(false);
   const [modalShow, setModalShow] = useState(false);
   const [sortModalShow, setSortModalShow] = useState(false);
+  const refOrder = useRef(null);
 
   const dispatch = useDispatch();
 
@@ -44,10 +45,19 @@ export const SaleOpprotunity = () => {
   // useEffect(() => {
   //   !recordOrderShow && dispatch(orderActions.getOrders({ status: 3 }));
   // }, [dispatch, recordOrderShow]);
+  useEffect(() => {
+    if (orderLoading == false && refOrder && refOrder.current != null) {
+      refOrder.current.scrollIntoView();
+    }
+    return () => {
+      window.history.replaceState({}, document.title);
+    };
+  }, [orderLoading, refOrder]);
 
   useEffect(() => {
     dispatch(orderActions.getOrders({ status: 3 }));
   }, [refresh]);
+
 
   return (
     <div className="product-page orders ">
@@ -94,10 +104,7 @@ export const SaleOpprotunity = () => {
           className="m-0 p-0 w-100 h-100"
           style={{ overflowX: "hidden", overflowY: "scroll" }}
         >
-          {!orderLoading &&
-          orders &&
-          orders &&
-          orders?.length > 0
+          {!orderLoading && orders && orders && orders?.length > 0
             ? orders
                 .sort(
                   (or1, or2) =>
@@ -108,7 +115,7 @@ export const SaleOpprotunity = () => {
                     Number(or1.sellers.some((seller) => seller.active === true))
                 )
                 .map((order, index) => {
-                  console.log("order", order)
+                  console.log("order", order);
                   if (
                     order.sellers?.some((seller) => seller.active === true) &&
                     order.status == 3
@@ -132,6 +139,11 @@ export const SaleOpprotunity = () => {
                         setCustomerInfoShow={setCustomerInfoShow}
                         setShowDocModalShow={setShowDocModalShow}
                         setPrioritizeModalShow={setPrioritizeModalShow}
+                        orderRef={refOrder}
+                        refKey={
+                          props.history.location.state &&
+                          props.history.location.state.id
+                        }
                       />
                     );
                   else
