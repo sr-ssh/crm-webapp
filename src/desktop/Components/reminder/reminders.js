@@ -39,8 +39,9 @@ export const Reminders = () => {
       <Header
         isBTNSearch={false}
         isGetExcel={false}
-        isBtnAdd={"یادآوری"}
-        btnAdd={() => setAddReminderModal(true)}
+        isBtnIconAdd={true}
+        isBtnAdd={" "}
+        btnIconAdd={() => setAddReminderModal(true)}
       />
 
       <div
@@ -49,8 +50,8 @@ export const Reminders = () => {
       >
         <Container
           fluid
-          className={` m-0 w-100 flex-wrap  d-flex  ${
-            reminderLoading && "align-items-center"
+          className={` m-0 w-100 flex-wrap d-flex justify-content-between;  ${
+            reminderLoading && "align-items-center justify-content-center"
           } `}
           style={{ height: reminderLoading && "80vh" }}
         >

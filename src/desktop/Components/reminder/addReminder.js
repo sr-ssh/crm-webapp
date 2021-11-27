@@ -89,7 +89,7 @@ export const AddReminder = ({
       props.onHide(false);
     } else {
       let param = {
-        title: paramsForm.title,
+        title: paramsForm.title || props.title,
         description: paramsForm.description,
         date: paramsForm.date,
       };
@@ -112,6 +112,7 @@ export const AddReminder = ({
     props.onHide(false);
   };
   useEffect(() => {
+    
     if (addReminderLoading == false && addReminderData.success) {
       if (isCallBack) {
         props.dispatchCallBack();

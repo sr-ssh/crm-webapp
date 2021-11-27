@@ -1,3 +1,12 @@
+.reminderCard--mobile{
+    border-radius: 10px;
+}
+.reminders span { 
+    color: var(--text-color-two);
+    font-size: 12px;
+    font-weight: 600;
+}
+
 .reminder-sms-button {
     border-radius: 11px;
     background-color: var(--button-color-two);

@@ -14,6 +14,8 @@ import cancelIcon from "../../assets/images/order/cancel.svg";
 import closeIcon from "../../assets/images/order/close.svg";
 import financialCheckIcon from "./../../assets/images/order/financial-check.svg";
 import waitingIcon from "../../assets/images/main/Waiting.svg";
+import reminderIcon from "../../assets/images/reminder−white.svg";
+
 
 //components
 import { EditField } from "./editField";
@@ -21,6 +23,8 @@ import { history } from "../../../helpers/history";
 import { CancelProductOrder } from "./cancelProductOrder";
 import { EditFactor } from "./editFactor";
 import { FinancialCheckModal } from "./financialCheckModal";
+import { AddReminder } from "../reminder/addReminder";
+
 
 export const Factor = ({
   factor,
@@ -32,12 +36,14 @@ export const Factor = ({
   setRecordOrderShow = {},
   setActiveOrder,
   setOrder,
+  ...props
 }) => {
   let [print, setPrint] = useState(false);
   const [editModalShow, setEditModalShow] = useState(false);
   const [cancelModalShow, setCancelModalShow] = useState(false);
   const [editFactorModalShow, setEditFactorModalShow] = useState(false);
   const [financialCheckModal, setFinancialCheckModal] = useState(false);
+  const [addReminderModal, setAddReminderModal] = useState(false);
 
   const [input, setInput] = useState("");
   const [name, setName] = useState("");
@@ -83,6 +89,7 @@ export const Factor = ({
 
   return (
     <Card
+    ref={factor.id == props.refKey ? props.factorRef : null}
       className={`m-auto mt-3 bg-light factorCard border-0 lh-lg ${
         !print ? "noPrint" : ""
       }`}
@@ -313,6 +320,21 @@ export const Factor = ({
               <span className="pe-1 noPrint">چاپ</span>
             </Button>
           </Col>
+          <Col xs={6} className="p-0 px-1 pb-3 pe-2">
+            <Button
+              className="w-100 btn-outline-dark btn--sale--opprotunity p-1 border-0 noPrint py-2 pe-2"
+              type="button"
+              onClick={() =>  setAddReminderModal(true)}
+            >
+              <img
+                src={reminderIcon}
+                height="25px"
+                alt="submit-icon"
+                className="col-3 p-1"
+              />
+              <span className="pe-1 noPrint">یادآوری</span>
+            </Button>
+          </Col>
         </Row>
       </Card.Body>
       <EditField
@@ -346,6 +368,14 @@ export const Factor = ({
         show={financialCheckModal}
         onHide={() => setFinancialCheckModal(false)}
         factor={financialCheckModal ? factor : null}
+      />
+       <AddReminder
+        show={addReminderModal}
+        onHide={() => setAddReminderModal(false)}
+        isPersonal={false}
+        aditional={{ typeReminder: 3, referenceId: factor.id }}
+        title={factor.supplier.family}
+
       />
     </Card>
   );

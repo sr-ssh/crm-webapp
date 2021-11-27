@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const Header = (props) => {
+export const Header = ({ isBtnIconAdd = false, ...props }) => {
   const [showLogout, setShowLogout] = useState(false);
   const sideBar = useSelector((state) => state.sideBar);
   const classes = useStyles({ open: sideBar.open });
@@ -108,6 +108,17 @@ export const Header = (props) => {
               >
                 <AddIcon className="mx-2 col-3" />
                 <span className="col-8 text-light ms-2 ">{props.isBtnAdd}</span>
+              </Button>
+            </>
+          ) : null}
+          {isBtnIconAdd != false ? (
+            <>
+              <Button
+                className="btn--add--desktop ff-iranSans p-2 me-auto"
+                style={{ width: "auto" }}
+                onClick={() => props.btnIconAdd()}
+              >
+                <AddIcon className="" size="50" />
               </Button>
             </>
           ) : null}

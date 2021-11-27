@@ -1,119 +1,111 @@
 import React from "react";
-import { Card, Table, Row, Col, Container, Spinner } from "react-bootstrap";
+import { Card, Button, Row, Col, Container, Spinner } from "react-bootstrap";
 import moment from "jalali-moment";
 import persianJs from "persianjs/persian.min";
-import { Button } from "@material-ui/core";
 // Helpers
 import { history } from "../../../helpers";
 
 export const Reminder = ({ reminder, ...props }) => {
-  const getTotalPrice = (order) => {
-    let total = 0;
-    order.map((item) => {
-      total += item.sellingPrice * item.quantity;
-    });
-    return total;
-  };
-  let typeReminder = (param) => {
-    let res;
+  let handleBtnRedirect = (e, param) => {
+    e.preventDefault();
     for (const x in param) {
-      // if (Object.hasOwnProperty.call(object, key)) {
-      //     const element = object[key];
-
-      // }
-      if (x === "factorReference") {
-        res = (
-          <Button
-            onClick={() =>
-              history.push("/factor", { id: reminder.factorReference })
-            }
-          >
-            برو به فاکتور
-          </Button>
-        );
-      }
-      if (x === "orderReference") {
-        if (reminder.orderReference.status == 0) {
-          res = (
-            <Button
-              onClick={() =>
-                history.push("/orders", { id: reminder.orderReference._id })
-              }
-            >
-              برو به سفارش
-            </Button>
-          );
-        }
-        if (reminder.orderReference.status == 3) {
-          res = (
-            <Button
-              onClick={() =>
-                history.push("/saleopprotunity", {
-                  id: reminder.orderReference._id,
-                })
-              }
-            >
-              برو به فرصت فروش
-            </Button>
-          );
-        }
-      }
-      if (x === "leadReference") {
-        res = (
-          <Button
-            onClick={() =>
-              history.push("/lead", { id: reminder.leadReference })
-            }
-          >
-            برو به سرنخ
-          </Button>
-        );
+      switch (x) {
+        case "factorReference":
+          history.push("/factor", { id: reminder.factorReference });
+          break;
+        case "orderReference":
+          if (reminder.orderReference.status == 0) {
+            history.push("/orders", { id: reminder.orderReference._id });
+          }
+          if (reminder.orderReference.status == 3) {
+            history.push("/saleopprotunity", {
+              id: reminder.orderReference._id,
+            });
+          }
+          break;
+        case "leadReference":
+          history.push("/lead", { id: reminder.leadReference });
+          break;
+        default:
+          break;
       }
     }
-    return res;
   };
+  let titleReminder = (param) => {
+    for (let x in param) {
+      switch (x) {
+        case "factorReference":
+          return "فاکتور";
 
+        case "orderReference":
+          if (reminder.orderReference.status == 0) {
+            return "سفارش";
+          }
+          if (reminder.orderReference.status == 3) {
+            return "فرصت فروش";
+          }
+          break;
+        case "leadReference":
+          return "سر نخ";
+        default:
+          break;
+      }
+    }
+  };
+  console.log(reminder);
   return (
-    <Card className="m-0 mt-3 mx-3 bg-light productCard border-0 lh-lg col-3">
-      <Card.Body className="pb-0 ps-1 rounded-3 text-gray">
-        <span>نام</span> : {reminder.name}
-        <br />
-        <span>توضیحات</span> : {reminder.description}
-        <br />
-        <span>تاریخ یادآور</span> :
-        {reminder.date &&
-          persianJs(
-            moment
-              .from(reminder.date, "YYYY/MM/DD HH:mm")
-              .locale("fa")
-              .format("HH:mm DD MMMM YYYY")
-          )
-            .englishNumber()
-            .toString()}
-        <br />
-        <span>تاریخ ایجاد</span> :
-        {reminder.createdAt &&
-          persianJs(
-            moment
-              .from(reminder.createdAt, "YYYY/MM/DD HH:mm")
-              .locale("fa")
-              .format("HH:mm DD MMMM YYYY")
-          )
-            .englishNumber()
-            .toString()}
-        <br />
-        <span>تاریخ آخرین آپدیت</span> :
-        {reminder.updatedAt &&
-          persianJs(
-            moment
-              .from(reminder.updatedAt, "YYYY/MM/DD HH:mm")
-              .locale("fa")
-              .format("HH:mm DD MMMM YYYY")
-          )
-            .englishNumber()
-            .toString()}
-        <br />
-        {typeReminder(reminder)}
+    <Card className="m-0 mt-3 mx-3 bg-light reminderCard border-0 lh-lg col-4">
+      <Card.Body className="rounded-3 text-gray d-flex justify-content-between flex-column ">
+        <Row className="p-0 m-0 w-100 d-flex justify-content-center ">
+          <Row className="d-flex justify-content-between align-items-center w-100 p-0">
+            <Col>
+              <span>{titleReminder(reminder) || "شخصی"}</span>
+              <span className="px-2">/</span>
+              <span>{reminder.title}</span>
+            </Col>
+            <Col className="text-start col-4">
+              <span className="ps-2">
+                {reminder.date &&
+                  persianJs(
+                    moment
+                      .from(reminder.date, "YYYY/MM/DD")
+                      .locale("fa")
+                      .format("DD MMMM YYYY")
+                  )
+                    .englishNumber()
+                    .toString()}
+              </span>
+            </Col>
+          </Row>
+          <Row className="mt-3 p-0">
+            <Col xs={3} className="ps-0">
+              <Card.Text className="pt-1">توضیحات :</Card.Text>
+            </Col>
+            <Col className="pe-0">
+              <Card.Text className="pt-1">
+                <span>{reminder.description}</span>
+              </Card.Text>
+            </Col>
+          </Row>
+        </Row>
+        <Row className="m-0 w-100 d-flex justify-content-end mt-3 ">
+          <Col xs={7} className="px-0">
+            {titleReminder(reminder) ? (
+              <Button
+                className="fw-bold order--btn order-submit--desktop border-0 w-100  d-flex justify-content-center align-items-center p-0"
+                style={{ height: "30px" }}
+                size="lg"
+                type="submit"
+                block
+                onClick={(e) => handleBtnRedirect(e, reminder)}
+              >
+                رفتن به
+                <> </>
+                {titleReminder(reminder)}
+              </Button>
+            ) : null}
+          </Col>
+        </Row>
         {/* <Row className="p-0 ps-2 m-0 ">
                     <Card className="background-blue border-0 customer-round">
                         <Card.Body className="pe-0 ps-0">
