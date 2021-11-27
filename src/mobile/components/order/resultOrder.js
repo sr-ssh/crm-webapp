@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Modal,
   Row,
@@ -89,6 +89,10 @@ export const ResultOrder = (props) => {
   let getFailureReasons = () => {
     dispatch(orderActions.getFailureReasons());
   };
+
+  useEffect(() => {
+    setfailureReason(false)
+  },[props.show])
 
   return (
     <Modal
