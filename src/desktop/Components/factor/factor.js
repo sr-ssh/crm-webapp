@@ -32,7 +32,7 @@ import cancelIcon from "../../assets/images/order/cancel.svg";
 import pishFactorIcon from "../../assets/images/order/pish-factor.svg";
 import financialCheckIcon from "./../../assets/images/order/financial-check.svg";
 import waitingIcon from "../../assets/images/main/Waiting.svg";
-import AddIcon from "@material-ui/icons/Add";
+import reminderIcon from "../../assets/images/reminder−white.svg";
 
 // Actions
 import { notesActions, orderActions, receiptActions } from "../../../actions";
@@ -250,8 +250,12 @@ export const Factor = ({
               setAddReminderModal(true);
             }}
           >
-                
-            <AddIcon className="ms-3" classes={{ root: classes.btnAddReminder }} />
+            <img
+              src={reminderIcon}
+              height="25px"
+              alt="reminder-icon"
+              className="ms-3"
+            />
             <span>یادآوری</span>
           </Button>
         </Col>
@@ -477,7 +481,6 @@ export const Factor = ({
         isPersonal={false}
         aditional={{ typeReminder: 3, referenceId: factor.id }}
         title={factor.supplier.family}
-
       />
     </Card>
   );

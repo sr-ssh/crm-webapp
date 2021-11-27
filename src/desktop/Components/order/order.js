@@ -33,7 +33,7 @@ import freeIcon from "../../assets/images/order/free1.svg";
 import coodIcon from "../../assets/images/order/cood.svg";
 import lowWhitePriorityIcon from "./../../assets/images/order/priority/low-white.svg";
 import followUpDateIcon from "../../assets/images/order/follow-up-date.svg";
-import AddIcon from "@material-ui/icons/Add";
+import reminderIcon from "../../assets/images/reminder−white.svg";
 
 // Actions
 import { notesActions } from "../../../actions";
@@ -449,7 +449,12 @@ export const Order = ({
                 setAddReminderModal(true);
               }}
             >
-              <AddIcon classes={{ root: classes.btnAddReminder }} />
+               <img
+                src={reminderIcon}
+                height="25px"
+                alt="reminder-icon"
+                className="col-3 ms-1"
+              />
               <span>یادآوری</span>
             </Button>
           </Col>
