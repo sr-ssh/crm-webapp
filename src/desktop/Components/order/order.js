@@ -521,7 +521,6 @@ export const Order = ({
                     </span>
                   </Card.Text>
                 </Col>
-                {order.support && order.support !== undefined && (
                   <Col className="p-0 d-flex  ">
                     <Card.Text>
                       شماره مشتری:{" "}
@@ -538,7 +537,6 @@ export const Order = ({
                       </span>
                     </Card.Text>
                   </Col>
-                )}
                 <Col className="p-0 d-flex  ">
                   <Card.Text>
                     شماره همراه مشتری:{" "}
@@ -550,9 +548,9 @@ export const Order = ({
                               .englishNumber()
                               .toString()
                         : order.mobile === undefined
-                        ? order.customer.mobile === undefined
+                        ? order.customer.mobile === undefined || !order.mobile
                           ? null
-                          : persianJs(order.customer.mobile)
+                          : persianJs(order.customer.mobile || order.mobile)
                               .englishNumber()
                               .toString()
                         : persianJs(order.mobile).englishNumber().toString()}
@@ -567,15 +565,12 @@ export const Order = ({
                 </Col>
               </Row>
               <Row className="flex-nowrap  mt-2 mx-2">
-                {order.support && (
                   <Col className="p-0 d-flex ">
                     <Card.Text>
                       نام مجموعه:{" "}
                       <span className="me-2">{order.customer.company}</span>
                     </Card.Text>
                   </Col>
-                )}
-                {order.support && (
                   <Col className="p-0 d-flex justify-content-start">
                     <Card.Text>
                       شماره فروشنده:{" "}
@@ -588,8 +583,6 @@ export const Order = ({
                       </span>
                     </Card.Text>
                   </Col>
-                )}
-                {order.support && (
                   <Col className="p-0 d-flex justify-content-start">
                     <Card.Text>
                       نام فروشنده:{" "}
@@ -600,7 +593,6 @@ export const Order = ({
                       </span>
                     </Card.Text>
                   </Col>
-                )}
                 <Col className="p-0 d-flex justify-content-start">
                   <Card.Text>
                     آدرس :{" "}

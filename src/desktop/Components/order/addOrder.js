@@ -184,7 +184,7 @@ export const AddOrder = (props) => {
         order,
         {
           ...values.customer,
-          duration: "",
+          duration: values.duration,
           address: values.address,
           guestMobile: values.mobile,
           priority: values.priority || 0,
