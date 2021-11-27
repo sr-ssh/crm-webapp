@@ -36,38 +36,34 @@ export const orderService = {
   getPaymentlink,
 };
 
-function getOrders(filter = {}) {
+function getOrders(
+  ordersStatus = "0",
+  mobile = "0",
+  customerPhoneNumber = "0",
+  customerName = "0",
+  customerCompany = "0",
+  sellerMobile = "0",
+  sellerFamily = "0",
+  startDate = "1900-01-01T05:42:13.845Z",
+  endDate = "1900-01-01T05:42:13.845Z",
+  startTrackingTime = "1900-01-01T05:42:13.845Z",
+  endTrackingTime = "1900-01-01T05:42:13.845Z",
+  sort = "0"
+) {
   console.log("into orderService");
-  if (filter.customerName === "") filter.customerName = " ";
-  if (filter.customerMobile === "") filter.customerMobile = "0";
-  if (filter.startDate === "") filter.startDate = "1900-01-01T05:42:13.845Z";
-  if (filter.endDate === "") filter.endDate = "1900-01-01T05:42:13.845Z";
-  if (filter.startTrackingTime === "")
-    filter.startTrackingTime = "1900-01-01T05:42:13.845Z";
-  if (filter.endTrackingTime === "")
-    filter.endTrackingTime = "1900-01-01T05:42:13.845Z";
-  if (filter.status === "") filter.status = " ";
-  if (filter.sort === "") filter.sort = "0";
-
-  let {
-    status = " ",
-    customerName = " ",
-    customerMobile = "0",
-    startDate = "1900-01-01T05:42:13.845Z",
-    endDate = "1900-01-01T05:42:13.845Z",
-    startTrackingTime = "1900-01-01T05:42:13.845Z",
-    endTrackingTime = "1900-01-01T05:42:13.845Z",
-    sort = "0",
-  } = filter;
-
+  debugger;
   const requestOptions = {
     headers: authHeader(),
   };
   return axios
     .get(
-      `${baseRoute}/order/${encodeURI(status)}/${encodeURI(
+      `${baseRoute}/order/${ordersStatus}/${mobile}/${customerPhoneNumber}/${encodeURI(
         customerName
-      )}/${customerMobile}/${startDate}/${endDate}/${startTrackingTime}/${endTrackingTime}/${sort}`,
+      )}/${encodeURI(customerCompany)}/${sellerMobile}/${encodeURI(
+        sellerFamily
+      )}/${encodeURI(startDate)}/${encodeURI(endDate)}/${encodeURI(
+        startTrackingTime
+      )}/${encodeURI(endTrackingTime)}/${encodeURI(sort)}`,
       requestOptions
     )
     .then((res) => {

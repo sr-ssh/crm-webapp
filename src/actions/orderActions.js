@@ -34,26 +34,43 @@ export const orderActions = {
 function getOrders(filter) {
   return (dispatch) => {
     dispatch(request(orderConstants.GET_ORDERS_REQUEST));
-    orderService.getOrders(filter).then(
-      (res) => {
-        if (res === undefined)
-          dispatch(alertActions.error("ارتباط با سرور برقرار نیست"));
-        else if (res.success) {
-          console.log("orders received");
-          dispatch(success(orderConstants.GET_ORDERS_SUCCESS, res.data));
-        }
+    orderService
+      .getOrders(
+        filter.ordersStatus,
+        filter.mobile,
+        filter.customerPhoneNumber,
+        filter.customerName,
+        filter.customerCompany,
+        filter.sellerMobile,
+        filter.sellerFamily,
+        filter.startDate,
+        filter.endDate,
+        filter.startTrackingTime,
+        filter.endTrackingTime,
+        filter.sort
+      )
+      .then(
+        (res) => {
+          if (res === undefined)
+            dispatch(alertActions.error("ارتباط با سرور برقرار نیست"));
+          else if (res.success) {
+            console.log("orders received");
+            dispatch(success(orderConstants.GET_ORDERS_SUCCESS, res.data));
+          }
 
-        setTimeout(() => {
-          dispatch(alertActions.clear());
-        }, 1500);
-      },
-      (error) => {
-        dispatch(failure(orderConstants.GET_ORDERS_FAILURE, error.toString()));
-        console.log("occure error");
-        console.log(error.toString());
-        dispatch(alertActions.error(error.toString()));
-      }
-    );
+          setTimeout(() => {
+            dispatch(alertActions.clear());
+          }, 1500);
+        },
+        (error) => {
+          dispatch(
+            failure(orderConstants.GET_ORDERS_FAILURE, error.toString())
+          );
+          console.log("occure error");
+          console.log(error.toString());
+          dispatch(alertActions.error(error.toString()));
+        }
+      );
   };
 }
 
@@ -859,7 +876,7 @@ function getPaymentlink(param) {
           );
         } else if (res.success) {
           dispatch(success(orderConstants.GET_PAYMENT_LINK_SUCCESS, res.data));
-          window.open(res.data.payURL , "_parent");
+          window.open(res.data.payURL, "_parent");
         } else if (res.success == false) {
           dispatch(
             failure(orderConstants.GET_PAYMENT_LINK_FAILURE, res.message)

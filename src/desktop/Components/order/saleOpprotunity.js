@@ -55,7 +55,7 @@ export const SaleOpprotunity = (props) => {
     console.log(
       "_______________________________________________________________________Sale Opprotunity 2 _______________________________________________________________________"
     );
-    dispatch(orderActions.getOrders({ status: 3, sort }));
+    dispatch(orderActions.getOrders({ ordersStatus: 3, sort }));
   }, [refresh]);
 
   useEffect(() => {
@@ -155,6 +155,7 @@ export const SaleOpprotunity = (props) => {
             show={modalShow}
             onHide={() => setModalShow(false)}
             status={3}
+            sortOrders={sortOrders}
           />
           <Delivery
             show={deliveryShow}

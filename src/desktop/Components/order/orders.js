@@ -32,7 +32,7 @@ export const Orders = (props) => {
   // let { err: cancelErr, loading: cancelLoading } = useSelector(state => state.cancelProductOrder)
 
   useEffect(() => {
-    !cancelOrderShow && dispatch(orderActions.getOrders({ status: " " }));
+    !cancelOrderShow && dispatch(orderActions.getOrders({}));
   }, [dispatch, cancelOrderShow]);
 
 
