@@ -29,7 +29,7 @@ import highPriorityIcon from "./../../assets/images/order/priority/high.svg";
 //Actions
 import { orderActions, productActions, alertActions } from "../../../actions";
 
-export const EditeProductOrder = (props) => {
+export const EditeProductOrder = ({filter , ...props}) => {
   const [dimStatus, setDimStatus] = useState(false);
   const [selectedItem, setItem] = useState("");
   const [quantity, setQuantity] = useState(1);
@@ -199,7 +199,7 @@ export const EditeProductOrder = (props) => {
       dispatch(orderActions.editProductOrder({ ...params, ...companyName }));
 
       setTimeout(() => {
-        dispatch(orderActions.getOrders({ status: props.status || " " }));
+        dispatch(orderActions.getOrders({ status: props.status || "0" , filter }));
         props.onHide(false);
       }, 1000);
     }

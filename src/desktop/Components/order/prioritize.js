@@ -11,7 +11,7 @@ import lowPriorityIcon from "./../../assets/images/order/priority/low.svg";
 import mediumPriorityIcon from "./../../assets/images/order/priority/medium.svg";
 import highPriorityIcon from "./../../assets/images/order/priority/high.svg";
 
-export const Prioritize = (props) => {
+export const Prioritize = ({filter , ...props}) => {
   let [check1, setCheck1] = useState(false);
   let [check0, setCheck0] = useState(false);
   let [check2, setCheck2] = useState(false);
@@ -60,7 +60,7 @@ export const Prioritize = (props) => {
     e.preventDefault();
     dispatch(orderActions.editPriority({ orderId: props.order.id, priority: priority }));
     setTimeout(() => {
-      dispatch(orderActions.getOrders({ status: 3 }))
+      dispatch(orderActions.getOrders({ status: 3 , filter }))
       props.onHide(false)
 
   }, 1500);

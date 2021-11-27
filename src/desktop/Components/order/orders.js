@@ -28,6 +28,7 @@ export const Orders = (props) => {
   const orders = useSelector((state) => state.getOrders.orders);
   let orderLoading = useSelector((state) => state.getOrders.loading);
   const sideBar = useSelector((state) => state.sideBar);
+  const [filter, setFilter] = useState({});
 
   // let { err: cancelErr, loading: cancelLoading } = useSelector(state => state.cancelProductOrder)
 
@@ -35,9 +36,8 @@ export const Orders = (props) => {
     !cancelOrderShow && dispatch(orderActions.getOrders({}));
   }, [dispatch, cancelOrderShow]);
 
-
   useEffect(() => {
-    window.history.scrollRestoration = 'manual'
+    window.history.scrollRestoration = "manual";
   }, []);
 
   useEffect(() => {
@@ -48,7 +48,6 @@ export const Orders = (props) => {
       window.history.replaceState({}, document.title);
     };
   }, [orderLoading, refOrder]);
-
 
   return (
     <>
@@ -95,6 +94,7 @@ export const Orders = (props) => {
                   setShowDocModalShow={setShowDocModalShow}
                   refFactor={refOrder}
                   keyRef={props.location?.state?.id}
+                  filter={filter}
                 />
               ))
             : null}
@@ -104,6 +104,7 @@ export const Orders = (props) => {
             onHide={() => {
               setModalShow(false);
             }}
+            setFilter={setFilter}
           />
           <Delivery
             show={deliveryShow}

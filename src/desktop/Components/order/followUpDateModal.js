@@ -32,7 +32,7 @@ const validationSchema = yup.object().shape({
   trackingTime: yup.date().min(new Date()),
 });
 
-export const FollowUpDateModal = (props) => {
+export const FollowUpDateModal = ({filter , ...props}) => {
   const {
     register,
     setValue,
@@ -77,7 +77,7 @@ export const FollowUpDateModal = (props) => {
 
   useEffect(() => {
     if (editTrackingTimeLoading == false && editTrackingTimeData.success) {
-      dispatch(orderActions.getOrders({ status: 3 }));
+      dispatch(orderActions.getOrders({ status: 3 , filter }));
       props.onHide(false);
     }
   }, [editTrackingTimeLoading]);

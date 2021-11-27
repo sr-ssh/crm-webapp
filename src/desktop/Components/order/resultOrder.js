@@ -31,7 +31,7 @@ const validationSchema = yup.object().shape({
   failureReasons: yup.string().required(),
 });
 
-export const ResultOrder = (props) => {
+export const ResultOrder = ({filter , ...props}) => {
   const dispatch = useDispatch();
   const [failureReason, setfailureReason] = useState(false);
   const [dimStatus, setDimStatus] = useState(false);
@@ -73,7 +73,7 @@ export const ResultOrder = (props) => {
     };
     dispatch(orderActions.failSaleOpportunity(param));
     setTimeout(() => {
-      dispatch(orderActions.getOrders({ status: 3 }));
+      dispatch(orderActions.getOrders({ status: 3 , filter }));
       props.onHide(false);
     }, 1500);
   };
@@ -81,7 +81,7 @@ export const ResultOrder = (props) => {
   let successful = () => {
     dispatch(orderActions.editOrderStatus(props.order.id, "0"));
     setTimeout(() => {
-      dispatch(orderActions.getOrders({ status: 3 }));
+      dispatch(orderActions.getOrders({ status: 3 , filter }));
       props.onHide(false);
     }, 1500);
   };

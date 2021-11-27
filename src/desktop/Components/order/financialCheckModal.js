@@ -7,7 +7,7 @@ import { orderActions } from '../../../actions'
 // Icons
 import closeIcon from '../../assets/images/close.svg'
 
-export const FinancialCheckModal = (props) => {
+export const FinancialCheckModal = ({filter , ...props}) => {
 
     const [invoiceType, setInvoiceType] = useState(0)
     const dispatch = useDispatch()
@@ -23,7 +23,7 @@ export const FinancialCheckModal = (props) => {
         if (invoiceType) {
             dispatch(orderActions.confirmFinancial({ orderId: props.order.id, status: invoiceType }))
             setTimeout(() => {
-                dispatch(orderActions.getOrders())
+                dispatch(orderActions.getOrders(filter))
                 props.onHide(false)
 
             }, 1500);

@@ -93,6 +93,7 @@ export const Order = ({
   setShowDocModalShow,
   setCustomerInfoShow,
   setPrioritizeModalShow,
+  filter,
   ...props
 }) => {
   const classes = useStyles();
@@ -835,6 +836,7 @@ export const Order = ({
         }}
         order={editProductOrder}
         status={status}
+        filter={filter}
       />
       <AddNotesModal
         show={showNotesModal}
@@ -844,6 +846,7 @@ export const Order = ({
         permission={true}
         orderId={order.id}
         status={status}
+        filter={filter}
       />
       <Dialog
         onClose={handleClose}
@@ -879,6 +882,7 @@ export const Order = ({
         show={financialCheckModal}
         onHide={() => setFinancialCheckModal(false)}
         order={financialCheckModal ? order : null}
+        filter={filter}
       />
       <ResultOrder
         show={resultOrderModal}
@@ -901,6 +905,7 @@ export const Order = ({
           setCoodPeygiriAcceptModalShow(false);
         }}
         order={order}
+        filter={filter}
       />
       <FollowUpDateModal
         show={followUpDateModal}

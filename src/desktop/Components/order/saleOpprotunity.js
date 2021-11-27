@@ -141,6 +141,7 @@ export const SaleOpprotunity = (props) => {
                         setPrioritizeModalShow={setPrioritizeModalShow}
                         refFactor={refOrder}
                         keyRef={props.location?.state?.id}
+                        filter={filter}
                       />
                     );
                   else
@@ -197,6 +198,7 @@ export const SaleOpprotunity = (props) => {
               setPrioritizeModalShow(false);
             }}
             order={activeOrder}
+            filter={filter}
           />
           {sortOrders !== undefined && (
             <Sort
