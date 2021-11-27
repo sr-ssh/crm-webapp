@@ -59,6 +59,7 @@ export const Order = ({
   setShowDocModalShow,
   freeSaleOpportunity,
   setPrioritizeModalShow,
+  ...props
 }) => {
   let [print, setPrint] = useState(false);
   const [editModalShow, setEditModalShow] = useState(false);
@@ -119,6 +120,7 @@ export const Order = ({
   };
   return (
     <Card
+    ref={order.id == props.refKey ? props.orderRef : null}
       className={`m-auto mt-3 px-2 mb-4 bg-light productCard border-0 lh-lg ${
         !print ? "noPrint" : ""
       }`}
