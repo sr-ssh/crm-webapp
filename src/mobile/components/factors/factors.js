@@ -35,7 +35,7 @@ export const Factors = (props) => {
   }, [loading, refFactor]);
 
   return (
-    <div className="factors--page">
+    <div className="product-page ">
       <Header
         className="noPrint"
         title="فاکتور ها "
