@@ -11,7 +11,7 @@ import registerDateIcon from "./../../assets/images/order/sort/Registered-date.s
 import trackingDateIcon from "./../../assets/images/order/sort/Follow-up-date.svg";
 import priorityIcon from "./../../assets/images/order/sort/attention.svg";
 
-export const Sort = (props) => {
+export const Sort = ({ filter , ...props}) => {
   let [check1, setCheck1] = useState(false);
   let [check2, setCheck2] = useState(false);
   let [check3, setCheck3] = useState(false);
@@ -48,7 +48,7 @@ export const Sort = (props) => {
 
   const handleClick = (e) => {
     e.preventDefault();
-    dispatch(orderActions.getOrders({ status: 3, sort: props.sort1 }));
+    dispatch(orderActions.getOrders({ status: 3, sort: props.sort1 , ...filter }));
     props.onHide(false);
   };
 

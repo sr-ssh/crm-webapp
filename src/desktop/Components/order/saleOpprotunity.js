@@ -35,6 +35,7 @@ export const SaleOpprotunity = (props) => {
     useSelector((state) => state.getOrders.sort)
   );
 
+  const [filter, setFilter] = useState({});
   const [customerInfoShow, setCustomerInfoShow] = useState(false);
   const [refresh, setRefresh] = useState(false);
 
@@ -55,7 +56,7 @@ export const SaleOpprotunity = (props) => {
     console.log(
       "_______________________________________________________________________Sale Opprotunity 2 _______________________________________________________________________"
     );
-    dispatch(orderActions.getOrders({ ordersStatus: 3, sort }));
+    dispatch(orderActions.getOrders({ status: 3, sort }));
   }, [refresh]);
 
   useEffect(() => {
@@ -70,6 +71,8 @@ export const SaleOpprotunity = (props) => {
       window.history.replaceState({}, document.title);
     };
   }, [orderLoading, refOrder]);
+
+  console.log(filter);
 
   return (
     <>
@@ -156,6 +159,7 @@ export const SaleOpprotunity = (props) => {
             onHide={() => setModalShow(false)}
             status={3}
             sortOrders={sortOrders}
+            setFilter={setFilter}
           />
           <Delivery
             show={deliveryShow}
@@ -200,6 +204,7 @@ export const SaleOpprotunity = (props) => {
               onHide={() => {
                 setSortModalShow(false);
               }}
+              filter={filter}
               setSort={setSort}
               sort={sortOrders}
               sort1={sort}

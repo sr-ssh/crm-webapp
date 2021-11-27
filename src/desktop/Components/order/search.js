@@ -15,6 +15,7 @@ import * as yup from "yup";
 import { orderActions } from "../../../actions";
 // Icons
 import closeIcon from "../../assets/images/close.svg";
+import closeDatePickerIcon from "../../assets/images/order/closeDatePicker.svg";
 
 // Components
 import { CircularProgress } from "@material-ui/core";
@@ -61,14 +62,14 @@ export const OrderSearch = (props) => {
             .toString();
         }
       }
-      if (paramsForm[x] == "") {
+      if (paramsForm[x] == "" || paramsForm[x] == null ) {
         delete paramsForm[x];
       }
     }
-    debugger
+    props.setFilter(paramsForm);
     dispatch(
       orderActions.getOrders({
-        ordersStatus: props.status || "0",
+        status: props.status || "0",
         sort: props.sortOrders || "0",
         ...paramsForm,
       })
@@ -96,6 +97,7 @@ export const OrderSearch = (props) => {
     }
   }, [orderLoading]);
 
+  console.log(watch());
   return (
     <Modal
       {...props}
@@ -203,49 +205,69 @@ export const OrderSearch = (props) => {
             <Col className="col-6 order-filter-input">
               <Form.Group className="ms-2">
                 <Form.Label className="pe-2">تاریخ سفارش از</Form.Label>
-                <DatePicker
-                  {...register("startDate")}
-                  format="MM/DD/YYYY"
-                  inputClass="search-input"
-                  // className="rmdp-mobile"
-                  calendar="persian"
-                  locale="fa"
-                  // value={
-                  //   filters.startDate &&
-                  //   filters.startDate !== "1900-01-01T05:42:13.845Z" &&
-                  //   moment(filters.startDate, "YYYY-MM-DD")
-                  //     .locale("fa")
-                  //     .format("YYYY/MM/DD")
-                  // }
-                  calendarPosition="auto-right"
-                  editable={false}
-                  animation
-                  onChange={(value) => submitCalendar(value, "startDate")}
-                />
+                <Col className="m-0 p-0 col-12 d-flex align-items-center justify-content-between notes-round date--picker--desktop--addOrder">
+                  <DatePicker
+                    {...register("startDate")}
+                    format="MM/DD/YYYY"
+                    inputClass="search-input"
+                    // className="rmdp-mobile"
+                    calendar="persian"
+                    locale="fa"
+                    value={
+                      getValues("startDate")
+                    }
+                    calendarPosition="auto-right"
+                    editable={false}
+                    animation
+                    onChange={(value) => submitCalendar(value, "startDate")}
+                  />
+                  <Col className="m-0 p-0 col-2 d-flex align-items-center justify-content-end">
+                    <img
+                      src={closeDatePickerIcon}
+                      className="m-0 p-0  cursor-pointer"
+                      onClick={(e) => {
+                        setValue('startDate', null)
+                      }}
+                      height="20px"
+                      className="ps-2"
+                      alt="down-icon"
+                    />
+                  </Col>
+                </Col>
               </Form.Group>
             </Col>
             <Col className="col-6 order-filter-input">
               <Form.Group className="me-2">
                 <Form.Label className="pe-2">تا</Form.Label>
-                <DatePicker
-                  {...register("endDate")}
-                  format="MM/DD/YYYY"
-                  inputClass="search-input"
-                  // className="rmdp-mobile"
-                  calendar="persian"
-                  locale="fa"
-                  // value={
-                  //   filters.endDate &&
-                  //   filters.endDate !== "1900-01-01T05:42:13.845Z" &&
-                  //   moment(filters.endDate, "YYYY-MM-DD")
-                  //     .locale("fa")
-                  //     .format("YYYY/MM/DD")
-                  // }
-                  calendarPosition="auto-right"
-                  editable={false}
-                  animation
-                  onChange={(value) => submitCalendar(value, "endDate")}
-                />
+                <Col className="m-0 p-0 col-12 d-flex align-items-center justify-content-between notes-round date--picker--desktop--addOrder">
+                  <DatePicker
+                    {...register("endDate")}
+                    format="MM/DD/YYYY"
+                    inputClass="search-input"
+                    // className="rmdp-mobile"
+                    calendar="persian"
+                    locale="fa"
+                    value={
+                      getValues("endDate")
+                    }
+                    calendarPosition="auto-right"
+                    editable={false}
+                    animation
+                    onChange={(value) => submitCalendar(value, "endDate")}
+                  />
+                  <Col className="m-0 p-0 col-2 d-flex align-items-center justify-content-end">
+                    <img
+                      src={closeDatePickerIcon}
+                      className="m-0 p-0  cursor-pointer"
+                      onClick={(e) => {
+                        setValue('endDate', null)
+                      }}
+                      height="20px"
+                      className="ps-2"
+                      alt="down-icon"
+                    />
+                  </Col>
+                </Col>
               </Form.Group>
             </Col>
           </Row>
@@ -254,53 +276,73 @@ export const OrderSearch = (props) => {
               <Col className="col-6 order-filter-input">
                 <Form.Group className="ms-2">
                   <Form.Label className="pe-2">تاریخ پیگیری از</Form.Label>
-                  <DatePicker
-                    {...register("startTrackingTime")}
-                    format="MM/DD/YYYY"
-                    inputClass="search-input"
-                    // className="rmdp-mobile"
-                    calendar="persian"
-                    locale="fa"
-                    // value={
-                    //   filters.startTrackingTime &&
-                    //   filters.startTrackingTime !== "1900-01-01T05:42:13.845Z" &&
-                    //   moment(filters.startTrackingTime, "YYYY-MM-DD")
-                    //     .locale("fa")
-                    //     .format("YYYY/MM/DD")
-                    // }
-                    calendarPosition="auto-right"
-                    editable={false}
-                    animation
-                    onChange={(value) =>
-                      submitCalendar(value, "startTrackingTime")
-                    }
-                  />
+                  <Col className="m-0 p-0 col-12 d-flex align-items-center justify-content-between notes-round date--picker--desktop--addOrder">
+                    <DatePicker
+                      {...register("startTrackingTime")}
+                      format="MM/DD/YYYY"
+                      inputClass="search-input"
+                      // className="rmdp-mobile"
+                      calendar="persian"
+                      locale="fa"
+                      value={
+                        getValues("startTrackingTime")
+                      }
+                      calendarPosition="auto-right"
+                      editable={false}
+                      animation
+                      onChange={(value) =>
+                        submitCalendar(value, "startTrackingTime")
+                      }
+                    />
+                    <Col className="m-0 p-0 col-2 d-flex align-items-center justify-content-end">
+                      <img
+                        src={closeDatePickerIcon}
+                        className="m-0 p-0  cursor-pointer"
+                        onClick={(e) => {
+                          setValue('startTrackingTime', null)
+                        }}
+                        height="20px"
+                        className="ps-2"
+                        alt="down-icon"
+                      />
+                    </Col>
+                  </Col>
                 </Form.Group>
               </Col>
               <Col className="col-6 order-filter-input">
                 <Form.Group className="me-2">
                   <Form.Label className="pe-2">تا</Form.Label>
-                  <DatePicker
-                    {...register("startTrackingTime")}
-                    format="MM/DD/YYYY"
-                    inputClass="search-input"
-                    // className="rmdp-mobile"
-                    calendar="persian"
-                    locale="fa"
-                    // value={
-                    //   filters.endTrackingTime &&
-                    //   filters.endTrackingTime !== "1900-01-01T05:42:13.845Z" &&
-                    //   moment(filters.endTrackingTime, "YYYY-MM-DD")
-                    //     .locale("fa")
-                    //     .format("YYYY/MM/DD")
-                    // }
-                    calendarPosition="auto-right"
-                    editable={false}
-                    animation
-                    onChange={(value) =>
-                      submitCalendar(value, "endTrackingTime")
-                    }
-                  />
+                  <Col className="m-0 p-0 col-12 d-flex align-items-center justify-content-between notes-round date--picker--desktop--addOrder">
+                    <DatePicker
+                      {...register("endTrackingTime")}
+                      format="MM/DD/YYYY"
+                      inputClass="search-input"
+                      // className="rmdp-mobile"
+                      calendar="persian"
+                      locale="fa"
+                      value={
+                        getValues("endTrackingTime")
+                      }
+                      calendarPosition="auto-right"
+                      editable={false}
+                      animation
+                      onChange={(value) =>
+                        submitCalendar(value, "endTrackingTime")
+                      }
+                    />
+                    <Col className="m-0 p-0 col-2 d-flex align-items-center justify-content-end">
+                      <img
+                        src={closeDatePickerIcon}
+                        className="m-0 p-0  cursor-pointer"
+                        onClick={(e) => {
+                          setValue('endTrackingTime', null)
+                        }}
+                        height="20px"
+                        className="ps-2"
+                        alt="down-icon"
+                      />
+                    </Col>
+                  </Col>
                 </Form.Group>
               </Col>
             </Row>
@@ -314,7 +356,7 @@ export const OrderSearch = (props) => {
                 block
                 disabled
               >
-               <CircularProgress color="#fff" size={29} />
+                <CircularProgress color="#fff" size={29} />
               </Button>
             ) : (
               <Button

@@ -36,7 +36,7 @@ function getOrders(filter) {
     dispatch(request(orderConstants.GET_ORDERS_REQUEST));
     orderService
       .getOrders(
-        filter.ordersStatus,
+        filter.status,
         filter.mobile,
         filter.customerPhoneNumber,
         filter.customerName,
