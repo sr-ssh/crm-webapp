@@ -36,6 +36,7 @@ export const Factor = ({
   setRecordOrderShow = {},
   setActiveOrder,
   setOrder,
+  ...props
 }) => {
   let [print, setPrint] = useState(false);
   const [editModalShow, setEditModalShow] = useState(false);
@@ -88,6 +89,7 @@ export const Factor = ({
 
   return (
     <Card
+    ref={factor.id == props.refKey ? props.factorRef : null}
       className={`m-auto mt-3 bg-light factorCard border-0 lh-lg ${
         !print ? "noPrint" : ""
       }`}
