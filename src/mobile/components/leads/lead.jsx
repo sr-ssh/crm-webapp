@@ -27,12 +27,16 @@ export const Lead = ({
 
   return (
     <>
-      <Card className={`m-auto mt-3 bg-light radius-10 border-0 mx-1`}>
+      <Card
+        ref={item._id == props.refKey ? props.leadRef : null}
+        className={`m-auto mt-3 bg-light radius-10 border-0 mx-1`}
+      >
         <Card.Body className="pb-3 rounded-3">
           <Card.Text className="pt-1">
             <span className="text-gray fw-bold">نام : </span>
             <span className="fs-6 me-2 fw-bold">
-              {item.family && persianJs(item.family).englishNumber().toString()}
+              {item.family &&
+                persianJs(item.family).englishNumber().toString()}
             </span>
           </Card.Text>
           {item?.accepted && (

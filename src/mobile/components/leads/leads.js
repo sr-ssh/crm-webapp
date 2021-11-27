@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Container, Row, Spinner, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { history } from "../../../helpers";
@@ -10,15 +10,15 @@ import { AddLead } from "./addLead";
 import { Lead } from "./lead";
 import { AddReminder } from "../reminder/addReminder";
 
-export const Leads = () => {
+export const Leads = (props) => {
+  const refLead = useRef(null);
   const [addModalShow, setAddModalShow] = useState(false);
-
   const [lead, setLead] = useState({});
   const [activeId, setActiveId] = useState({});
-
   const dispatch = useDispatch();
-  const leads = useSelector((state) => state.getLeads.leads);
-  const loading = useSelector((state) => state.getLeads.loading);
+  const { leads: leads, loading: leadsLoading } = useSelector(
+    (state) => state.getLeads
+  );
   const editLoading = useSelector((state) => state.editLeadStatus.loading);
   const addloading = useSelector((state) => state.addLead.loading);
   const uploadLoading = useSelector((state) => state.uploadExcel.loading);
@@ -55,6 +55,15 @@ export const Leads = () => {
   };
 
   useEffect(() => {
+    if (leadsLoading == false && refLead && refLead.current != null) {
+      refLead.current.scrollIntoView();
+    }
+    return () => {
+      window.history.replaceState({}, document.title);
+    };
+  }, [leadsLoading, refLead]);
+
+  useEffect(() => {
     if (!addModalShow) dispatch(leadActions.getLeads());
   }, [dispatch, addModalShow, addloading, editLoading, uploadLoading]);
 
@@ -67,14 +76,14 @@ export const Leads = () => {
         userPermission={true}
       />
       <Container className="m-auto">
-        {editLoading === false && loading && (
+        {!leadsLoading && editLoading === false && (
           <Row>
             <Col className="col-3 mt-2 m-auto ">
               <Spinner className="m-auto d-block" animation="border" />
             </Col>
           </Row>
         )}
-        {leads
+        {!leadsLoading && leads && leads.length > 0
           ? leads.map((item, index) => (
               <Lead
                 key={index}
@@ -87,6 +96,11 @@ export const Leads = () => {
                   setAddReminderModal(true);
                   setActiveId({ idLead: e, title: title });
                 }}
+                leadRef={refLead}
+                refKey={
+                  props.history.location.state &&
+                  props.history.location.state.id
+                }
               />
             ))
           : null}
