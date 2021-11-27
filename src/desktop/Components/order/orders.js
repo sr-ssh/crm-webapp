@@ -12,6 +12,7 @@ import { CancelOrder } from "./cancelOrder";
 import { Header } from "../base/header";
 import { UploadDocuments } from "./uploadDoc";
 import { ShowDocuments } from "./showDoc";
+import { CircularProgress } from "@material-ui/core";
 
 export const Orders = (props) => {
   const refOrder = useRef(null);
@@ -64,21 +65,32 @@ export const Orders = (props) => {
           fluid
           className="m-0  mt-5 w-100 d-flex justify-content-center flex-wrap mb-5 "
         >
-          {/* {
-                        orderLoading ?
-                            <Col className="col-3 mt-5 m-auto d-block align-self-center w-100 mb-4 ">
-                                <Spinner className="m-auto d-block" animation="border" />
-                            </Col>
-                            : null
-
-                    } */}
-          {orders.length === 0 && !orderLoading ? (
-            <Row className="justify-content-center align-items-center no-result-filter">
-              <Col className="col-8 text-center">هیج نتیجه ای یافت نشد!</Col>
-            </Row>
+          {orderLoading && (
+            <Container
+              className="d-flex justify-content-center align-items-center"
+              style={{ height: "80vh" }}
+            >
+              <Row className="d-flex justify-content-center">
+                <Col className="col-12 d-flex justify-content-center ">
+                  <CircularProgress />
+                </Col>
+              </Row>
+            </Container>
+          )}
+          {!orderLoading && orders.length === 0 ? (
+            <Container
+              className="d-flex justify-content-center align-items-center"
+              style={{ height: "75vh" }}
+            >
+              <Row className="d-flex justify-content-center">
+                <Col className="col-12 d-flex justify-content-center ">
+                  هیچ نتیجه ای یافت نشد!
+                </Col>
+              </Row>
+            </Container>
           ) : null}
 
-          {orders.length > 0
+          {!orderLoading && orders.length > 0
             ? orders.map((order, index) => (
                 <Order
                   key={index}
