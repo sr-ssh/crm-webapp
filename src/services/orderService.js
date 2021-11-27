@@ -51,7 +51,6 @@ function getOrders(
   sort = "0"
 ) {
   console.log("into orderService");
-  debugger;
   const requestOptions = {
     headers: authHeader(),
   };
