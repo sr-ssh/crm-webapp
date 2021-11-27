@@ -41,19 +41,13 @@ export const Orders = (props) => {
   }, []);
 
   useEffect(() => {
-    if (
-      orderLoading == false &&
-      orders &&
-      orders?.orders?.length > 0 &&
-      props.location.state != null &&
-      refOrder.current != null
-    ) {
+    if (orderLoading == false && refOrder && refOrder.current != null) {
       refOrder.current.scrollIntoView();
     }
     return () => {
       window.history.replaceState({}, document.title);
     };
-  }, [props.location.state, orderLoading]);
+  }, [orderLoading, refOrder]);
 
 
   return (
