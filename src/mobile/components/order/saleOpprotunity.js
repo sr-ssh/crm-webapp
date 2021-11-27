@@ -35,6 +35,7 @@ export const SaleOpprotunity = (props) => {
   const refOrder = useRef(null);
 
   const dispatch = useDispatch();
+  const [filter, setFilter] = useState({});
 
   const orders = useSelector((state) => state.getOrders.orders);
   const sort = useSelector((state) => state.getOrders.sort);
@@ -55,9 +56,8 @@ export const SaleOpprotunity = (props) => {
   }, [orderLoading, refOrder]);
 
   useEffect(() => {
-    dispatch(orderActions.getOrders({ status: 3 }));
+    dispatch(orderActions.getOrders({ status: 3  }));
   }, [refresh]);
-
 
   return (
     <div className="product-page orders ">
@@ -115,7 +115,6 @@ export const SaleOpprotunity = (props) => {
                     Number(or1.sellers.some((seller) => seller.active === true))
                 )
                 .map((order, index) => {
-                  console.log("order", order);
                   if (
                     order.sellers?.some((seller) => seller.active === true) &&
                     order.status == 3
@@ -144,6 +143,7 @@ export const SaleOpprotunity = (props) => {
                           props.history.location.state &&
                           props.history.location.state.id
                         }
+                        filter={filter}
                       />
                     );
                   else
@@ -158,8 +158,18 @@ export const SaleOpprotunity = (props) => {
             : null}
         </Row>
 
-        <OrderSearch show={modalShow} onHide={() => setModalShow(false)} />
-        <Sort show={sortModalShow} onHide={() => setSortModalShow(false)} />
+        <OrderSearch
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+          status={3}
+          sortOrders={sort}
+          setFilter={setFilter}
+        />
+        <Sort
+          show={sortModalShow}
+          onHide={() => setSortModalShow(false)}
+          filter={filter}
+        />
 
         <Delivery
           show={deliveryShow}
@@ -196,6 +206,7 @@ export const SaleOpprotunity = (props) => {
             setPrioritizeModalShow(false);
           }}
           order={activeOrder}
+          filter={filter}
         />
       </Container>
     </div>

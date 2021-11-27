@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import { Modal, Button, Row, Col, Form } from "react-bootstrap";
 //import { DatePicker } from "jalali-react-datepicker";
 import DatePicker from "react-multi-date-picker";

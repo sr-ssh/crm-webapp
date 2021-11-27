@@ -31,7 +31,7 @@ import { orderActions, productActions, alertActions } from "../../../actions";
 // Componenst
 import { EditProduct } from "./editProduct";
 
-export const EditeProductOrder = (props) => {
+export const EditeProductOrder = ({filter , ...props}) => {
   const dispatch = useDispatch();
   const [dimStatus, setDimStatus] = useState(false);
   const [selectedItem, setItem] = useState("");
@@ -194,7 +194,7 @@ export const EditeProductOrder = (props) => {
       dispatch(orderActions.editProductOrder({ ...params, ...companyName }));
 
       setTimeout(() => {
-        dispatch(orderActions.getOrders({ status: props.status || " " }));
+        dispatch(orderActions.getOrders({ status: props.status || "0" , ...filter }));
         props.onHide(false);
       }, 1000);
     }

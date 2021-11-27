@@ -10,12 +10,12 @@ import registerDateIcon from "./../../assets/images/order/sort/Registered-date.s
 import trackingDateIcon from "./../../assets/images/order/sort/Follow-up-date.svg";
 import priorityIcon from "./../../assets/images/order/sort/attention.svg";
 
-export const Sort = (props) => {
+export const Sort = ({filter , ...props}) => {
   const dispatch = useDispatch();
 
   const handleClick = (e, n) => {
     e.preventDefault();
-    dispatch(orderActions.getOrders({ status: 3, sort: n }));
+    dispatch(orderActions.getOrders({ status: 3, sort: n , ...filter}));
     props.onHide(false);
   };
 

@@ -27,6 +27,8 @@ export const Orders = (props) => {
   const [uploadModalShow, setUploadModalShow] = useState(false);
   const [showDocModalShow, setShowDocModalShow] = useState(false);
   const refOrder = useRef(null);
+  const [filter, setFilter] = useState({});
+
 
   // let { err: cancelErr, loading: cancelLoading } = useSelector(state => state.cancelProductOrder)
 
@@ -40,7 +42,7 @@ export const Orders = (props) => {
   }, [orderLoading, refOrder]);
 
   useEffect(() => {
-    ~!cancelOrderShow && dispatch(orderActions.getOrders({ status: "" }));
+    ~!cancelOrderShow && dispatch(orderActions.getOrders({ }));
   }, [dispatch, cancelOrderShow]);
 
   return (
@@ -87,11 +89,13 @@ export const Orders = (props) => {
                   props.history.location.state &&
                   props.history.location.state.id
                 }
+                filter={filter}
+
               />
             ))
           : null}
 
-        <OrderSearch show={modalShow} onHide={() => setModalShow(false)} />
+        <OrderSearch show={modalShow} onHide={() => setModalShow(false)} setFilter={setFilter} />
         <Delivery
           show={deliveryShow}
           onHide={() => setDeliveryShow(false)}

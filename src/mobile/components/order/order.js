@@ -59,6 +59,7 @@ export const Order = ({
   setShowDocModalShow,
   freeSaleOpportunity,
   setPrioritizeModalShow,
+  filter,
   ...props
 }) => {
   let [print, setPrint] = useState(false);
