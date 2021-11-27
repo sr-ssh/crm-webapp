@@ -23,7 +23,7 @@ export const FinancialCheckModal = ({filter , ...props}) => {
         if (invoiceType) {
             dispatch(orderActions.confirmFinancial({ orderId: props.order.id, status: invoiceType }))
             setTimeout(() => {
-                dispatch(orderActions.getOrders(filter))
+                dispatch(orderActions.getOrders(...filter))
                 props.onHide(false)
 
             }, 1500);

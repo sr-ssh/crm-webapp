@@ -64,7 +64,7 @@ export const AddNotesModal = ({filter , ...props}) => {
       addNotesLoading == false &&
       addNoteData.success == true
     ) {
-      dispatch(orderActions.getOrders({ status: props.status || "0" , filter }));
+      dispatch(orderActions.getOrders({ status: props.status || "0" , ...filter }));
       props.onHide(false);
     }
   }, [addNotesLoading]);

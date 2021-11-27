@@ -77,7 +77,7 @@ export const FollowUpDateModal = ({filter , ...props}) => {
 
   useEffect(() => {
     if (editTrackingTimeLoading == false && editTrackingTimeData.success) {
-      dispatch(orderActions.getOrders({ status: 3 , filter }));
+      dispatch(orderActions.getOrders({ status: 3 , ...filter }));
       props.onHide(false);
     }
   }, [editTrackingTimeLoading]);

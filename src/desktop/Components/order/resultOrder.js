@@ -73,7 +73,7 @@ export const ResultOrder = ({filter , ...props}) => {
     };
     dispatch(orderActions.failSaleOpportunity(param));
     setTimeout(() => {
-      dispatch(orderActions.getOrders({ status: 3 , filter }));
+      dispatch(orderActions.getOrders({ status: 3 , ...filter }));
       props.onHide(false);
     }, 1500);
   };
@@ -81,7 +81,7 @@ export const ResultOrder = ({filter , ...props}) => {
   let successful = () => {
     dispatch(orderActions.editOrderStatus(props.order.id, "0"));
     setTimeout(() => {
-      dispatch(orderActions.getOrders({ status: 3 , filter }));
+      dispatch(orderActions.getOrders({ status: 3 , ...filter }));
       props.onHide(false);
     }, 1500);
   };

@@ -60,7 +60,8 @@ export const Prioritize = ({filter , ...props}) => {
     e.preventDefault();
     dispatch(orderActions.editPriority({ orderId: props.order.id, priority: priority }));
     setTimeout(() => {
-      dispatch(orderActions.getOrders({ status: 3 , filter }))
+      debugger
+      dispatch(orderActions.getOrders({ status: 3 , ...filter }))
       props.onHide(false)
 
   }, 1500);

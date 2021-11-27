@@ -199,7 +199,7 @@ export const EditeProductOrder = ({filter , ...props}) => {
       dispatch(orderActions.editProductOrder({ ...params, ...companyName }));
 
       setTimeout(() => {
-        dispatch(orderActions.getOrders({ status: props.status || "0" , filter }));
+        dispatch(orderActions.getOrders({ status: props.status || "0" , ...filter }));
         props.onHide(false);
       }, 1000);
     }

@@ -63,7 +63,7 @@ export const TrackingCodeModal = ({filter , ...props}) => {
       addTrackingCodeData &&
       addTrackingCodeData.status == true
     ) {
-      dispatch(orderActions.getOrders({ status: 3 , filter }));
+      dispatch(orderActions.getOrders({ status: 3 , ...filter }));
       setValue("trackingCode", null);
       props.onHide(false);
     }
