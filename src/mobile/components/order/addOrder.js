@@ -212,9 +212,10 @@ export const AddOrder = (props) => {
   useEffect(() => {
     if (
       getCustomerLoading == false &&
+      oldCustomer?.status !== false &&
       oldCustomer &&
-      (Object.keys(oldCustomer.customer).length > 0 ||
-        Object.keys(oldCustomer.seller).length > 0)
+      (Object.keys(oldCustomer?.customer).length > 0 ||
+        Object.keys(oldCustomer?.seller).length > 0)
     ) {
       if (
         oldCustomer.customer &&
