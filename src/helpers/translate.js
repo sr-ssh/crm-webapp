@@ -35,6 +35,7 @@ export function translate(key) {
     case "purchaseConfirmationInvoice":return "تایید خرید فاکتور ها";
     case "addSeller":return "ثبت فروشنده";
     case "getSellers":return "لیست فروشنده ها";
+    case "getAllSupport":return "مشاهده تمام سفارش ها و فرصت فروش ها در پشتیبانی";
     default:break;
   }
 }
