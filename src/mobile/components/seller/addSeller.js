@@ -150,7 +150,7 @@ export const AddSeller = (props) => {
                 <img
                   src={deleteIcon}
                   className="m-0 p-0 remove--btn--mobile"
-                  onClick={(e) => setSeller({...seller, phone: ""})}
+                  onClick={() => clearInputs()}
                   height="20px"
                   alt="delete-icon"
                 />
@@ -168,23 +168,6 @@ export const AddSeller = (props) => {
                   onChange={handleChange}
                   value={seller.mobile}
                 />
-                {loading ? (
-                  <Spinner
-                    className="download--seller--btn--mobile "
-                    as="div"
-                    variant="primary"
-                    animation="border"
-                    size="sm"
-                  />
-                ) : (
-                  <img
-                    src={downloadIcon}
-                    className="m-0 p-0 download--seller--btn--mobile"
-                    onClick={(e) => handelOldSeller(e)}
-                    height="25px"
-                    alt="down-icon"
-                  />
-                )}
               </Form.Group>
             </Col>
           </Row>

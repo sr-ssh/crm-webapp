@@ -159,7 +159,7 @@ export const AddSeller = () => {
                     <img
                       src={deleteIcon}
                       className="m-0 p-0  spinner--download--btn--desktop"
-                      onClick={() => setValue("phone", null)}
+                      onClick={() => reset()}
                       height="25px"
                       alt="down-icon"
                     />
@@ -180,23 +180,6 @@ export const AddSeller = () => {
                         true
                       }
                     />
-                    {getOldSellerLoading ? (
-                      <Spinner
-                        className="spinner--download--btn--desktop "
-                        as="div"
-                        variant="primary"
-                        animation="border"
-                        size="sm"
-                      />
-                    ) : (
-                    <img
-                      src={downloadIcon}
-                      className="m-0 p-0  spinner--download--btn--desktop"
-                      onClick={handelOldSeller}
-                      height="25px"
-                      alt="down-icon"
-                    />
-                  )}
                   </Form.Group>
                 </Col>
                 <Col className="col-4 add-order-input--desktop ps-0">
@@ -267,6 +250,7 @@ export const AddSeller = () => {
                         })
                       }
                       value={sellerInfo.cardNumber}
+                      {...register("cardNumber")}
                     />
                   </Form.Group>
                 </Col>
